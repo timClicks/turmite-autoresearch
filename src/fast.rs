@@ -87,7 +87,7 @@ impl Default for Config {
 
 /// Ring buffer of recent positions.
 struct Trail {
-    buf: Vec<(i32, i32)>,
+    buf: Vec<u32>,
     head: usize,
     len: usize,
 }
@@ -95,13 +95,13 @@ struct Trail {
 impl Trail {
     fn new(cap: usize) -> Trail {
         Trail {
-            buf: vec![(0, 0); cap],
+            buf: vec![0; cap],
             head: 0,
             len: 0,
         }
     }
     #[inline(always)]
-    fn push(&mut self, p: (i32, i32)) {
+    fn push(&mut self, p: u32) {
         self.buf[self.head] = p;
         self.head += 1;
         if self.head == self.buf.len() {
@@ -111,10 +111,18 @@ impl Trail {
             self.len += 1;
         }
     }
-    fn ordered(&self) -> Vec<(i32, i32)> {
+    /// Positions oldest first, decoded from cell indices to coordinates
+    /// relative to the start cell on a `size`-wide grid.
+    fn ordered(&self, size: usize) -> Vec<(i32, i32)> {
         let cap = self.buf.len();
         let start = (self.head + cap - self.len) % cap;
-        (0..self.len).map(|i| self.buf[(start + i) % cap]).collect()
+        let c = (size / 2) as i32;
+        (0..self.len)
+            .map(|i| {
+                let k = self.buf[(start + i) % cap] as usize;
+                ((k % size) as i32 - c, (k / size) as i32 - c)
+            })
+            .collect()
     }
 }
 
@@ -134,7 +142,7 @@ pub fn run(rule: &Rule, grid: &mut Grid, cfg: &Config) -> RunResult {
     let mut h: u8 = 0;
     let mut steps: u64 = 0;
     let mut trail = Trail::new(cfg.history);
-    trail.push((0, 0));
+    trail.push(idx as u32);
     let (mut minx, mut miny, mut maxx, mut maxy) = (c, c, c, c);
     let mut stop = Stop::Budget;
     let mut highway = None;
@@ -158,7 +166,7 @@ pub fn run(rule: &Rule, grid: &mut Grid, cfg: &Config) -> RunResult {
             maxx = maxx.max(x);
             miny = miny.min(y);
             maxy = maxy.max(y);
-            trail.push((x as i32 - c as i32, y as i32 - c as i32));
+            trail.push(idx as u32);
         }
     }
     // A periodic tail alone is not proof: inside a large structured pattern
@@ -166,7 +174,7 @@ pub fn run(rule: &Rule, grid: &mut Grid, cfg: &Config) -> RunResult {
     // thousands of steps and then break off. Only an ant that kept that march
     // up all the way off the grid, into blank cells, is on a true highway.
     // Leaving the grid is itself strong evidence, so a shorter window is fine.
-    let tail = trail.ordered();
+    let tail = trail.ordered(size);
     let periodic_tail = find_highway(&tail, cfg.max_period, MIN_SPAN);
     if stop == Stop::Escaped {
         // A highway leaves in the direction it travels. An edge-walker whose
