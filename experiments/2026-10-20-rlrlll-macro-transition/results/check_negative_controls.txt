@@ -1,0 +1,14 @@
+# negative controls: mutated bulk cell (col 46: 3->4), and wrong rule RLRLLR
+  FAILED: result is not C(m', 1): segments differ
+  FAILED: result is not C(m', 2): segments differ
+  FAILED: result is not C(m', 0): segments differ
+  concrete check phase 0, m = 2: 958 steps, result MISMATCH
+  concrete check phase 0, m = 4: 982 steps, result MISMATCH
+  concrete check phase 0, m = 6: 1006 steps, result MISMATCH
+  concrete check phase 0, m = 8: 1030 steps, result MISMATCH
+  concrete check phase 0, m = 10: 1054 steps, result MISMATCH
+## RLRLLR
+  FAILED: left the strip at column 52
+  FAILED: left the strip at column 52
+  FAILED: result is not C(m', 0): segment counts differ: 50 vs 47
+NOT CLOSED

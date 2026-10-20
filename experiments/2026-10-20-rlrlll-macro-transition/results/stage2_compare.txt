@@ -1,0 +1,4 @@
+checked laws: T_q(m) = {0: 12, 1: 12, 2: 12} m + {0: 934, 1: 1058, 2: 898}, growth {0: 2, 1: 2, 2: 2}; m_0 = 434
+cycles compared: 4728; exact matches: 4728
+cycle 0 (from the arming step to snapshot 0, not covered): 6082 steps
+mean b over phases 963.3333; asymptotic d|x|^2/dt = 9 / 12 = 0.7500

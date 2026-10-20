@@ -1,0 +1,45 @@
+# cargo run --release --example rlrlll_macro_transition_check -- RLRLLL experiments/2026-10-20-rlrlll-macro-transition/results/canonical_k0.txt
+# binary sha256 9b57855e65713b07412859b29b9e3c6a35a1b18f71b4722b74652c6cba170494
+phase 0 -> 1:
+  lemma down H=2 p=2 s=20: band of (1 j + -1) blocks crossed
+  lemma up   H=1 p=2 s=4: band of (1 j + -1) blocks crossed
+  OK: C(m, 0) -> C(m + 2, 1) in 24/2 m + 934 steps, for all even m >= 2; ant (0, 7, 3)
+  (proposal had m = 434 for this phase; next phase m = 436)
+phase 1 -> 2:
+  lemma down H=2 p=2 s=20: band of (1 j + -1) blocks crossed
+  lemma up   H=1 p=2 s=4: band of (1 j + -1) blocks crossed
+  OK: C(m, 1) -> C(m + 2, 2) in 24/2 m + 1058 steps, for all even m >= 2; ant (0, 6, 3)
+  (proposal had m = 436 for this phase; next phase m = 438)
+phase 2 -> 0:
+  lemma down H=2 p=2 s=20: band of (1 j + -1) blocks crossed
+  lemma up   H=1 p=2 s=4: band of (1 j + -1) blocks crossed
+  OK: C(m, 2) -> C(m + 2, 0) in 24/2 m + 898 steps, for all even m >= 2; ant (0, 6, 3)
+  (proposal had m = 438 for this phase; next phase m = 434)
+  concrete check phase 0, m = 2: 958 steps, result C(m + 2, next)
+  concrete check phase 0, m = 4: 982 steps, result C(m + 2, next)
+  concrete check phase 0, m = 6: 1006 steps, result C(m + 2, next)
+  concrete check phase 0, m = 8: 1030 steps, result C(m + 2, next)
+  concrete check phase 0, m = 10: 1054 steps, result C(m + 2, next)
+  concrete check phase 0, m = 20: 1174 steps, result C(m + 2, next)
+  concrete check phase 0, m = 50: 1534 steps, result C(m + 2, next)
+  concrete check phase 0, m = 100: 2134 steps, result C(m + 2, next)
+  concrete check phase 0, m = 434: 6142 steps, result C(m + 2, next)
+  concrete check phase 1, m = 2: 1082 steps, result C(m + 2, next)
+  concrete check phase 1, m = 4: 1106 steps, result C(m + 2, next)
+  concrete check phase 1, m = 6: 1130 steps, result C(m + 2, next)
+  concrete check phase 1, m = 8: 1154 steps, result C(m + 2, next)
+  concrete check phase 1, m = 10: 1178 steps, result C(m + 2, next)
+  concrete check phase 1, m = 20: 1298 steps, result C(m + 2, next)
+  concrete check phase 1, m = 50: 1658 steps, result C(m + 2, next)
+  concrete check phase 1, m = 100: 2258 steps, result C(m + 2, next)
+  concrete check phase 1, m = 434: 6266 steps, result C(m + 2, next)
+  concrete check phase 2, m = 2: 922 steps, result C(m + 2, next)
+  concrete check phase 2, m = 4: 946 steps, result C(m + 2, next)
+  concrete check phase 2, m = 6: 970 steps, result C(m + 2, next)
+  concrete check phase 2, m = 8: 994 steps, result C(m + 2, next)
+  concrete check phase 2, m = 10: 1018 steps, result C(m + 2, next)
+  concrete check phase 2, m = 20: 1138 steps, result C(m + 2, next)
+  concrete check phase 2, m = 50: 1498 steps, result C(m + 2, next)
+  concrete check phase 2, m = 100: 2098 steps, result C(m + 2, next)
+  concrete check phase 2, m = 434: 6106 steps, result C(m + 2, next)
+CLOSED: the family is invariant

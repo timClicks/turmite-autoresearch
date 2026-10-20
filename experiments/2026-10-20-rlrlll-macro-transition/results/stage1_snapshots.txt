@@ -1,0 +1,28 @@
+373 snapshots from experiments/2026-10-20-rlrlll-macro-transition/scratch/run1
+no period <= 12 in the middle third: 0 snapshots []
+bulk (period, block hash) counts: [((1, '0d684f77d718'), 373)]
+top-block hash counts: [('b24b6d1a22bd', 126), ('1274a481de30', 124), ('51e09612ee7c', 123)] distinct 3
+bottom-block hash counts: [('05aeac24488e', 373)] distinct 1
+ant phase counts (dx from front, dy from an end, heading): [((0, 6, 3), 249), ((0, 7, 3), 124)] distinct 2
+
+k, rows, period, top rows, bottom rows
+  (0, 480, 1, 29, 17)
+  (1, 483, 1, 30, 17)
+  (2, 484, 1, 29, 17)
+  (3, 486, 1, 29, 17)
+  (4, 489, 1, 30, 17)
+  (5, 490, 1, 29, 17)
+  (6, 492, 1, 29, 17)
+  (7, 495, 1, 30, 17)
+  (8, 496, 1, 29, 17)
+  (9, 498, 1, 29, 17)
+  (4500, 9480, 1, 29, 17)
+  (4525, 9531, 1, 30, 17)
+  (4550, 9580, 1, 29, 17)
+  (4575, 9630, 1, 29, 17)
+  (4600, 9681, 1, 30, 17)
+  (4625, 9730, 1, 29, 17)
+  (4650, 9780, 1, 29, 17)
+  (4675, 9831, 1, 30, 17)
+  (4700, 9880, 1, 29, 17)
+  (4725, 9930, 1, 29, 17)

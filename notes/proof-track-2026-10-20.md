@@ -73,3 +73,15 @@ in the paper.
 
 - `experiments/2026-10-20-rlrlll-macro-transition/`: is the RLRLLL sweeper a macro-transition (Stage 1 measurement,
   predictions P1-P5 registered at `4bc029a`), and if so, can it be checked for all heights (Stage 2)?
+  **Result (2026-10-20):** P1-P5 held; the three-phase family is closed for all even m >= 2 (checker plus brute-force
+  cross-checks and negative controls). First level-3 result of the track; see that README for what it rests on.
+
+## Next steps (proposed, none started)
+
+1. *Assurance*: an independent second checker, or a Lean/Coq statement of the two shift lemmas and three end cases
+   (the obligations are small: H <= 2, p = 2, s <= 20, plus three concrete turnarounds of ~1,000 steps).
+2. *Generalise the checker*, not the rule: run the same propose-then-check loop on the other no-highway escapes
+   (`RLLLLRRL`, `RLLLLRLRRL`, `RLLLRLRLLL`) and on every census highway (a highway is the m-free special case). A
+   "sweeper decider" over the census would be the proof-track analogue of the bbchallenge deciders.
+3. *Entry*: trace RLRLLL backwards in m. Is there a cycle at which the run first enters `C(m, q)`, and with what m?
+4. *Explain, not just certify*: why the bulk row is `14435435...` and why the colour period is 3 for a length-6 rule.

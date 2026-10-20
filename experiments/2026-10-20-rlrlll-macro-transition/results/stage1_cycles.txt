@@ -1,0 +1,27 @@
+input experiments/2026-10-20-rlrlll-macro-transition/results/cycles.csv sha256 b74e68ae40e921e4b0fd07fc8ea07556856e67cab52e91a1a7636f54655a4716
+cycles: 4729, first t_end 12677007177, last t_end 12974376313
+
+L == top-to-bottom span for 1.0000 of cycles
+
+[L = visited count] least squares T = 12.000006 L + 423.291
+  most common dT/dL: [(-68.0, 1576), (30.0, 1576), (74.0, 1576)]
+  alpha=12: beta = T - alpha L, top values [(358, 1577), (394, 1576), (518, 1576)] (top-6 share 1.0000; top-1 share 0.3335)
+  alpha=12: beta = T - alpha L, top values [(358, 1577), (394, 1576), (518, 1576)] (top-6 share 1.0000; top-1 share 0.3335)
+
+P2 growth g_k = L_(k+1) - L_k: mean 2.0000, values [(2, 4728)]
+  g is periodic with period 1 after the first 10% of cycles
+
+P3 reach: max 20, quantiles 50/95/99/100 [19.0, 20.0, 20.0, 20.0]
+  reach after first 10% of cycles: max 20
+
+P5 d|x|^2/dt by decile of cycles (mean |x|, slope):
+  |x|     2908  slope 1.53818  L    951.0
+  |x|     4327  slope 1.12695  L   1897.0
+  |x|     5746  slope 1.00018  L   2843.0
+  |x|     7165  slope 0.93754  L   3789.0
+  |x|     8584  slope 0.90008  L   4735.0
+  |x|    10003  slope 0.87511  L   5681.0
+  |x|    11422  slope 0.85728  L   6627.0
+  |x|    12841  slope 0.84391  L   7573.0
+  |x|    14258  slope 0.83351  L   8518.0
+  |x|    15674  slope 0.82519  L   9462.0

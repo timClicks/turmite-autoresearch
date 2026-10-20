@@ -32,3 +32,13 @@ Commands (worktree `g1-builder-structure`, base commit dd0e234 + uncommitted `ex
 - **Quantitative check, using only sweep lengths (post hoc model, but the comparison is to independently measured x(t)).** dx/dt = -3/(12 L) = -1/(4 L). Predicted d|x|^2/dt = 0.864 and 0.835 at the two dump positions; measured from the 1e6-step windows 0.862 and 0.833 (window +-2e7). Fit over the whole steady phase (298 windows): |x|^2 = 0.8634 t - 1.093e10, residual 0.7% of the range, i.e. **|x| grows as t^(1/2) in the steady phase, not linearly**: the builder decelerates because the sweep gets longer as it moves out. The only two L values used came from this same trajectory, so this does not test the L ~ |x| law at any third point.
 - **Reading.** The breakout is a *period-3, boustrophedon column builder* whose cycle time is proportional to its own height. It is neither a perimeter crawl (interpretation (a) of the TODO) nor an unstructured new regime. Still open: (i) what sets the 10 vs 2 steps-per-row asymmetry and the ~0.67 slope of L against |x| (a cone of half-angle ~34 degrees?), (ii) what triggers the switch at 1.2677e10, (iii) why the colour pattern has period 3 given a rule of length 6, (iv) whether a finite local rule (a "highway of highways") is behind the traverse, (v) whether the other board escapes are the same. One rule, one trajectory, two 4e5-step windows.
 - Heading period: heading autocorrelation at lags 4-48 is 0.41-0.59, so the local 10-step-per-row traverse is not a simple short-period cycle; no claim is made about it.
+
+## 2026-10-20: the builder is a checked macro-transition (appended)
+`experiments/2026-10-20-rlrlll-macro-transition/` (predictions P1-P5 registered at `4bc029a` before the run).
+Over all 4,729 cycles of the blank-board run, each cycle adds 3 columns and exactly 2 rows of height, and takes
+exactly `12 m + b_q` steps with `b = (934, 1058, 898)` cycling in period 3 (`m` = bulk rows). A separate checker shows
+the three-phase family `C(m, q)` is closed for every even m >= 2 (shift lemmas over the bulk, every step by
+`reference::Ant`), and the run is in `C(434, 0)` at step 12,677,007,177. Consequences: the sweeper never stops,
+`|x|^2/t -> 3/4` (the 0.8634 fit above is a finite-size value), and the "10 vs 2 steps per row" are exact (20 steps per
+2 rows down, 4 per 2 rows up). Still open from (i)-(v) above: the trigger (ii), the colour period 3 (iii), and whether
+the other escapes are the same (v). (iv) is answered: the traverse is a translation-periodic "highway along a column".
