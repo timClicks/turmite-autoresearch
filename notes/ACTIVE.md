@@ -7,6 +7,11 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Science: open questions
 
+- **Proof track (parallel, started 2026-10-20):** turn simulated regularities into checked macro-transitions
+  (`notes/proof-track-2026-10-20.md`). First target: is the `RLRLLL` column sweeper `C(L) -> C(L+g)` for all heights?
+  `experiments/2026-10-20-rlrlll-macro-transition/` (P1-P5 registered at `4bc029a`; Stage 1 measurement, then a checker).
+  Single-core runs only; does not compete with the 1e11 census.
+
 - **First-passage closure (prospective, 2026-10-20):** can depth-crossing kernels predict kappa on independent starts and unseen families, and its size drift? `experiments/2026-10-20-kappa-first-passage/`. Scaffold only; next is oracle/accounting and synthetic calibration, then feasibility. No new measurements or frozen confirmation manifest.
   Proposed work list for it (added 2026-10-20, none started; register predictions in the README before measuring):
   - *Instrument calibration (before trusting any exponent).* Known-answer walkers for theta and z: run the nested-depth and
