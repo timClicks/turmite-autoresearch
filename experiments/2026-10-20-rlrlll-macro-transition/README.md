@@ -139,7 +139,7 @@ What this does **not** establish, and the trust it rests on:
 - *Entry* (why the blob produces the sweeper) is untouched. A post hoc probe (`results/cycles_early.csv`, armed at
   1.26e10) shows the exact law already holds from the first front advance past the old blob edge (step
   12,676,421,767, x = -1820, column height 226); extrapolating the wedge to zero height puts its apex inside the blob.
-  The base case the base case is one simulation by the plain
+  The base case is one simulation by the plain
   loop shared with `g1_ribbon_breakout_builder_dump` (not itself proptested against `reference`; its exit step agrees
   with `ribbon_trace`, which is a consistency check, not a proof).
 - The checker is ~600 lines of uncertified Rust. Every concrete step is a `reference::Ant` step, and the brute-force

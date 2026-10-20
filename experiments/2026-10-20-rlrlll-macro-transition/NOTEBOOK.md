@@ -57,3 +57,9 @@ Linear extrapolation L ≈ (2/3)|x| - 989 reaches zero at |x| ≈ 1,480, inside 
 starts inside old territory, where the background is not blank and the checked family does not apply. The entry
 problem is then: what inside the blob seeds a wedge whose edges hit blank ground at height ~226? Speculative; the next
 test is a moving-frame trace of the last ~1e7 steps before 12,676,421,767 to find where the period-3 column wake begins.
+
+### 2026-10-20 23:57 (+13:00) · 357e056 · deviation
+corrects: entries 23:44 to 23:59. Those timestamps were estimated, not read from the clock; the clock read 23:56 when
+this was noticed, so the 23:58 and 23:59 entries are ahead of real time. The order of entries is correct, and the
+registration (`4bc029a`) precedes every run, as git shows. Also built `notebook.ipynb` (`scripts/build_notebook.py`,
+executed in place from a clean kernel), a blog entry, and updated the homepage card for RLRLLL.
