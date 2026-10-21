@@ -172,3 +172,29 @@ mechanisms when families are large).
 
 Not done: `notebook.ipynb` (the shareable notebook required by the conventions) has not been written; the 54 late
 highways (onset 1e9-8e10) are not scanned; no intervention tests (does removing one of the "+3" cells abort the launch?).
+
+## Part 2: knock-out of the pre-onset seed (registered 2026-10-21 21:40 +13:00, before any code for it)
+
+Question (Q18 in `notes/open-questions-hypotheses.md`): is the pre-onset seed a fine-tuned trigger, or is the highway
+an attractor that a damaged fragment still reaches? The seed holds a median of 25 cells, 3 more than the highway's own
+self-overlap.
+
+Intervention, per independent event (406): rebuild the full board at `tau_pre`, set **one** pre-onset seed cell to 0
+(blank), run the full dynamics for `B = (t_on - tau_pre) + 200p` steps, and score **launch survives** if the last `20p`
+positions satisfy `pos[t] - pos[t-p] = (dx, dy)` with the original period and drift. Every seed cell is knocked out in
+turn (10,155 knock-outs). Deterministic.
+
+Controls: **K1**, knocking out up to 3 nonzero cells *not* in the seed (the first 3 in board scan order) leaves the
+trajectory identical over `B` (must hold for 100%, else `D` is wrong); **K2**, the unmodified board launches (100%).
+
+Predictions:
+- **Q1 (fragile).** The median event's survival fraction (knock-outs that still launch, divided by seed size) is <= 0.3.
+  Alternative (attractor): >= 0.5. Confidence about 55% for fragile: a defect in a highway fragment usually sends the
+  ant back into chaos, and 200 periods is short.
+- **Q2 (no single trigger).** In fewer than 25% of events is there exactly one essential cell (a cell whose knock-out
+  alone stops the launch) with all others surviving. Exploratory reading: if Q1 fails high (robust) and Q2 fails, the
+  precondition really is one specific cell, i.e. a trigger.
+- **Q3 (where the essential cells are).** Essential cells are closer to the ant at `tau_pre` than surviving ones: median
+  Chebyshev distance smaller, in >= 70% of events with both kinds present.
+
+Instrument: `examples/highway_preconditions_knockout.rs`. Output `results/knockout.csv` (one row per knock-out).
