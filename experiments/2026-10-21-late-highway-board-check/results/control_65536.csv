@@ -1,0 +1,3 @@
+rule,n,stop,steps,period,dx,dy,onset,width,height,tail_period
+RRLRLR,6,escaped,1079882759,220,2,-2,1076356698,33549,33401,220
+RLLLRLRRR,9,budget,6000000000,,,,,22306,24542,16

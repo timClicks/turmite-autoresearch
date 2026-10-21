@@ -44,3 +44,38 @@ for G in 1024 2048 4096; do printf "RLRRRRL\nRRLRR\nRRRLRRRRR\n" | ./target/rele
 ## Results
 
 (Appended below; the registration above is not edited.)
+
+### Results, part 1 (appended 2026-10-21 21:25 +13:00)
+
+**B1 as registered: failed on its 1% tolerance, but H-artefact holds unambiguously.** `results/board_{1024,2048,4096}.csv`:
+onsets of `RLRRRRL`, `RRLRR`, `RRRLRRRRR` are 4.14e6 / 1.67e7 / 6.69e7, 6.24e6 / 2.51e7 / 1.004e8 and 8.32e6 / 3.34e7 /
+1.339e8, i.e. x4 per board doubling, and the escape footprint is the full board (width >= G - 4). The shortfall below
+`2 (k+1) G^2` is 1.3%, 0.6%, 0.3% (halving with G: a perimeter term), so the registered 1% band fails at G = 1024, 2048.
+H-real is rejected: onsets differ by a factor of 16 between G = 1024 and 4096.
+
+Post hoc classification (`scripts/classify.py`, `results/classify.txt`; footprint >= 0.99 G in both directions, a rule
+chosen after seeing the footprints): **25 of the 54 late highways are board fillers** (21 of 38 in (1e9, 1e10], 4 of 16 in
+(1e10, 1e11]); the earlier sweeps (`sweep_v2`, `sweep_1B`) have none.
+
+**A second artefact: `RLLLRLRRR`** (period 8, diagonal, not a filler). Re-run on a 65536 board (`results/control_65536.csv`)
+it has not escaped by 6e9 steps. `examples/late_highway_board_check_trace.rs` shows both boards identical up to the census
+escape (5,723,554,150; `results/rlllrlrrr_32768.csv` reproduces the census row); the "highway" starts at (10186, -2544),
+inside the old bounding box, and runs to x = 16383, the old territory's east edge, which coincides with the 32768 board's
+last column. On the 65536 board the ant then walks along x = 16384 (north-south, along its own boundary) and the territory
+keeps growing slowly (max x 16651 at 5.8e9): a ray over old structure, cut off by the board. `RRLRLR` (control)
+reproduces its census onset exactly on 65536 (1,076,356,698).
+
+Trace commands: `./target/release/examples/late_highway_board_check_trace RLLLRLRRR {32768,65536} 1000000000 4000000000
+5700000000 5723529364 5723540000 5723554150` and, on 65536, `... 5723560000 5723570000 5723600000 5723700000 5724000000
+5730000000 5800000000` (output quoted above; not saved as files).
+
+## Part 2 registration (2026-10-21 21:30 +13:00, before the run)
+
+The other 26 non-filler late highways (all except `RRLRLR`, `RLLLRLRRR`, and `RRLLLRLRL`, which B5 already confirmed on
+65536) are re-run on a 65536 board with budget = census steps + 1e8 (`results/recheck_specs.txt`). **B2**: at least 24 of
+26 (>= 90%) reproduce the census period, drift and onset exactly. Below that, the late-highway counts carry a second
+artefact class of non-negligible size. Confidence ~70%.
+
+```bash
+bash experiments/2026-10-21-late-highway-board-check/scripts/recheck.sh   # results/recheck/RULE.csv, recheck.log
+```
