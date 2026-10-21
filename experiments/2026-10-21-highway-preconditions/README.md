@@ -198,3 +198,7 @@ Predictions:
   Chebyshev distance smaller, in >= 70% of events with both kinds present.
 
 Instrument: `examples/highway_preconditions_knockout.rs`. Output `results/knockout.csv` (one row per knock-out).
+
+Correction to the Part 2 registration (2026-10-21 21:50 +13:00, before the full run): the pre-onset seeds hold 15,339
+cells in total, not 10,155 (an arithmetic slip; the procedure is unchanged). Added before the full run, exploratory and
+unscored: column `any_direction`, launch with the same period and drift rotated or reflected.

@@ -45,3 +45,9 @@ registered test before it is cited as a finding.
 ### 2026-10-21 20:25 (+13:00) · efb53a5 · question
 Is the "+3 cells" the trigger? Next: knock out each extra pre-onset cell (relative to the highway trail) and see whether
 the launch survives; and scan the 54 late highways to test the size-onset law out of sample (register slope first).
+
+### 2026-10-21 21:50 (+13:00) · cea827a · decision
+Registered Part 2 (single-cell knock-out of the pre-onset seed, Q1-Q3) after finding that 26 of 54 late highways are
+board artefacts (separate experiment `2026-10-21-late-highway-board-check`; its 65536 recheck is running on 2 cores).
+Knock-out pilot on RL/RRL/RRRRLR: controls untouched; RL 4/12 knock-outs still launch. Corrected the seed-cell total
+(15,339, not 10,155) in README before the full run.
