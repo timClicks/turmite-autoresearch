@@ -1,0 +1,12 @@
+{
+ "command": "uv run experiments/2026-10-21-rlrlll-portrait/scripts/figure.py",
+ "switch_t": 12676421767,
+ "end_t": 12974495927,
+ "last_fraction_of_time": 0.022973852832286607,
+ "visited_at_switch_frame": 9508817,
+ "visited_at_end": 83672826,
+ "outputs_sha256": {
+  "portrait.png": "b67c3b14dff4a4f077d215b91a6d14030ac63899a2a8818e26b60f85499c3236",
+  "territory_map.png": "c383ee73ee51bfe86e46d142e27c1ff60ff7db38cd8cb8a178131c902106a74c"
+ }
+}

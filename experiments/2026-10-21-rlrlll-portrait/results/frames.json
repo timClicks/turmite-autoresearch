@@ -1,0 +1,451 @@
+{
+ "command": "uv run experiments/2026-10-21-rlrlll-portrait/scripts/render.py",
+ "rule": "RLRLLL",
+ "board": 32768,
+ "block": 16,
+ "reached_fraction": 0.5,
+ "bbox_blocks": {
+  "x0": 0,
+  "x1": 1138,
+  "y0": 653,
+  "y1": 1279
+ },
+ "bbox_cells": {
+  "x0": -16384,
+  "y0": -5936,
+  "w": 18208,
+  "h": 10016
+ },
+ "crops": {
+  "blob": {
+   "t": 12600000000,
+   "x0": -610,
+   "y0": 828
+  },
+  "wake": {
+   "t": 12900000000,
+   "x0": -14508,
+   "y0": 2534
+  }
+ },
+ "frames": [
+  {
+   "t": 500000000,
+   "ant_x": 24,
+   "ant_y": -560,
+   "visited_cells": 1039638,
+   "front_block_x": -592
+  },
+  {
+   "t": 1000000000,
+   "ant_x": 360,
+   "ant_y": -382,
+   "visited_cells": 1672979,
+   "front_block_x": -720
+  },
+  {
+   "t": 1500000000,
+   "ant_x": 28,
+   "ant_y": -368,
+   "visited_cells": 2193157,
+   "front_block_x": -848
+  },
+  {
+   "t": 2000000000,
+   "ant_x": -56,
+   "ant_y": 120,
+   "visited_cells": 2637445,
+   "front_block_x": -944
+  },
+  {
+   "t": 2500000000,
+   "ant_x": 562,
+   "ant_y": 74,
+   "visited_cells": 3066650,
+   "front_block_x": -1040
+  },
+  {
+   "t": 3000000000,
+   "ant_x": -246,
+   "ant_y": -660,
+   "visited_cells": 3473704,
+   "front_block_x": -1104
+  },
+  {
+   "t": 3500000000,
+   "ant_x": -424,
+   "ant_y": -118,
+   "visited_cells": 3857312,
+   "front_block_x": -1168
+  },
+  {
+   "t": 4000000000,
+   "ant_x": 588,
+   "ant_y": -134,
+   "visited_cells": 4225952,
+   "front_block_x": -1280
+  },
+  {
+   "t": 4500000000,
+   "ant_x": -596,
+   "ant_y": -70,
+   "visited_cells": 4618105,
+   "front_block_x": -1360
+  },
+  {
+   "t": 5000000000,
+   "ant_x": 128,
+   "ant_y": -1206,
+   "visited_cells": 4966505,
+   "front_block_x": -1392
+  },
+  {
+   "t": 5500000000,
+   "ant_x": -1174,
+   "ant_y": 44,
+   "visited_cells": 5283565,
+   "front_block_x": -1424
+  },
+  {
+   "t": 6000000000,
+   "ant_x": -1194,
+   "ant_y": -54,
+   "visited_cells": 5591320,
+   "front_block_x": -1472
+  },
+  {
+   "t": 6500000000,
+   "ant_x": -748,
+   "ant_y": 1234,
+   "visited_cells": 5929463,
+   "front_block_x": -1504
+  },
+  {
+   "t": 7000000000,
+   "ant_x": -1212,
+   "ant_y": -236,
+   "visited_cells": 6271608,
+   "front_block_x": -1568
+  },
+  {
+   "t": 7500000000,
+   "ant_x": -1222,
+   "ant_y": 166,
+   "visited_cells": 6562538,
+   "front_block_x": -1584
+  },
+  {
+   "t": 8000000000,
+   "ant_x": -1018,
+   "ant_y": -718,
+   "visited_cells": 6891522,
+   "front_block_x": -1632
+  },
+  {
+   "t": 8500000000,
+   "ant_x": -1250,
+   "ant_y": -696,
+   "visited_cells": 7213197,
+   "front_block_x": -1664
+  },
+  {
+   "t": 9000000000,
+   "ant_x": -556,
+   "ant_y": -78,
+   "visited_cells": 7521538,
+   "front_block_x": -1680
+  },
+  {
+   "t": 9500000000,
+   "ant_x": 780,
+   "ant_y": 1138,
+   "visited_cells": 7810126,
+   "front_block_x": -1712
+  },
+  {
+   "t": 10000000000,
+   "ant_x": 1166,
+   "ant_y": -670,
+   "visited_cells": 8085228,
+   "front_block_x": -1728
+  },
+  {
+   "t": 10500000000,
+   "ant_x": 48,
+   "ant_y": 1522,
+   "visited_cells": 8360704,
+   "front_block_x": -1744
+  },
+  {
+   "t": 11000000000,
+   "ant_x": -120,
+   "ant_y": -392,
+   "visited_cells": 8648394,
+   "front_block_x": -1760
+  },
+  {
+   "t": 11500000000,
+   "ant_x": -320,
+   "ant_y": -1366,
+   "visited_cells": 8887852,
+   "front_block_x": -1792
+  },
+  {
+   "t": 12000000000,
+   "ant_x": -338,
+   "ant_y": -826,
+   "visited_cells": 9133330,
+   "front_block_x": -1808
+  },
+  {
+   "t": 12500000000,
+   "ant_x": -1128,
+   "ant_y": -860,
+   "visited_cells": 9422760,
+   "front_block_x": -1824
+  },
+  {
+   "t": 12600000000,
+   "ant_x": -482,
+   "ant_y": 956,
+   "visited_cells": 9480283,
+   "front_block_x": -1824
+  },
+  {
+   "t": 12650000000,
+   "ant_x": 792,
+   "ant_y": -1308,
+   "visited_cells": 9498926,
+   "front_block_x": -1824
+  },
+  {
+   "t": 12676000000,
+   "ant_x": -1174,
+   "ant_y": -602,
+   "visited_cells": 9508817,
+   "front_block_x": -1824
+  },
+  {
+   "t": 12680000000,
+   "ant_x": -3108,
+   "ant_y": -620,
+   "visited_cells": 10409885,
+   "front_block_x": -3120
+  },
+  {
+   "t": 12690000000,
+   "ant_x": -4642,
+   "ant_y": -1776,
+   "visited_cells": 12867894,
+   "front_block_x": -4656
+  },
+  {
+   "t": 12700000000,
+   "ant_x": -5650,
+   "ant_y": -1758,
+   "visited_cells": 15340690,
+   "front_block_x": -5664
+  },
+  {
+   "t": 12710000000,
+   "ant_x": -6460,
+   "ant_y": -1658,
+   "visited_cells": 17818870,
+   "front_block_x": -6464
+  },
+  {
+   "t": 12720000000,
+   "ant_x": -7156,
+   "ant_y": -582,
+   "visited_cells": 20300623,
+   "front_block_x": -7168
+  },
+  {
+   "t": 12730000000,
+   "ant_x": -7776,
+   "ant_y": -916,
+   "visited_cells": 22783687,
+   "front_block_x": -7792
+  },
+  {
+   "t": 12740000000,
+   "ant_x": -8340,
+   "ant_y": 878,
+   "visited_cells": 25269352,
+   "front_block_x": -8352
+  },
+  {
+   "t": 12750000000,
+   "ant_x": -8858,
+   "ant_y": -3390,
+   "visited_cells": 27753094,
+   "front_block_x": -8880
+  },
+  {
+   "t": 12760000000,
+   "ant_x": -9352,
+   "ant_y": 846,
+   "visited_cells": 30242043,
+   "front_block_x": -9360
+  },
+  {
+   "t": 12770000000,
+   "ant_x": -9810,
+   "ant_y": -1886,
+   "visited_cells": 32728287,
+   "front_block_x": -9824
+  },
+  {
+   "t": 12780000000,
+   "ant_x": -10250,
+   "ant_y": -2382,
+   "visited_cells": 35216204,
+   "front_block_x": -10256
+  },
+  {
+   "t": 12790000000,
+   "ant_x": -10664,
+   "ant_y": 688,
+   "visited_cells": 37706562,
+   "front_block_x": -10672
+  },
+  {
+   "t": 12800000000,
+   "ant_x": -11062,
+   "ant_y": -3366,
+   "visited_cells": 40193767,
+   "front_block_x": -11072
+  },
+  {
+   "t": 12810000000,
+   "ant_x": -11442,
+   "ant_y": -1754,
+   "visited_cells": 42684297,
+   "front_block_x": -11456
+  },
+  {
+   "t": 12820000000,
+   "ant_x": -11808,
+   "ant_y": 1530,
+   "visited_cells": 45176049,
+   "front_block_x": -11824
+  },
+  {
+   "t": 12830000000,
+   "ant_x": -12168,
+   "ant_y": -2770,
+   "visited_cells": 47664250,
+   "front_block_x": -12176
+  },
+  {
+   "t": 12840000000,
+   "ant_x": -12508,
+   "ant_y": 2132,
+   "visited_cells": 50157466,
+   "front_block_x": -12512
+  },
+  {
+   "t": 12850000000,
+   "ant_x": -12840,
+   "ant_y": 878,
+   "visited_cells": 52647852,
+   "front_block_x": -12848
+  },
+  {
+   "t": 12860000000,
+   "ant_x": -13164,
+   "ant_y": 2862,
+   "visited_cells": 55140096,
+   "front_block_x": -13168
+  },
+  {
+   "t": 12870000000,
+   "ant_x": -13478,
+   "ant_y": 92,
+   "visited_cells": 57630206,
+   "front_block_x": -13488
+  },
+  {
+   "t": 12880000000,
+   "ant_x": -13790,
+   "ant_y": -2324,
+   "visited_cells": 60120657,
+   "front_block_x": -13792
+  },
+  {
+   "t": 12890000000,
+   "ant_x": -14090,
+   "ant_y": -3374,
+   "visited_cells": 62612043,
+   "front_block_x": -14096
+  },
+  {
+   "t": 12900000000,
+   "ant_x": -14380,
+   "ant_y": 2662,
+   "visited_cells": 65107190,
+   "front_block_x": -14384
+  },
+  {
+   "t": 12910000000,
+   "ant_x": -14668,
+   "ant_y": -3276,
+   "visited_cells": 67596442,
+   "front_block_x": -14672
+  },
+  {
+   "t": 12920000000,
+   "ant_x": -14948,
+   "ant_y": 1128,
+   "visited_cells": 70091114,
+   "front_block_x": -14960
+  },
+  {
+   "t": 12930000000,
+   "ant_x": -15222,
+   "ant_y": -4178,
+   "visited_cells": 72581025,
+   "front_block_x": -15232
+  },
+  {
+   "t": 12940000000,
+   "ant_x": -15488,
+   "ant_y": 2648,
+   "visited_cells": 75077221,
+   "front_block_x": -15504
+  },
+  {
+   "t": 12950000000,
+   "ant_x": -15752,
+   "ant_y": 210,
+   "visited_cells": 77568885,
+   "front_block_x": -15760
+  },
+  {
+   "t": 12960000000,
+   "ant_x": -16016,
+   "ant_y": -1774,
+   "visited_cells": 80060845,
+   "front_block_x": -16032
+  },
+  {
+   "t": 12970000000,
+   "ant_x": -16270,
+   "ant_y": -2518,
+   "visited_cells": 82553570,
+   "front_block_x": -16272
+  },
+  {
+   "t": 12974495927,
+   "ant_x": -16384,
+   "ant_y": -5895,
+   "visited_cells": 83672826,
+   "front_block_x": -16384
+  }
+ ],
+ "sha256": {
+  "experiments/2026-10-21-rlrlll-portrait/results/run_frames.log": "21a060b658b40934f751df0808a8f6eaa7d2a412546954dbd29976eab310ef0d",
+  "experiments/2026-10-21-rlrlll-portrait/scripts/times.txt": "f88fb11ab85a762412f63e40abc1d9d091b38c1e625b9e1c942be329a3e9a995",
+  "experiments/2026-10-21-rlrlll-portrait/scripts/render.py": "4b667a66897020e1b8aa210fe163e46fd1db9c3ba4844d3fe94b006a8e8d4154"
+ }
+}
