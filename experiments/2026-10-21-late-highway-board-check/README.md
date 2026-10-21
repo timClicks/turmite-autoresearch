@@ -89,3 +89,32 @@ bash experiments/2026-10-21-late-highway-board-check/scripts/recheck.sh   # resu
 (census onset 4,146,461) on the same boards (a blob covering 3.7% / 1.1% of the board, leaving along one diagonal arm
 at 4.26e6 / 4.39e6, the difference being only the arm's extra length to the bigger board's corner). `--ray` adds
 `RLLLRLRRR` on the 32768 board (5.7e9 steps). Deterministic; no seeds.
+
+### Part 2 results, provisional (appended 2026-10-22 07:50 +13:00; 19 of 26 rechecks finished, 7 running)
+
+`results/recheck/*.csv` (`sweep_lean`, 65536 board, binary sha256 in `results/recheck/recheck.log`; the run was
+interrupted once and resumed, finished rules are skipped, so no row is from a resumed run). **All 19 finished rechecks
+reproduce the census period, drift and onset exactly.** B2 (>= 24 of 26) cannot fail on the 19 alone; it is scored when the
+last 7 (onsets 3.2e10-6.1e10, all in (1e10, 1e11]) finish.
+
+Ledger (`scripts/classify.py` -> `results/classify.txt`): of the 54 reported late highways, **25 are board fillers, 1 is a
+board-truncated ray (`RLLLRLRRR`), 21 are confirmed on a 65536 board** (19 rechecks plus `RRLRLR` and, from B5,
+`RRLLLRLRL`), **7 are pending**.
+
+| decade | survivors | reported highways | artefacts | genuine (confirmed) | pending | genuine yield (reported) |
+|---|---|---|---|---|---|---|
+| (1e9, 1e10] | 807 | 38 | 22 | 16 | 0 | **1.98%** (4.71%) |
+| (1e10, 1e11] | 732 | 16 | 4 | 5 | 7 | **0.68-1.64%**, 1.64% if all pending confirm (2.19%) |
+
+With the earlier decade (1e8, 1e9] at 12/854 = 1.4% (`highway_stats.txt`), the three decades are statistically
+indistinguishable: Fisher exact p = 0.45 for 1.4% vs 1.98%, p = 0.70 for 1.98% vs 1.64%. (Against the lower bound
+0.68%, p = 0.029; the pending rules decide this.) **The "thinning tail" reading in the notes (first 4x, then 2x per decade)
+came from the artefacts**: the corrected counts are consistent with a flat rate of about 1.5-2% of survivors per decade
+from 1e8 to 1e11. The board fillers were also counted as highways rather than as escapes without a highway; corrected,
+escapes without a highway are 59/807 = 7.3% in (1e9, 1e10] (was 37, 4.6%) and 18/732 = 2.5% in (1e10, 1e11] (was 14, 1.9%);
+the fillers are growing rules that leave any finite board, not highways.
+
+Census procedure lesson: an escape with a periodic tail is not a highway unless (i) the escape footprint is well short of
+the board in the direction perpendicular to the drift (fillers fail this) and (ii) the onset is board-independent
+(`confirm` on a second board size; the ray fails this). The 1e8/1e9 sweeps have no full-board footprints, but (ii) was
+never applied to them.

@@ -43,3 +43,38 @@ for f in ["sweep_v2.csv", "sweep_1B.csv", "sweep_1B_extra.csv"]:
     hw = df.filter(pl.col("onset").is_not_null())
     fill = hw.filter((pl.col("width") >= 0.99 * g) & (pl.col("height") >= 0.99 * g))
     print(f"{f}: max footprint {g}; highways {hw.height}; with full-board footprint {fill.height}: {fill['rule'].to_list()[:10]}")
+
+# Final ledger: each late highway as filler / ray (board-truncated, README part 1) / confirmed on 65536 / pending.
+rechecked = {}
+for f in sorted((Path(__file__).resolve().parents[1] / "results" / "recheck").glob("*.csv")):
+    r = pl.read_csv(f, infer_schema_length=None).cast({"onset": pl.Int64, "period": pl.Int64, "dx": pl.Int64, "dy": pl.Int64}, strict=False).row(0, named=True)
+    rechecked[r["rule"]] = (r["period"], r["dx"], r["dy"], r["onset"])
+confirmed_elsewhere = {"RRLRLR": "control_65536.csv", "RRLLLRLRL": "B5 confirm_p17552_grid65536.csv"}
+rays = {"RLLLRLRRR"}
+
+
+def status(r: dict) -> str:
+    if r["filler"]:
+        return "filler"
+    if r["rule"] in rays:
+        return "ray"
+    if r["rule"] in confirmed_elsewhere:
+        return "confirmed"
+    if r["rule"] in rechecked:
+        return "confirmed" if rechecked[r["rule"]] == (r["period"], r["dx"], r["dy"], r["onset"]) else "differs"
+    return "pending"
+
+
+late = late.with_columns(status=pl.Series([status(r) for r in late.iter_rows(named=True)]))
+print("\n== Ledger (status per late highway)")
+with pl.Config(tbl_rows=60, tbl_width_chars=160):
+    print(late.sort("onset").select("cohort", "rule", "period", "dx", "dy", "onset", "status"))
+print(late.group_by("cohort", "status").len().sort("cohort", "status"))
+print("\n== Corrected late-highway yields (genuine = confirmed; pending rules give the upper bound)")
+for cohort, denom in [("(1e9,1e10]", 807), ("(1e10,1e11]", 732)]:
+    c = late.filter(pl.col("cohort") == cohort)
+    conf = c.filter(pl.col("status") == "confirmed").height
+    pend = c.filter(pl.col("status") == "pending").height
+    art = c.filter(pl.col("status").is_in(["filler", "ray", "differs"])).height
+    print(f"{cohort}: reported {c.height}, artefacts {art}, confirmed {conf}, pending {pend} -> genuine yield "
+          f"{conf / denom:.2%} to {(conf + pend) / denom:.2%} of {denom} (reported {c.height / denom:.2%})")

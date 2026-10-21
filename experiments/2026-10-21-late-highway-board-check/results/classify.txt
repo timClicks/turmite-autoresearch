@@ -75,3 +75,83 @@ shape: (4, 4)
 sweep_v2.csv: max footprint 7714; highways 576; with full-board footprint 0: []
 sweep_1B.csv: max footprint 16383; highways 12; with full-board footprint 0: []
 sweep_1B_extra.csv: max footprint 8472; highways 0; with full-board footprint 0: []
+
+== Ledger (status per late highway)
+shape: (54, 7)
+┌─────────────┬────────────┬────────┬─────┬─────┬─────────────┬───────────┐
+│ cohort      ┆ rule       ┆ period ┆ dx  ┆ dy  ┆ onset       ┆ status    │
+│ ---         ┆ ---        ┆ ---    ┆ --- ┆ --- ┆ ---         ┆ ---       │
+│ str         ┆ str        ┆ i64    ┆ i64 ┆ i64 ┆ i64         ┆ str       │
+╞═════════════╪════════════╪════════╪═════╪═════╪═════════════╪═══════════╡
+│ (1e9,1e10]  ┆ RRLRLR     ┆ 220    ┆ 2   ┆ -2  ┆ 1076356698  ┆ confirmed │
+│ (1e9,1e10]  ┆ RRLRRRLLR  ┆ 324    ┆ -2  ┆ -2  ┆ 1535478707  ┆ confirmed │
+│ (1e9,1e10]  ┆ RRRRRLRLLR ┆ 1772   ┆ 6   ┆ -6  ┆ 1694722459  ┆ confirmed │
+│ (1e9,1e10]  ┆ RLLLLRLLL  ┆ 280    ┆ -2  ┆ -2  ┆ 1761486519  ┆ confirmed │
+│ (1e9,1e10]  ┆ RRLRLRL    ┆ 196    ┆ -2  ┆ 2   ┆ 1880688044  ┆ confirmed │
+│ (1e9,1e10]  ┆ RRRRRRRRLR ┆ 508    ┆ 2   ┆ -2  ┆ 2129849669  ┆ confirmed │
+│ (1e9,1e10]  ┆ RRRRRLR    ┆ 340    ┆ -2  ┆ -2  ┆ 2380778934  ┆ confirmed │
+│ (1e9,1e10]  ┆ RRRRLLRL   ┆ 922    ┆ 1   ┆ -5  ┆ 2734106009  ┆ confirmed │
+│ (1e9,1e10]  ┆ RLRRRRLLR  ┆ 16     ┆ 0   ┆ 4   ┆ 4293231098  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRRRLLL ┆ 16     ┆ 0   ┆ 4   ┆ 4293231398  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRRL    ┆ 16     ┆ 0   ┆ 4   ┆ 4293232094  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRLLR   ┆ 16     ┆ 0   ┆ 4   ┆ 4293361974  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRLLLLR ┆ 16     ┆ 4   ┆ 0   ┆ 4293755121  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRRRLLR ┆ 16     ┆ 4   ┆ 0   ┆ 4293755749  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRRRRLL ┆ 16     ┆ 4   ┆ 0   ┆ 4293756469  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRRRRL  ┆ 16     ┆ 0   ┆ 4   ┆ 4293854530  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRRRRRL ┆ 16     ┆ 4   ┆ 0   ┆ 4293857689  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRRLLLL ┆ 16     ┆ 4   ┆ 0   ┆ 4293886173  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRLLRRR ┆ 16     ┆ 4   ┆ 0   ┆ 4293886325  ┆ filler    │
+│ (1e9,1e10]  ┆ RLRRRRLRL  ┆ 16     ┆ 4   ┆ 0   ┆ 4294017917  ┆ filler    │
+│ (1e9,1e10]  ┆ RLLLRLRRR  ┆ 8      ┆ 2   ┆ 2   ┆ 5723529364  ┆ ray       │
+│ (1e9,1e10]  ┆ RRRRRRLR   ┆ 396    ┆ 2   ┆ 2   ┆ 5731780243  ┆ confirmed │
+│ (1e9,1e10]  ┆ RRLRLLRLRL ┆ 400    ┆ 2   ┆ 2   ┆ 6067908613  ┆ confirmed │
+│ (1e9,1e10]  ┆ RRRRRRLLRL ┆ 564    ┆ -2  ┆ -2  ┆ 6342847330  ┆ confirmed │
+│ (1e9,1e10]  ┆ RRLRRRRRLR ┆ 24     ┆ 4   ┆ 0   ┆ 6439470081  ┆ filler    │
+│ (1e9,1e10]  ┆ RRLRRRRRLL ┆ 24     ┆ 0   ┆ 4   ┆ 6439863614  ┆ filler    │
+│ (1e9,1e10]  ┆ RRLRRRRLL  ┆ 24     ┆ 0   ┆ 4   ┆ 6440059554  ┆ filler    │
+│ (1e9,1e10]  ┆ RRLRR      ┆ 24     ┆ -4  ┆ 0   ┆ 6440649579  ┆ filler    │
+│ (1e9,1e10]  ┆ RRLRRRRLLR ┆ 24     ┆ 4   ┆ 0   ┆ 6440649725  ┆ filler    │
+│ (1e9,1e10]  ┆ RRLRRRRLLL ┆ 24     ┆ 0   ┆ -4  ┆ 6440715408  ┆ filler    │
+│ (1e9,1e10]  ┆ RRLRRRR    ┆ 24     ┆ 4   ┆ 0   ┆ 6440846393  ┆ filler    │
+│ (1e9,1e10]  ┆ RRLRRRLRR  ┆ 308    ┆ 2   ┆ -2  ┆ 7616653866  ┆ confirmed │
+│ (1e9,1e10]  ┆ RLLRLRLRL  ┆ 212    ┆ -2  ┆ -2  ┆ 7907580691  ┆ confirmed │
+│ (1e9,1e10]  ┆ RRRLRRRRR  ┆ 32     ┆ 4   ┆ 0   ┆ 8587545029  ┆ filler    │
+│ (1e9,1e10]  ┆ RRRLRRRRRR ┆ 32     ┆ 4   ┆ 0   ┆ 8587806785  ┆ filler    │
+│ (1e9,1e10]  ┆ RRRLR      ┆ 332    ┆ -2  ┆ 2   ┆ 8817703943  ┆ confirmed │
+│ (1e9,1e10]  ┆ RLLLRLLR   ┆ 564    ┆ 4   ┆ -4  ┆ 9528886230  ┆ confirmed │
+│ (1e9,1e10]  ┆ RLRRLRLRRR ┆ 592    ┆ -4  ┆ 4   ┆ 9843070163  ┆ confirmed │
+│ (1e10,1e11] ┆ RRLLLRLLRL ┆ 260    ┆ -2  ┆ -2  ┆ 10626759997 ┆ confirmed │
+│ (1e10,1e11] ┆ RRRRLRRRR  ┆ 40     ┆ 0   ┆ 4   ┆ 10733454694 ┆ filler    │
+│ (1e10,1e11] ┆ RRRRLRRR   ┆ 40     ┆ 0   ┆ 4   ┆ 10733456698 ┆ filler    │
+│ (1e10,1e11] ┆ RRRLLRLRRL ┆ 114    ┆ -1  ┆ 1   ┆ 12481568645 ┆ confirmed │
+│ (1e10,1e11] ┆ RRRRRLRR   ┆ 48     ┆ 0   ┆ 4   ┆ 12879759886 ┆ filler    │
+│ (1e10,1e11] ┆ RRRRRLRRRR ┆ 48     ┆ 0   ┆ 4   ┆ 12880152078 ┆ filler    │
+│ (1e10,1e11] ┆ RLRRRLRLRR ┆ 248    ┆ 2   ┆ 2   ┆ 13868369365 ┆ confirmed │
+│ (1e10,1e11] ┆ RRLLLRLRRR ┆ 488    ┆ -2  ┆ -2  ┆ 26000686172 ┆ confirmed │
+│ (1e10,1e11] ┆ RLLRLRRLLL ┆ 264    ┆ 2   ┆ 2   ┆ 31497237342 ┆ pending   │
+│ (1e10,1e11] ┆ RRLRLRLLR  ┆ 260    ┆ 2   ┆ 2   ┆ 32293738264 ┆ pending   │
+│ (1e10,1e11] ┆ RLLLRLLLL  ┆ 832    ┆ -4  ┆ 4   ┆ 33024051963 ┆ pending   │
+│ (1e10,1e11] ┆ RRRLRLLLLL ┆ 416    ┆ 2   ┆ -2  ┆ 45934134871 ┆ pending   │
+│ (1e10,1e11] ┆ RRRLLLRRL  ┆ 232    ┆ 2   ┆ 2   ┆ 47916551358 ┆ pending   │
+│ (1e10,1e11] ┆ RRRLRRLRRL ┆ 288    ┆ 2   ┆ 2   ┆ 59167953343 ┆ pending   │
+│ (1e10,1e11] ┆ RRRRLRLLR  ┆ 484    ┆ -2  ┆ 2   ┆ 61403828133 ┆ pending   │
+│ (1e10,1e11] ┆ RRLLLRLRL  ┆ 17552  ┆ 42  ┆ 42  ┆ 81400137460 ┆ confirmed │
+└─────────────┴────────────┴────────┴─────┴─────┴─────────────┴───────────┘
+shape: (6, 3)
+┌─────────────┬───────────┬─────┐
+│ cohort      ┆ status    ┆ len │
+│ ---         ┆ ---       ┆ --- │
+│ str         ┆ str       ┆ u32 │
+╞═════════════╪═══════════╪═════╡
+│ (1e10,1e11] ┆ confirmed ┆ 5   │
+│ (1e10,1e11] ┆ filler    ┆ 4   │
+│ (1e10,1e11] ┆ pending   ┆ 7   │
+│ (1e9,1e10]  ┆ confirmed ┆ 16  │
+│ (1e9,1e10]  ┆ filler    ┆ 21  │
+│ (1e9,1e10]  ┆ ray       ┆ 1   │
+└─────────────┴───────────┴─────┘
+
+== Corrected late-highway yields (genuine = confirmed; pending rules give the upper bound)
+(1e9,1e10]: reported 38, artefacts 22, confirmed 16, pending 0 -> genuine yield 1.98% to 1.98% of 807 (reported 4.71%)
+(1e10,1e11]: reported 16, artefacts 4, confirmed 5, pending 7 -> genuine yield 0.68% to 1.64% of 732 (reported 2.19%)
