@@ -21,6 +21,8 @@ SOURCES = ["main.typ", "numbers.json", "recent_findings.json", "kappa_prediction
            "supplementary/rule-census/rule_census.build.json",
            "supplementary/walker-reference/walker_reference.csv"]
 FORECAST = "experiments/2026-10-13-transport-forecast/results/transport_forecast.json"
+# Homepage-only figures drawn from experiment results rather than the manuscript: name -> committed source.
+EXTRA_IMAGES = {"rlrlll_portrait": "experiments/2026-10-21-rlrlll-portrait/results/portrait.png"}
 
 
 def git(*args):
@@ -30,7 +32,8 @@ def git(*args):
 
 
 def export():
-    inputs = [PAPER / p for p in SOURCES] + [ROOT / FORECAST] + [PAPER / f"fig/{p}.png" for p in IMAGES]
+    image_sources = {p: PAPER / f"fig/{p}.png" for p in IMAGES} | {k: ROOT / v for k, v in EXTRA_IMAGES.items()}
+    inputs = [PAPER / p for p in SOURCES] + [ROOT / FORECAST] + list(image_sources.values())
     paths = [p.relative_to(ROOT).as_posix() for p in inputs]
     if git("status", "--porcelain", "--", *paths):
         raise SystemExit("Commit scientific inputs before exporting homepage results")
@@ -51,8 +54,8 @@ def export():
                        "raw": sum(float(r["kappa"]) for r in rows) / len(rows),
                        "ratio": sum(float(r["ratio"]) for r in rows) / len(rows)})
     sizes = {}
-    for name in IMAGES:
-        width, height = struct.unpack(">II", (PAPER / f"fig/{name}.png").read_bytes()[16:24])
+    for name, src in image_sources.items():
+        width, height = struct.unpack(">II", src.read_bytes()[16:24])
         sizes[name] = {"width": width, "height": height}
     data = {"titles": titles, "images": sizes, "blob_count": n["probe"]["blob"], "exponent": round(n["alpha_w_blob"][0], 4),
             "profile_difference_pct": round(100 * n["shape"]["max_rel_diff_ants_rotor_shells0_9"]),
@@ -75,7 +78,7 @@ def export():
     data["provenance"]["sha256"][spread.relative_to(ROOT).as_posix()] = hashlib.sha256(spread.read_bytes()).hexdigest()
     text = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
     targets = {OUT: text.encode()}
-    targets.update({ROOT / f"blog/assets/results/{p}.png": (PAPER / f"fig/{p}.png").read_bytes() for p in IMAGES})
+    targets.update({ROOT / f"blog/assets/results/{p}.png": src.read_bytes() for p, src in image_sources.items()})
     for path, content in targets.items():
         if "--check" in sys.argv:
             if not path.exists() or path.read_bytes() != content:
@@ -83,7 +86,7 @@ def export():
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(content)
-    print(f"Homepage results {'checked' if '--check' in sys.argv else 'exported'}: {len(titles)} cards, {len(IMAGES)} figures")
+    print(f"Homepage results {'checked' if '--check' in sys.argv else 'exported'}: {len(titles)} cards, {len(image_sources)} figures")
 
 
 if __name__ == "__main__":

@@ -30,6 +30,10 @@
     "late_switch": {
       "width": 1012,
       "height": 697
+    },
+    "rlrlll_portrait": {
+      "width": 990,
+      "height": 2025
     }
   },
   "blob_count": 2630,
@@ -93,7 +97,7 @@
   "forecast_rules": 99,
   "onset_billions": 12.7,
   "provenance": {
-    "revision": "ee630ebfc6747abce0df28456d2000525afc421f",
+    "revision": "b076b1589ef47f2dbe48473aace1a2393cc40a06",
     "command": "uv run --frozen --only-group blog blog/scripts/export_results.py",
     "sha256": {
       "research-outputs/cube-root-growth-paper/main.typ": "cf46c1202f4fcc328f9f111bc5e42f4bdac66245e69aa320fce822f706e2c323",
@@ -108,6 +112,7 @@
       "research-outputs/cube-root-growth-paper/fig/ck_time.png": "7c26e81bed73cb4883d3acf32a507eac36758ddc11132d509d65fb4a66bb3602",
       "research-outputs/cube-root-growth-paper/fig/memory_paths.png": "41eb73e0f4f797502e0ba38bcac16133f8dc971cf728df3f9a6a26cb9aaa856d",
       "research-outputs/cube-root-growth-paper/fig/late_switch.png": "fa2105a3bc85bfff10bb523498126d0619508e977c0d539e88e6df5aceeb346f",
+      "experiments/2026-10-21-rlrlll-portrait/results/portrait.png": "b67c3b14dff4a4f077d215b91a6d14030ac63899a2a8818e26b60f85499c3236",
       "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt": "ad7a062d72dd9390f936e40aaefa53ff3d69e58c1acb79aa44c499082a7b6913"
     }
   }

@@ -135,8 +135,10 @@ saved occupation values with their growth-adjusted references. The controls do n
 run simulations or estimate new scientific quantities. The ant bar is a median
 over rules; walker bars are eight-seed means, with the window mismatch disclosed.
 
-Numbers, paper bullet titles, and five figure copies are exported from committed
-sources, with hashes and a pinned revision:
+Numbers, paper bullet titles, five manuscript figure copies and one homepage-only
+figure (card 09's RLRLLL portrait, from `experiments/2026-10-21-rlrlll-portrait/results/`;
+listed in `EXTRA_IMAGES`) are exported from committed sources, with hashes and a
+pinned revision:
 
 ```bash
 uv run --frozen --only-group blog blog/scripts/export_results.py
