@@ -720,3 +720,6 @@ decades do not differ (Fisher p = 0.45 and 0.70 for the 1.64% case), so **the co
 H18's flat-tail reading, which B5 was thought to have rejected. The pre-registered B5 outcomes stand as scored on the data then
 believed; they are not re-scored. The decision rules were sound; the counts were not.
 Lesson: an escape is a highway only if its footprint is well short of the board and its onset is board-independent.
+Final (appended 2026-10-22): all 26 rechecks reproduced on a 65536 board (B2 held, 26/26; `ecab728`). Genuine yields are
+**16/807 = 1.98%** in (1e9, 1e10] and **12/732 = 1.64%** in (1e10, 1e11]; escapes without highway 59/807 = 7.3% and 18/732 = 2.5%.
+The flat-rate reading stands (Fisher p = 0.45 and 0.70 against neighbouring decades); a slow decline is not excluded.

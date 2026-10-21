@@ -118,3 +118,20 @@ Census procedure lesson: an escape with a periodic tail is not a highway unless 
 the board in the direction perpendicular to the drift (fillers fail this) and (ii) the onset is board-independent
 (`confirm` on a second board size; the ray fails this). The 1e8/1e9 sweeps have no full-board footprints, but (ii) was
 never applied to them.
+
+### Part 2 results, final (appended 2026-10-22 09:25 +13:00)
+
+**B2 held: 26 of 26** re-run late highways reproduce the census period, drift and onset exactly on a 65536 board
+(`results/recheck/*.csv`; the run was interrupted twice and resumed, each rule ran uninterrupted from a blank board;
+binary sha256 in `results/recheck/recheck.log`, unchanged across relaunches). With `RRLRLR` and `RRLLLRLRL` confirmed
+separately, all 28 non-artefact late highways are genuine. Final ledger (`results/classify.txt`, commit `ecab728`):
+
+| decade | survivors | reported | board fillers | ray | genuine | genuine yield (reported) |
+|---|---|---|---|---|---|---|
+| (1e9, 1e10] | 807 | 38 | 21 | 1 | 16 | **1.98%** (4.71%) |
+| (1e10, 1e11] | 732 | 16 | 4 | 0 | 12 | **1.64%** (2.19%) |
+
+Against (1e8, 1e9] at 12/854 = 1.41%: Fisher exact p = 0.45 (1.41% vs 1.98%) and p = 0.70 (1.98% vs 1.64%). The three
+decades are consistent with a flat per-decade yield of about 1.4-2.0% of survivors; nothing here supports a thinning tail.
+One caution against over-reading: three decades and 12-16 events each cannot exclude a slow decline either (a factor
+of 0.6 per decade would also fit within the Poisson errors).
