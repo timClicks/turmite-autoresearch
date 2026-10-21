@@ -68,7 +68,7 @@ New, unexplained:
 - Q13. Why does the corruption of the most-visited cells hurt most, with rare colours doubling the damage at equal visit quartile (A6)? How much of "visit rate" is just distance from home?
 - Q14. Does contiguity reduce the damage per critical cell (patch ~0.65x the loss per rare cell of a swap, E4), or is that a location effect?
 - Q15. The census "builders" (304) are mostly non-highway frame builders with steps per bounding-box cell ~2-6; are they one class, and does it match the sqrt(t) turmite cluster (D1)?
-- Q16. The late-highway onset rate fell from 4.7% to 1.25% per decade at 1e10-1e11 (B5): is the set of late highways finite, and what is the distribution of onset times within a prefix family?
+- Q16. The late-highway onset rate fell from 4.7% to 1.25% per decade at 1e10-1e11 (B5): is the set of late highways finite, and what is the distribution of onset times within a prefix family? **[Corrected 2026-10-21: 22 of the 38 (1e9,1e10] and 4+ of the 16 (1e10,1e11] "highways" are board artefacts; genuine yields 1.98% and 0.68-1.64% (1.64% if the 7 pending rechecks confirm); see `experiments/2026-10-21-late-highway-board-check/README.md`.]**
 
 See `notes/research-frontier-2026-10-13-pm.md` for the Phase 3 hypotheses, tests, and pre-registered predictions addressing Q8–Q16 and the open mechanisms of kappa.
 
@@ -327,3 +327,14 @@ dependence on the grid collapses, within about one period of onset, to a fragmen
 - Q17. Why does onset time grow with highway size (self-overlap, period, slowness), at only ~0.018 decades per cell?
   A random colour search would cost ~log10(n) decades per cell. What in the chaotic phase pre-builds highway fragments?
 - Q18. Are the "+3" non-highway cells of the pre-onset seed a trigger (knock-out kills the launch) or incidental?
+
+## Added 2026-10-21: late-highway rate after removing board artefacts
+
+`experiments/2026-10-21-late-highway-board-check/`: 26 of 54 reported late highways were artefacts of the 32768 board.
+Corrected, the per-decade highway yield among survivors is ~1.4%, 1.98%, 0.68-1.64% for (1e8,1e9], (1e9,1e10], (1e10,1e11]:
+consistent with flat. Q16 is reopened in a sharper form:
+- Q19. Is the late-highway yield per decade really constant (~2%)? If so, the unresolved set never stops leaking and
+  "chaotic" is a transient for a fixed fraction of rules per decade, without end. A third decade (1e11, 1e12] on the
+  702 survivors (checkpointed runner exists), with the board-independence check, would distinguish flat from slowly falling.
+- Q20. The board fillers `R^k L R R...` fill at exactly `2(k+1)` steps per cell (to within a perimeter term). What is the
+  filling mechanism, and is it the same class as the sqrt(t) frame builders (Q15)?

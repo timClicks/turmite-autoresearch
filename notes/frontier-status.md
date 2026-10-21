@@ -25,7 +25,7 @@ Bar for "investigated": timestamped hypothesis with predictions; experiment (pil
 | 14 | carrier test | done (+ 24-rule generalisation) | rare colours are critical in all tested tethered rules (swap ratio ~2, recolour ~1.3); parity is not |
 | 15 | how many hard | done (560 log-class rules; cutoff corrected) | hardness is graded and bimodal in the size-free measure (35% keep / 38% cup-wide / 27% between); tracks home size |
 | 16 | graded home | done | graded, no threshold (10-90% width 0.25-0.5), per-seed outcomes not bimodal |
-| 17 | unresolved 854 | done (807 rules to 1e10) | 38 new highways (4.7%) in (1e9,1e10], pre-registered ~1% falsified; 28 of them in onset clusters (shared-prefix rules, probably ~10 independent events) |
+| 17 | unresolved 854 | done (807 rules to 1e10) | 38 new highways (4.7%) in (1e9,1e10], pre-registered ~1% falsified; 28 of them in onset clusters (shared-prefix rules, probably ~10 independent events) **[Corrected 2026-10-21: 22 of the 38 (1e9,1e10] and 4+ of the 16 (1e10,1e11] "highways" are board artefacts; genuine yields 1.98% and 0.68-1.64% (1.64% if the 7 pending rechecks confirm); see `experiments/2026-10-21-late-highway-board-check/README.md`.]** |
 | 18 | onset-time distribution | done (corrected) | flat per decade (slope +0.015 +- 0.026), last decade 11 vs 17.4 expected (p = 0.07) |
 | 19 | highway catalogue | done | 96% diagonal, period always even, period independent of n (prediction falsified), period 18 = 22% |
 | 20 | chaos vs highway predictors | done | CV AUC 0.70: weak |

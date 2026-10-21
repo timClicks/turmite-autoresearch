@@ -93,7 +93,7 @@ In continuum diffusion problems, a reflecting boundary with partial penetration 
 In Phase 2, three major anomalies in asymptotic confinement were discovered:
 1. `RLRLLL` (one of the 14 core rules tested to $2^{34}$) escaped a $32768^2$ board at $\approx 1.3 \times 10^{10}$ steps with **no highway** (Q8). It built an anomalous $\sim 10^4$-cell thin ribbon structure along the boundary (bounding box jumped from 3,377 at $10^{10}$ to 18,175 at $1.3 \times 10^{10}$).
 2. In `RRLLLLLLR` (A7c), 1 of 62 runs at $2^{32}$ suffered a massive 14x area blowout. About 5% of random rules exhibit rising seed-to-seed CV, heavily concentrated in `RLLL...` prefixes.
-3. In the 1e10–1e11 decade, the highway onset rate fell from 4.7% to 1.25% (3/240), but 3 additional rules escaped the board as unclassified non-highway frame/ribbon builders (B5).
+3. In the 1e10–1e11 decade, the highway onset rate fell from 4.7% to 1.25% (3/240), but 3 additional rules escaped the board as unclassified non-highway frame/ribbon builders (B5). **[Corrected 2026-10-21: 22 of the 38 (1e9,1e10] and 4+ of the 16 (1e10,1e11] "highways" are board artefacts; genuine yields 1.98% and 0.68-1.64% (1.64% if the 7 pending rechecks confirm); see `experiments/2026-10-21-late-highway-board-check/README.md`.]**
 
 ---
 

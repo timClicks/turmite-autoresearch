@@ -908,7 +908,7 @@ mostly chaotic-forever. Caveats: 7 events (Poisson uncertainty ~ +-2.6 of 7), on
 ## Item 17 (FINAL, 2026-10-13): all 68 chunks, 807 of 807 rules to 1e10 steps
 
 Command: `bash experiments/2026-10-13-h1-lacunarity-decomposition/scripts/run_1e10.sh` (sweep_lean, 32768 board); summary `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/results/h1e10_stats.txt` (`uv run experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/scripts/h1e10_stats.py`).
-Prediction (pre-registered, ~1% of survivors, 6-10 rules): **falsified**. Result: 38 new highways (4.7% of 807) with onset in (1e9, 1e10]
+Prediction (pre-registered, ~1% of survivors, 6-10 rules): **falsified**. Result: 38 new highways (4.7% of 807) with onset in (1e9, 1e10] **[Corrected 2026-10-21: 22 of the 38 (1e9,1e10] and 4+ of the 16 (1e10,1e11] "highways" are board artefacts; genuine yields 1.98% and 0.68-1.64% (1.64% if the 7 pending rechecks confirm); see `experiments/2026-10-21-late-highway-board-check/README.md`.]**
 (periods mostly 16/24/32 plus long ones to 1772), 37 blob grid escapes (no highway), 732 still unresolved at 1e10.
 The decade yield is therefore ~2x the earlier decades (11-26 per decade), not flat or falling: the onset tail is heavy and the unresolved
 set shrinks by only ~5% per decade. The earlier 12-chunk partial (7 of 144) understated it.

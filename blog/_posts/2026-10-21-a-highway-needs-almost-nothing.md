@@ -74,3 +74,7 @@ whole story is "a fragment of highway, at the edge, facing out". Either answer w
 onsets are so heavy-tailed.
 
 Data, commands and scoring: [experiment README](https://github.com/timclicks/turmite-autoresearch/tree/7b1b7d4/experiments/2026-10-21-highway-preconditions).
+
+*Update, 22 October 2026:* the "54 late highways" mentioned above turned out to include 26 board artefacts (25 board
+fillers and one ray cut off by the board edge); see [Half the late highways were the edge of the board]({{ '/2026/10/22/half-the-late-highways-were-the-board/' | relative_url }}).
+The out-of-sample test should use only the genuine ones (21 confirmed so far, 7 being rechecked).
