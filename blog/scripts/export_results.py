@@ -21,6 +21,10 @@ SOURCES = ["main.typ", "numbers.json", "recent_findings.json", "kappa_prediction
            "supplementary/rule-census/rule_census.build.json",
            "supplementary/walker-reference/walker_reference.csv"]
 FORECAST = "experiments/2026-10-13-transport-forecast/results/transport_forecast.json"
+# Homepage-only figures drawn from experiment results rather than the manuscript: name -> committed source.
+PORTRAIT = "experiments/2026-10-21-rlrlll-portrait/results"
+EXTRA_IMAGES = {"rlrlll_portrait": f"{PORTRAIT}/portrait.png", "rlrlll_details": f"{PORTRAIT}/portrait_details.png",
+                "rlrlll_map": f"{PORTRAIT}/territory_map.png", "rlrlll_arrival": f"{PORTRAIT}/arrival_b16.png"}
 
 
 def git(*args):
@@ -29,8 +33,19 @@ def git(*args):
     return subprocess.check_output(["git", "-c", "core.filemode=false", *args], cwd=ROOT, text=True).strip()
 
 
+def sweeper(frames_path, figure_path):
+    """Saved snapshot times, exact visited-cell counts and figure colours for card 09's time slider."""
+    frames, fig = json.loads(frames_path.read_text()), json.loads(figure_path.read_text())
+    assert len(fig["frame_colours"]) == len(frames["frames"])
+    return {"switch_t": fig["switch_t"], "block": frames["block"], "width_cells": frames["bbox_cells"]["w"],
+            "t": [f["t"] for f in frames["frames"]], "visited": [f["visited_cells"] for f in frames["frames"]],
+            "colours": fig["frame_colours"]}
+
+
 def export():
-    inputs = [PAPER / p for p in SOURCES] + [ROOT / FORECAST] + [PAPER / f"fig/{p}.png" for p in IMAGES]
+    image_sources = {p: PAPER / f"fig/{p}.png" for p in IMAGES} | {k: ROOT / v for k, v in EXTRA_IMAGES.items()}
+    portrait = [ROOT / PORTRAIT / "frames.json", ROOT / PORTRAIT / "figure.json"]
+    inputs = [PAPER / p for p in SOURCES] + [ROOT / FORECAST] + portrait + list(image_sources.values())
     paths = [p.relative_to(ROOT).as_posix() for p in inputs]
     if git("status", "--porcelain", "--", *paths):
         raise SystemExit("Commit scientific inputs before exporting homepage results")
@@ -51,8 +66,8 @@ def export():
                        "raw": sum(float(r["kappa"]) for r in rows) / len(rows),
                        "ratio": sum(float(r["ratio"]) for r in rows) / len(rows)})
     sizes = {}
-    for name in IMAGES:
-        width, height = struct.unpack(">II", (PAPER / f"fig/{name}.png").read_bytes()[16:24])
+    for name, src in image_sources.items():
+        width, height = struct.unpack(">II", src.read_bytes()[16:24])
         sizes[name] = {"width": width, "height": height}
     data = {"titles": titles, "images": sizes, "blob_count": n["probe"]["blob"], "exponent": round(n["alpha_w_blob"][0], 4),
             "profile_difference_pct": round(100 * n["shape"]["max_rel_diff_ants_rotor_shells0_9"]),
@@ -63,6 +78,7 @@ def export():
             "ant_raw": None,
             "walkers": groups, "forecast_reduction_pct": round(100 * forecast["reduction"], 1),
             "forecast_rules": forecast["rules"], "onset_billions": round(n["g1"]["onset_t"] / 1e9, 1),
+            "sweeper": sweeper(*portrait),
             "provenance": {"revision": git("log", "-1", "--format=%H", "--", *paths),
                            "command": "uv run --frozen --only-group blog blog/scripts/export_results.py",
                            "sha256": {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}}}
@@ -75,7 +91,7 @@ def export():
     data["provenance"]["sha256"][spread.relative_to(ROOT).as_posix()] = hashlib.sha256(spread.read_bytes()).hexdigest()
     text = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
     targets = {OUT: text.encode()}
-    targets.update({ROOT / f"blog/assets/results/{p}.png": (PAPER / f"fig/{p}.png").read_bytes() for p in IMAGES})
+    targets.update({ROOT / f"blog/assets/results/{p}.png": src.read_bytes() for p, src in image_sources.items()})
     for path, content in targets.items():
         if "--check" in sys.argv:
             if not path.exists() or path.read_bytes() != content:
@@ -83,7 +99,7 @@ def export():
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(content)
-    print(f"Homepage results {'checked' if '--check' in sys.argv else 'exported'}: {len(titles)} cards, {len(IMAGES)} figures")
+    print(f"Homepage results {'checked' if '--check' in sys.argv else 'exported'}: {len(titles)} cards, {len(image_sources)} figures")
 
 
 if __name__ == "__main__":

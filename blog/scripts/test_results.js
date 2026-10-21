@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { JSDOM } = require('../../web/node_modules/jsdom');
-const { init } = require('../assets/results');
+const { init, sweeperLabel } = require('../assets/results');
 const root = path.resolve(__dirname, '../..');
 const data = JSON.parse(fs.readFileSync(path.join(root, 'blog/_data/preliminary_results.json')));
 const html = fs.readFileSync(path.join(root, 'blog/_site/index.html'), 'utf8');
@@ -51,4 +51,15 @@ for (const image of d.querySelectorAll('.result-image img')) {
   const rel = new URL(image.getAttribute('src'), 'https://example.test').pathname.replace(/^\/turmite-autoresearch/, '');
   assert.ok(fs.existsSync(path.join(root, 'blog/_site', rel)));
 }
+// Card 09: the static map and caption stand alone; the slider appears only once a browser draws the canvas.
+const sw = data.sweeper, last = sw.t.length - 1;
+assert.equal(sw.visited.length, sw.t.length); assert.equal(sw.colours.length, sw.t.length);
+assert.ok(sw.t.every((t, i) => i === 0 || t > sw.t[i - 1]));
+assert.ok(d.getElementById('sweeper-canvas').hidden && !d.getElementById('sweeper-fallback').hidden);
+assert.ok(d.querySelector('.sweeper-controls').hidden, 'jsdom has no createImageBitmap, so the slider stays hidden');
+assert.equal(d.getElementById('sweeper-frame').getAttribute('max'), String(last));
+assert.equal(d.getElementById('sweeper-frame').getAttribute('value'), String(last));
+assert.equal(sweeperLabel(sw, 0), 'Step 0.50 billion · still a blob · ' + (sw.visited[0] / 1e6).toFixed(1) + ' million cells visited');
+assert.match(sweeperLabel(sw, last), /^Step 12\.97 billion · sweeping for 0\.30 billion steps · 83\.7 million cells visited$/);
+assert.match(sweeperLabel(sw, sw.t.findIndex(t => t > sw.switch_t)), /sweeping for 3\.6 million steps/);
 console.log('Nine paper findings, source hashes, no-JS content and interactive controls pass.');
