@@ -13,7 +13,7 @@ B=$CARGO_TARGET_DIR/release/examples/highway_preconditions_scan
   echo "cmd $B control $E/results/control_specs.txt $E/results"
   echo "start $(date -Is)"
 } > $E/results/run.log
-/usr/bin/time -v $B highway $E/results/highway_specs.txt $E/results 2>> $E/results/run.log
-/usr/bin/time -v $B control $E/results/control_specs.txt $E/results 2>> $E/results/run.log
+{ time $B highway $E/results/highway_specs.txt $E/results ; } 2>> $E/results/run.log
+{ time $B control $E/results/control_specs.txt $E/results ; } 2>> $E/results/run.log
 echo "end $(date -Is)" >> $E/results/run.log
 sha256sum $E/results/*.csv $E/results/*.tsv >> $E/results/run.log
