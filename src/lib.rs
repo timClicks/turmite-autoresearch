@@ -30,6 +30,7 @@ pub mod prefix_exposure;
 pub mod probe;
 pub mod reference;
 pub mod return_gates;
+pub mod seed;
 pub mod snap;
 pub mod rule;
 pub mod synth;

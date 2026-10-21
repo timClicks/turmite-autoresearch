@@ -91,3 +91,18 @@ The 54 late highways (onsets 1e9 to 8e10) are a later stage if this one is infor
 ## Results
 
 (Appended below; the registration above is not edited.)
+
+### Deviation 1 (2026-10-21 20:50 +13:00, after a 3-rule pilot, before any full run or scoring)
+
+Pilot (`RL`, `RRL`, `RRRRLR`; scratch only) showed a definitional bug: when `t_on <= 50000` the window starts at
+`tau = 0`, where the board is blank and `|D| = 0` trivially, so `tau* = 0` and the "seed" is empty (RL, RRL). Fix:
+the window's lower end is `lo = max(t_on - W, ceil(t_on / 2))`. The chaotic level keeps its registered definition
+(32 log-spaced `tau` in `[t_on/2, lo)`) where that interval is non-empty, and otherwise uses `[t_on/4, t_on/2)`.
+P1-P5 are otherwise unchanged.
+
+Also seen in the pilot, and the reason for two added (unregistered, descriptive) columns: in RRRRLR the earliest
+minimum of `|D|` lies 1.1 periods *after* onset and equals `h_min`, i.e. the "seed" is a fragment of the running
+highway. Then P2 is met trivially and P4 partly tautologically (the same highway has the same self-overlap). To keep
+the question about *preconditions* honest, the scan also reports the **pre-onset seed**: `tau_pre` = earliest argmin
+of `|D|` over `[lo, t_on]`, its size, its excess over `h_min`, and its seed key. These are exploratory; no prediction
+is attached to them, and P2/P4 are scored as registered (on `tau*`) with this caveat stated next to the score.
