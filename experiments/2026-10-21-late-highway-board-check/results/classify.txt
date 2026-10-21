@@ -129,24 +129,23 @@ shape: (54, 7)
 │ (1e10,1e11] ┆ RRRRRLRRRR ┆ 48     ┆ 0   ┆ 4   ┆ 12880152078 ┆ filler    │
 │ (1e10,1e11] ┆ RLRRRLRLRR ┆ 248    ┆ 2   ┆ 2   ┆ 13868369365 ┆ confirmed │
 │ (1e10,1e11] ┆ RRLLLRLRRR ┆ 488    ┆ -2  ┆ -2  ┆ 26000686172 ┆ confirmed │
-│ (1e10,1e11] ┆ RLLRLRRLLL ┆ 264    ┆ 2   ┆ 2   ┆ 31497237342 ┆ pending   │
-│ (1e10,1e11] ┆ RRLRLRLLR  ┆ 260    ┆ 2   ┆ 2   ┆ 32293738264 ┆ pending   │
-│ (1e10,1e11] ┆ RLLLRLLLL  ┆ 832    ┆ -4  ┆ 4   ┆ 33024051963 ┆ pending   │
-│ (1e10,1e11] ┆ RRRLRLLLLL ┆ 416    ┆ 2   ┆ -2  ┆ 45934134871 ┆ pending   │
-│ (1e10,1e11] ┆ RRRLLLRRL  ┆ 232    ┆ 2   ┆ 2   ┆ 47916551358 ┆ pending   │
-│ (1e10,1e11] ┆ RRRLRRLRRL ┆ 288    ┆ 2   ┆ 2   ┆ 59167953343 ┆ pending   │
-│ (1e10,1e11] ┆ RRRRLRLLR  ┆ 484    ┆ -2  ┆ 2   ┆ 61403828133 ┆ pending   │
+│ (1e10,1e11] ┆ RLLRLRRLLL ┆ 264    ┆ 2   ┆ 2   ┆ 31497237342 ┆ confirmed │
+│ (1e10,1e11] ┆ RRLRLRLLR  ┆ 260    ┆ 2   ┆ 2   ┆ 32293738264 ┆ confirmed │
+│ (1e10,1e11] ┆ RLLLRLLLL  ┆ 832    ┆ -4  ┆ 4   ┆ 33024051963 ┆ confirmed │
+│ (1e10,1e11] ┆ RRRLRLLLLL ┆ 416    ┆ 2   ┆ -2  ┆ 45934134871 ┆ confirmed │
+│ (1e10,1e11] ┆ RRRLLLRRL  ┆ 232    ┆ 2   ┆ 2   ┆ 47916551358 ┆ confirmed │
+│ (1e10,1e11] ┆ RRRLRRLRRL ┆ 288    ┆ 2   ┆ 2   ┆ 59167953343 ┆ confirmed │
+│ (1e10,1e11] ┆ RRRRLRLLR  ┆ 484    ┆ -2  ┆ 2   ┆ 61403828133 ┆ confirmed │
 │ (1e10,1e11] ┆ RRLLLRLRL  ┆ 17552  ┆ 42  ┆ 42  ┆ 81400137460 ┆ confirmed │
 └─────────────┴────────────┴────────┴─────┴─────┴─────────────┴───────────┘
-shape: (6, 3)
+shape: (5, 3)
 ┌─────────────┬───────────┬─────┐
 │ cohort      ┆ status    ┆ len │
 │ ---         ┆ ---       ┆ --- │
 │ str         ┆ str       ┆ u32 │
 ╞═════════════╪═══════════╪═════╡
-│ (1e10,1e11] ┆ confirmed ┆ 5   │
+│ (1e10,1e11] ┆ confirmed ┆ 12  │
 │ (1e10,1e11] ┆ filler    ┆ 4   │
-│ (1e10,1e11] ┆ pending   ┆ 7   │
 │ (1e9,1e10]  ┆ confirmed ┆ 16  │
 │ (1e9,1e10]  ┆ filler    ┆ 21  │
 │ (1e9,1e10]  ┆ ray       ┆ 1   │
@@ -154,4 +153,4 @@ shape: (6, 3)
 
 == Corrected late-highway yields (genuine = confirmed; pending rules give the upper bound)
 (1e9,1e10]: reported 38, artefacts 22, confirmed 16, pending 0 -> genuine yield 1.98% to 1.98% of 807 (reported 4.71%)
-(1e10,1e11]: reported 16, artefacts 4, confirmed 5, pending 7 -> genuine yield 0.68% to 1.64% of 732 (reported 2.19%)
+(1e10,1e11]: reported 16, artefacts 4, confirmed 12, pending 0 -> genuine yield 1.64% to 1.64% of 732 (reported 2.19%)
