@@ -297,10 +297,10 @@
     ]
   },
   "provenance": {
-    "revision": "b0ed1f08d226bbf81d3fceda205a57e637441d13",
+    "revision": "23df797a5bed1dcd9083e67b60e7610702a9dec9",
     "command": "uv run --frozen --only-group blog blog/scripts/export_results.py",
     "sha256": {
-      "research-outputs/cube-root-growth-paper/main.typ": "5f0ca611fb334fbde2ef2b0fc8bd17509e9644a6ae5edc31661f04d8a2513f6e",
+      "research-outputs/cube-root-growth-paper/main.typ": "1fa56fe032e0ab7a7622f8a39f2d93ad45ba555ac869ad24aac92218e5294765",
       "research-outputs/cube-root-growth-paper/numbers.json": "dcc4a0a7b69ce589f37e2670f3612ee51966ea4f4eb509a4b60f3b07263794cc",
       "research-outputs/cube-root-growth-paper/recent_findings.json": "a5d27ddf0d6653693fdc85e748acc8805fdc1c37ea035f054078c10a25f60c70",
       "research-outputs/cube-root-growth-paper/kappa_prediction.json": "6226d9f050e79419945c7949f1e9b66267875ebfd3022ee4641e94ce6d2bb61e",
