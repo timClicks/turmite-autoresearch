@@ -202,3 +202,35 @@ Instrument: `examples/highway_preconditions_knockout.rs`. Output `results/knocko
 Correction to the Part 2 registration (2026-10-21 21:50 +13:00, before the full run): the pre-onset seeds hold 15,339
 cells in total, not 10,155 (an arithmetic slip; the procedure is unchanged). Added before the full run, exploratory and
 unscored: column `any_direction`, launch with the same period and drift rotated or reflected.
+
+### Part 2 results (appended 2026-10-21 23:20 +13:00; registration not edited)
+
+`examples/highway_preconditions_knockout.rs` (`RAYON_NUM_THREADS=2 ./target/release/examples/highway_preconditions_knockout
+$E/results`), scored by `scripts/analyse_knockout.py` -> `results/knockout_analysis.txt`. 406 events, 15,339 seed knock-outs,
+1,218 control knock-outs; ~20 min on 2 cores. Deterministic.
+
+| Item | Outcome | Numbers |
+|---|---|---|
+| seed rebuilt from `pre_key` | ok | 406/406 cells nonzero at `tau_pre` |
+| K2 unmodified launches | **Passed** | 406/406 |
+| K1 non-seed knock-out identical | **Passed** | 1218/1218 |
+| Q1 fragile (median survival <= 0.3) | **Failed, in between** | median 0.459 (p25 0.333, p75 0.609); pooled 0.523; neither <= 0.3 nor >= 0.5 |
+| Q2 no single trigger (< 25%) | **Held** | 16/406 = 3.9% have exactly one essential cell |
+| Q3 essential cells nearer the ant (>= 70%) | **Failed** | 138/393 = 35% (71 ties); survival is flat in distance (0.43-0.58 for Chebyshev 0-7) |
+
+Caveat found in scoring: 2,564 of 15,339 seed knock-outs (16.7%) leave the trajectory **identical**, because blanking
+the cell gives the same turn on every later read (the rule's turns from colour 0 match those from the cell's colour for
+the length of its turn word). They count as survivals under the registered score. Excluding them (exploratory):
+pooled survival 0.428, per-event median **0.333** (p25 0.194, p75 0.459), i.e. right at the registered "fragile" line.
+
+Reading: the seed is not a single trigger (Q2), and neither a fine-tuned whole (2.5% of events have no surviving
+knock-out) nor a robust attractor (0.7% survive every knock-out). Roughly half the cells matter, with no spatial focus
+near the ant (Q3): the precondition is distributed over the fragment.
+
+**Post hoc (unregistered): later highways have more fragile seeds.** Spearman(effective survival, onset) = -0.333 (n 406).
+Median effective survival by onset decade: 0.43 (1e2, n 69), 0.39 (1e3), 0.33 (1e4), 0.33 (1e5), 0.29 (1e6), 0.23 (1e7, n
+70), 0.17 (1e8, n 10). Together with Part 1's "onset grows with highway size", this is the first measured property of the
+*precondition* that tracks how long the ant waits: highways that take longer to appear need more of their seed to be
+exactly right. Not yet a finding: needs a registered test (e.g. on the genuine late highways, onset 1e9-1e11, where the
+trend predicts median effective survival <= 0.17), and the confound that larger, longer-period highways are both later
+and (possibly) intrinsically less robust is not separated (survival vs h_min: -0.115; vs period: -0.080, weak).

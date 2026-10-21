@@ -55,3 +55,12 @@ print("survival by ant-frame position (cells within 2 of the ant; y < 0 is ahead
 near = seed.filter(pl.col("cheb") <= 2).group_by("ax", "ay").agg(pl.len().alias("n"), pl.col("launches").mean().round(2).alias("survive")).sort("ay", "ax")
 with pl.Config(tbl_rows=30):
     print(near)
+
+print("\n== Exploratory: excluding knock-outs that leave the trajectory identical (blanking gave the same turns)")
+eff = seed.filter(~pl.col("identical"))
+print("pooled survival among effective knock-outs:", frac(eff["launches"]))
+pe = eff.group_by("used").agg(pl.len().alias("cells"), pl.col("launches").mean().alias("frac"), pl.col("onset").first(), pl.col("period").first())
+print("per-event survival among effective knock-outs: p25 median p75 =", " ".join(f"{x:.3f}" for x in np.quantile(pe["frac"].to_numpy(), [0.25, 0.5, 0.75])))
+print(f"spearman(effective survival, log onset) = {spearmanr(pe['frac'], pe['onset'])[0]:.3f} (n {pe.height})")
+pe = pe.with_columns(dec=pl.col("onset").log10().floor().clip(1, 8))
+print(pe.group_by("dec").agg(pl.len().alias("events"), pl.col("frac").median().round(3).alias("median_survival")).sort("dec"))

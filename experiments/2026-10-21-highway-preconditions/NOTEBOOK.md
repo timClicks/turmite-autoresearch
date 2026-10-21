@@ -51,3 +51,17 @@ Registered Part 2 (single-cell knock-out of the pre-onset seed, Q1-Q3) after fin
 board artefacts (separate experiment `2026-10-21-late-highway-board-check`; its 65536 recheck is running on 2 cores).
 Knock-out pilot on RL/RRL/RRRRLR: controls untouched; RL 4/12 knock-outs still launch. Corrected the seed-cell total
 (15,339, not 10,155) in README before the full run.
+
+### 2026-10-21 23:20 (+13:00) · 3d3af7f · observation
+Knock-out: K1/K2 pass; Q1 failed in between (median survival 0.459), Q2 held (3.9% single trigger), Q3 failed (35%).
+16.7% of seed knock-outs leave the trajectory identical (same turns from colour 0); excluding them, median 0.333.
+`results/knockout_analysis.txt`.
+
+### 2026-10-21 23:22 (+13:00) · 3d3af7f · surprise
+Effective survival falls with onset decade, 0.43 -> 0.17 (rho -0.33). I did not predict it. It is the first property
+of the precondition itself, not of the highway, that tracks waiting time. Post hoc; next test is the genuine late
+highways (prediction to register: median effective survival <= 0.17).
+
+### 2026-10-21 23:25 (+13:00) · 3d3af7f · dead-end
+A watcher loop using `pgrep -f highway_preconditions_knockout` matched its own command line and never exited; the run
+had finished long before. Use a pid file or `pgrep -x` in future.
