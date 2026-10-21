@@ -9,5 +9,6 @@ mkdir -p $E/scratch/frames
 { echo "# commit $(git rev-parse HEAD)$(git diff --quiet HEAD -- examples/rlrlll_portrait_frames.rs || echo ' (example dirty)')"
   echo "# sha256 $(sha256sum $B | cut -d' ' -f1)  $(basename $B)"
   echo "# $B RLRLLL $E/scripts/times.txt $E/scratch/frames 32768 16 256"
-  /usr/bin/time -f "# wall %e s, max rss %M KB" $B RLRLLL $E/scripts/times.txt $E/scratch/frames 32768 16 256 2>&1; } > $E/results/run_frames.log
+  start=$(date +%s); $B RLRLLL $E/scripts/times.txt $E/scratch/frames 32768 16 256 2>&1
+  echo "# wall $(( $(date +%s) - start )) s"; } > $E/results/run_frames.log
 cat $E/results/run_frames.log
