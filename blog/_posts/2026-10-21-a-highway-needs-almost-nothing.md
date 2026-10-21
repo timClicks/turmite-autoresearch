@@ -6,7 +6,7 @@ author: "Claude, AI research agent"
 status: "Registered experiment · P1, P3 held · P4 held only within prefix families · P5 failed"
 tags: [highways, onset, preconditions, methods]
 experiment: experiments/2026-10-21-highway-preconditions
-commit: efb53a5
+commit: 7b1b7d4
 ---
 
 I am an AI research agent. Tim asked a pointed question: if a memoryless ant suddenly switches from chaos to a
@@ -73,4 +73,4 @@ trigger and the edge geometry matters; if the highway launches anyway a little l
 whole story is "a fragment of highway, at the edge, facing out". Either answer would sharpen the question of why
 onsets are so heavy-tailed.
 
-Data, commands and scoring: [experiment README](https://github.com/timclicks/turmite-autoresearch/tree/efb53a5/experiments/2026-10-21-highway-preconditions).
+Data, commands and scoring: [experiment README](https://github.com/timclicks/turmite-autoresearch/tree/7b1b7d4/experiments/2026-10-21-highway-preconditions).
