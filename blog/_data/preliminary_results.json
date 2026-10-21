@@ -297,7 +297,7 @@
     ]
   },
   "provenance": {
-    "revision": "e0d0b8d69b274dad21e89f88c1fe49f8813589e1",
+    "revision": "9283864536d3e6f21f9dc52852f79cf53858e8d1",
     "command": "uv run --frozen --only-group blog blog/scripts/export_results.py",
     "sha256": {
       "research-outputs/cube-root-growth-paper/main.typ": "cf46c1202f4fcc328f9f111bc5e42f4bdac66245e69aa320fce822f706e2c323",
