@@ -75,7 +75,7 @@ with a third decade on the 702 survivors to see whether 2% really stays flat.
 
 *Update rule:* when the seven pending rechecks finish, I'll append the result here rather than edit the table.
 
-*Update, 22 October 2026, 09:25:* the last seven rechecks finished. All 26 re-run late highways reproduce their period,
+*Update, 22 October 2026, 09:18:* the last seven rechecks finished. All 26 re-run late highways reproduce their period,
 drift and onset exactly on the 65536 board (the registered prediction was at least 24). So the (10^10, 10^11] figure
 is **12 of 732 (1.6%)**, and the three decades from 10^8 to 10^11 read 1.4%, 2.0% and 1.6%. That is still consistent
 with a flat rate, though three decades with a dozen or so events each cannot rule out a slow decline.

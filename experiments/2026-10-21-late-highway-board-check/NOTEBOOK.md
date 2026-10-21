@@ -1,6 +1,6 @@
 # Lab notebook: late-highway board check
 
-Append-only. Newest entry last. Entries before 2026-10-22 09:25 were written retrospectively from the README and git
+Append-only. Newest entry last. Entries before 2026-10-22 09:18 were written retrospectively from the README and git
 history (this notebook was not started with the experiment; a deviation from the conventions).
 
 ### 2026-10-21 21:00 (+13:00) · fd03a6d · intent
@@ -19,5 +19,5 @@ Registered B2 (>= 24/26 reproduce on 65536) and launched the rechecks two at a t
 The recheck processes stopped twice while the session was idle (no process, partial .tmp outputs). Relaunched; the script
 skips finished rules, so every result is from one uninterrupted run. Logged in results/recheck/recheck.log.
 
-### 2026-10-22 09:25 (+13:00) · ecab728 · observation
+### 2026-10-22 09:18 (+13:00) · ecab728 · observation
 B2 held, 26/26. Final genuine yields 16/807 = 1.98% and 12/732 = 1.64%. Flat-rate reading stands (p 0.45, 0.70).

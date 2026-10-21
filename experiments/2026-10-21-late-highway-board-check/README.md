@@ -119,7 +119,7 @@ the board in the direction perpendicular to the drift (fillers fail this) and (i
 (`confirm` on a second board size; the ray fails this). The 1e8/1e9 sweeps have no full-board footprints, but (ii) was
 never applied to them.
 
-### Part 2 results, final (appended 2026-10-22 09:25 +13:00)
+### Part 2 results, final (appended 2026-10-22 09:18 +13:00)
 
 **B2 held: 26 of 26** re-run late highways reproduce the census period, drift and onset exactly on a 65536 board
 (`results/recheck/*.csv`; the run was interrupted twice and resumed, each rule ran uninterrupted from a blank board;
