@@ -3,7 +3,8 @@
 set -euo pipefail
 E=experiments/2026-10-21-late-highway-board-check
 cargo build --release --bin sweep_lean
-B=target/release/sweep_lean
+# Use the binary Cargo just built, wherever CARGO_TARGET_DIR points.
+B=${CARGO_TARGET_DIR:-target}/release/sweep_lean
 mkdir -p $E/results/recheck
 [ -f $E/results/recheck/recheck.log ] || echo "commit $(git rev-parse HEAD)" > $E/results/recheck/recheck.log
 echo "binary_sha256 $(sha256sum $B | cut -d' ' -f1) start $(date -Is)" >> $E/results/recheck/recheck.log

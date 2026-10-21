@@ -2,7 +2,8 @@
 # Full scan: build into a fresh target dir, log binary sha256, commit, command. Run from the repo root.
 set -euo pipefail
 E=experiments/2026-10-21-highway-preconditions
-export CARGO_TARGET_DIR=${CARGO_TARGET_DIR:-$HOME/turmite-target-hp}
+# A fresh target dir per run (AGENTS.md stale-build trap); the published run used one that was new at the time.
+export CARGO_TARGET_DIR=${CARGO_TARGET_DIR:-$(mktemp -d "$HOME/turmite-target-hp.XXXXXX")}
 cargo build --release --example highway_preconditions_scan
 B=$CARGO_TARGET_DIR/release/examples/highway_preconditions_scan
 {

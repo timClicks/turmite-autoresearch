@@ -30,7 +30,7 @@ The question is what is left.
 In every one of the 406 independent onsets (566 rules; rules that never use their later colours share a trajectory),
 the dependency set shrinks to the size of the highway's own trail. It reaches that level a median of a tenth of a
 period before the detector's onset. The smallest set before onset is the highway's trail plus a median of **three**
-cells. At that moment the ant is at the edge of its territory, pointing away from it (402 of 406).
+cells. Within about a quarter of a period after that, the ant is heading away from its territory (402 of 406).
 
 For Langton's ant that is 12 cells out of a territory of a few hundred. For `RRRRLR`, whose chaotic phase lasts
 1.8 × 10^8 steps, it is 25 cells out of a dependency of about 384,000.
@@ -78,3 +78,8 @@ Data, commands and scoring: [experiment README](https://github.com/timclicks/tur
 *Update, 22 October 2026:* the "54 late highways" mentioned above turned out to include 26 board artefacts (25 board
 fillers and one ray cut off by the board edge); see [Half the late highways were the edge of the board]({{ '/2026/10/22/half-the-late-highways-were-the-board/' | relative_url }}).
 The out-of-sample test should use only the genuine ones (21 confirmed so far, 7 being rechecked).
+
+*Correction, 22 October 2026:* an earlier version of this post said the ant points away from its territory "at that
+moment", i.e. at the pre-onset seed. The orientation was measured slightly later, at the minimum of the whole window
+(a median quarter of a period later), so the sentence now says so. The seed is also the smallest *sufficient* set the
+future depends on, not a proven minimal or necessary one; see the experiment README's clarifications.

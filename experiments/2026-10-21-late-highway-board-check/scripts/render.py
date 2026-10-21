@@ -5,12 +5,13 @@
 Rows: the filler RLRRRRL (k = 1 of the R^k L R R... series) on 1024 and 2048 boards, then the genuine highway
 RRRLLLRRRR (census onset 4,146,461, almost the filler's onset on 1024) on the same two boards. A filler's escape time
 grows with the board area and its footprint is the whole board; a genuine highway escapes from a central blob along
-one arm at the same onset on both boards. `--ray` adds RLLLRLRRR on the census 32768 board (5.7e9 steps, a few
+one arm, starting at the same step on both boards. `--ray` adds RLLLRLRRR on the census 32768 board (5.7e9 steps, a few
 minutes, 1 GB): the "highway" that is a ray inside its own territory (README part 1).
 
 Snapshots come from examples/late_highway_board_check_render.rs (deterministic, no seeds); intermediate .bin files go
 to scratch/render/, the figure to results/fillers_vs_highways.png.
 """
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -27,7 +28,9 @@ ROOT = Path(__file__).resolve().parents[3]
 EXP = Path(__file__).resolve().parents[1]
 SCRATCH = EXP / "scratch" / "render"
 OUT = EXP / "results" / "fillers_vs_highways.png"
-BIN = ROOT / "target/release/examples/late_highway_board_check_render"
+# Cargo builds into CARGO_TARGET_DIR when it is set (relative paths resolve against the build's working directory, ROOT).
+TARGET = ROOT / os.environ.get("CARGO_TARGET_DIR", "target")
+BIN = TARGET / "release/examples/late_highway_board_check_render"
 FINAL = 10**12  # "run until the ant leaves the board"
 
 # (label, rule, board, snapshot steps); the last snapshot is the escape.
@@ -93,7 +96,8 @@ def main() -> None:
                 ax.set_ylabel(label, fontsize=9, labelpad=8)
     fig.suptitle(
         "Board fillers vs genuine highways: a filler escapes only after covering the board (escape time grows with board area);\n"
-        "a genuine highway escapes from a central blob along one arm, at the same step on every board.  Red dot: the ant.",
+        "a genuine highway starts at the same step on every board and leaves a central blob along one arm (escaping later on\n"
+        "a bigger board only by the arm's extra length).  Red dot: the ant.",
         fontsize=10,
     )
     fig.tight_layout(rect=(0, 0, 1, 0.95))

@@ -234,3 +234,18 @@ Median effective survival by onset decade: 0.43 (1e2, n 69), 0.39 (1e3), 0.33 (1
 exactly right. Not yet a finding: needs a registered test (e.g. on the genuine late highways, onset 1e9-1e11, where the
 trend predicts median effective survival <= 0.17), and the confound that larger, longer-period highways are both later
 and (possibly) intrinsically less robust is not separated (survival vs h_min: -0.115; vs period: -0.080, weak).
+
+### Clarifications (appended 2026-10-22, after PR #4 review; earlier text is not edited)
+
+1. **P3 was measured at `tau*`, not at the pre-onset seed `tau_pre`.** The scan computes the territory centroid,
+   `cos_out` and `t_leave` after advancing to `tau*` (as registered). `tau*` follows `tau_pre` by a median of 0.24 periods
+   (p25 0.02, p75 0.73, p90 1.14, max 5.1; equal in 76 of 406 events). The Part 1 sentence "At that moment the ant is at
+   the territory's edge pointing out (P3)", and the summary "a short fragment of that highway plus a handful of cells, at
+   the edge, facing blank ground", attach the `tau*` geometry to the `tau_pre` seed. What was measured: the pre-onset seed
+   is the trail plus a median of 3 cells; within about a quarter of a period after it (at `tau*`), the ant is heading away
+   from its territory's centroid in 402 of 406 events. Orientation at `tau_pre` itself was not measured.
+2. **The seed is the smallest sufficient dependency set observed in the window, not a minimal or necessary one.**
+   Minimising `|D(tau)|` over time picks the moment at which the future depends on the fewest nonzero cells; every cell in
+   it is read again, so it is sufficient, but a cell's colour can be replaceable by blank without changing any later turn
+   (2,564 of 15,339 Part 2 knock-outs left the trajectory identical). "Precondition" in this README means this sufficient
+   set, not a proven necessary condition.
