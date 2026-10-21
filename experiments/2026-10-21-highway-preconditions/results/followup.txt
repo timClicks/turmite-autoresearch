@@ -1,0 +1,33 @@
+independent events with onset >= 1e3: 329
+spearman(     h_min, log10 onset) = 0.449
+spearman(     h_max, log10 onset) = 0.393
+spearman(     d_pre, log10 onset) = 0.428
+spearman(    period, log10 onset) = 0.461
+spearman(         n, log10 onset) = -0.120
+spearman(      dist, log10 onset) = 0.170
+spearman(     speed, log10 onset) = -0.543
+spearman(h_min_bits, log10 onset) = 0.435
+partial(h_min, onset | period)      = 0.160
+partial(h_min, onset | period, n)   = 0.159
+partial(period, onset | h_min)      = 0.196
+partial(h_min, onset | n)           = 0.443
+OLS log10 onset = 5.03 + 0.0180 h_min (h_min < 200, n 324)
+  h_min in [0,10): n   6, median log10 onset 3.77
+  h_min in [10,20): n 110, median log10 onset 4.38
+  h_min in [20,40): n 122, median log10 onset 5.83
+  h_min in [40,80): n  67, median log10 onset 6.66
+  h_min in [80,1000000): n  24, median log10 onset 6.63
+
+P4 classes: longest common prefix of member rules vs letters actually used
+  16 events, common prefix 'RLRLRLRR' (8 letters); used: ['RLRLRLRR', 'RLRLRLRRR', 'RLRLRLRRRL', 'RLRLRLRRRLL']...
+   8 events, common prefix 'RRLLRLR' (7 letters); used: ['RRLLRLR', 'RRLLRLRRRL', 'RRLLRLRRRLL', 'RRLLRLRRRLLL']...
+   6 events, common prefix 'RL' (2 letters); used: ['RL', 'RLRLRLRLRLL', 'RLRLRLRLRLLL', 'RLRLRLRLRLLR']...
+   5 events, common prefix 'RRLLRLRLL' (9 letters); used: ['RRLLRLRLL', 'RRLLRLRLLR', 'RRLLRLRLLRR', 'RRLLRLRLLRRL']...
+   4 events, common prefix 'RLRLRLRLR' (9 letters); used: ['RLRLRLRLR', 'RLRLRLRLRRL', 'RLRLRLRLRRLL', 'RLRLRLRLRRLR']...
+   4 events, common prefix 'RLRLLRLLRR' (10 letters); used: ['RLRLLRLLRR', 'RLRLLRLLRRR', 'RLRLLRLLRRRL', 'RLRLLRLLRRRR']...
+   3 events, common prefix 'RRRLLL' (6 letters); used: ['RRRLLL', 'RRRLLLRRRL', 'RRRLLLRRRL+']...
+   3 events, common prefix 'RRLRLLRRR' (9 letters); used: ['RRLRLLRRRLLR', 'RRLRLLRRRLRL', 'RRLRLLRRRRRL']...
+
+Seed keys shared by events whose rules do not share a 4-letter prefix
+  seed_key: 15 keys shared by >= 2 events; 0 of them across different 4-letter prefixes
+  pre_key: 12 keys shared by >= 2 events; 0 of them across different 4-letter prefixes

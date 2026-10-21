@@ -318,3 +318,12 @@ source/binary hashes and cases in results/native_v1/, results/native_report.json
 Next proposal is one coupled phase edit preserving two turns, to separate delayed
 future-clock release from accumulated geometry changes under repeated resets.
 It needs its own registration/oracle; no such causal branch test has run.
+
+## Added 2026-10-21: highway preconditions (causal seeds)
+
+`experiments/2026-10-21-highway-preconditions/`: in all 406 independent census highway onsets (<= 1e9) the future's
+dependence on the grid collapses, within about one period of onset, to a fragment of the highway itself plus a few cells
+(median 3) at the territory edge. Seeds are not shared across unrelated rules. Open, unregistered so far:
+- Q17. Why does onset time grow with highway size (self-overlap, period, slowness), at only ~0.018 decades per cell?
+  A random colour search would cost ~log10(n) decades per cell. What in the chaotic phase pre-builds highway fragments?
+- Q18. Are the "+3" non-highway cells of the pre-onset seed a trigger (knock-out kills the launch) or incidental?

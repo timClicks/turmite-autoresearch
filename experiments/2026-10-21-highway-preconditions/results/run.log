@@ -1,0 +1,19 @@
+commit f099f5ef411579b7e7b912245920417ca4e6373f
+binary_sha256 76d7bd34acd23264b11e3d40516c06b24086742ac1c9ec872989bba09e342d20
+threads all (4 cores)
+cmd /root/turmite-target-hp/release/examples/highway_preconditions_scan highway experiments/2026-10-21-highway-preconditions/results/highway_specs.txt experiments/2026-10-21-highway-preconditions/results
+cmd /root/turmite-target-hp/release/examples/highway_preconditions_scan control experiments/2026-10-21-highway-preconditions/results/control_specs.txt experiments/2026-10-21-highway-preconditions/results
+start 2026-10-21T07:08:01+00:00
+
+real	5m50.496s
+user	18m3.947s
+sys	1m24.294s
+
+real	0m0.622s
+user	0m0.632s
+sys	0m1.633s
+end 2026-10-21T07:13:52+00:00
+c9be823c56b8f60543371d34b6395cbeed24fa3a6a16386bd89edd174a8a1760  experiments/2026-10-21-highway-preconditions/results/control.csv
+49664d4a9ecd13d7c3edef4728e41ca08d2b5687775256bd06284652df1a4b25  experiments/2026-10-21-highway-preconditions/results/curves.csv
+4181f8bdeb137e0c6d8358fc5dc6cfca0527457858320f390c95540796366303  experiments/2026-10-21-highway-preconditions/results/events.csv
+ef3753d42ce06ec6b6d775edc5838f79da08d2d011971d52655f37b8d866a143  experiments/2026-10-21-highway-preconditions/results/seeds.tsv

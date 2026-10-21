@@ -1,0 +1,86 @@
+warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+rules scanned: 566; offboard: 0
+
+== Controls
+C2 transplant exact through t_end2: 566/566 = 1.000
+C2 seed size equals |D(tau*)|: 566/566 = 1.000
+C3 onset recomputed equals census: 566/566 = 1.000
+dedupe consistency (same tau*, seed key within a 'used' group): 406/406 = 1.000
+independent events: 406 (of 566 rules)
+C4 control rules ok: 20/20; their min D_delta over the window: [233, 234, 247, 248, 328, 631, 1637, 1792, 2057, 2106, 2113, 2168, 2425, 2433, 2529, 2590, 2590, 2704, 3035, 3297]
+C4 highway median D_delta(tau*) = 20.0; controls with min >= 10x that: 20/20 = 1.000
+C4 holds
+
+== Descriptive (independent events)
+       onset: 38 202 2762 1.24e+05 3.556e+06 3.654e+07 9.007e+08   (min p10 p25 median p75 p90 max)
+      period: 18 68 111.5 182 368 766 4970   (min p10 p25 median p75 p90 max)
+      d_star: 1 8 12 20 35 56.5 1496   (min p10 p25 median p75 p90 max)
+       h_min: 2 8 12 20.5 36 61.5 2101   (min p10 p25 median p75 p90 max)
+       h_max: 6 16 25 35 58 94 2181   (min p10 p25 median p75 p90 max)
+      excess: -605 -2 0 0 0 0 0   (min p10 p25 median p75 p90 max)
+     d_onset: 4 13 17 28.5 47.75 77.5 2135   (min p10 p25 median p75 p90 max)
+       d_pre: 1 11 16 25 40 64 1496   (min p10 p25 median p75 p90 max)
+  pre_excess: -605 -2 1.25 3 6 10.5 60   (min p10 p25 median p75 p90 max)
+    star_rel: -34.22 -0.787 0.02024 0.125 0.3006 0.6429 1.587   (min p10 p25 median p75 p90 max)
+     pre_rel: -34.22 -1.4 -0.7195 -0.1191 0 0 0   (min p10 p25 median p75 p90 max)
+  launch_rel: -40.19 -0.75 -0.3086 -0.1094 -0.03829 -0.00695 1   (min p10 p25 median p75 p90 max)
+   leave_rel: 0.2811 0.9857 1.861 2.986 6.048 14.85 74.92   (min p10 p25 median p75 p90 max)
+word_letters: 4 32 58 113 211.8 366 5744   (min p10 p25 median p75 p90 max)
+tau* before onset: 76/406 = 0.187  tau* in highway phase (excess 0): 333/406 = 0.820
+pre-onset seed equal to h_min: 10/406 = 0.025 ; <= 5: 297/406 = 0.732
+
+== P1 collapse (onset >= 1e4, chaos level defined)
+eligible 265; excluded (onset >= 1e4, no chaos level): 0
+ratio <= 0.1: 257/265 = 0.970 ; median ratio 0.002285; max 0.3406
+P1 HOLDS
+
+== P2 excess |D(tau*)| - h_min, median <= 10
+median excess 0.0
+P2 HOLDS (caveat: tau* after onset makes this trivially 0; see pre-onset excess above)
+
+== P3 frontier and outward
+cos_out > 0: 402/406 = 0.990 ; leaves old bbox within 50 periods: 400/406 = 0.985
+P3 HOLDS
+
+== P4 shared seeds within highway classes (classes with >= 3 independent events)
+classes: 8; with modal seed share >= 0.5: 7/8 = 0.875
+P4 HOLDS
+shape: (8, 6)
+┌────────┬────────┬──────────┬───────┬──────────┬──────────────────────────────────────────────────┐
+│ period ┆ events ┆ distinct ┆ modal ┆ share    ┆ example_rules                                    │
+│ ---    ┆ ---    ┆ ---      ┆ ---   ┆ ---      ┆ ---                                              │
+│ i64    ┆ u32    ┆ u32      ┆ u32   ┆ f64      ┆ list[str]                                        │
+╞════════╪════════╪══════════╪═══════╪══════════╪══════════════════════════════════════════════════╡
+│ 88     ┆ 16     ┆ 2        ┆ 15    ┆ 0.9375   ┆ ["RLRLRLRR", "RLRLRLRRR", … "RLRLRLRRRLL"]       │
+│ 42     ┆ 8      ┆ 2        ┆ 7     ┆ 0.875    ┆ ["RRLLRLR", "RRLLRLRRRL", … "RRLLRLRRRLLL"]      │
+│ 104    ┆ 6      ┆ 2        ┆ 5     ┆ 0.833333 ┆ ["RL", "RLRLRLRLRLL", … "RLRLRLRLRLLR"]          │
+│ 46     ┆ 5      ┆ 2        ┆ 4     ┆ 0.8      ┆ ["RRLLRLRLL", "RRLLRLRLLR", … "RRLLRLRLLRRL"]    │
+│ 100    ┆ 4      ┆ 3        ┆ 2     ┆ 0.5      ┆ ["RLRLLRLLRR", "RLRLLRLLRRR", … "RLRLLRLLRRRR"]  │
+│ 108    ┆ 4      ┆ 2        ┆ 2     ┆ 0.5      ┆ ["RLRLRLRLR", "RLRLRLRLRRL", … "RLRLRLRLRRLR"]   │
+│ 38     ┆ 3      ┆ 2        ┆ 2     ┆ 0.666667 ┆ ["RRRLLL", "RRRLLLRRRL", "RRRLLLRRRLL"]          │
+│ 196    ┆ 3      ┆ 3        ┆ 1     ┆ 0.333333 ┆ ["RRLRLLRRRLLR", "RRLRLLRRRLRL", "RRLRLLRRRRRL"] │
+└────────┴────────┴──────────┴───────┴──────────┴──────────────────────────────────────────────────┘
+(exploratory) pre-onset seed: classes with modal share >= 0.5: 4/8 = 0.500
+shape: (8, 5)
+┌────────┬────────┬──────────┬───────┬──────────┐
+│ period ┆ events ┆ distinct ┆ modal ┆ share    │
+│ ---    ┆ ---    ┆ ---      ┆ ---   ┆ ---      │
+│ i64    ┆ u32    ┆ u32      ┆ u32   ┆ f64      │
+╞════════╪════════╪══════════╪═══════╪══════════╡
+│ 88     ┆ 16     ┆ 10       ┆ 4     ┆ 0.25     │
+│ 42     ┆ 8      ┆ 5        ┆ 3     ┆ 0.375    │
+│ 104    ┆ 6      ┆ 5        ┆ 2     ┆ 0.333333 │
+│ 46     ┆ 5      ┆ 3        ┆ 3     ┆ 0.6      │
+│ 100    ┆ 4      ┆ 3        ┆ 2     ┆ 0.5      │
+│ 108    ┆ 4      ┆ 2        ┆ 2     ┆ 0.5      │
+│ 38     ┆ 3      ┆ 2        ┆ 2     ┆ 0.666667 │
+│ 196    ┆ 3      ┆ 3        ┆ 1     ┆ 0.333333 │
+└────────┴────────┴──────────┴───────┴──────────┘
+distinct highway keys over all independent events: 343
+
+== P5 Spearman(excess, log10 onset), onset >= 1e3
+      excess: rho -0.063 (p 0.25), n 329   <- registered
+  pre_excess: rho 0.040 (p 0.48), n 329   (exploratory)
+       d_pre: rho 0.428 (p 4.3e-16), n 329   (exploratory)
+       h_min: rho 0.449 (p 9.1e-18), n 329   (exploratory)
+P5 FAILS

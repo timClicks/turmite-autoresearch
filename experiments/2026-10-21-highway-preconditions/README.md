@@ -86,7 +86,19 @@ The 54 late highways (onsets 1e9 to 8e10) are a later stage if this one is infor
 
 ## Commands
 
-(To be filled in when run.)
+From the repo root (cloud container, 4 cores, cargo 1.97; total 6 min):
+
+```bash
+E=experiments/2026-10-21-highway-preconditions
+cargo test --release --test seed                                   # C1
+uv run --frozen $E/scripts/make_specs.py                           # results/highway_specs.txt, control_specs.txt
+bash $E/scripts/run_scan.sh                                        # events.csv, seeds.tsv, curves.csv, control.csv; run.log
+uv run --frozen $E/scripts/analyse.py  > $E/results/analysis.txt   # controls and P1-P5 as registered
+uv run --frozen $E/scripts/followup.py > $E/results/followup.txt   # post hoc checks (no registered predictions)
+```
+
+`run.log` holds the commit (`f099f5e`), binary sha256, command lines, timings and output sha256. Fully deterministic:
+no randomness; rayon output is in spec order (`events.csv` per rule; columns documented in the example's header).
 
 ## Results
 
@@ -106,3 +118,57 @@ highway. Then P2 is met trivially and P4 partly tautologically (the same highway
 the question about *preconditions* honest, the scan also reports the **pre-onset seed**: `tau_pre` = earliest argmin
 of `|D|` over `[lo, t_on]`, its size, its excess over `h_min`, and its seed key. These are exploratory; no prediction
 is attached to them, and P2/P4 are scored as registered (on `tau*`) with this caveat stated next to the score.
+
+### Results (appended 2026-10-21 20:25 +13:00; the registration above is not edited)
+
+566 primitive highway rules, all on board (<= 16384); **406 independent events** (rules sharing the colours reached
+are one trajectory; all 160 duplicates have identical `tau*` and seed key, checked).
+
+| Item | Outcome | Numbers (`results/analysis.txt`) |
+|---|---|---|
+| C1 oracle | **Passed** | 5 tests, proptest vs `reference::Ant` brute force |
+| C2 transplant | **Passed** | 566/566 exact from `tau*` to `T_end + 200p`; seed size = `|D(tau*)|` 566/566 |
+| C3 onset | **Passed** | 566/566 equal census |
+| C4 chaotic baseline | **Passed** | control minima 233-3297 vs highway median `D_delta(tau*)` = 20 (all >= 10x) |
+| P1 collapse | **Held** | 257/265 = 97.0% have ratio <= 0.1; median ratio 0.0023 (max 0.34) |
+| P2 small excess | **Held, trivially** | median excess 0: `tau*` falls in the highway phase for 82% of events (caveat registered in Deviation 1) |
+| P3 frontier, outward | **Held** | cos > 0 for 402/406 (99.0%); leaves the old box within 50 periods for 400/406 (median 3.0 periods) |
+| P4 shared seeds | **Held as registered, but it is a prefix-family effect** | 7/8 classes have modal share >= 0.5; every class is one prefix family (below) |
+| P5 excess vs onset | **Failed** | Spearman -0.063 (p 0.25, n 329) |
+
+**What the seed is.** The dependency of the whole future on the grid collapses from thousands of cells to the size of
+the highway's own trail, and it does so late and fast: `|D|` first drops to the highway level (`launch`) a median 0.11
+periods before the census onset (p10 0.75 periods; one event 40). The **pre-onset seed** (exploratory; Deviation 1) is
+the highway's own minimum overlap plus a median of **3 cells** (p75 6, p90 10.5; 73% within 5 cells); median size 25
+cells against a chaotic level of ~10^3-10^5. At that moment the ant is at the territory's edge pointing out (P3). So
+the precondition of a highway, in every one of the 406 events, is *a short fragment of that highway plus a handful of
+cells, at the edge, facing blank ground*. Nothing deep in the old pattern is needed.
+
+**P4 is not evidence of shared preconditions across unrelated rules** (`results/followup.txt`, post hoc): every one of
+the 8 classes is a family with a long common prefix (`RLRLRLRR...` 16 events, `RRLLRLR...` 8, `RL...` 6, ...). Across
+rules that differ within their first 4 letters, **0** seed keys and **0** pre-onset keys are shared, and the 406 events
+build 343 distinct highways. At `tau*` the shared key is close to tautological (82% of seeds are the running highway's
+own trail, so same highway, same seed). Before onset, families mostly do **not** share seeds (pre-onset modal share
+>= 0.5 in 4/8 classes; 10 distinct pre-onset seeds among 16 events of the period-88 family): different chaotic histories
+reach the same highway through different last few cells. The highway is an attractor; the grid route into it is not
+a common template.
+
+**What does predict onset time (post hoc, not registered).** Not the excess (P5) but the size of the highway itself:
+Spearman with log10 onset is 0.45 for `h_min` (highway self-overlap), 0.46 for period, -0.54 for speed (displacement
+per step). `h_min` and period are largely one factor (partial correlation of `h_min` given period 0.16, of period given
+`h_min` 0.20). Median log10 onset by `h_min` bin: 3.8 (<10 cells, n 6), 4.4 (10-20, n 110), 5.8 (20-40, n 122), 6.7
+(40-80, n 67), 6.6 (>= 80, n 24). OLS: about 0.018 decades of waiting per extra overlap cell. Rule length does not
+carry it (Spearman with n: -0.12).
+
+Interpretation (confidence moderate; alternatives not excluded): a highway starts when the ant happens to lay down a
+fragment of it on the edge. If the fragment's cells had to come out of an unstructured random search, each extra cell
+would cost a factor of about n (0.3-1 decades); the observed cost is 0.018 decades per cell, about 50 times flatter. So
+the chaotic phase is not a random search over colours. It already produces highway-like pieces, and the bigger and
+slower the highway, the longer the ant takes to produce enough of one at the right place. Alternatives not excluded:
+(i) the dependence on highway size is a census selection effect (slow, long-period highways may also be harder to
+detect early); (ii) `h_min` is a proxy for the highway's "basin" in some other sense, e.g. how many different edges it
+can grow from; (iii) the 0.018 slope is dominated by between-family differences (406 events are not 406 independent
+mechanisms when families are large).
+
+Not done: `notebook.ipynb` (the shareable notebook required by the conventions) has not been written; the 54 late
+highways (onset 1e9-8e10) are not scanned; no intervention tests (does removing one of the "+3" cells abort the launch?).
