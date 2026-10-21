@@ -79,3 +79,13 @@ artefact class of non-negligible size. Confidence ~70%.
 ```bash
 bash experiments/2026-10-21-late-highway-board-check/scripts/recheck.sh   # results/recheck/RULE.csv, recheck.log
 ```
+
+## Figure: board fillers vs genuine highways (added 2026-10-21)
+
+`uv run experiments/2026-10-21-late-highway-board-check/scripts/render.py [--ray]` builds
+`examples/late_highway_board_check_render.rs`, runs it (snapshots in `scratch/render/`, ~15 s) and writes
+`results/fillers_vs_highways.png`. Rows: the filler `RLRRRRL` on 1024 and 2048 boards (a growing square that covers
+99% of the board before it leaves, at 4.15e6 and 1.67e7 steps: x4 for x2 board), then the genuine highway `RRRLLLRRRR`
+(census onset 4,146,461) on the same boards (a blob covering 3.7% / 1.1% of the board, leaving along one diagonal arm
+at 4.26e6 / 4.39e6, the difference being only the arm's extra length to the bigger board's corner). `--ray` adds
+`RLLLRLRRR` on the 32768 board (5.7e9 steps). Deterministic; no seeds.
