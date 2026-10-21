@@ -26,8 +26,10 @@ uv run experiments/2026-10-21-rlrlll-portrait/scripts/render.py     # frames -> 
 `scripts/times.txt` lists the snapshot steps: every 5e8 to 1.25e10, three just before the switch, then every 1e7
 from 1.268e10 to 1.297e10, plus one at the step the ant leaves the board.
 
-`scripts/figure.py` then draws `results/portrait.png` (homepage card 09) and `results/territory_map.png` from
-`results/` alone. `blog/scripts/export_results.py` copies the portrait to `blog/assets/results/rlrlll_portrait.png`.
+`scripts/figure.py` then draws `results/portrait.png`, `results/territory_map.png` (the map alone) and
+`results/portrait_details.png` (panels b and c) from `results/` alone, and records each snapshot's colour in
+`results/figure.json`. The homepage card shows an interactive map: the browser redraws `arrival_b16.png` with those
+colours for any chosen snapshot, and at the last snapshot it matches `territory_map.png` pixel for pixel. `blog/scripts/export_results.py` copies the portrait to `blog/assets/results/rlrlll_portrait.png`.
 
 ## Results (2026-10-21)
 

@@ -22,7 +22,9 @@ SOURCES = ["main.typ", "numbers.json", "recent_findings.json", "kappa_prediction
            "supplementary/walker-reference/walker_reference.csv"]
 FORECAST = "experiments/2026-10-13-transport-forecast/results/transport_forecast.json"
 # Homepage-only figures drawn from experiment results rather than the manuscript: name -> committed source.
-EXTRA_IMAGES = {"rlrlll_portrait": "experiments/2026-10-21-rlrlll-portrait/results/portrait.png"}
+PORTRAIT = "experiments/2026-10-21-rlrlll-portrait/results"
+EXTRA_IMAGES = {"rlrlll_portrait": f"{PORTRAIT}/portrait.png", "rlrlll_details": f"{PORTRAIT}/portrait_details.png",
+                "rlrlll_map": f"{PORTRAIT}/territory_map.png", "rlrlll_arrival": f"{PORTRAIT}/arrival_b16.png"}
 
 
 def git(*args):
@@ -31,9 +33,19 @@ def git(*args):
     return subprocess.check_output(["git", "-c", "core.filemode=false", *args], cwd=ROOT, text=True).strip()
 
 
+def sweeper(frames_path, figure_path):
+    """Saved snapshot times, exact visited-cell counts and figure colours for card 09's time slider."""
+    frames, fig = json.loads(frames_path.read_text()), json.loads(figure_path.read_text())
+    assert len(fig["frame_colours"]) == len(frames["frames"])
+    return {"switch_t": fig["switch_t"], "block": frames["block"], "width_cells": frames["bbox_cells"]["w"],
+            "t": [f["t"] for f in frames["frames"]], "visited": [f["visited_cells"] for f in frames["frames"]],
+            "colours": fig["frame_colours"]}
+
+
 def export():
     image_sources = {p: PAPER / f"fig/{p}.png" for p in IMAGES} | {k: ROOT / v for k, v in EXTRA_IMAGES.items()}
-    inputs = [PAPER / p for p in SOURCES] + [ROOT / FORECAST] + list(image_sources.values())
+    portrait = [ROOT / PORTRAIT / "frames.json", ROOT / PORTRAIT / "figure.json"]
+    inputs = [PAPER / p for p in SOURCES] + [ROOT / FORECAST] + portrait + list(image_sources.values())
     paths = [p.relative_to(ROOT).as_posix() for p in inputs]
     if git("status", "--porcelain", "--", *paths):
         raise SystemExit("Commit scientific inputs before exporting homepage results")
@@ -66,6 +78,7 @@ def export():
             "ant_raw": None,
             "walkers": groups, "forecast_reduction_pct": round(100 * forecast["reduction"], 1),
             "forecast_rules": forecast["rules"], "onset_billions": round(n["g1"]["onset_t"] / 1e9, 1),
+            "sweeper": sweeper(*portrait),
             "provenance": {"revision": git("log", "-1", "--format=%H", "--", *paths),
                            "command": "uv run --frozen --only-group blog blog/scripts/export_results.py",
                            "sha256": {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}}}

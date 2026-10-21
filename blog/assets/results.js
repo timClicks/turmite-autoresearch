@@ -1,7 +1,73 @@
 /* Illustrations evaluate stated assumptions or display saved measurements.
-   No simulation, fitted estimator, animation or network request runs here. */
+   No simulation, fitted estimator or animation runs here. The only request is
+   card 09's saved arrival map, a same-site image. */
 (function () {
   'use strict';
+  const billions = t => (t / 1e9).toFixed(2);
+  const millions = n => (n / 1e6).toFixed(1);
+  // Readout for snapshot k of card 09's RLRLLL run (data.sweeper from export_results.py).
+  function sweeperLabel(sw, k) {
+    const t = sw.t[k], cells = `${millions(sw.visited[k])} million cells visited`;
+    return t <= sw.switch_t
+      ? `Step ${billions(t)} billion · still a blob · ${cells}`
+      : `Step ${billions(t)} billion · sweeping for ${t - sw.switch_t < 1e8
+        ? `${millions(t - sw.switch_t)} million` : `${billions(t - sw.switch_t)} billion`} steps · ${cells}`;
+  }
+  // Draw only once the browser can decode the map without colour conversion; the
+  // static image and caption stay in place otherwise.
+  function initSweeper(document, sw) {
+    const win = document.defaultView, get = id => document.getElementById(id);
+    const figure = get('sweeper-map');
+    if (!figure || typeof win.createImageBitmap !== 'function') return;
+    const canvas = get('sweeper-canvas'), slider = get('sweeper-frame');
+    const progress = get('sweeper-progress'), readout = get('sweeper-readout');
+    const palette = sw.colours.map(hex => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16)));
+    const end = sw.t[sw.t.length - 1];
+    const image = new win.Image();
+    image.src = figure.dataset.arrival;
+    image.decode()
+      .then(() => win.createImageBitmap(image, { colorSpaceConversion: 'none', premultiplyAlpha: 'none' }))
+      .then(bitmap => {
+        const { width, height } = bitmap;
+        const scratch = document.createElement('canvas');
+        scratch.width = width; scratch.height = height;
+        const sctx = scratch.getContext('2d', { willReadFrequently: true });
+        sctx.drawImage(bitmap, 0, 0);
+        const grey = sctx.getImageData(0, 0, width, height).data;
+        // The PNG rows run from low y to high y; the figure shows high y at the top.
+        const arrival = new Uint8Array(width * height);
+        for (let y = 0; y < height; y++)
+          for (let x = 0; x < width; x++)
+            arrival[(height - 1 - y) * width + x] = grey[4 * (y * width + x)];
+        if (arrival.some(a => a > sw.t.length)) throw new Error('arrival map does not match the snapshot list');
+        canvas.width = width; canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        const frame = ctx.createImageData(width, height);
+        function draw(k) {
+          const px = frame.data;
+          for (let i = 0; i < arrival.length; i++) {
+            const a = arrival[i];
+            if (a > 0 && a - 1 <= k) {
+              const c = palette[a - 1];
+              px[4 * i] = c[0]; px[4 * i + 1] = c[1]; px[4 * i + 2] = c[2]; px[4 * i + 3] = 255;
+            } else px[4 * i + 3] = 0;
+          }
+          ctx.putImageData(frame, 0, 0);
+          const label = sweeperLabel(sw, k);
+          readout.textContent = label;
+          slider.setAttribute('aria-valuetext', label);
+          progress.style.width = `${(100 * sw.t[k] / end).toFixed(2)}%`;
+          progress.classList.toggle('is-sweeping', sw.t[k] > sw.switch_t);
+          progress.style.setProperty('--switch', `${(100 * sw.switch_t / sw.t[k]).toFixed(2)}%`);
+        }
+        slider.addEventListener('input', () => draw(Number(slider.value)));
+        draw(Number(slider.value));
+        canvas.hidden = false;
+        get('sweeper-fallback').hidden = true;
+        figure.querySelector('.sweeper-controls').hidden = false;
+      })
+      .catch(() => {});
+  }
   function init(document) {
     const root = document.querySelector('.preliminary-results');
     if (!root) return;
@@ -38,7 +104,8 @@
     }
     toggle.addEventListener('click', () => { adjusted = !adjusted; showOccupation(); }); showOccupation();
     root.querySelectorAll('.result-controls, .result-toggle').forEach(el => { el.hidden = false; });
+    initSweeper(document, data.sweeper);
   }
-  if (typeof module !== 'undefined') module.exports = { init };
+  if (typeof module !== 'undefined') module.exports = { init, sweeperLabel };
   if (typeof document !== 'undefined') init(document);
 })();

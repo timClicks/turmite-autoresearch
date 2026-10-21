@@ -29,3 +29,10 @@ on linear axes rather than the log-scale steps-per-new-cell plot of the manuscri
 ### 2026-10-21 18:10 (+13:00) · cb05c24 · decision
 The homepage card shows this portrait; the manuscript keeps `late_switch.pdf` unchanged, and the card links to it
 for the quantitative panels (onset statistic, sweep traverse, d|x|²/dt check).
+
+### 2026-10-21 18:32 (+13:00) · e0d0b8d · observation
+Homepage time slider for card 09 built on `arrival_b16.png` plus per-snapshot colours. Headless Chromium (412 px,
+1280 px dark, JavaScript off): at the last snapshot the canvas equals `territory_map.png` on all 1138 × 626 pixels
+(326,985 opaque); no console errors; no horizontal overflow; without JavaScript the static map and caption remain.
+The slider's stops are the snapshots, so it is not linear in time; a linear timeline bar under it shows the sweep as
+the last 2.3% of the run.
