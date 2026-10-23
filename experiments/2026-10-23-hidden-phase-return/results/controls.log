@@ -1,0 +1,46 @@
+   Compiling libc v0.2.190
+   Compiling cfg-if v1.0.5
+   Compiling crossbeam-utils v0.8.23
+   Compiling getrandom v0.3.4
+   Compiling crossbeam-epoch v0.9.21
+   Compiling rustix v1.1.5
+   Compiling getrandom v0.4.3
+   Compiling crossbeam-deque v0.8.8
+   Compiling zerocopy v0.8.62
+   Compiling autocfg v1.5.1
+   Compiling bitflags v2.13.2
+   Compiling rayon-core v1.13.0
+   Compiling once_cell v1.21.4
+   Compiling fastrand v2.5.0
+   Compiling bit-vec v0.8.0
+   Compiling quick-error v1.2.3
+   Compiling fnv v1.0.7
+   Compiling either v1.19.0
+   Compiling lz4_flex v0.14.0
+   Compiling bit-set v0.8.0
+   Compiling regex-syntax v0.8.11
+   Compiling unarray v0.1.4
+   Compiling num-traits v0.2.19
+   Compiling errno v0.3.14
+   Compiling wait-timeout v0.2.1
+   Compiling rand_core v0.9.5
+   Compiling rand_xorshift v0.4.0
+   Compiling rand v0.9.5
+   Compiling rayon v1.12.0
+   Compiling tempfile v3.27.0
+   Compiling rusty-fork v0.3.1
+   Compiling turmite v0.1.0 (/Users/rob/.t3/scratch/2026-10-23-this-looks-like-an-interesting-4087901e/turmite-autoresearch)
+   Compiling ppv-lite86 v0.2.21
+   Compiling rand_chacha v0.9.0
+   Compiling proptest v1.11.0
+    Finished `release` profile [optimized] target(s) in 10.33s
+     Running unittests examples/hidden_phase_return.rs (experiments/2026-10-23-hidden-phase-return/scratch/build-1792755821583780000/release/build/turmite/78ed1e5e799f51ce/out/hidden_phase_return-78ed1e5e799f51ce)
+
+running 4 tests
+test tests::one_interior_cell_returns_in_one_step_including_at_cap ... ok
+test tests::equivalent_nonprimitive_phases_change_colours_but_not_paths ... ok
+test tests::first_difference_is_detected_on_a_revisit_not_on_first_read ... ok
+test tests::shuffled_replays_match_sparse_oracle_and_preserve_prefixes ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

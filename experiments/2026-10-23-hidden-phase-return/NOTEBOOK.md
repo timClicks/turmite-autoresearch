@@ -30,3 +30,46 @@ or flake exists. Rust 1.100.0-beta.4, macOS arm64, locked dependencies. Resource
 inspection via ps was sandbox-blocked; three workers is a conservative cap.
 No scientific outcome inspected yet. The fresh build runner logs binary/source
 hashes and refuses to overwrite existing measurements.
+
+### 2026-10-23 11:43 UTC · bcfceeb · deviation
+Corrects the two preceding 11:45 timestamps: those labels were written from an
+estimated clock and are two minutes ahead. The actual freeze commit completed
+at 11:43 UTC; all controls were already run. Registration and instrument commits
+precede the pilot. Subsequent entries use the system clock directly.
+
+### 2026-10-23 11:44 UTC · bcfceeb · observation
+scripts/run.py finished the 12-start pilot and complete one-thread replication:
+24 CSV files match. Frozen analyze.py: 9,680 departures, 160 sampled, 3,200
+replays. All baseline and replay censor counts zero. Support fails in 17/24
+groups; P1 fails in two of six rule/band cells. Report the registered stop,
+not a larger run. Full CPU release suite also completed successfully.
+
+### 2026-10-23 11:48 UTC · bcfceeb · interpretation
+Independent source critique found no clear simulation bug. Incorporate its
+limits: effect ratios are not information fractions; long-baseline selection
+limits signed effects; equal-start summaries can rest on one episode; live
+agreement checks endpoints, not full live paths. Add whole-field edit fractions
+and signed effects to a supplemental report without altering frozen analysis.
+Cite the earlier c-law delayed-phase proposal; the prefix idea is not novel.
+
+### 2026-10-23 11:48 UTC · bcfceeb · observation
+Post hoc witness chosen by maximum k=1 shortening: RLLLRRLRLL, seed 2026102304,
+t0=759018, 86030 -> 6 steps. Independent sparse Python checker recreated the
+full patched-start trajectory, permutation and returns. Split on read 2 of
+(-54,-65), phase 5 -> 4 (RL vs RR). This is a checked example under a many-cell
+shuffle, not a single-cell attribution. Output results/witness.json.
+
+### 2026-10-23 11:48 UTC · bcfceeb · decision
+Stop as registered. No pruning signature because the support gate failed; no
+family exclusion. Preserve the narrower counterexample to exact next-turn-map
+sufficiency on edited fields. Write the shareable notebook, reader-facing account
+and PR with the failed thresholds alongside the observation.
+
+### 2026-10-23 11:52 UTC · bcfceeb · observation
+The shareable notebook executed from a fresh kernel and reproduced the frozen
+analysis exactly, including CSV hash checks. Kernel startup required local socket
+access outside the sandbox. The CPU release suite passed. Strict Clippy failed
+on 35 warnings in existing library modules before checking the new example;
+ordinary Clippy completed with advisory warnings. No unrelated cleanup was made.
+The local Ruby is 2.6, below the blog's Ruby 3.3 requirement, so a full Jekyll
+build is not available through that toolchain. Python publication checks follow.
