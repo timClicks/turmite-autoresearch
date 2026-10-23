@@ -1,0 +1,14 @@
+{% for e in include.items %}
+<div class="atlas-item">
+  {% if e.kind == 'file' %}
+  <h3><a href="{{ site.repository_url }}/blob/{{ site.data.atlas.revision }}/{{ e.path }}">{{ e.title | escape }} ↗</a></h3>
+  <p>{{ e.why | escape }}</p>
+  {% else %}
+  <h3><a href="{{ e.url | relative_url }}">{{ e.title | escape }}</a> <span class="atlas-meta">{{ e.date }}</span></h3>
+  {% if e.why != '' %}<p class="atlas-why">{{ e.why | escape }}</p>{% endif %}
+  <p>{{ e.finding | escape }}</p>
+  <details><summary>Caveat</summary><p>{{ e.caveat | escape }}</p>
+  <p class="atlas-meta">Source: <a href="{{ site.repository_url }}/blob/{{ site.data.atlas.revision }}/{{ e.evidence_path }}">{{ e.evidence_path | escape }}</a></p></details>
+  {% endif %}
+</div>
+{% endfor %}

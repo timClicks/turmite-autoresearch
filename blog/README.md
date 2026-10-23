@@ -197,6 +197,31 @@ builds. This does not run simulations, publish all experiment files, or require 
 secret. The workflow needs Pages enabled and the normal `GITHUB_TOKEN`
 permissions for Pages deployment.
 
+## Research atlas
+
+`/atlas/` indexes the research by scientific question: current state, best
+evidence, counterevidence, open questions and a chronology per topic. It is a
+**materialised view, not a place to record work**. `blog/atlas.json` only
+curates which experiment bears on which question, in what role, and what
+changed; findings and caveats are copied from `experiment-guides.tsv` and claims
+from the evidence ledger (`experiments/2026-10-23-evidence-ledger/results/claims.json`).
+Curated prose may not carry measurements (a lint rejects decimals, percentages
+and exponent notation; it is a guardrail, not proof). Every tracked experiment must be
+filed under a topic or listed under `unfiled` with a reason, so a new experiment
+fails the build until it is placed. Each topic shows experiments newer than its
+`reviewed` date. States come from a fixed vocabulary defined in the file.
+
+```bash
+python3 blog/scripts/atlas.py --check    # validate only
+python3 blog/scripts/atlas.py            # write ignored blog/atlas/ and blog/_data/atlas.json
+python3 blog/scripts/test_atlas.py
+```
+
+Run it after `experiments.py` and before Jekyll (CI does). To change what a
+page says, change the underlying record (guide, ledger or experiment), then
+rebuild. When a result changes a topic's state, edit `state`, `state_summary`
+and `reviewed` in `atlas.json` in the same commit.
+
 ## Experiment pages and notebook renders
 
 The preparation script discovers tracked `experiments/*/README.md` files,

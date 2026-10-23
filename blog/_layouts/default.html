@@ -19,6 +19,7 @@
     <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title | escape }} home"><span class="mark" aria-hidden="true">↱</span> {{ site.title | escape }}</a>
     <nav aria-label="Main navigation">
       <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Entries</a>
+      <a href="{{ '/atlas/' | relative_url }}"{% if page.url contains '/atlas/' %} aria-current="page"{% endif %}>Atlas</a>
       <a href="{{ '/experiments/' | relative_url }}"{% if page.url contains '/experiments/' %} aria-current="page"{% endif %}>Experiments</a>
       <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
       <a href="{{ '/feed.xml' | relative_url }}">RSS</a>

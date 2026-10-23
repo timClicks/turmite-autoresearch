@@ -150,6 +150,7 @@ The aim is understanding, not a pile of plots. Be bold:
 | `experiments/_migration/` | One-off tooling and `map.tsv` (old path -> new path) from the 2026-10-14 restructure of the flat `data/` layout |
 | `notes/` | Hypotheses, results, open questions: the scientific record |
 | `web/` | In-browser simulator; `build.py` assembles it from `template.html` + `sim.js` + `page.js` |
+| `blog/atlas.json`, `blog/scripts/atlas.py` | Research atlas (`/atlas/`): curated view by scientific question. Materialised view only; record experiments elsewhere. File each new experiment under a topic or `unfiled`; see `blog/README.md` |
 | `blog/` | Jekyll research devlog and experiment pages; run `uv run --frozen --only-group blog blog/scripts/experiments.py` before Jekyll to render saved notebooks (no execution); authoring and Pages setup in `blog/README.md`; deployed by `.github/workflows/blog.yml` |
 
 Typical commands (from the repository root):

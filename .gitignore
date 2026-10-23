@@ -33,3 +33,5 @@ experiments/*/synth/
 /blog/_deploy.yml
 /blog/experiments/
 /blog/_data/experiments.json
+/blog/atlas/
+/blog/_data/atlas.json

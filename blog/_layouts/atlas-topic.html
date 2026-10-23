@@ -1,0 +1,83 @@
+---
+layout: default
+---
+{% assign atlas = site.data.atlas %}
+{% for candidate in atlas.topics %}{% if candidate.slug == page.topic %}{% assign t = candidate %}{% endif %}{% endfor %}
+<article class="experiment atlas-topic">
+  <header class="entry-header">
+    <a class="back-link" href="{{ '/atlas/' | relative_url }}">← Research atlas</a>
+    <p class="eyebrow">Atlas / <span class="state-badge state-{{ t.state }}">{{ t.state_label | escape }}</span></p>
+    <h1>{{ t.question | escape }}</h1>
+    <p class="dek">{{ t.state_summary | escape }}</p>
+    <p class="atlas-meta">Reviewed {{ t.reviewed }} · {{ t.experiment_count }} experiments filed · latest {{ t.newest_evidence }}. {{ t.state_meaning | escape }}</p>
+    {% if t.newer_than_review.size > 0 %}
+    <aside class="atlas-stale" role="note"><strong>Newer than this review:</strong>
+      {% for n in t.newer_than_review %}<a href="{{ n.url | relative_url }}">{{ n.title | escape }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}. The state above may be out of date.</aside>
+    {% endif %}
+    <nav class="experiment-nav" aria-label="Sections">
+      {% if t.claims.size > 0 %}<a href="#licensed">What the record licenses</a>{% endif %}
+      <a href="#best-evidence">Best evidence</a>
+      {% if t.counter.size > 0 %}<a href="#counterevidence">Counterevidence</a>{% endif %}
+      <a href="#open-questions">Open questions</a>
+      <a href="#chronology">Chronology</a>
+    </nav>
+  </header>
+
+  {% if t.claims.size > 0 %}
+  <section id="licensed" class="atlas-section">
+    <h2>What the record licenses</h2>
+    <p class="render-note">Claims copied from the <a href="{{ site.repository_url }}/blob/{{ atlas.revision }}/experiments/2026-10-23-evidence-ledger/results/claims.json">evidence ledger</a>; edit them there.</p>
+    {% for c in t.claims %}
+    <div class="atlas-claim">
+      <p><code>{{ c.id }}</code> <span class="verdict verdict-{{ c.verdict }}">{{ c.verdict | escape }}</span> {{ c.observation | escape }}</p>
+      <details><summary>Scope, limits and what failed</summary>
+        <p><strong>Failed explanation:</strong> {{ c.failed_explanation | escape }}</p>
+        <p><strong>Scope:</strong> {{ c.scope | escape }}</p>
+        <p><strong>Limitations:</strong> {{ c.limitations | escape }}</p>
+        <p><strong>Next decision:</strong> {{ c.next_decision | escape }}</p>
+      </details>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  <section id="best-evidence" class="atlas-section">
+    <h2>Best evidence</h2>
+    {% include atlas-items.html items=t.evidence %}
+  </section>
+
+  {% if t.counter.size > 0 %}
+  <section id="counterevidence" class="atlas-section">
+    <h2>Counterevidence and corrections</h2>
+    {% include atlas-items.html items=t.counter %}
+  </section>
+  {% endif %}
+
+  <section id="open-questions" class="atlas-section">
+    <h2>Open questions</h2>
+    <ul>
+    {% for o in t.open %}<li>{{ o.text | escape }}{% if o.source %} <a class="source-link" href="{{ site.repository_url }}/blob/{{ atlas.revision }}/{{ o.source }}">source ↗</a>{% endif %}</li>{% endfor %}
+    {% for q in t.claim_questions %}<li>{{ q | escape }} <span class="atlas-meta">(from the ledger)</span></li>{% endfor %}
+    </ul>
+  </section>
+
+  <section id="chronology" class="atlas-section">
+    <h2>Chronology</h2>
+    {% if t.turns.size > 0 %}
+    <h3>Turning points</h3>
+    <ol class="chronology">
+    {% for c in t.turns %}<li><time>{{ c.date }}</time> <a href="{{ c.url | relative_url }}">{{ c.title | escape }}</a> — {{ c.turn | escape }}</li>{% endfor %}
+    </ol>
+    {% endif %}
+    <details class="record-details"><summary>Everything filed under this question ({{ t.chronology.size }} items, by date)</summary>
+      <ol class="chronology">
+      {% for c in t.chronology %}<li><time>{{ c.date }}</time> <span class="role role-{{ c.role }}">{% if c.role == 'post' %}post{% elsif c.role == 'counter' %}counter{% elsif c.role == 'evidence' %}evidence{% else %}context{% endif %}</span> <a href="{{ c.url | relative_url }}">{{ c.title | escape }}</a></li>{% endfor %}
+      </ol>
+    </details>
+  </section>
+
+  <footer class="experiment-provenance">
+    <p>Atlas view at revision <code>{{ atlas.revision | truncate: 12, '' }}</code>. Curation: <a href="{{ site.repository_url }}/blob/{{ atlas.revision }}/blog/atlas.json">blog/atlas.json</a> (<code>{{ atlas.inputs['blog/atlas.json'] | truncate: 12, '' }}</code>).</p>
+    <p>This page records no experiments. Findings and caveats are copied from the experiment guides; claims from the evidence ledger. To change what is said, change the record, then rebuild.</p>
+  </footer>
+</article>

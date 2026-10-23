@@ -28,6 +28,7 @@ defaults:
 exclude:
   - experiment-guides.tsv
   - experiment-figures.json
+  - atlas.json
   - README.md
   - Gemfile
   - Gemfile.lock

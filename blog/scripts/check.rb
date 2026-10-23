@@ -7,10 +7,10 @@ root = Pathname.new(ARGV.fetch(0, "_site")).expand_path
 baseurl = ARGV.fetch(1, "").sub(%r{/$}, "")
 abort "Missing build: #{root}" unless root.directory?
 errors = []
-%w[index.html about/index.html experiments/index.html experiments/manifest.json feed.xml 404.html assets/style.css].each do |path|
+%w[index.html about/index.html experiments/index.html atlas/index.html experiments/manifest.json feed.xml 404.html assets/style.css].each do |path|
   errors << "Missing #{path}" unless root.join(path).file?
 end
-%w[Gemfile Gemfile.lock README.md scripts templates _drafts experiment-guides.tsv experiment-figures.json].each do |path|
+%w[Gemfile Gemfile.lock README.md scripts templates _drafts experiment-guides.tsv experiment-figures.json atlas.json].each do |path|
   errors << "Authoring file leaked: #{path}" if root.join(path).exist?
 end
 root.glob("**/*.html").sort.each do |file|

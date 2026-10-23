@@ -38,6 +38,7 @@ jobs:
           node blog/scripts/test_stats.js
           node blog/scripts/test_ants.js
           node blog/scripts/test_experiment.js
+          python3 blog/scripts/test_atlas.py
       - uses: astral-sh/setup-uv@v6
         with:
           version: '0.5.15'
@@ -69,6 +70,7 @@ jobs:
           uv run --frozen --only-group blog blog/scripts/test_experiments.py
           uv run --frozen --only-group blog blog/scripts/export_results.py --check
           uv run --frozen --only-group blog blog/scripts/experiments.py --baseurl "$SITE_BASE_PATH" --repository-url "$REPOSITORY_URL"
+          python3 blog/scripts/atlas.py
       - name: Build
         working-directory: blog
         env:

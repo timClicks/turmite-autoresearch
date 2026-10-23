@@ -1,0 +1,40 @@
+---
+layout: default
+title: Research atlas
+permalink: /atlas/
+description: A curated index of the project's scientific questions, with the current state of each and the evidence behind it.
+---
+{% assign atlas = site.data.atlas %}
+<section class="experiment-intro atlas">
+  <p class="eyebrow">Living index</p>
+  <h1>Research atlas</h1>
+  <p class="dek">The same research, organised by the question it bears on rather than by folder. Each row says where a question stands and links to a topic page with the best evidence, counterevidence, open questions and a chronology.</p>
+  <p class="render-note">This is a materialised view. It records no experiments and no measurements; findings and caveats are copied from the <a href="{{ '/experiments/' | relative_url }}">experiment guides</a> and the evidence ledger. Build revision <code>{{ atlas.revision | truncate: 12, '' }}</code>.</p>
+</section>
+<div class="atlas-table-wrap">
+<table class="atlas-table">
+  <thead><tr><th scope="col">Research question</th><th scope="col">Current state</th><th scope="col">Evidence</th><th scope="col">Open</th></tr></thead>
+  <tbody>
+  {% for t in atlas.topics %}
+  <tr>
+    <th scope="row"><a href="{{ '/atlas/' | append: t.slug | append: '/' | relative_url }}">{{ t.question | escape }}</a></th>
+    <td><span class="state-badge state-{{ t.state }}">{{ t.state_label | escape }}</span><br>{{ t.state_summary | escape }}</td>
+    <td>
+      <ul class="plain">
+      {% for e in t.evidence limit: 3 %}{% if e.kind == 'experiment' %}<li><a href="{{ e.url | relative_url }}">{{ e.title | escape }}</a></li>{% endif %}{% endfor %}
+      </ul>
+      <span class="atlas-meta">{{ t.experiment_count }} experiments · latest {{ t.newest_evidence }}{% if t.newer_than_review.size > 0 %} · <strong>{{ t.newer_than_review.size }} added since review</strong>{% endif %}</span>
+    </td>
+    <td>{{ t.open.size }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<section class="atlas-legend" aria-labelledby="legend-h">
+  <h2 id="legend-h">What the states mean</h2>
+  <dl>
+  {% for s in atlas.states %}<dt><span class="state-badge state-{{ s[0] }}">{{ s[1].label | escape }}</span></dt><dd>{{ s[1].meaning | escape }}</dd>{% endfor %}
+  </dl>
+  <p>A state is an editorial judgement about the whole question, reviewed on the date shown on its page. A <code>Survived</code>, a fit or a pass is never promoted to a proof here.</p>
+</section>
