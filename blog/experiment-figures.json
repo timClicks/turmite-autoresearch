@@ -1,5 +1,11 @@
 {
   "library": {
+    "hidden-phase": {
+      "path": "experiments/2026-10-23-hidden-phase-return/results/phase_effect.png",
+      "alt": "Two panels compare return-time sensitivity when zero, one, two, four or all future turns are preserved at each cell.",
+      "caption": "Hidden-phase pilot: mean absolute log-two time changes with four-start standard deviations. The support gate failed in most start/area groups; these selected long excursions do not establish a transport mechanism.",
+      "recipe": "experiments/2026-10-23-hidden-phase-return/scripts/analyze.py"
+    },
     "mechanics": {
       "path": "research-outputs/cube-root-growth-paper/fig/mechanics.png",
       "alt": "Successive grid diagrams showing an ant turning, changing the cell colour and stepping forward.",
@@ -92,6 +98,7 @@
     }
   },
   "experiments": {
+    "2026-10-23-hidden-phase-return": ["hidden-phase"],
     "2026-10-12-knockout-maps": ["occupancy-home"],
     "2026-10-13-a1-kappa": ["boundary-factors"],
     "2026-10-13-a3-background-cone-control": ["rotor"],

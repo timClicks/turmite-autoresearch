@@ -73,3 +73,13 @@ on 35 warnings in existing library modules before checking the new example;
 ordinary Clippy completed with advisory warnings. No unrelated cleanup was made.
 The local Ruby is 2.6, below the blog's Ruby 3.3 requirement, so a full Jekyll
 build is not available through that toolchain. Python publication checks follow.
+
+### 2026-10-23 11:56 UTC · 1c0d631 · observation
+Publication preparation rendered 119 experiment pages and 47 saved notebooks;
+this experiment has six output blocks and no notebook errors. Its source/image
+links resolve. The two unavailable links are in older experiments. Atlas
+validation and eight atlas tests passed. Publisher fixtures need unsigned dummy
+commits and a physical temporary path on this Mac: use TMPDIR=/private/tmp and
+GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=commit.gpgsign GIT_CONFIG_VALUE_0=false for
+that test process only. No repository signing setting was changed. The default
+macOS temporary-path alias caused the first fixture attempt to miss its image.
