@@ -1,0 +1,173 @@
+{
+  "selection": "Post hoc maximum base_t / arm_t among all k=1 rows; not representative",
+  "row": {
+    "rule": "RLLLRRLRLL",
+    "seed": "2026102304",
+    "band": "1",
+    "departure": "1",
+    "t0": "759018",
+    "base_t": "86030",
+    "k": "1",
+    "replica": "0",
+    "arm_t": "6",
+    "censored": "0",
+    "return_equal": "0",
+    "path_equal": "0",
+    "arrival": "150",
+    "split_step": "6",
+    "split_visit": "2",
+    "changed": "10418",
+    "interior": "16204",
+    "read_changed": "6899",
+    "read_cells": "8897"
+  },
+  "independent_sparse_replay": "passed",
+  "next_turn_equal_on_every_visited_cell": true,
+  "departure_position": [
+    -55,
+    -65
+  ],
+  "departure_heading": 2,
+  "split_source": [
+    -54,
+    -65
+  ],
+  "split_source_initial_colours": [
+    5,
+    4
+  ],
+  "split_source_future_turns": [
+    "RLRLLRLLLR",
+    "RRLRLLRLLL"
+  ],
+  "baseline_first_steps": [
+    [
+      [
+        -54,
+        -65
+      ],
+      1
+    ],
+    [
+      [
+        -54,
+        -64
+      ],
+      2
+    ],
+    [
+      [
+        -53,
+        -64
+      ],
+      1
+    ],
+    [
+      [
+        -53,
+        -65
+      ],
+      0
+    ],
+    [
+      [
+        -54,
+        -65
+      ],
+      3
+    ],
+    [
+      [
+        -54,
+        -64
+      ],
+      2
+    ],
+    [
+      [
+        -55,
+        -64
+      ],
+      3
+    ],
+    [
+      [
+        -55,
+        -65
+      ],
+      0
+    ],
+    [
+      [
+        -56,
+        -65
+      ],
+      3
+    ],
+    [
+      [
+        -56,
+        -64
+      ],
+      2
+    ],
+    [
+      [
+        -55,
+        -64
+      ],
+      1
+    ],
+    [
+      [
+        -55,
+        -63
+      ],
+      2
+    ]
+  ],
+  "arm_path": [
+    [
+      [
+        -54,
+        -65
+      ],
+      1
+    ],
+    [
+      [
+        -54,
+        -64
+      ],
+      2
+    ],
+    [
+      [
+        -53,
+        -64
+      ],
+      1
+    ],
+    [
+      [
+        -53,
+        -65
+      ],
+      0
+    ],
+    [
+      [
+        -54,
+        -65
+      ],
+      3
+    ],
+    [
+      [
+        -54,
+        -66
+      ],
+      0
+    ]
+  ]
+}

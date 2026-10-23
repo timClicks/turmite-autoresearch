@@ -1,0 +1,62 @@
+{
+  "revision": "bcfceeb7edd4598fd5c88022dac73e68515e707c",
+  "source_hashes": {
+    "examples/hidden_phase_return.rs": "7aa34e89630b7f949f3cb255e72b6392d90b9356fb22dc351f6fb4f5266d2fba",
+    "Cargo.lock": "53bf8bf16194c7d5382763b54509571ac31bc5d7533bc115bda9907b9a220509",
+    "experiments/2026-10-23-hidden-phase-return/scripts/run.py": "2f7734ef5449504240801bbfa19f650e4d8465f55af8df3b86a7a689456059ae",
+    "experiments/2026-10-23-hidden-phase-return/scripts/analyze.py": "4cefd99fbf382011bdc791ee343edd9bb4cca57cd9f5d2a7ac3044ae81058471"
+  },
+  "rustc": "rustc 1.100.0-beta.4 (a2eb6097d 2026-10-04)",
+  "platform": "macOS-26.5-arm64-arm-64bit",
+  "architecture": "arm64",
+  "binary_sha256": "7f06968cc776a9a45292199587e97ad9ddd6bef23dc1c54efb6fd77665945b67",
+  "command": [
+    "/Users/rob/.t3/scratch/2026-10-23-this-looks-like-an-interesting-4087901e/turmite-autoresearch/experiments/2026-10-23-hidden-phase-return/scratch/build-1792755821583780000/release/examples/hidden_phase_return",
+    "/Users/rob/.t3/scratch/2026-10-23-this-looks-like-an-interesting-4087901e/turmite-autoresearch/experiments/2026-10-23-hidden-phase-return/results",
+    "3"
+  ],
+  "controls": [
+    "cargo",
+    "test",
+    "--release",
+    "--locked",
+    "--example",
+    "hidden_phase_return"
+  ],
+  "build": [
+    "cargo",
+    "build",
+    "--release",
+    "--locked",
+    "--example",
+    "hidden_phase_return"
+  ],
+  "elapsed_seconds": 0.9518752919975668,
+  "thread_replication": "all 24 CSV files identical at 1 and 3 threads",
+  "output_hashes": {
+    "RLLLLRLLRLRL_2026102301.audit.csv": "157a705d13cadb6adac93c790ba6178f66fed4759a6ad5adc8e464ba0c09bea4",
+    "RLLLLRLLRLRL_2026102301.csv": "7e1fc2241707fed8518da86e09d6456a15e74cb232d871985d73e243900671fc",
+    "RLLLLRLLRLRL_2026102302.audit.csv": "90da8d2fd7bacba2c1dc6b08c61d62279935d14c1512a8440c42d4b45933ef36",
+    "RLLLLRLLRLRL_2026102302.csv": "58ceef68273775ca7b692ddad4fb9b80c186a742ba0bc4eaf3415a1577958104",
+    "RLLLLRLLRLRL_2026102303.audit.csv": "f14fe5778437479ab816242f2e0fa7d81ffe15471a51665be571198a422e5e72",
+    "RLLLLRLLRLRL_2026102303.csv": "721bd21b0bd924123d585fb8e5b98522a75cc21e17c7189099abbde0a5cf848c",
+    "RLLLLRLLRLRL_2026102304.audit.csv": "5bdd0528cd0d3228a070332d0773b11822e043c0284307f00f0072a1cc346743",
+    "RLLLLRLLRLRL_2026102304.csv": "b18b3288435de9dea3b5af12867a6acf270b4553da6fd0b1eedd9889c0abe33e",
+    "RLLLRRLRLL_2026102301.audit.csv": "a9c6517f9d9b034447839d55aa8ee562fc08fe981d81f8398e3bd4a4a4bcaecb",
+    "RLLLRRLRLL_2026102301.csv": "1794dd98611023b09b6fbbcb6f679121193f3145afb07bb9606f20765a2eef56",
+    "RLLLRRLRLL_2026102302.audit.csv": "5d8c0c41ccb0170d484cf72f7a6f281588d61623f6e05d263bb9a37fef61c061",
+    "RLLLRRLRLL_2026102302.csv": "568381d145126bf6908f23a5e1ff14e81d776737a7fcc0d70f2cbff61fcea466",
+    "RLLLRRLRLL_2026102303.audit.csv": "e9008cb519e5a23f3441b3450ab0b9fabe4e484ee31fc03defb20c400a784d82",
+    "RLLLRRLRLL_2026102303.csv": "a4b71737f0cd28c02bbbd2082545b655697b15d3b4957bc40facdf3f168aca80",
+    "RLLLRRLRLL_2026102304.audit.csv": "6dc2e8d9779531b577abf11c3a5335de3deb4916ca17819890042bf153902bd1",
+    "RLLLRRLRLL_2026102304.csv": "2f8063e3f5a090d37cb7a61ee0b0f54a97de1d7d3802a4ec8bbc7b50086ada32",
+    "RLLRRLLLLLLL_2026102301.audit.csv": "b497fc1ad197b75695e4fcbaa0efb90a516af6663acdb187cf4e0bffc12408b6",
+    "RLLRRLLLLLLL_2026102301.csv": "4f10c4b9c73c2fdb73cb5846edfb45fd704373119bbcdac06d156bdba780e36b",
+    "RLLRRLLLLLLL_2026102302.audit.csv": "eeb4a2ab1dd9d9d9c3c756a20f04527f9bd7b46a94a0275e0378e80d1136b531",
+    "RLLRRLLLLLLL_2026102302.csv": "9e5ee266f618ccedff8172c30cc46e41948e7ffcb9ef7dd0ae34fa978d4ea48a",
+    "RLLRRLLLLLLL_2026102303.audit.csv": "892824ffcd8220369c7d3f21d8cd65d007bef574348f224834883e95fb0490d6",
+    "RLLRRLLLLLLL_2026102303.csv": "406063c33d9003d85e9db63553ef1206a1b0d9e2bbc709a10e9d67bff3954c86",
+    "RLLRRLLLLLLL_2026102304.audit.csv": "3a3789b7a63fd0d9a1286cde9a2bd06a21bd1e838cbec380f5d469d76124f03c",
+    "RLLRRLLLLLLL_2026102304.csv": "290128cdf3cc5663a92f3f8fb7c85cc023be746a7358a4850e5ffaa69aa95701"
+  }
+}

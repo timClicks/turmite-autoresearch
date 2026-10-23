@@ -66,7 +66,8 @@
         {"ref": "2026-10-19-kappa-chiral-edge"},
         {"ref": "2026-10-21-boundary-return-map"},
         {"ref": "2026-10-20-kappa-spread-budget"},
-        {"ref": "2026-10-23-evidence-ledger"}
+        {"ref": "2026-10-23-evidence-ledger"},
+        {"ref": "2026-10-23-hidden-phase-return", "why": "A fixed next-turn map permits different returns under phase edits; the pilot support gate fails."}
       ],
       "counter": [
         {"ref": "2026-10-20-kappa-first-passage", "why": "First-passage test: registered forecast failed and was worse than persistence."},
@@ -88,7 +89,7 @@
         "2026-10-20-kappa-spread-features", "2026-10-20-kappa-prefix-runs", "2026-10-20-kappa-prefix-ablation",
         "2026-10-20-kappa-prefix-additive", "2026-10-kappa-rule-space"
       ],
-      "posts": ["2026-10-20-making-kappa-a-consequence.md", "2026-10-20-where-kappa-is-not.md", "2026-10-20-the-wrong-waits-survive-a-change-of-clock.md", "2026-10-23-what-the-evidence-can-carry.md"],
+      "posts": ["2026-10-20-making-kappa-a-consequence.md", "2026-10-20-where-kappa-is-not.md", "2026-10-20-the-wrong-waits-survive-a-change-of-clock.md", "2026-10-23-what-the-evidence-can-carry.md", "2026-10-23-the-turn-map-hides-a-clock.md"],
       "open": [
         {"text": "Gate baseline eligibility is unknown, so the single-cell null does not reject gate mechanisms in general.", "source": "notes/evidence-ledger.md"},
         {"text": "What is the next test that has two explanations disagreeing on a time-weighted outcome, an excluded pilot, and a persistence comparator frozen in advance?", "source": "notes/ACTIVE.md"}

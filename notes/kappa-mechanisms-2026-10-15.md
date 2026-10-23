@@ -267,3 +267,30 @@ Replacing colours outside radius r (within-depth shuffle) at boundary departures
 (median r*_t/L 1.16, scaling exponent about 1). So a compact boundary state describes the many short loops, not the time budget that sets kappa.
 The pasted diffusive heuristic (return time ~ L^2) is not supported: it would give t^(1/4); the census kappa ~ const already excludes it.
 Limits: the shuffle removes structure, not single cells; P5 was added after the pilot; the C2 random-walk control ran in the pilot only.
+
+## 2026-10-23: same next-turn map, different return (excluded pilot)
+
+[Protocol and results](../experiments/2026-10-23-hidden-phase-return/README.md),
+evidence revision `1c0d631a1745f3bf12ab9e7a1d87d9d0bb9b6974`.
+A one-time shuffle of interior phases within depth bins and next-turn classes
+preserves every current turn and the depth-bin colour histogram. In 160 selected
+long departures (three rules, four new patched starts, two area bands), all 640
+k=1 replays changed path and return tuple. All full-word shams matched. The mean
+absolute log2 time effect was 3.06–7.14 across six rule/area cells; the ratio to
+unrestricted shuffling was 0.32–0.62. This ratio is not an information fraction:
+permutation classes and spatial edits differ between arms.
+
+The registered all-six threshold failed in two cells. Minimum episode support
+failed in 17/24 start/area groups, so the pilot stopped without confirmation.
+All 9,680 baseline departures were accounted for, with no overflows or unfinished
+episodes; no replay was censored. A post hoc extreme example (86,030 -> 6 steps)
+was independently reproduced from its initial patch, with first divergence on
+a cell's second read. It is a many-cell intervention, not single-cell attribution.
+
+This is evidence against exact next-turn-map sufficiency on the tested edited
+fields, not an explanation of kappa, natural-state insufficiency, a growth law
+or a population mean effect. Current-turn versus future-clock distinctions and
+the delayed-divergence argument already occur in the c-law renewal record.
+The new result motivates distinguishing collective phase organisation from
+individual delayed instructions, with adequate preconfirmed episode support
+and a future occupation prediction. No such follow-up was run.

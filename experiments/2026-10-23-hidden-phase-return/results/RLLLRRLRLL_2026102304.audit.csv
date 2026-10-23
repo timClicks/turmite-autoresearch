@@ -1,0 +1,3 @@
+rule,seed,band,status,steps,area,departures,short,eligible_long,overflow,sampled,gap_or_quota,unfinished,completed_time,overflow_time,unfinished_time
+RLLLRRLRLL,2026102304,0,complete,979157,17408,138,137,1,0,1,0,0,13082,0,0
+RLLLRRLRLL,2026102304,1,complete,979157,17408,562,553,9,0,9,0,0,219698,0,0
