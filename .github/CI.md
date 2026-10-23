@@ -10,6 +10,7 @@ use `PROPTEST_RNG_SEED=20261019`; keep regression cases committed.
 | Rust correctness | `cargo test --release --locked`: CPU instruments and reference agreement |
 | Simulator checks | Build from committed results; check page initialization, charts, simulation, pause/resume, rule selection and mechanism readouts |
 | Small reproducibility checks | Compare sweep/probe CSV bytes at 1 and 3 Rayon threads; check estimators against exact answers and an independent PRESS calculation |
+| Portable GPU compilation | Linux/macOS builds, WGSL validation and CLI parsing with `wgpu`; no hardware execution |
 | CUDA compilation | Compile every target with `cuda`; no GPU required and no runtime kernel validation |
 | GPU oracle checks (manual) | Run `gpu`, `onset` and `gpu_probe` equality tests on dedicated CUDA hardware |
 
@@ -77,3 +78,5 @@ are left under the runner's temporary directory for normal runner cleanup.
 
 The workflow adds no runner registration or repository settings automatically.
 Until hardware is registered, a dispatch waits for a matching runner.
+
+Portable GPU hardware checks use `PROPTEST_RNG_SEED=20261023 cargo test --release --locked --features wgpu --test portable_gpu`. The private counter-carry check is explicitly enabled with `cargo test --release --locked --features wgpu --lib step_counter_crosses_32_bit_boundary -- --ignored`. These need a real GPU; hosted compile checks do not replace them.

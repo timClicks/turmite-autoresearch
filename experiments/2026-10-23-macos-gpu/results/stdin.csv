@@ -1,0 +1,3 @@
+rule,bg_seed,n,stop,steps,period,dx,dy,onset,width,height,tail_period
+RL,,2,budget,10000,,,,,49,45,
+RLR,18446744073709551615,3,escaped,6280,,,,,81,149,

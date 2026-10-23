@@ -1,0 +1,317 @@
+{
+  "kind": "correctness validation; no performance measurement",
+  "source_revision": "c0c93c981811ef96074791c0a96d439029a05ecc",
+  "recorded_at_utc": "2026-10-23T12:14:46.107Z",
+  "rustc": "rustc 1.100.0-beta.4 (a2eb6097d 2026-10-04)",
+  "cargo": "cargo 1.100.0-beta.4 (7552a885e 2026-09-29)",
+  "platform": "26.5",
+  "device": "Apple M4 Max",
+  "backend": "Metal",
+  "commands": [
+    "PROPTEST_RNG_SEED=20261019 RAYON_NUM_THREADS=4 cargo test --release --locked",
+    "PROPTEST_RNG_SEED=20261023 RAYON_NUM_THREADS=4 cargo test --release --locked --features wgpu --lib --bin wgpu_sweep --test portable_gpu",
+    "cargo test --release --locked --features wgpu --lib step_counter_crosses_32_bit_boundary -- --ignored",
+    "cargo clippy --release --locked --all-features --all-targets --message-format=json",
+    "RAYON_NUM_THREADS=4 cargo run --release --locked --features wgpu --bin wgpu_sweep -- 2 6 32768 256 --lanes 64 --pool-tiles 1024 --stats experiments/2026-10-23-macos-gpu/results/census-stats.json > experiments/2026-10-23-macos-gpu/results/census.csv",
+    "RAYON_NUM_THREADS=4 cargo run --release --locked --bin sweep -- 2 6 32768 256 > experiments/2026-10-23-macos-gpu/scratch/cpu-census.csv",
+    "cmp experiments/2026-10-23-macos-gpu/results/census.csv experiments/2026-10-23-macos-gpu/scratch/cpu-census.csv",
+    "RAYON_NUM_THREADS=4 cargo run --release --locked --features wgpu --bin wgpu_sweep -- - - 10000 256 --lanes 3 --slice 997 --pool-tiles 64 --stats experiments/2026-10-23-macos-gpu/results/stdin-stats.json < experiments/2026-10-23-macos-gpu/results/stdin.txt > experiments/2026-10-23-macos-gpu/results/stdin.csv"
+  ],
+  "cpu": {
+    "summaries": [
+      {
+        "passed": 7,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 13,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 6,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 4,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 4,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 9,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 19,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 4,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 11,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 13,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 4,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 7,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 8,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 3,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 7,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 3,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 11,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 9,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 22,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 0,
+        "failed": 0,
+        "ignored": 0
+      }
+    ],
+    "total_passed": 205
+  },
+  "metal": {
+    "summaries": [
+      {
+        "passed": 9,
+        "failed": 0,
+        "ignored": 1
+      },
+      {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 7,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      }
+    ],
+    "property_cases": 32,
+    "property_seed": 20261023,
+    "property_configurations": 3
+  },
+  "clippy": {
+    "exit_status": 0,
+    "new_file_diagnostics": 0,
+    "existing_warnings": true
+  },
+  "census": {
+    "rows": 57,
+    "csv_equal_to_cpu": true
+  },
+  "not_run": [
+    "CUDA hardware tests",
+    "Linux or Windows hardware execution",
+    "Hosted GitHub Actions",
+    "Performance benchmarks"
+  ],
+  "sha256": {
+    "Cargo.lock": "718e5ba667b3004da23e22518dd88bfc3051acfbda905fb14fe4dfaa000725e0",
+    "Cargo.toml": "34fd5aeae3c0f5136ef84ae41aaee09678ca8cd522fe74414dd6fbe855f631a1",
+    "src/portable_gpu/mod.rs": "d94c005968adbee3fc32ebfa51dde85e808365a11bcfce4d3499ef36d3325753",
+    "src/portable_gpu/ant.wgsl": "8eebc23e85e3124897424c8b7276051b708fcfe0ef13213fac7f942645275b84",
+    "src/bin/wgpu_sweep.rs": "8350b1ba1109d9ecd14ee0328625931c183d2fffc5bada27e7b39a24ce742fd3",
+    "tests/portable_gpu.rs": "9996c6c4640fe9b7bce3d6175373f26c2a53d1cfdbdbd230ea8471e2e51ac0d3",
+    "experiments/2026-10-23-macos-gpu/results/census.csv": "186ba51b60017135b6695af3f20f37a63fd0ad0ed20ca68725aaa58e269fa2cd",
+    "experiments/2026-10-23-macos-gpu/results/census-stats.json": "282b8b12bc032c1653dc0cb5345cb46a393394e476d460f5383f39f952135589",
+    "experiments/2026-10-23-macos-gpu/results/stdin.txt": "7ba55f62e7d4d62ae07f93282c4d25cf164c666c615e5be8bc3c9abf00b7fcb8",
+    "experiments/2026-10-23-macos-gpu/results/stdin.csv": "3bce3afe5c8eae2a168e754f1e2e981a3bba60cf4a533a49f88b19fd8e724caa",
+    "experiments/2026-10-23-macos-gpu/results/stdin-stats.json": "e270bb123cc63b540f1ee6307735c8a31389c71f3ebce148d97c4aaa16afbe4b",
+    "target/release/wgpu_sweep": "f0872f4920bb78697c61177e5a390270b962ce2c3fe672bd7b80ab7599ce7f73",
+    "target/release/sweep": "98f7d23ff3929af00065f031203ccb41e29afae583694cacbc7eec726591aea5"
+  }
+}

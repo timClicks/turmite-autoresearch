@@ -9,8 +9,13 @@ repository = "https://github.com/timClicks/turmite-autoresearch"
 # GPU sweep (src/gpu, src/bin/gpu_sweep.rs). Needs no CUDA toolkit to build; at run time it needs
 # libcuda (driver) and libnvrtc.so.12 on LD_LIBRARY_PATH.
 cuda = ["dep:cudarc"]
+# Portable GPU compute. Uses Metal on macOS.
+wgpu = ["dep:wgpu", "dep:pollster", "dep:bytemuck"]
 
 [dependencies]
+wgpu = { version = "30.0.1", optional = true, default-features = false, features = ["std", "metal", "vulkan", "dx12", "wgsl"] }
+pollster = { version = "0.4", optional = true }
+bytemuck = { version = "1.24", optional = true, features = ["derive"] }
 rayon = "1.12.0"
 # Only with --features cuda. dynamic-loading: dlopen the driver and NVRTC, no link-time dependency.
 cudarc = { version = "0.19.10", optional = true, default-features = false, features = ["std", "driver", "nvrtc", "dynamic-loading", "cuda-12090"] }
@@ -28,3 +33,8 @@ required-features = ["cuda"]
 name = "gpu_probe"
 path = "src/bin/gpu_probe.rs"
 required-features = ["cuda"]
+
+[[bin]]
+name = "wgpu_sweep"
+path = "src/bin/wgpu_sweep.rs"
+required-features = ["wgpu"]

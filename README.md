@@ -170,6 +170,24 @@ Record seeds and source revisions, quantify uncertainty between seeds, and
 keep large raw dumps in the experiment's ignored directories. See
 [`AGENTS.md`](AGENTS.md) for the full requirements.
 
+## Native GPU sweeps on macOS
+
+The optional `wgpu` backend runs census sweeps through Metal on macOS. It also
+builds for Vulkan and DX12 on other native platforms. It needs a compatible GPU;
+CPU builds remain independent of GPU dependencies.
+
+```sh
+cargo run --release --locked --features wgpu --bin wgpu_sweep -- 2 6 32768 256 --lanes 64
+printf 'RL\nRLR 7\n' | cargo run --release --locked --features wgpu --bin wgpu_sweep -- - - 1000000 8192
+```
+
+The runner supports blank and seeded backgrounds, sparse tiles, pool-pressure
+retries, and the existing CPU highway detector and onset replay. Its CSV schema
+matches `gpu_sweep`; its result contract is `fast::run`. Run
+`wgpu_sweep --help` for memory and scheduling controls. The CUDA probe and browser
+simulator remain separate instruments. No macOS speedup factor has been measured.
+See [design, checks and limits](experiments/2026-10-23-macos-gpu/README.md).
+
 ## License
 
 Code is MIT OR Apache-2.0, data (`experiments/*/results/` and Zenodo deposits)

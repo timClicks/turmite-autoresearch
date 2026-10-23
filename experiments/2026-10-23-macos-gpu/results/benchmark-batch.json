@@ -1,0 +1,380 @@
+{
+  "started": "2026-10-23T12:56:51.366Z",
+  "revision": "f3c8aae860e2c8f3db8715b697132aba14e03a74",
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5\nBuildVersion:\t\t25F71",
+  "cpu": "Apple M4 Max",
+  "thermalBefore": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+  "processesBefore": [
+    "%CPU COMM",
+    " 61.8 (pairedsyncd)",
+    " 34.4 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+    " 13.0 node",
+    " 12.6 /Users/rob/Library/Android/sdk/emulator/qemu/darwin-aarch64/qemu-system-aarch64-headless",
+    "  5.8 /Applications/Firefox.app/Contents/MacOS/plugin-container.app/Contents/MacOS/plugin-container",
+    "  4.9 codex",
+    "  4.2 /Applications/Caffeine.app/Contents/MacOS/Caffeine",
+    "  3.3 /Library/SystemExtensions/27F70860-DC93-4E3A-8F83-D7CBFCECEAB9/at.obdev.littlesnitch.networkextension.systemextension/Contents/MacOS/at.obdev.littlesnitch.networkextension",
+    "  2.8 /System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine",
+    "  2.8 /Applications/Firefox.app/Contents/MacOS/firefox",
+    "  2.3 /usr/sbin/bluetoothd",
+    "  2.3 /Applications/ProtonVPN.app/Contents/MacOS/ProtonVPN",
+    "  2.2 target/dbui.app/Contents/MacOS/dbui",
+    "  1.5 /Applications/T3 Code (Nightly).app/Contents/MacOS/T3 Code (Nightly)",
+    "  1.5 /Library/SystemExtensions/A853C6DE-F997-4024-95D6-4C0B13BDBB02/ch.protonvpn.mac.WireGuard-Extension.systemextension/Contents/MacOS/ch.protonvpn.mac.WireGuard-Extension"
+  ],
+  "node": "v24.14.1",
+  "rustc": "rustc 1.100.0-beta.4 (a2eb6097d 2026-10-04)",
+  "harnessSha256": "8a685b8ec23ce5254e03cc210f449251d277dc3005f62255ea4e858af2eda555",
+  "case": "batch",
+  "config": {
+    "args": [
+      "2",
+      "12",
+      "1000000",
+      "2048"
+    ],
+    "lanes": 4096
+  },
+  "rayonThreads": 16,
+  "warmupsPerBackend": 1,
+  "samplesPerBackend": 5,
+  "method": "Monotonic process wall time; one unmeasured warmup per backend; five rounds with rotating backend order. Includes startup, simulation, detection, onset and CSV writes. Each output hash checked.",
+  "binaries": {
+    "sweep": "b24ca982a35a0c7b35b3522a8d4c73ff70e39a5bfd64a57bd53b39963373d9a7",
+    "sweep_lean": "bd9a188b003bc682f88b47b0d0f59af278d5a234ee072d0f46be78327016abea",
+    "wgpu_sweep": "f0872f4920bb78697c61177e5a390270b962ce2c3fe672bd7b80ab7599ce7f73"
+  },
+  "samples": [
+    {
+      "backend": "sweep",
+      "round": 0,
+      "seconds": 1.292699584,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/sweep",
+        "2",
+        "12",
+        "1000000",
+        "2048"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083
+    },
+    {
+      "backend": "sweep_lean",
+      "round": 0,
+      "seconds": 2.558452458,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/sweep_lean",
+        "2",
+        "12",
+        "1000000",
+        "2048"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083
+    },
+    {
+      "backend": "wgpu_sweep",
+      "round": 0,
+      "seconds": 0.71532625,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/wgpu_sweep",
+        "2",
+        "12",
+        "1000000",
+        "2048",
+        "--lanes",
+        "4096",
+        "--pool-tiles",
+        "65536",
+        "--slice",
+        "65536",
+        "--stats",
+        "/Users/rob/Development/forks/turmite-autoresearch/experiments/2026-10-23-macos-gpu/scratch/bench/batch-wgpu_sweep.json"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083,
+      "stats": {
+        "jobs": 4083,
+        "total_steps": 3699514609,
+        "launches": 16,
+        "oom_requeues": 0,
+        "device": "Apple M4 Max",
+        "backend": "Metal",
+        "lanes": 4096,
+        "grid": 2048,
+        "pool_tiles": 65536,
+        "slice": 65536
+      }
+    },
+    {
+      "backend": "sweep_lean",
+      "round": 1,
+      "seconds": 2.588017083,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/sweep_lean",
+        "2",
+        "12",
+        "1000000",
+        "2048"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083
+    },
+    {
+      "backend": "wgpu_sweep",
+      "round": 1,
+      "seconds": 0.693287083,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/wgpu_sweep",
+        "2",
+        "12",
+        "1000000",
+        "2048",
+        "--lanes",
+        "4096",
+        "--pool-tiles",
+        "65536",
+        "--slice",
+        "65536",
+        "--stats",
+        "/Users/rob/Development/forks/turmite-autoresearch/experiments/2026-10-23-macos-gpu/scratch/bench/batch-wgpu_sweep.json"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083,
+      "stats": {
+        "jobs": 4083,
+        "total_steps": 3699514609,
+        "launches": 16,
+        "oom_requeues": 0,
+        "device": "Apple M4 Max",
+        "backend": "Metal",
+        "lanes": 4096,
+        "grid": 2048,
+        "pool_tiles": 65536,
+        "slice": 65536
+      }
+    },
+    {
+      "backend": "sweep",
+      "round": 1,
+      "seconds": 1.296398208,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/sweep",
+        "2",
+        "12",
+        "1000000",
+        "2048"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083
+    },
+    {
+      "backend": "wgpu_sweep",
+      "round": 2,
+      "seconds": 0.712973875,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/wgpu_sweep",
+        "2",
+        "12",
+        "1000000",
+        "2048",
+        "--lanes",
+        "4096",
+        "--pool-tiles",
+        "65536",
+        "--slice",
+        "65536",
+        "--stats",
+        "/Users/rob/Development/forks/turmite-autoresearch/experiments/2026-10-23-macos-gpu/scratch/bench/batch-wgpu_sweep.json"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083,
+      "stats": {
+        "jobs": 4083,
+        "total_steps": 3699514609,
+        "launches": 16,
+        "oom_requeues": 0,
+        "device": "Apple M4 Max",
+        "backend": "Metal",
+        "lanes": 4096,
+        "grid": 2048,
+        "pool_tiles": 65536,
+        "slice": 65536
+      }
+    },
+    {
+      "backend": "sweep",
+      "round": 2,
+      "seconds": 1.313243167,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/sweep",
+        "2",
+        "12",
+        "1000000",
+        "2048"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083
+    },
+    {
+      "backend": "sweep_lean",
+      "round": 2,
+      "seconds": 2.541478167,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/sweep_lean",
+        "2",
+        "12",
+        "1000000",
+        "2048"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083
+    },
+    {
+      "backend": "sweep",
+      "round": 3,
+      "seconds": 1.375802166,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/sweep",
+        "2",
+        "12",
+        "1000000",
+        "2048"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083
+    },
+    {
+      "backend": "sweep_lean",
+      "round": 3,
+      "seconds": 2.573710375,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/sweep_lean",
+        "2",
+        "12",
+        "1000000",
+        "2048"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083
+    },
+    {
+      "backend": "wgpu_sweep",
+      "round": 3,
+      "seconds": 0.699837958,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/wgpu_sweep",
+        "2",
+        "12",
+        "1000000",
+        "2048",
+        "--lanes",
+        "4096",
+        "--pool-tiles",
+        "65536",
+        "--slice",
+        "65536",
+        "--stats",
+        "/Users/rob/Development/forks/turmite-autoresearch/experiments/2026-10-23-macos-gpu/scratch/bench/batch-wgpu_sweep.json"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083,
+      "stats": {
+        "jobs": 4083,
+        "total_steps": 3699514609,
+        "launches": 16,
+        "oom_requeues": 0,
+        "device": "Apple M4 Max",
+        "backend": "Metal",
+        "lanes": 4096,
+        "grid": 2048,
+        "pool_tiles": 65536,
+        "slice": 65536
+      }
+    },
+    {
+      "backend": "sweep_lean",
+      "round": 4,
+      "seconds": 2.652424459,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/sweep_lean",
+        "2",
+        "12",
+        "1000000",
+        "2048"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083
+    },
+    {
+      "backend": "wgpu_sweep",
+      "round": 4,
+      "seconds": 0.715241458,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/wgpu_sweep",
+        "2",
+        "12",
+        "1000000",
+        "2048",
+        "--lanes",
+        "4096",
+        "--pool-tiles",
+        "65536",
+        "--slice",
+        "65536",
+        "--stats",
+        "/Users/rob/Development/forks/turmite-autoresearch/experiments/2026-10-23-macos-gpu/scratch/bench/batch-wgpu_sweep.json"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083,
+      "stats": {
+        "jobs": 4083,
+        "total_steps": 3699514609,
+        "launches": 16,
+        "oom_requeues": 0,
+        "device": "Apple M4 Max",
+        "backend": "Metal",
+        "lanes": 4096,
+        "grid": 2048,
+        "pool_tiles": 65536,
+        "slice": 65536
+      }
+    },
+    {
+      "backend": "sweep",
+      "round": 4,
+      "seconds": 1.393876958,
+      "command": [
+        "/Users/rob/Development/forks/turmite-autoresearch/target/release/sweep",
+        "2",
+        "12",
+        "1000000",
+        "2048"
+      ],
+      "outputSha256": "7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e",
+      "rows": 4083
+    }
+  ],
+  "finished": "2026-10-23T12:57:19.060Z",
+  "thermalAfter": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+  "summary": {
+    "sweep": {
+      "median": 1.313243167,
+      "min": 1.292699584,
+      "max": 1.393876958
+    },
+    "sweep_lean": {
+      "median": 2.573710375,
+      "min": 2.541478167,
+      "max": 2.652424459
+    },
+    "wgpu_sweep": {
+      "median": 0.712973875,
+      "min": 0.693287083,
+      "max": 0.71532625
+    }
+  },
+  "speedupVsFast": 1.841923264018615,
+  "speedupVsLean": 3.609824237949813
+}

@@ -1,0 +1,1 @@
+{"jobs":2,"total_steps":16280,"launches":11,"oom_requeues":0,"device":"Apple M4 Max","backend":"Metal","lanes":3,"grid":256,"pool_tiles":64,"slice":997}

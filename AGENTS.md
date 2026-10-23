@@ -136,6 +136,7 @@ The aim is understanding, not a pile of plots. Be bold:
 | `src/probe.rs` | Growth/shape probe: width, area, edge, gyration statistics |
 | `src/synth.rs` | Synthetic data generation for tests |
 | `src/bin/sweep.rs` | Census sweep over rules |
+| `src/portable_gpu/`, `src/bin/wgpu_sweep.rs` | Native wgpu batch sweep; Metal on macOS, Vulkan/DX12 elsewhere; `--features wgpu`. Oracle checks: `tests/portable_gpu.rs`. Setup and limits: `experiments/2026-10-23-macos-gpu/README.md` |
 | `src/gpu/`, `src/bin/gpu_sweep.rs` | CUDA batch runner for thousands of (rule, background-seed) ants; `--features cuda`; output must equal `fast::run`/`sweep_lean` (`tests/gpu.rs`). Setup and usage: `experiments/2026-10-16-gpu-ant-sweep/README.md` |
 | `src/gpu/probe.{rs,cu}`, `src/bin/gpu_probe.rs` | `probe` on the GPU for plain rules and `RULE@SEED` only (other walkers stay CPU); CSV byte-identical to `src/bin/probe.rs` (`tests/gpu_probe.rs`). Use for `probe 27 8192` batches of hundreds+ runs. `experiments/2026-10-16-gpu-probe/README.md` |
 | `src/bin/confirm.rs` | Re-verify claimed highways / classifications |
@@ -167,6 +168,16 @@ node web/smoke.js                            # web smoke test (if node installed
 
 Always build and run sweeps with `--release`; debug builds are far too slow for
 real step counts.
+
+## Portable GPU checks
+
+The optional `wgpu` feature adds a native census sweeper; macOS uses Metal.
+Run `PROPTEST_RNG_SEED=20261023 cargo test --release --locked --features wgpu --test portable_gpu`
+on compatible GPU hardware after changing `src/portable_gpu/`. Also run
+`cargo test --release --locked --features wgpu --lib step_counter_crosses_32_bit_boundary -- --ignored`.
+Do not skip adapter failures or report a CPU fallback as a GPU check.
+The hosted portable-GPU workflow validates WGSL and CLI parsing without hardware;
+it does not establish GPU execution or speed. See the macOS GPU experiment guide.
 
 ## GPU (CUDA) tools: when to reach for them
 

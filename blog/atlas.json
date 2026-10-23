@@ -324,5 +324,7 @@
       ]
     }
   ],
-  "unfiled": {}
+  "unfiled": {
+    "2026-10-23-macos-gpu": "Native GPU implementation and oracle validation; no new scientific claim or throughput measurement."
+  }
 }
