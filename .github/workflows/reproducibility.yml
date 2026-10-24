@@ -28,7 +28,7 @@ jobs:
           version: '0.5.15'
           enable-cache: true
       - run: uv python install 3.12
-      - run: cargo build --release --locked --bin sweep --bin probe
+      - run: cargo build --release --locked --bin sweep --bin sweep_lean --bin probe
       - name: Compare thread counts and record provenance
         run: uv run --frozen python .github/scripts/check_determinism.py --output "$RUNNER_TEMP/reproducibility"
       - name: Check analysis against exact answers and an independent PRESS calculation

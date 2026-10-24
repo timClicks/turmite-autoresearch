@@ -9,7 +9,7 @@ use `PROPTEST_RNG_SEED=20261019`; keep regression cases committed.
 |---|---|
 | Rust correctness | `cargo test --release --locked`: CPU instruments and reference agreement |
 | Simulator checks | Build from committed results; check page initialization, charts, simulation, pause/resume, rule selection and mechanism readouts |
-| Small reproducibility checks | Compare sweep/probe CSV bytes at 1 and 3 Rayon threads; check estimators against exact answers and an independent PRESS calculation |
+| Small reproducibility checks | Compare sweep/probe CSV bytes at 1 and 3 Rayon threads; compare `sweep_lean` (dense and four tiled configurations) with `sweep` byte for byte; check estimators against exact answers and an independent PRESS calculation |
 | CUDA compilation | Compile every target with `cuda`; no GPU required and no runtime kernel validation |
 | GPU oracle checks (manual) | Run `gpu`, `onset` and `gpu_probe` equality tests on dedicated CUDA hardware |
 
@@ -19,7 +19,7 @@ and GPU evidence is retained for fourteen days. Download it for diagnosis;
 these artifacts are not committed scientific results.
 
 The reproducibility batch uses every canonical nontrivial rule of lengths
-2–6, 32,768 steps and a 256-cell grid. Probe runs use maximum octave 14,
+2–6, 32,768 steps and a 256-cell grid. `sweep_lean` runs the same batch dense, and tiled with default, 2^2-tile/2-resident packed, 2^3-tile/4-resident raw and lz4 settings (the tight caches force constant eviction, and the check fails if a stress setting evicts or stores nothing). Probe runs use maximum octave 14,
 grid 256, `RL`, `RLR`, `LLRR`, patched `RLR` seeds 1 and 2, and rotor/random
 walk seeds 1 and 2. `recipe.json` records the revision, exact arguments,
 input, thread counts, compiler and binary/input/output hashes. This tests
@@ -36,7 +36,7 @@ export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
 export PROPTEST_RNG_SEED=20261019
 cargo test --release --locked
 cargo check --release --locked --features cuda --all-targets
-cargo build --release --locked --bin sweep --bin probe
+cargo build --release --locked --bin sweep --bin sweep_lean --bin probe
 uv run --frozen python .github/scripts/check_determinism.py --output /tmp/turmite-reproducibility
 uv run --frozen python experiments/2026-10-15-fixed-area-cycles/scripts/check_analysis.py
 npm ci --prefix web
