@@ -83,3 +83,9 @@ commits and a physical temporary path on this Mac: use TMPDIR=/private/tmp and
 GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=commit.gpgsign GIT_CONFIG_VALUE_0=false for
 that test process only. No repository signing setting was changed. The default
 macOS temporary-path alias caused the first fixture attempt to miss its image.
+
+### 2026-10-25 · correction · P1 status and 640/640 framing
+Review of PR #8: with the support gate failed, P1 was untestable, so earlier
+entries saying it "failed" should be read as "ratios descriptive". 640/640
+changed paths is near-guaranteed under a ~10^4-label edit. Wording changed in
+README (appended section), blog, homepage, atlas and notes; no data or code touched.

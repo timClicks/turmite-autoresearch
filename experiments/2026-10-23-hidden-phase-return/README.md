@@ -227,3 +227,19 @@ A future study must register sampling that gives enough long episodes, retain
 full eligibility accounting, and distinguish delayed single-cell effects from
 collective phase organisation. It must predict separate trajectories against
 persistence before claiming to explain occupation. No such study is run here.
+
+## Review follow-up — 2026-10-25
+
+Appended after merge; the registration and results above are unchanged.
+Review of PR #8 made three points that apply to this record.
+
+- **Status of P1.** The support gate failed (17/24 groups under eight long
+  episodes), so under the frozen decision rule P1 was not testable. The six
+  ratios and the two cells below 0.5 are descriptive, not a refutation.
+  Summaries elsewhere (blog, homepage, atlas, notes) were reworded to match.
+- **The 640/640 result.** After about 10^4 relabelled cells, a changed path
+  needs only one second read of one cell, so this is near-certain and checks the
+  instrument. The informative evidence is the independently reproduced witness,
+  which shows the next-turn map alone does not fix paths on these edited fields.
+- **Sample size.** 160 sampled episodes, four starts per rule, some start-level
+  estimates from a single episode; bootstrap coverage at this size is not established.

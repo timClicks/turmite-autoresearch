@@ -214,9 +214,10 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
 
 [Hidden-phase return](../experiments/2026-10-23-hidden-phase-return/README.md)
 tested one-time interior shuffles that preserve every cell's next turn and
-per-depth-bin colour counts. All 640 k=1 paths/return tuples changed; the
-full-word shams matched. P1 failed in two of six rule/area comparisons, and
-17/24 start/area groups failed minimum long-episode support. All baseline
+per-depth-bin colour counts. All 640 k=1 paths/return tuples changed (near-certain
+for ~10^4 relabelled cells; full-word shams matched). 17/24 start/area groups failed minimum
+long-episode support, so P1 is untestable under the frozen rules and its ratios
+(two of six below 0.5) are descriptive. All baseline
 eligibility was counted; no censoring occurred. Stop at this pilot. Evidence:
 `1c0d631a1745f3bf12ab9e7a1d87d9d0bb9b6974`. No new confirmation run or family
 exclusion is justified. Next-turn maps alone are insufficient on these edited

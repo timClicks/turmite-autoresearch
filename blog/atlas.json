@@ -67,7 +67,7 @@
         {"ref": "2026-10-21-boundary-return-map"},
         {"ref": "2026-10-20-kappa-spread-budget"},
         {"ref": "2026-10-23-evidence-ledger"},
-        {"ref": "2026-10-23-hidden-phase-return", "why": "A fixed next-turn map permits different returns under phase edits; the pilot support gate fails."}
+        {"ref": "2026-10-23-hidden-phase-return", "why": "A fixed next-turn map permits different returns under phase edits; the pilot stopped at its support gate, so the comparison is unresolved."}
       ],
       "counter": [
         {"ref": "2026-10-20-kappa-first-passage", "why": "First-passage test: registered forecast failed and was worse than persistence."},

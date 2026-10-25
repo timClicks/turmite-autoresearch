@@ -280,8 +280,9 @@ absolute log2 time effect was 3.06–7.14 across six rule/area cells; the ratio 
 unrestricted shuffling was 0.32–0.62. This ratio is not an information fraction:
 permutation classes and spatial edits differ between arms.
 
-The registered all-six threshold failed in two cells. Minimum episode support
-failed in 17/24 start/area groups, so the pilot stopped without confirmation.
+Minimum episode support failed in 17/24 start/area groups, so the pilot stopped
+without confirmation and the registered all-six threshold (missed in two cells)
+is descriptive, not a test. Sample: 160 episodes, four starts per rule.
 All 9,680 baseline departures were accounted for, with no overflows or unfinished
 episodes; no replay was censored. A post hoc extreme example (86,030 -> 6 steps)
 was independently reproduced from its initial patch, with first divergence on
