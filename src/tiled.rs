@@ -371,11 +371,10 @@ impl TiledGrid {
         if !(MIN_TILE_LOG2..=MAX_TILE_LOG2).contains(&cfg.tile_log2) {
             return Err(TileError::BadConfig(format!("tile_log2 {} outside {MIN_TILE_LOG2}..={MAX_TILE_LOG2}", cfg.tile_log2)));
         }
-        if let Some(c) = cfg.cache_tiles {
-            if c < MIN_CACHE_TILES {
+        if let Some(c) = cfg.cache_tiles
+            && c < MIN_CACHE_TILES {
                 return Err(TileError::BadConfig(format!("cache of {c} tiles is below the minimum {MIN_CACHE_TILES}")));
             }
-        }
         let t = 1usize << cfg.tile_log2;
         let c = (size / 2) as i64;
         Ok(TiledGrid {
@@ -778,11 +777,10 @@ impl TiledGrid {
         if self.free.iter().any(|&i| self.pool[i as usize].live) {
             return Err("free-listed buffer is live".into());
         }
-        if let Some(cap) = self.cfg.cache_tiles {
-            if self.pool.len() > cap {
+        if let Some(cap) = self.cfg.cache_tiles
+            && self.pool.len() > cap {
                 return Err(format!("{} buffers exceed the cache bound {cap}", self.pool.len()));
             }
-        }
         for p in &self.pool {
             let s = self.stride;
             let halo_ok = (0..s).all(|i| p.cells[i] == SENT && p.cells[(s - 1) * s + i] == SENT && p.cells[i * s] == SENT && p.cells[i * s + s - 1] == SENT);
@@ -884,8 +882,8 @@ pub fn run_tiled_ckpt(rule: &Rule, grid: &mut TiledGrid, cfg: &Config, ckpt: Opt
     grid.enter(0, 0);
     let mut steps = 0u64;
     let mut stop = Stop::Budget;
-    if let Some(ck) = ckpt {
-        if let Some(st) = load_ckpt(&ck.path, rule, grid)? {
+    if let Some(ck) = ckpt
+        && let Some(st) = load_ckpt(&ck.path, rule, grid)? {
             if st.steps <= cfg.max_steps {
                 grid.enter(st.x, st.y);
                 grid.h = st.h;
@@ -895,7 +893,6 @@ pub fn run_tiled_ckpt(rule: &Rule, grid: &mut TiledGrid, cfg: &Config, ckpt: Opt
                 grid.enter(0, 0);
             }
         }
-    }
     while steps < cfg.max_steps {
         let k = ckpt.map_or(u64::MAX, |c| c.every.max(1)).min(cfg.max_steps - steps);
         let (d, left) = grid.advance_steps(&tb, k);

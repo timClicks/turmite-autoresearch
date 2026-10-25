@@ -29,7 +29,7 @@ pub struct Frame<'a> {
 /// Dense colour/region/id boards (6 bytes per board cell), sparse histories.
 /// `sink` sees every state, including the final state before any departure.
 pub fn drive<W: Walker>(mut walker: W, size: usize, cap: u64, mut sink: impl FnMut(Frame<'_>) -> bool) -> (Stop, u64) {
-    assert!(size >= 16 && size % 2 == 0);
+    assert!(size >= 16 && size.is_multiple_of(2));
     let c = (size / 2) as i64;
     let mut colours = vec![0u8; size.checked_mul(size).unwrap()];
     let mut ids = vec![u32::MAX; colours.len()];

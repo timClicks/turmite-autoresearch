@@ -1,3 +1,12 @@
+// Style lints kept off crate-wide, with the reason: the many-argument and
+// complex-type signatures are plain parameter lists of tested kernels (a struct
+// per call would obscure the oracle comparison), and indexed loops mirror the
+// lattice arithmetic they implement.
+#![allow(
+    clippy::too_many_arguments,
+    clippy::type_complexity,
+    clippy::needless_range_loop
+)]
 //! Generalised Langton's ants ("turmites" with one internal state).
 //!
 //! A rule is a string over {L, R}. Each cell holds a colour `0..n`. On every

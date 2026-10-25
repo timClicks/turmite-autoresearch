@@ -353,7 +353,7 @@ pub fn make_trial(rule: &Rule, class: Class, index: u32, claim_seed: u64, size: 
             init.cells = window_cells(n, &mut st, 20, |_, x, _| (x < 0).then_some(c));
         }
         Class::Stripe => {
-            let vertical = splitmix_next(&mut st) % 2 == 0;
+            let vertical = splitmix_next(&mut st).is_multiple_of(2);
             init.cells = window_cells(n, &mut st, 24, |st, x, y| {
                 ((if vertical { x } else { y }) == 0).then(|| (splitmix_next(st) % n as u64) as u8)
             });
@@ -544,7 +544,7 @@ pub fn evolve_chain(rule: &Rule, kind: Kind, rep: u32, budget: u32, immigrate: b
     let mut out = Vec::with_capacity(budget as usize);
     for k in 0..budget {
         let idx = rep * budget + k;
-        let fresh = immigrate && k >= seeding && splitmix_next(&mut st) % 4 == 0;
+        let fresh = immigrate && k >= seeding && splitmix_next(&mut st).is_multiple_of(4);
         let t = if k < seeding || fresh {
             random_draw(rule, idx, drawn_seed, size, horizon, base)
         } else {

@@ -298,7 +298,7 @@ fn interventions(
 }
 
 fn run(rule_text: &str, seed: u64, budget: u64, out: &Path) -> Result<(), String> {
-    let rule: Rule = rule_text.parse().map_err(|e| format!("{e}"))?;
+    let rule: Rule = rule_text.parse()?;
     let mut walker = PatchedAnt::new(&rule, seed, 2);
     let mut colours = vec![0u8; BOARD * BOARD];
     let mut visited = vec![false; BOARD * BOARD];
@@ -342,50 +342,48 @@ fn run(rule_text: &str, seed: u64, budget: u64, out: &Path) -> Result<(), String
             .iter()
             .any(|&d| !visited[pos.wrapping_add_signed(d)]);
 
-        if boundary {
-            if let Some(rec) = record.take() {
-                let duration = time - rec.start;
-                let c = &mut counts[rec.band];
-                c.completed_time += duration;
+        if boundary && let Some(rec) = record.take() {
+            let duration = time - rec.start;
+            let c = &mut counts[rec.band];
+            c.completed_time += duration;
 
-                if duration > CAP as u64 {
-                    c.overflow += 1;
-                    c.overflow_time += duration;
-                } else if duration < 128 {
-                    c.short += 1;
+            if duration > CAP as u64 {
+                c.overflow += 1;
+                c.overflow_time += duration;
+            } else if duration < 128 {
+                c.short += 1;
+            } else {
+                c.eligible_long += 1;
+
+                if c.sampled < 16 && (c.sampled == 0 || rec.start - c.last_sample >= 64) {
+                    let field = crop(&colours, &visited, bounds, &rec);
+                    let baseline = replay(&field, &rule, CAP);
+                    let local = |i: usize| {
+                        (i / BOARD - bounds.2 + 1) * field.width + i % BOARD - bounds.0 + 1
+                    };
+                    assert_eq!(
+                        (
+                            baseline.duration as u64,
+                            baseline.pos,
+                            baseline.heading,
+                            baseline.censored
+                        ),
+                        (duration, local(pos), heading, false),
+                        "live replay mismatch"
+                    );
+                    interventions(
+                        &field,
+                        &rule,
+                        seed,
+                        &rec,
+                        c.sampled as usize,
+                        &baseline,
+                        &mut rows,
+                    );
+                    c.sampled += 1;
+                    c.last_sample = rec.start;
                 } else {
-                    c.eligible_long += 1;
-
-                    if c.sampled < 16 && (c.sampled == 0 || rec.start - c.last_sample >= 64) {
-                        let field = crop(&colours, &visited, bounds, &rec);
-                        let baseline = replay(&field, &rule, CAP);
-                        let local = |i: usize| {
-                            (i / BOARD - bounds.2 + 1) * field.width + i % BOARD - bounds.0 + 1
-                        };
-                        assert_eq!(
-                            (
-                                baseline.duration as u64,
-                                baseline.pos,
-                                baseline.heading,
-                                baseline.censored
-                            ),
-                            (duration, local(pos), heading, false),
-                            "live replay mismatch"
-                        );
-                        interventions(
-                            &field,
-                            &rule,
-                            seed,
-                            &rec,
-                            c.sampled as usize,
-                            &baseline,
-                            &mut rows,
-                        );
-                        c.sampled += 1;
-                        c.last_sample = rec.start;
-                    } else {
-                        c.gap_or_quota += 1;
-                    }
+                    c.gap_or_quota += 1;
                 }
             }
         }
@@ -401,28 +399,29 @@ fn run(rule_text: &str, seed: u64, budget: u64, out: &Path) -> Result<(), String
             break;
         }
 
-        if !boundary && previous_boundary && record.is_none() {
-            if let Some(band) = BANDS
+        if !boundary
+            && previous_boundary
+            && record.is_none()
+            && let Some(band) = BANDS
                 .iter()
                 .position(|&lower| area >= lower && area < lower * 17 / 16)
-            {
-                counts[band].departures += 1;
-                record = Some(Record {
-                    band,
-                    start: time,
-                    pos,
-                    heading,
-                    undo: Vec::new(),
-                });
-            }
+        {
+            counts[band].departures += 1;
+            record = Some(Record {
+                band,
+                start: time,
+                pos,
+                heading,
+                undo: Vec::new(),
+            });
         }
 
         previous_boundary = boundary;
 
-        if let Some(rec) = record.as_mut() {
-            if rec.undo.len() < CAP {
-                rec.undo.push((pos, colours[pos]));
-            }
+        if let Some(rec) = record.as_mut()
+            && rec.undo.len() < CAP
+        {
+            rec.undo.push((pos, colours[pos]));
         }
 
         walker.step(&mut colours[pos], &mut heading);

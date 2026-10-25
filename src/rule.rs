@@ -87,7 +87,7 @@ impl Rule {
     pub fn root(&self) -> Rule {
         let n = self.len();
         for p in 1..n {
-            if n % p == 0 && self.0[..p].repeat(n / p) == self.0 {
+            if n.is_multiple_of(p) && self.0[..p].repeat(n / p) == self.0 {
                 return Rule(self.0[..p].to_vec());
             }
         }

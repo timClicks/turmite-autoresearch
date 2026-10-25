@@ -126,7 +126,7 @@ pub struct Dep {
 /// initialised on first arrival (`Walker::initial_cell` is pure, so this equals dense
 /// initialisation). The walker stops `MARGIN` cells short of the edge.
 pub fn drive<W: Walker>(mut walker: W, size: usize, cap: u64, radius: i64, mut sink: impl FnMut(&Dep) -> bool) -> (Stop, u64) {
-    assert!(size >= 32 && size % 2 == 0 && radius >= 0);
+    assert!(size >= 32 && size.is_multiple_of(2) && radius >= 0);
     assert!(MARGIN > radius + 4, "update window must stay on the board");
     let c = (size / 2) as i64;
     let mut colour = vec![0u8; size * size];
@@ -448,8 +448,8 @@ impl Accountant {
             l.sum_r2 += (dx * dx + dy * dy) as u64;
         }
         // 3. Band boundaries at this state.
-        if let Some(k) = self.active {
-            if d.area >= self.bands[k].hi {
+        if let Some(k) = self.active
+            && d.area >= self.bands[k].hi {
                 assert_eq!(d.area, self.bands[k].hi);
                 let b = &mut self.bands[k];
                 b.reached_hi = true;
@@ -458,7 +458,6 @@ impl Accountant {
                 b.perim_end = d.perimeter;
                 self.active = None;
             }
-        }
         if self.active.is_none() && self.started < self.bands.len() && d.area >= self.bands[self.started].lo {
             let k = self.started;
             assert_eq!(d.area, self.bands[k].lo);

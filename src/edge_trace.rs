@@ -164,7 +164,7 @@ pub fn trace<W: Walker>(
         last_t[i] = t as u32;
         walker.step(&mut colour[i], &mut hd);
         let (dx, dy) = DIRS[hd as usize];
-        let j;
+        
         if wrap {
             gx = (gx as isize + dx as isize).rem_euclid(w as isize) as usize;
             gy = (gy as isize + dy as isize).rem_euclid(h as isize) as usize;
@@ -172,7 +172,7 @@ pub fn trace<W: Walker>(
             gx = (gx as isize + dx as isize) as usize;
             gy = (gy as isize + dy as isize) as usize;
         }
-        j = gy * w + gx;
+        let j = gy * w + gx;
         let born = !vis[j];
         if born {
             if in_win {

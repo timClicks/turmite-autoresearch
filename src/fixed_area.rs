@@ -356,8 +356,8 @@ impl Accountant {
             _ => {}
         }
         // 3. Band boundaries at this state.
-        if let Some(k) = self.active {
-            if st.area >= self.bands[k].hi {
+        if let Some(k) = self.active
+            && st.area >= self.bands[k].hi {
                 assert_eq!(st.area, self.bands[k].hi);
                 let b = &mut self.bands[k];
                 b.reached_hi = true;
@@ -373,7 +373,6 @@ impl Accountant {
                 self.bands[k].add_clipped(from, st.t, z);
                 self.active = None;
             }
-        }
         if self.active.is_none() && self.started < self.bands.len() && st.area >= self.bands[self.started].lo {
             let k = self.started;
             assert_eq!(st.area, self.bands[k].lo);
@@ -411,11 +410,10 @@ impl Accountant {
         let mut cycle: Option<(u64, u64, u64)> = None; // (start, end, D)
         if z {
             self.last_b = Some((s, start_obs));
-        } else if start_obs && end_obs {
-            if let Some((bs, true)) = self.last_b {
+        } else if start_obs && end_obs
+            && let Some((bs, true)) = self.last_b {
                 cycle = Some((bs, e, s - bs));
             }
-        }
         for k in 0..self.started {
             let band = &mut self.bands[k];
             if credited >> k & 1 == 1 {
@@ -431,13 +429,12 @@ impl Accountant {
             } else {
                 band.add_clipped(lo_i, hi_i, z);
             }
-            if let Some((cs, ce, d)) = cycle {
-                if cs >= band.t_start && ce <= t_end {
+            if let Some((cs, ce, d)) = cycle
+                && cs >= band.t_start && ce <= t_end {
                     band.cycles += 1;
                     band.cycle_d_sum += d;
                     band.cycle_t_sum += e - s;
                 }
-            }
         }
     }
 }

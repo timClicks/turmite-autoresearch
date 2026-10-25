@@ -98,7 +98,7 @@ fn leave(nbv: &mut u16, resolved: &mut [u64]) {
 
 /// Run the ant `rule` on `lat` for 2^log2 steps (log2 <= 30) on a size x size board (size even).
 pub fn lattice_trace(lat: Lattice, rule: &str, size: usize, log2: u32) -> LTrace {
-    assert!(log2 <= 30 && size % 2 == 0);
+    assert!(log2 <= 30 && size.is_multiple_of(2));
     let c = size / 2;
     let c0 = c - c % 2;
     let s = size as isize;

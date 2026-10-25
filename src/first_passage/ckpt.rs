@@ -29,6 +29,7 @@ fn put_ep(w: &mut Wr, e: &EpTally) {
     w.u64s(&e.hist_steps);
 }
 
+#[allow(clippy::field_reassign_with_default)] // fields are read in file order
 fn get_ep(r: &mut Rd) -> Result<EpTally, String> {
     let mut e = EpTally::default();
     e.entered_complete = r.u64()?;
@@ -145,6 +146,7 @@ impl<W: Walker + Clone> Sim<W> {
         w.0
     }
 
+    #[allow(clippy::field_reassign_with_default)] // fields are read in file order
     pub fn restore(walker: W, bytes: &[u8], recipe: &str) -> Result<Self, String> {
         let mut r = Rd::new(bytes);
         let magic = (0..MAGIC.len()).map(|_| r.u8()).collect::<Result<Vec<u8>, String>>()?;

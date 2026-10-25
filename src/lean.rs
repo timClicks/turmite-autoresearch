@@ -7,6 +7,7 @@
 //! - extent: each cell's byte carries a *touched* flag in bit 7 (colour in bits 0..7), scanned at the end;
 //! - trail: the dynamics is exactly reversible, so the last `history` positions are rebuilt by
 //!   stepping backwards from the final state (then stepping forward again to restore it).
+//!
 //! `run_lean` must return the same `RunResult` as `fast::run` (tests/lean.rs).
 
 use crate::detect::{MIN_SPAN, exit_confirms, find_highway};

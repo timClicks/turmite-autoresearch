@@ -201,12 +201,11 @@ impl Obs {
                 self.open = Some((f.state.t, f.heading, k));
             }
         }
-        if l_new {
-            if let Some((t0, h, kb)) = self.open.take() {
+        if l_new
+            && let Some((t0, h, kb)) = self.open.take() {
                 self.out[kb].exc_n[h as usize] += 1;
                 self.out[kb].exc_steps[h as usize] += f.state.t - t0;
             }
-        }
         self.prev = Some(Prev { idx, label: l_new, depth: self.depth[idx], z: f.state.z, area: f.state.area, ncells });
     }
 

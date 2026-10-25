@@ -89,3 +89,12 @@ Review of PR #8: with the support gate failed, P1 was untestable, so earlier
 entries saying it "failed" should be read as "ratios descriptive". 640/640
 changed paths is near-guaranteed under a ~10^4-label edit. Wording changed in
 README (appended section), blog, homepage, atlas and notes; no data or code touched.
+
+### 2026-10-25 · deviation · Clippy tidy of the frozen example
+Post-merge, `examples/hidden_phase_return.rs` was edited for Clippy only
+(`to_string`-free `?` on a `String` error, three collapsed `if` blocks via let
+chains, rustfmt). The frozen run is not superseded: a fresh release build at
+three threads reproduced all 24 CSVs byte-identical to `results/`. The library
+was tidied in the same change (`cargo clippy --lib --example hidden_phase_return
+-- -D warnings --no-deps` is clean); `cargo test --release --locked` passed.
+Other examples still carry Clippy warnings and were left untouched.

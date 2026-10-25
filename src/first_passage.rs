@@ -263,7 +263,7 @@ pub struct Sim<W: Walker + Clone> {
 
 impl<W: Walker + Clone> Sim<W> {
     pub fn new(walker: W, size: usize, cap: u64, bands: &[(u64, u64)]) -> Self {
-        assert!(size >= 32 && size % 2 == 0);
+        assert!(size >= 32 && size.is_multiple_of(2));
         for (k, &(lo, hi)) in bands.iter().enumerate() {
             assert!(lo >= 2 && hi > lo && (k == 0 || bands[k - 1].1 <= lo));
         }
@@ -373,14 +373,13 @@ impl<W: Walker + Clone> Sim<W> {
             tr.push((z, area, perim, depth, reg.geom()));
         }
         // 1. departure t-1
-        if let Some(p) = self.prev {
-            if let Some(k) = self.active {
+        if let Some(p) = self.prev
+            && let Some(k) = self.active {
                 let b = &mut self.bands[k];
                 b.steps += 1;
                 if p.z { b.b_dep += 1 } else { b.i_dep += 1 }
                 b.sum_pa += p.perim as f64 / p.area as f64;
             }
-        }
         // 2. label change closes a run
         match &self.run {
             None => self.run = Some(Run { s: t, z, start_obs: false }),
@@ -392,8 +391,8 @@ impl<W: Walker + Clone> Sim<W> {
             _ => {}
         }
         // 3. band boundaries
-        if let Some(k) = self.active {
-            if area >= self.bands[k].hi {
+        if let Some(k) = self.active
+            && area >= self.bands[k].hi {
                 assert_eq!(area, self.bands[k].hi);
                 let b = &mut self.bands[k];
                 b.reached_hi = true;
@@ -403,7 +402,6 @@ impl<W: Walker + Clone> Sim<W> {
                 self.tau_hi[k] = Some(t);
                 self.active = None;
             }
-        }
         if self.active.is_none() && self.started < self.bands.len() && area >= self.bands[self.started].lo {
             let k = self.started;
             assert_eq!(area, self.bands[k].lo);
@@ -479,8 +477,8 @@ impl<W: Walker + Clone> Sim<W> {
                 p.skipped += (j as i64 - s.cur as i64).unsigned_abs() - 1;
             }
         }
-        if let (Some(k), Some(j)) = (s.start_band, to) {
-            if self.ctx4.is_some() {
+        if let (Some(k), Some(j)) = (s.start_band, to)
+            && self.ctx4.is_some() {
                 let c = self.ctx4.as_mut().unwrap();
                 let mut key = (k, s.key, s.r4);
                 if c.map.len() >= c.max_rows && !c.map.contains_key(&key) {
@@ -491,7 +489,6 @@ impl<W: Walker + Clone> Sim<W> {
                 e.0 += 1;
                 e.1 += (j > s.cur) as u64;
             }
-        }
         if let (Some(j), Some((key, hist))) = (to, next) {
             let r4 = self.r4_hash();
             self.seg = Some(Seg { cur: j, start_t: t, key, start_band: self.active, revisits: 0, jump_any: false, hist, r4 });

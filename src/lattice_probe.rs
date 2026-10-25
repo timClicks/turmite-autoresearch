@@ -128,7 +128,7 @@ impl Region {
 /// for min_log2 <= k < max_log2. Stops early if the walker gets within two cells of the edge (relative to the start
 /// cell, as `probe.rs`). The start cell is the board centre, moved to even row and column for the triangular lattice.
 pub fn lattice_probe(lat: Lattice, mover: &Mover, size: usize, min_log2: u32, max_log2: u32) -> LResult {
-    assert!(min_log2 >= 1 && size % 2 == 0);
+    assert!(min_log2 >= 1 && size.is_multiple_of(2));
     let c = size / 2;
     let c0 = c - c % 2;
     let s = size as isize;
