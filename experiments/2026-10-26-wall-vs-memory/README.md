@@ -176,11 +176,12 @@ binary sha256, and writes `results/probe.csv`, `results/probe.log` and
 
 ## Results, uncertainty and limitations
 
-Not run yet.
+See "Stage 1 results" and "Stage 2 results" below (appended in order, after
+their registrations). Summary at the end of the file.
 
 ## Pruning-index outcome and next question
 
-Pending the run.
+See "Outcome" at the end of the file.
 
 ## Addenda (append only)
 
@@ -296,3 +297,67 @@ extrapolates to about 0.71 by k = 30, but four octaves of an sd-0.06 walker can
 easily look flat. Runs that escape the board are counted and fitted only on
 complete windows. Budget: 24 runs of up to 2^31 steps, minutes on 4 cores; no
 further extension without a new registration.
+
+## Stage 2 results (run 2026-10-26 23:14-23:18 NZDT, commit `428a083`)
+
+Command: `RAYON_NUM_THREADS=4 sh scripts/run_stage2.sh`, then
+`uv run --frozen scripts/analyse_stage2.py`. Provenance in
+`results/stage2_provenance.txt`; per-run fits `results/stage2_runs.csv`; scored
+output `results/stage2_analysis.txt`. 24 runs to 2^31 steps, no escapes.
+Determinism check (ad hoc, shell `md5sum` over CSV rows): the 8 V1 and 8 rotor
+runs that share seeds with Stage 1 reproduce its rows exactly for k <= 27.
+
+| walker | a(24..30) | beta(24..30) | local-a slope per octave, 95% bootstrap | mean local a, k = 28..31 |
+|---|---|---|---|---|
+| rotor (8) | 0.677 (sd 0.003) | 0.521 (0.019) | -0.0024 [-0.0037, -0.0009] | 0.674, 0.676, 0.674, 0.669 |
+| V1 hybrid (16) | 0.732 (sd 0.021) | 0.585 (0.047) | -0.0045 [-0.0124, +0.0031] | 0.724, 0.705, 0.717, 0.728 |
+
+- **S0 passes** (rotor 0.677).
+- **V1 reading under the frozen rule: "separate exponent".** But it is
+  borderline: the mean a(24..30) of 0.732 clears the 0.73 threshold by 0.002,
+  less than a tenth of the between-seed sd. The slope interval contains 0
+  and also reaches -0.012 per octave, so slow convergence is not excluded.
+  The fair summary is that at 2^31 steps the hybrid sits about 0.05 above the
+  rotor in a and 0.06 in beta, with no resolved trend in either direction.
+- My registered prior (converging, about 55%) did not get its reading; I do
+  not count this as strong evidence for a separate exponent either.
+
+## Outcome
+
+1. **The wall is necessary (Stage 1, F1, scored).** In all six drawn core-class
+   rules, keeping the ant's memory but randomising its turn on fresh cells gives
+   a porous territory (early a 0.86-0.91, beta 0.84-0.89), close to the
+   memoryless walker. My registered H-memory prior predicted the opposite.
+2. **The wall alone gets most of the way, not all (Stages 1-2).** The hybrid
+   (forced R on fresh cells, memoryless +/-90 deg turns elsewhere) moves from the
+   memoryless walker's a 0.93 / beta 0.92 to 0.73 / 0.59 at k = 24..30, against
+   the rotor's 0.68 / 0.52 and the six ants' 0.59-0.70 / 0.51-0.55 (k = 20..26).
+   Whether it converges to 2/3 is unresolved at 2^31.
+3. **Low-rate noise is tolerated on either cell type.** At 10%, neither cell
+   type dominates rule by rule; revisit noise moves the exponent somewhat more on
+   average. The registered dose predictions failed in both directions.
+
+What this does not show: that the ant's cube root *is* the hybrid's mechanism
+(the ant's interior is not memoryless); anything beyond six rules of one class;
+asymptotic exponents. Nothing here derives 2/3.
+
+Pruning index: `NR-20261026-wall-vs-memory-no-wall-porous` records the F1
+result (empirical, exactly the 48 tested F1 specs). It permits deferring an
+exact repeat on these rules, seeds and instrument. It does not exclude memory as
+a contributor; point 2 suggests memory supplies the remainder. No signature is
+written for V1 (unresolved) or the dose arms (failed predictions of a contrast,
+not a dead end).
+
+Next questions (none registered):
+- *Why does the wall matter so much and leaks so little?* EF = 0.1 barely moves
+  the exponent but EF = 1 makes every rule porous. A dose curve in EF between 0.1
+  and 1 would locate the threshold and test whether it is a sharp transition (a
+  percolation-like loss of the reflecting edge) or a smooth crossover. Prediction
+  to be derived before registering.
+- *What does the memory add on top of the wall?* Compare the hybrid's and the
+  ant's interior visit-count fluctuations (neighbour discrepancy of local times),
+  the quantity the rotor router controls. If the ant's are rotor-like and the
+  hybrid's diffusive, that is the remaining 0.05 in a.
+- *Does V1 converge?* Only a longer run or a mechanism-level argument can say;
+  2^35 steps on a larger board is feasible with the tiled grid (`TURMITE_GRID=tiled`
+  covers `sweep_lean` only, so the probe would need porting first).
