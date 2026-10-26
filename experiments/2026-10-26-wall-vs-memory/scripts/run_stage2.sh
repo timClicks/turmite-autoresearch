@@ -17,7 +17,7 @@ CARGO_TARGET_DIR="$T" cargo build --release --locked --bin probe
   echo "RAYON_NUM_THREADS ${RAYON_NUM_THREADS:-unset}"
   echo "start $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 } > "$D/stage2_provenance.txt"
-"$T/release/probe" 27 16384 < "$D/stage2_specs.txt" > "$D/stage2_probe.csv" 2> "$D/stage2_probe.log"
+"$T/release/probe" 31 16384 < "$D/stage2_specs.txt" > "$D/stage2_probe.csv" 2> "$D/stage2_probe.log"
 echo "end $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$D/stage2_provenance.txt"
 echo "stage2_probe.csv_sha256 $(sha256sum "$D/stage2_probe.csv" | cut -d' ' -f1)" >> "$D/stage2_provenance.txt"
 touch "$D/stage2.done"
