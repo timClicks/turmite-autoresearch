@@ -178,6 +178,11 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
 - **Paper figures 1-5 are built** (2026-10-20: `fig:walker-map`, `fig:edge-gap`, `fig:layers`, `fig:prefix`; late-switch earlier). `rebuild_figures.py`
   confirmed 2026-10-20 to regenerate all figures and `main.pdf` cleanly. Proposals 6-8 remain unattempted.
   `notes/paper-figure-proposals-2026-10-16.md`, `notes/handover-paper-figures-2026-10-17.md` (stale for item 4).
+- **Routes to explaining the cube root (proposals only, 2026-10-26):** a literature survey (Kac's lemma, FLP and
+  Bou-Rabee-Peres excursion arguments, constants that came before their theories) with four unregistered proposals: an
+  adapted excursion lemma (Q30), fluctuation-shape collapse (Q31), a diffusive-versus-sweep duration collapse (Q32) and
+  a universality conjecture for stationary access (Q33). None is scheduled; a choice must still pass the priority-1
+  feasibility gate. `notes/cube-root-routes-2026-10-26.md`.
 
 ## Uncommitted work in progress (do not lose)
 

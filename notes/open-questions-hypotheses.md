@@ -479,3 +479,25 @@ first-read time of the last colour), because experiment titles, scripts and appe
 way. The square-ring questions are renumbered: ring onset from a blank board is now **Q27**, and the reversed family and
 corner proof is now **Q29**. The crawler-support question is Q28. Older append-only records keep the numbers they were
 written with; read "Q25/Q26" in `experiments/2026-10-25-square-ring-fillers/NOTEBOOK.md` as Q27/Q29.
+
+## Added 2026-10-26: routes to explaining the cube root (proposals, not results)
+
+Survey note `notes/cube-root-routes-2026-10-26.md` (written 2026-10-26 23:05 NZDT; nothing run, nothing registered). It
+reframes the target and records four candidate questions with predictions and kill criteria. Priorities in
+`notes/ACTIVE.md` are unchanged.
+- **Reframing (prior art credited).** Constant kappa is equivalent to E[T] tracking L, i.e. the ant returns to its edge
+  on Kac's schedule for a uniform occupant, up to a rule constant. Meng and Cohen (1994) used the same boundary-return
+  argument. A diffusive excursion law (tail `s^(-1/2)`, cutoff `L^2`) and a sweep law (scale L) both give
+  `z(1 - theta) = 1`, so the mean cannot separate them.
+- Q30. Does an adapted Florescu-Levine-Peres excursion lemma hold for blob rules: bounded visits per cell per origin
+  excursion (M), and each long excursion covering a fixed fraction of the boundary (B)? Together they would give a
+  lower bound `A >~ t^(2/3)`. Prediction: tethered log-growers fail (B). Kill: per-excursion multiplicity or coverage
+  drifts with L in blob rules. Credits frontier-results items 29/28, item 6 and kappa-mechanisms (no Eulerian identity).
+- Q31. Do chaotic blob rules share one standardised edge-fluctuation distribution, distinct from the rotor's (the KPZ
+  and Tracy-Widom lesson)? Kill: between-rule spread as large as the ant-rotor gap, against rotor seed spread.
+- Q32. Is the ant's excursion-duration law diffusive (collapse in `s/L^2`) or a sweep (collapse in `s/L`)? It must be
+  gated on random-walk and rotor calibrators being distinguishable; otherwise it is uninformative, as C6 was.
+- Q33. Universality conjecture: stationary boundary access holds for any compact walker with no tether and no edge
+  lock, whatever its class. Known failures each break one condition (tethered rules, crawler fillers, sqrt(t) cluster,
+  highways; rotor examples from Bou-Rabee and Peres 2026). Kill: a compact, untethered, unlocked walker (frozen
+  operational definitions) whose kappa drifts. P5 agreement is not evidence.
