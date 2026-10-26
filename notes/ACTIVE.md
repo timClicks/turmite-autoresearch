@@ -79,6 +79,13 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
 
 ## Science: retained backlog (not an execution queue)
 
+- **Wall or memory (done 2026-10-26, owner-requested, `experiments/2026-10-26-wall-vs-memory/`):** turn noise split by
+  fresh/revisited cell. The fresh-ground rule is necessary in 6/6 core rules (memory without it is porous; dead end
+  `NR-20261026-wall-vs-memory-no-wall-porous`). The hybrid walker (wall, memoryless interior) reaches a 0.73 at 2^31,
+  rotor 0.68: sufficiency unresolved. Open: Q30 (where the edge fails between 10% and 100% fresh noise), Q31 (what memory
+  adds: local-time discrepancy). Relevant to priority 1: boundary access depends on the fresh-ground turn, so a
+  boundary-access explanation should say how that turn shapes returns.
+
 - **Proof track (bounded closure only this phase; started 2026-10-20):** turn simulated regularities into checked macro-transitions
   (`notes/proof-track-2026-10-20.md`). First target: is the `RLRLLL` column sweeper `C(L) -> C(L+g)` for all heights?
   `experiments/2026-10-20-rlrlll-macro-transition/`: P1-P5 held and the family is checked closed for all even m >= 2

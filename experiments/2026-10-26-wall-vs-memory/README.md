@@ -361,3 +361,10 @@ Next questions (none registered):
 - *Does V1 converge?* Only a longer run or a mechanism-level argument can say;
   2^35 steps on a larger board is feasible with the tiled grid (`TURMITE_GRID=tiled`
   covers `sweep_lean` only, so the probe would need porting first).
+
+### Write-up reproduction (appended)
+
+```sh
+uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/figure.py         # results/fig_local_exponents.png
+uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/build_notebook.py  # then execute as in its docstring
+```

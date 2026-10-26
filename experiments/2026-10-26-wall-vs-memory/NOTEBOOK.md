@@ -70,3 +70,23 @@ both open. Alternatives not excluded: six rules from one class, finite windows.
 ### 2026-10-26 23:15 (+1300) · f1bd2c8 · decision
 Register Stage 2 (V1 to 2^31, 16 seeds, rotor control) in README before running;
 scoring in `scripts/analyse_stage2.py`, committed first.
+
+### 2026-10-26 23:30 (+1300) · 3040a0b · observation
+Stage 2 ran 23:14-23:18 NZDT (`results/stage2_analysis.txt`). S0 passes (rotor 0.677). V1 a(24..30) 0.732
+(sd 0.021), beta 0.585; local-a slope -0.0045 per octave, bootstrap 95% [-0.0124, +0.0031]. Frozen reading
+"separate exponent", 0.002 over threshold. The 16 runs sharing seeds with Stage 1 reproduce its rows exactly for k <= 27.
+
+### 2026-10-26 23:30 (+1300) · 3040a0b · interpretation
+Stage 2 is unresolved in substance, whatever the frozen label says: the threshold margin is a tenth of the seed sd and
+the trend interval holds both readings. The firm result is F1 (wall necessary in 6/6 rules).
+
+### 2026-10-26 23:30 (+1300) · 3040a0b · dead-end
+F1 recorded as `NR-20261026-wall-vs-memory-no-wall-porous` (empirical; exactly the 48 tested specs; evidence
+3040a0b). Reopen on a walker semantics correction, a longer horizon returning these specs to 2/3, or for other rules.
+No signature for V1 (unresolved) or the dose arms (failed contrast predictions, not a dead end).
+
+### 2026-10-26 23:30 (+1300) · 3040a0b · decision
+Write-up: README outcome, `notebook.ipynb` (built by `scripts/build_notebook.py`, executed from a clean kernel, reads
+committed results only), figure `scripts/figure.py`, notes (cube-root-hypothesis update, Q30/Q31), ACTIVE backlog,
+atlas filing under cube-root-growth, blog post and homepage card. Stop here; follow-ups (Q30 EF dose curve, Q31 local-time
+discrepancy, longer V1) need new registrations.

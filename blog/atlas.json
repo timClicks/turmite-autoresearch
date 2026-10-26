@@ -17,15 +17,16 @@
       "slug": "cube-root-growth",
       "question": "Why cube-root growth?",
       "state": "empirical-unexplained",
-      "state_summary": "Many chaotic rules cluster at the same width exponent, matching a calibrated rotor walker at finite windows; every accounting of the growth reproduces it without explaining it.",
-      "reviewed": "2026-10-25",
+      "state_summary": "Many chaotic rules cluster at the same width exponent, matching a calibrated rotor walker at finite windows; every accounting of the growth reproduces it without explaining it. One intervention shows the repelling fresh ground is necessary in the rules tested.",
+      "reviewed": "2026-10-26",
       "claims": ["BO-01"],
       "evidence": [
         {"ref": "2026-10-13-probe-growth-census"},
         {"ref": "2026-10-13-b1-exact-exponent"},
         {"ref": "2026-10-13-item4-exponent-rotor-calibrated"},
         {"ref": "2026-10-13-a3-background-cone-control"},
-        {"ref": "2026-10-13-b3-long-rules", "why": "Registered extension: sampled rules much longer than the census keep the width exponent near a third."}
+        {"ref": "2026-10-13-b3-long-rules", "why": "Registered extension: sampled rules much longer than the census keep the width exponent near a third."},
+        {"ref": "2026-10-26-wall-vs-memory", "why": "Registered intervention: removing the forced turn on fresh ground makes every tested ant porous, while a memoryless walker given that turn gets most of the way to the cube root."}
       ],
       "counter": [
         {"ref": "2026-10-13-memory-walkers", "why": "Mechanism test: adding memory to a simple walker does not recover the ant."},
@@ -42,17 +43,19 @@
         "2026-10-13-occupancy-pages", "2026-10-13-mixing", "2026-10-13-layers-colours",
         "2026-10-13-c2-arrow-bias", "2026-10-15-literature-review", "2026-10-16-kappa-uniform-baseline"
       ],
-      "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md"],
+      "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-26-the-wall-was-doing-the-work.md"],
       "open": [
         {"text": "Is the shared exponent exact asymptotically, or only within the windows we can reach?", "source": "notes/cube-root-hypothesis.md"},
         {"text": "Which factor of the growth identity carries the amplitude, and why does the area exponent move when the width exponent does not?", "source": "notes/open-questions-hypotheses.md"},
-        {"text": "Why does rule identity matter much more for the area exponent than for the width exponent?", "source": "notes/open-questions-hypotheses.md"}
+        {"text": "Why does rule identity matter much more for the area exponent than for the width exponent?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Does the repelling fresh ground alone give a cube root in the long run, and what does the interior memory add on top of it?", "source": "notes/open-questions-hypotheses.md"}
       ],
       "turns": [
         {"ref": "2026-10-13-probe-growth-census", "change": "The crowded peak near a third is measured."},
         {"ref": "2026-10-13-item4-exponent-rotor-calibrated", "change": "An uncalibrated extrapolation is withdrawn as too strong."},
         {"ref": "2026-10-13-memory-walkers", "change": "Memory alone is shown not to be enough."},
-        {"ref": "2026-10-20-kappa-first-passage", "change": "The renewal identity is confirmed as an identity and its prediction fails."}
+        {"ref": "2026-10-20-kappa-first-passage", "change": "The renewal identity is confirmed as an identity and its prediction fails."},
+        {"ref": "2026-10-26-wall-vs-memory", "change": "The repelling fresh ground is shown necessary in the tested rules; memory alone does not keep the ant compact."}
       ]
     },
     {
