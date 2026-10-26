@@ -203,3 +203,96 @@ Pending the run.
   revisit-only noise is rule-free, and removing the wall changes it.
 - `scripts/analyse.py` is committed before the run and implements the
   classification and readings above; any later change to it is recorded here.
+
+### 2026-10-26 23:15 NZDT: timestamp correction (append only)
+
+The times written by hand above ("Registered ... 23:05", the "23:40" addendum)
+were estimates, not clock readings, and some lie after the run. The git commit
+times are authoritative: registration `086c1ac` at 22:55:21 NZDT, walker, tests
+and frozen `analyse.py` `f1bd2c8` at 23:02:13, Stage 1 run 23:02:30 to 23:05:33
+(`results/provenance.txt`, UTC). The order registration -> code -> run holds.
+From here on every timestamp is read from the clock.
+
+## Stage 1 results (run 2026-10-26, commit `f1bd2c8`)
+
+Command: `RAYON_NUM_THREADS=4 sh scripts/run.sh` then `uv run --frozen scripts/analyse.py`.
+Provenance (commit, binary and input sha256, start/end) in `results/provenance.txt`;
+per-run fits `results/runs.csv`, per-condition `results/conditions.csv`, scored
+output `results/analysis.txt`. 270 runs, 18 with an escape on the 16384 board
+(all in porous conditions: 8 of 8 `hy:*:1:1`, 10 in F1), none before the early window.
+
+**Gates: G1, G2, G3 all pass.** Rotor early a 0.722 (sd 0.018), beta 0.562, late
+a 0.687; the `pw:0.5` corner early a 0.929, beta 0.921; every deterministic run
+reproduces its census a and beta exactly (difference 0.0000).
+
+**Corners (scored):**
+
+| condition | early a | early beta | late a (n) | class |
+|---|---|---|---|---|
+| ant, deterministic (6 rules) | 0.591-0.705 | 0.50-0.55 | 0.592-0.702 (6) | compact (6/6) |
+| F1, memory kept, wall removed | 0.861-0.906 per rule | 0.84-0.89 | 0.866-0.923 | **porous (6/6)**; a up by +0.19 to +0.29 |
+| V1, hybrid: wall kept, memory removed | 0.801 (sd 0.023) | 0.695 (0.025) | 0.759 (0.061) (8) | **intermediate** |
+| memoryless, no wall (`pw:0.5`) | 0.929 (0.033) | 0.921 | 0.930 (4) | porous |
+| rotor | 0.722 (0.018) | 0.562 | 0.687 (8) | compact |
+
+- **F1: the H-wall criterion is met in 6/6 rules and the H-memory criterion in 0/6.**
+  My registered prior (H-memory, about 70%) is wrong for this arm: with the
+  ant's memory intact, randomising only the turn on fresh cells makes every
+  rule porous, close to the memoryless walker. The fresh-ground rule is
+  **necessary** for the compact cube-root regime in all six rules.
+- **V1 is intermediate**, so no registered corner reading applies. The wall
+  alone takes the walker from a 0.93 / beta 0.92 (`pw:0.5`) most of the way
+  towards the rotor and the ant (0.80 / 0.70 early, 0.76 / 0.63 late), with
+  fill 0.50-0.62 at 2^27 (rotor 0.68-0.75). Sufficiency is not shown within
+  these windows; necessity is.
+- **Dose arms:** neither registered dose prediction holds (Delta_V - Delta_F >= 0.03
+  in 2/6 rules, the reverse in 0/6). At a 10% rate, revisit noise moves the
+  exponent more than fresh noise on average (mean Delta_V +0.047, mean Delta_F
+  +0.028; Delta_V <= 0.04 in 2/6 rules, Delta_F <= 0.04 in 5/6), but not by
+  the registered margin rule by rule. `RRRLLLLR`, the slowest rule, moves most
+  under every noise. (0.01, 0) stays
+  within 0.02 in 4/6 rules (the two exceptions are `RRRLLLLR` +0.063 and
+  `RRRRLLLLLLLR` +0.028). (0.1, 0.1) median early a 0.717 against D3's 0.761 at
+  eps 0.1 (different rules, stream and window).
+- **Post hoc, descriptive:** the contrast between EF = 0.1 (little effect) and
+  EF = 1 (porous in every rule) says the wall tolerates occasional leaks. With
+  EF = 0.1 a fresh cell turns L only 5% of the time.
+
+Interpretation (mine, not a registered test): the cube root in these ants
+needs the repelling fresh-ground rule; interior memory does not substitute for
+it, but the wall alone, with a memoryless interior, has not reached the ant's
+exponent by 2^27. Either the hybrid converges slowly to 2/3, or it has its own
+exponent near 0.75 and memory supplies the rest. Stage 2 asks which.
+Limits: six rules from one class; finite windows; V1's late-window sd (0.061)
+is three times the rotor's.
+
+## Stage 2: does the wall alone reach the cube root? (registered 2026-10-26 23:15 NZDT, before running)
+
+Base commit `f1bd2c8`; Stage 1 results in hand (this prediction is informed by
+them and says so). Stage 1 local per-octave area exponents for V1 (mean over 8
+seeds, from `results/probe.csv`, computed ad hoc): about 0.82 at k = 17-20 and
+0.73-0.77 at k = 24-27; the rotor's are 0.67-0.69 at k = 24-27.
+
+Design: `hy:RL:1:0:SEED` for seeds 2026102601..16 (the 8 Stage 1 seeds, whose
+first 2^27 steps repeat exactly, plus 8 new), and `rotor:SEED` for seeds
+2026102601..08 as the control; `probe 31 16384` (windows to k = 31). Spec file
+`results/stage2_specs.txt`, output `results/stage2_probe.csv`, scored by
+`scripts/analyse_stage2.py` (committed before the run). Per run: a and beta over
+k = 24..30 (fit as Stage 1), local area exponent per octave, and the slope of
+local a against k over k = 22..31. Uncertainty: between-seed sd and a seed
+bootstrap (10,000 resamples, numpy seed 20261026) of the mean slope.
+
+Gate S0: rotor a(24..30) in [0.65, 0.70].
+
+Readings (V1, 16 seeds):
+- **Converging (wall suffices in the long run):** mean a(24..30) <= 0.72 and the
+  bootstrap 95% interval of the local-a slope lies entirely below 0.
+- **Separate exponent (memory needed for the rest):** mean a(24..30) >= 0.73 and
+  the slope interval contains 0.
+- Anything else: unresolved at this horizon.
+
+Prior: converging, about 55%; the Stage 1 trend (roughly -0.01 per octave)
+extrapolates to about 0.71 by k = 30, but four octaves of an sd-0.06 walker can
+easily look flat. Runs that escape the board are counted and fitted only on
+complete windows. Budget: 24 runs of up to 2^31 steps, minutes on 4 cores; no
+further extension without a new registration.
