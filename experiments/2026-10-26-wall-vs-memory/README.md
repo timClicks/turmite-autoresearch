@@ -181,3 +181,25 @@ Not run yet.
 ## Pruning-index outcome and next question
 
 Pending the run.
+
+## Addenda (append only)
+
+### 2026-10-26 23:40 NZDT: labels and threshold, before any run
+
+- Deviation (label only): `Rule` needs at least two colours, so the rule-free
+  corners are run as `hy:RL:1:0:SEED` (V1) and `hy:RL:1:1:SEED` (the `pw:0.5`
+  corner) instead of the `hy:R:...` written above. Every canonical rule gives
+  the same trajectory in these corners (tested), so nothing else changes; the
+  analysis groups them as `hy:*:1:0` and `hy:*:1:1`.
+- Precision of the semantics: a step is noisy iff the low 32 bits of the draw
+  are below `floor(eps * 2^32)`, and a noisy turn is R iff the high 32 bits are
+  below 2^31 (the `PersistentWalk` test at q = 0.5). The sparse reference in
+  `tests/hybrid_walker.rs` compares in floating point, which differs only when
+  the low bits equal that floor exactly (probability 2^-32 per step).
+- Oracle tests (`cargo test --release --locked --test hybrid_walker`, 5 tests)
+  pass at the commit that adds the walker: sparse reference for random rules
+  of length 2..12 and noise rates; no-noise equals `reference::Ant` and the
+  ant probe; full noise equals `PersistentWalk(seed, 0.5)` window for window;
+  revisit-only noise is rule-free, and removing the wall changes it.
+- `scripts/analyse.py` is committed before the run and implements the
+  classification and readings above; any later change to it is recorded here.

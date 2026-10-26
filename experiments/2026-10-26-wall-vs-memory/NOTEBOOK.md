@@ -35,3 +35,13 @@ candidate). Status: untested; the run decides.
 Registered question, walker semantics, exact identities, classification,
 calibration gates G1-G3 and corner/dose predictions in README before writing
 the walker. Rule cohort drawn with `scripts/select_rules.py` (seed 20261026).
+
+### 2026-10-26 23:45 (+1300) · 086c1ac · deviation
+`Rule` rejects one-letter rules, so the rule-free corners run as `hy:RL:1:0` and
+`hy:RL:1:1` (README addendum). Label only; trajectories are rule-free (tested).
+
+### 2026-10-26 23:50 (+1300) · 086c1ac · observation
+`HybridWalker` (src/walkers.rs) and `hy:` spec in `bin/probe`. `cargo test --release
+--locked --test hybrid_walker`: 5/5 pass. Full `cargo test --release --locked`: exit 0,
+49 test binaries ok (rustc 1.97.0, log kept in session scratch, not committed).
+`scripts/analyse.py` written and committed before the run.

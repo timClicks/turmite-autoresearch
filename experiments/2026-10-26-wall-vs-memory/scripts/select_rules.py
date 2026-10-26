@@ -28,8 +28,8 @@ rules = sorted(core["rule"][int(i)] for i in rng.choice(core.height, size=6, rep
 
 specs = [f"hy:{r}:0:0:0" for r in rules]
 specs += [f"hy:{r}:{ev}:{ef}:{s}" for r in rules for ev, ef in RULE_CONDS for s in SEEDS]
-specs += [f"hy:R:1:0:{s}" for s in SEEDS]  # the hybrid wall walker
-specs += [f"hy:R:1:1:{s}" for s in SEEDS]  # memoryless, no wall (= pw:0.5:SEED)
+specs += [f"hy:RL:1:0:{s}" for s in SEEDS]  # the hybrid wall walker
+specs += [f"hy:RL:1:1:{s}" for s in SEEDS]  # memoryless, no wall (= pw:0.5:SEED)
 specs += [f"rotor:{s}" for s in SEEDS]  # calibration
 (EXP / "results/specs.txt").write_text("\n".join(specs) + "\n")
 print(f"core class {core.height} rules; drew {rules}; {len(specs)} specs")
