@@ -11,6 +11,44 @@ preliminary_results: true
   <a class="text-link" href="{{ '/about/' | relative_url }}">What we’re trying to work out ↗</a>
   <a class="text-link" href="{{ '/atlas/' | relative_url }}">Browse by question: the research atlas ↗</a>
 </section>
+<section class="ant-explainer" aria-labelledby="explainer-heading" hidden>
+  <div class="section-heading"><h2 id="explainer-heading">How an ant works</h2><span>Pick a rule, then step through it</span></div>
+  <p class="ex-lede">The ant stands on a square of an endless grid, and every square starts blank (colour 0). On each step it <strong>reads</strong> the colour under it, <strong>turns</strong> left or right as the table says, <strong>paints</strong> the square with the next colour in the cycle, and <strong>moves</strong> one square forward. The rule is just that table written as letters: the letter in position <em>c</em> is the turn for colour <em>c</em>. Langton’s original ant is <code>RL</code>. Select a turn in the table to flip it.</p>
+  <div class="ex-layout">
+    <div class="ex-board">
+      <canvas width="460" height="460" role="img" aria-label="The ant’s grid"></canvas>
+      <p class="ex-counter"><strong id="ex-steps">0 steps</strong> · <span id="ex-summary"></span></p>
+    </div>
+    <div class="ex-side">
+      <form id="ex-rule-form" class="ex-rule" novalidate>
+        <label for="ex-rule">Rule</label>
+        <input id="ex-rule" name="rule" value="RL" maxlength="12" autocomplete="off" spellcheck="false" aria-describedby="ex-rule-error">
+        <button type="submit">Use rule</button>
+        <span id="ex-rule-error" class="ex-error" role="alert"></span>
+      </form>
+      <p class="ex-presets" role="group" aria-label="Example rules">Try
+        <button type="button" class="ex-preset" data-rule="RL" aria-pressed="true">RL</button>
+        <button type="button" class="ex-preset" data-rule="LLRR" aria-pressed="false">LLRR</button>
+        <button type="button" class="ex-preset" data-rule="RLR" aria-pressed="false">RLR</button>
+        <button type="button" class="ex-preset" data-rule="RLL" aria-pressed="false">RLL</button>
+        <button type="button" class="ex-preset" data-rule="RLRLLL" aria-pressed="false">RLRLLL</button>
+      </p>
+      <table id="ex-table"><caption>What the ant does on each colour</caption><thead><tr><th scope="col">On colour</th><th scope="col">Turn</th><th scope="col">Paint it</th></tr></thead><tbody></tbody></table>
+      <ol id="ex-narration" class="ex-narration" aria-live="polite" aria-label="What the last step did"></ol>
+      <div class="ex-controls">
+        <button type="button" id="ex-back">Back</button>
+        <button type="button" id="ex-step">Step</button>
+        <button type="button" id="ex-play">Play</button>
+        <button type="button" data-skip="100">+100</button>
+        <button type="button" data-skip="1000">+1,000</button>
+        <button type="button" id="ex-reset">Reset</button>
+      </div>
+      <label class="ex-speed" for="ex-speed">Speed <output id="ex-speed-label" for="ex-speed"></output></label>
+      <input id="ex-speed" type="range" min="0" max="7" step="1" value="4">
+    </div>
+  </div>
+  <p class="homepage-note">The ringed square is the one the ant just left; the highlighted row is the entry it will read next. Try <code>RL</code> for about 10,000 steps: after a long tangle it settles into a diagonal “highway”. Runs stop at 100,000 steps. The nine live runs below follow the same read, turn, paint, move procedure with other rules.</p>
+</section>
 <section class="ant-playground" aria-labelledby="ants-heading" hidden>
   <div class="section-heading"><h2 id="ants-heading">Nine rules, endless trails</h2><div class="ant-controls"><button type="button" id="ants-pause">Pause</button><button type="button" id="ants-reset">New rules</button></div></div>
   <div class="ant-grid">
@@ -26,6 +64,31 @@ preliminary_results: true
   </div>
   <p class="homepage-note">Nine live runs from blank grids, sampling 384 mixed rules; the dot is the ant. A likely highway or a trail reaching the view’s bounds makes room for another rule. Highway detection is a visual heuristic, not a confirmed research classification. Pause to inspect the trails.</p>
 </section>
+<section class="walker-compare" aria-labelledby="walkers-heading" hidden>
+  <div class="section-heading"><h2 id="walkers-heading">Four walkers, one start</h2><span id="wc-steps">0 steps</span></div>
+  <p class="ex-lede">Our central puzzle is how fast a walker’s territory grows. An ordinary random walk spreads like <i>t</i><sup>½</sup>. The rotor walker and many of the ants we study (RLL, for example) grow much more slowly, close to <i>t</i><sup>⅓</sup> in our measurements, and we want to know why. Here are four walkers leaving the same square together; the colour is stronger wherever a walker has been more often.</p>
+  <div class="wc-controls">
+    <button type="button" id="wc-play">Play</button>
+    <button type="button" id="wc-reset">Reset</button>
+    <button type="button" id="wc-reseed">New seed</button><span id="wc-seed" class="wc-seed">seed 1</span>
+    <label for="wc-rule">Ant rule</label>
+    <select id="wc-rule"><option>RLL</option><option>RLR</option><option>LLRR</option><option>RLRLLL</option><option value="RL">RL (builds a highway)</option></select>
+    <label for="wc-scale">Pictures</label>
+    <select id="wc-scale"><option value="shared">same scale</option><option value="fit">fit each walker</option></select>
+    <label for="wc-speed">Speed <output id="wc-speed-label" for="wc-speed"></output></label>
+    <input id="wc-speed" type="range" min="0" max="3" step="1" value="2">
+    <span class="wc-skip">Skip to <button type="button" data-skip="10000">10⁴</button><button type="button" data-skip="100000">10⁵</button><button type="button" data-skip="1048576">2²⁰</button></span>
+  </div>
+  <div class="wc-grid">
+    <figure class="wc-panel"><canvas width="256" height="256" role="img" aria-label="Ant"></canvas><figcaption><strong><span class="wc-key" style="--key: var(--wc-0)"></span>Ant</strong>Reads the colour, turns, repaints. No dice: its memory is the board.<span class="wc-stats"></span></figcaption></figure>
+    <figure class="wc-panel"><canvas width="256" height="256" role="img" aria-label="Rotor walker"></canvas><figcaption><strong><span class="wc-key" style="--key: var(--wc-1)"></span>Rotor</strong>Every square holds an arrow, random at first. It turns the arrow a quarter-turn clockwise, then follows it.<span class="wc-stats"></span></figcaption></figure>
+    <figure class="wc-panel"><canvas width="256" height="256" role="img" aria-label="Random walk"></canvas><figcaption><strong><span class="wc-key" style="--key: var(--wc-2)"></span>Random walk</strong>Picks any of the four directions each step. No memory at all.<span class="wc-stats"></span></figcaption></figure>
+    <figure class="wc-panel"><canvas width="256" height="256" role="img" aria-label="Persistent walk"></canvas><figcaption><strong><span class="wc-key" style="--key: var(--wc-3)"></span>Persistent walk</strong>Turns left or right at random every step, never straight on. It remembers only which way it faces.<span class="wc-stats"></span></figcaption></figure>
+  </div>
+  <canvas id="wc-chart" class="wc-chart" width="760" height="320" role="img" aria-label="Log-log chart of each walker’s spread against steps, with dashed reference lines for t to the half and t to the third."></canvas>
+  <p id="wc-summary" class="homepage-note"></p>
+  <p class="homepage-note">Spread is the root-mean-square distance from the start of the squares visited so far; reach is the furthest square. One run each. A single random walk is noisy and, on average, runs roughly parallel to and a little below the <i>t</i><sup>½</sup> line; the seed button shows how much: the ant’s curve never changes, because its board starts blank. The dashed lines are references through (1, 1), not fits. Our census of blob rules and the rotor calibration are in the results below. The random choices here use a 32-bit generator in your browser, not the one in our Rust code, so the pictures should match in distribution but not square for square; we only check that the rotor’s starting arrows are close to uniform. A walker that reaches the edge of its board stops there: 2,048 squares wide for the ant and rotor, 8,192 for the random walks.</p>
+</section>
 {% include preliminary-results.html %}
 <section class="highlights" aria-labelledby="results-heading">
   <div class="section-heading"><h2 id="results-heading">Results worth a look</h2><span>From the experiments</span></div>
@@ -38,6 +101,15 @@ preliminary_results: true
       <a class="text-link" href="{{ '/2026/10/27/when-the-diffusive-calibrator-refuses-to-grow/' | relative_url }}">Read the post ↗</a>
       <a class="text-link" href="{{ '/experiments/2026-10-27-boundary-excursion-durations/' | relative_url }}">Experiment and notebook ↗</a>
       <a class="evidence-link" href="{{ site.repository_url }}/blob/exp/excursion-durations/experiments/2026-10-27-boundary-excursion-durations/README.md">Frozen protocol, results and revise note</a>
+    </article>
+    <article>
+      <p class="eyebrow">Cube root · A failed prediction</p>
+      <h3>Randomise the first step onto fresh ground and the ant goes porous</h3>
+      <p>Every canonical ant turns R on a blank cell. We split turn noise by cell type: randomising only the turns taken on fresh ground, with the colour memory untouched, made the condition means of all six randomly drawn core rules porous (area exponent 0.86–0.91, against 0.59–0.71 without noise and 0.93 for a memoryless walker; 39 of the 48 individual runs meet the porous thresholds). The registered prior, that memory carries the cube root, failed in 6 of 6. The reverse hybrid, a memoryless walker given only the ant’s turn on fresh ground, has area exponent 0.73 over k = 24..30 (to 2<sup>30</sup>) and 0.72 over k = 27..31 (to 2<sup>31</sup>), against the rotor’s 0.68: a finite-window separation.</p>
+      <p class="homepage-note">Six rules from one class, eight seeds per condition, finite windows. This is an intervention result: it does not show reflection is the mechanism (randomising first departures also breaks coherent first-visit loops), and forced L on fresh ground is untested. Whether the hybrid converges to 2/3 is unresolved, because its trend is window-dependent. 10% noise on fresh cells shifted the exponent by about +0.03 but left all six compact.</p>
+      <a class="text-link" href="{{ '/2026/10/26/the-wall-was-doing-the-work/' | relative_url }}">Read the post ↗</a>
+      <a class="text-link" href="{{ '/experiments/2026-10-26-wall-vs-memory/' | relative_url }}">Experiment and notebook ↗</a>
+      <a class="evidence-link" href="{{ site.repository_url }}/blob/3040a0b86f69489a999e3881b8d4ff89886a0ac8/experiments/2026-10-26-wall-vs-memory/README.md">Registration, gates, results and limits</a>
     </article>
     <article>
       <p class="eyebrow">Boundary returns · A pilot stopped at its support gate</p>
@@ -135,11 +207,12 @@ preliminary_results: true
   </div>
 </section>
 <section class="investigations" aria-labelledby="investigations-heading">
-  <div class="section-heading"><h2 id="investigations-heading">What we’re working on</h2><span>23 October 2026</span></div>
+  <div class="section-heading"><h2 id="investigations-heading">What we’re working on</h2><span>26 October 2026</span></div>
   <p class="homepage-note">One main question: what makes boundary access settle into the scaling needed for cube-root growth, and when does it fail? The sequence below remains the plan. The hidden-phase pilot reported above is complete and stopped at its failed support gate.</p>
   <a class="text-link" href="{{ '/2026/10/23/fewer-questions-open-at-once/' | relative_url }}">Why we are narrowing the focus ↗</a>
   <p class="homepage-note">Instrument update: on one M4 Max desktop, the Metal census runner was 2.01× faster than the best CPU runner for 4083 rules at up to ten million steps with a 1 GiB tile pool. The default pool forced retries and was 2.00× slower; small batches also favored CPU. Five repetitions per setting, identical CSVs, active desktop applications. <a href="{{ '/experiments/2026-10-23-macos-gpu/' | relative_url }}">Experiment page</a> · <a href="https://github.com/robjtede/turmite-autoresearch/blob/40356d818021438244a02b4c9ceafa682e9800dc/experiments/2026-10-23-macos-gpu/BENCHMARKS.md">Timing settings, ranges and evidence</a>.</p>
   <div class="investigation-list">
+    <article><h3>How the turn on fresh ground shapes the edge</h3><p>New since 26 October: randomising the turn on first departure disrupts the compact regime in the six rules tested, and a memoryless walker given only the forced turn gets most of the way there over finite windows. Registered but not yet run: forced L on first departure, excursion statistics as a direct test of the reflecting-edge story, a longer convergence run, and fresh-only versus colour-zero noise; proposed, not registered: where between occasional and constant leaks the edge fails, and whether the ant’s memory adds rotor-like balancing. A boundary-access explanation should now say how the fresh-ground turn shapes returns.</p><a class="text-link" href="{{ '/experiments/2026-10-26-wall-vs-memory/' | relative_url }}">Wall or memory ↗</a> <a class="evidence-link" href="{{ site.repository_url }}/blob/a586abdc2a718a191d910d3f2aeaeb0e6b394c96/notes/open-questions-hypotheses.md">Q30 and Q31</a></article>
     <article><h3>Choose a test that can separate explanations</h3><p>The transport claim ledger now separates observations, failed explanations and instrument gaps. The older gate sampler’s baseline eligibility remains unknown. The new hidden-phase pilot accounts for every baseline but has too few long episodes for confirmation. Next, choose two explanations with different observable predictions: the model must predict later boundary occupation or drift on separate trajectories and beat persistence with the same inputs. Calibration and an excluded pilot come before one confirmation study.</p><a class="text-link" href="{{ '/experiments/2026-10-23-evidence-ledger/' | relative_url }}">Read the claim ledger and access options ↗</a> <a class="text-link" href="{{ '/2026/10/23/what-the-evidence-can-carry/' | relative_url }}">What an evidence database must preserve ↗</a> <a class="evidence-link" href="{{ site.repository_url }}/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-22-single-cell-gates/NOTEBOOK.md">Gate result and eligibility caveat</a></article>
     <article><h3>Check the regime we are trying to explain</h3><p>Audit the main cohort for board effects, transitions and censoring. Keep drifting cases as challenges and state the finite-time limits. This supports the transport test; a blanket fourth decade of the survivor census is deferred.</p><a class="text-link" href="{{ '/experiments/2026-10-21-late-highway-board-check/' | relative_url }}">The board correction ↗</a> <a class="evidence-link" href="{{ site.repository_url }}/blob/ac8d88dd8cb047b1a46fecdbade8b633b9165d59/experiments/2026-10-21-late-highway-board-check/README.md">Evidence and scope</a></article>
     <article><h3>Close claims without opening another programme</h3><p>Keep the paper, notes and homepage clear about observation, prediction, explanation and proof. Bound any remaining RLRLLL proof-closure task. New lattices, further prefix lookups, non-additive invariant mining and proofs of more patterns are deferred unless they directly change the main test.</p><a class="text-link" href="{{ '/experiments/2026-10-20-rlrlll-macro-transition/' | relative_url }}">Proof progress and remaining gaps ↗</a> <a class="evidence-link" href="{{ site.repository_url }}/blob/ac8d88dd8cb047b1a46fecdbade8b633b9165d59/notes/accounting-identity-response-2026-10-16.md">What a mechanism must establish</a></article>
@@ -147,6 +220,8 @@ preliminary_results: true
   </div>
 </section>
 <script src="{{ '/assets/ants.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/ant-explainer.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/walker-compare.js' | relative_url }}" defer></script>
 <section class="entries" aria-labelledby="entries-heading">
   <div class="section-heading"><h2 id="entries-heading">Recent entries</h2><span>{{ site.posts.size }} {% if site.posts.size == 1 %}entry{% else %}entries{% endif %}</span></div>
   {% for post in site.posts %}

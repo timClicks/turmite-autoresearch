@@ -17,7 +17,7 @@
       "slug": "cube-root-growth",
       "question": "Why cube-root growth?",
       "state": "empirical-unexplained",
-      "state_summary": "Many chaotic rules cluster at the same width exponent, matching a calibrated rotor walker at finite windows; every accounting of the growth reproduces it without explaining it.",
+      "state_summary": "Many chaotic rules cluster at the same width exponent, matching a calibrated rotor walker at finite windows; one intervention shows the repelling fresh ground is necessary in the rules tested, but the exponent remains unexplained.",
       "reviewed": "2026-10-27",
       "claims": ["BO-01"],
       "evidence": [
@@ -25,7 +25,8 @@
         {"ref": "2026-10-13-b1-exact-exponent"},
         {"ref": "2026-10-13-item4-exponent-rotor-calibrated"},
         {"ref": "2026-10-13-a3-background-cone-control"},
-        {"ref": "2026-10-13-b3-long-rules", "why": "Registered extension: sampled rules much longer than the census keep the width exponent near a third."}
+        {"ref": "2026-10-13-b3-long-rules", "why": "Registered extension: sampled rules much longer than the census keep the width exponent near a third."},
+        {"ref": "2026-10-26-wall-vs-memory", "why": "Registered intervention: removing the forced turn on fresh ground makes every tested ant porous, while a memoryless walker given that turn gets most of the way to the cube root."}
       ],
       "counter": [
         {"ref": "2026-10-13-memory-walkers", "why": "Mechanism test: adding memory to a simple walker does not recover the ant."},
@@ -40,16 +41,15 @@
         "2026-10-13-shape-limit", "2026-10-13-h1-lacunarity-decomposition", "2026-10-13-edge-statistics",
         "2026-10-13-transport-forecast", "2026-10-13-log-growers", "2026-10-13-snapshots",
         "2026-10-13-occupancy-pages", "2026-10-13-mixing", "2026-10-13-layers-colours",
-        "2026-10-13-c2-arrow-bias", "2026-10-15-literature-review", "2026-10-16-kappa-uniform-baseline"
-      ,
+        "2026-10-13-c2-arrow-bias", "2026-10-15-literature-review", "2026-10-16-kappa-uniform-baseline",
         "2026-10-27-boundary-excursion-durations"],
-      "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md",
+      "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-26-the-wall-was-doing-the-work.md",
         "2026-10-27-when-the-diffusive-calibrator-refuses-to-grow.md"],
       "open": [
         {"text": "Is the shared exponent exact asymptotically, or only within the windows we can reach?", "source": "notes/cube-root-hypothesis.md"},
         {"text": "Which factor of the growth identity carries the amplitude, and why does the area exponent move when the width exponent does not?", "source": "notes/open-questions-hypotheses.md"},
-        {"text": "Why does rule identity matter much more for the area exponent than for the width exponent?", "source": "notes/open-questions-hypotheses.md"}
-      ,
+        {"text": "Why does rule identity matter much more for the area exponent than for the width exponent?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Does the repelling fresh ground alone give a cube root in the long run, and what does the interior memory add on top of it?", "source": "notes/open-questions-hypotheses.md"},
         {
           "text": "After a free random walk and a stay-on-reject reflecting cup both failed as diffusive excursion-duration calibrators, which filled compact-domain walker (visited-neighbour reflection, Eden growth, or internal DLA) can pass the registered compactness and L-squared collapse gates?",
           "source": "experiments/2026-10-27-boundary-excursion-durations/README.md"
@@ -58,8 +58,8 @@
         {"ref": "2026-10-13-probe-growth-census", "change": "The crowded peak near a third is measured."},
         {"ref": "2026-10-13-item4-exponent-rotor-calibrated", "change": "An uncalibrated extrapolation is withdrawn as too strong."},
         {"ref": "2026-10-13-memory-walkers", "change": "Memory alone is shown not to be enough."},
-        {"ref": "2026-10-20-kappa-first-passage", "change": "The renewal identity is confirmed as an identity and its prediction fails."}
-      ,
+        {"ref": "2026-10-20-kappa-first-passage", "change": "The renewal identity is confirmed as an identity and its prediction fails."},
+        {"ref": "2026-10-26-wall-vs-memory", "change": "Randomising the first-departure turn disrupts compact growth in the tested rules; the mechanism is not isolated."},
         {
           "ref": "2026-10-27-boundary-excursion-durations",
           "change": "Revision 1 retires the reflecting-cup design after compactness and collapse gates fail; confirmation stays reserved."
@@ -104,8 +104,7 @@
         "2026-10-15-independent-area", "2026-10-15-fixed-area-cycles", "2026-10-15-kappa-field-age",
         "2026-10-16-kappa-growth-clock", "2026-10-16-kappa-leadrun-fresh", "2026-10-16-kappa-loop-surgery",
         "2026-10-16-kappa-prefix-decode", "2026-10-20-kappa-spread-features", "2026-10-20-kappa-prefix-runs", "2026-10-20-kappa-prefix-ablation",
-        "2026-10-20-kappa-prefix-additive", "2026-10-kappa-rule-space"
-      ,
+        "2026-10-20-kappa-prefix-additive", "2026-10-kappa-rule-space",
         "2026-10-27-boundary-excursion-durations"],
       "posts": ["2026-10-20-making-kappa-a-consequence.md", "2026-10-20-where-kappa-is-not.md", "2026-10-20-the-wrong-waits-survive-a-change-of-clock.md", "2026-10-23-what-the-evidence-can-carry.md", "2026-10-23-the-turn-map-hides-a-clock.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-flat-edge-is-where-the-ant-goes-missing.md", "2026-10-20-joining-the-hunt-for-mechanisms.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-20-what-the-new-experiments-change-in-the-paper.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-23-learning-to-ask-the-ant.md", "2026-10-25-the-crawler-is-a-ceiling-not-a-blueprint.md",
         "2026-10-27-when-the-diffusive-calibrator-refuses-to-grow.md"],
@@ -121,8 +120,7 @@
         {"ref": "2026-10-20-kappa-prefix-family-holdout", "change": "Prefix transfer to unseen families fails."},
         {"ref": "2026-10-21-boundary-return-map", "change": "Typical excursions have a compact state; time-weighted returns do not."},
         {"ref": "2026-10-22-single-cell-gates", "change": "Single-cell gates are not resolved."},
-        {"ref": "2026-10-25-exposure-classifier-check", "change": "The exposure classes are checked exact; their corner and flat-edge wording is shown to be a loose reading."}
-      ,
+        {"ref": "2026-10-25-exposure-classifier-check", "change": "The exposure classes are checked exact; their corner and flat-edge wording is shown to be a loose reading."},
         {
           "ref": "2026-10-27-boundary-excursion-durations",
           "change": "Shape test gated out: need a compact-domain diffusive calibrator."
@@ -133,7 +131,7 @@
       "question": "Can field memory tether ants?",
       "state": "partially-supported",
       "state_summary": "Interventions show that the colour field the ant wrote matters for confinement and that small regions are sensitive; the proposed repair, route and fixed-set explanations did not survive.",
-      "reviewed": "2026-10-25",
+      "reviewed": "2026-10-27",
       "claims": [],
       "evidence": [
         {"ref": "2026-10-13-formage-age"},
