@@ -1,11 +1,12 @@
 """Score the wall-vs-memory factorial exactly as registered in the README.
 
-usage (repo root): uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/analyse.py
+usage (repo root): uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/analyse.py [RESULTS_DIR]
 Reads results/probe.csv and the census summary; writes results/runs.csv, results/conditions.csv
 and results/analysis.txt. Per-run fits as experiments/2026-10-19-kappa-walker-reference/scripts/analyse.py:
 a = slope ln area vs ln t, beta = slope ln perimeter vs ln area, kappa = mean over windows of
 (boundary_steps / (t/2)) / (perimeter/area), g_k = slope ln kappa vs ln t; t is the window end.
 """
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -13,6 +14,8 @@ import polars as pl
 
 ROOT = Path(__file__).resolve().parents[3]
 EXP = Path(__file__).resolve().parents[1]
+# Optional first argument: a results directory (e.g. a fresh rerun); default is the committed one.
+RES = Path(sys.argv[1]) if len(sys.argv) > 1 else EXP / "results"
 WINDOWS = {"early": (12, 22), "late": (20, 26)}
 
 
@@ -56,7 +59,7 @@ def classify(c: dict) -> str:
     return "intermediate"
 
 
-df = pl.read_csv(EXP / "results/probe.csv")
+df = pl.read_csv(RES / "probe.csv")
 runs = []
 for spec in df["rule"].unique(maintain_order=True):
     g = df.filter(pl.col("rule") == spec).sort("k")
@@ -69,7 +72,7 @@ for spec in df["rule"].unique(maintain_order=True):
             row[f"{name}_{key}"] = f[key] if f else None
     runs.append(row)
 runs = pl.DataFrame(runs)
-runs.write_csv(EXP / "results/runs.csv", float_precision=6)
+runs.write_csv(RES / "runs.csv", float_precision=6)
 
 conds = []
 for grp in runs["group"].unique(maintain_order=True):
@@ -86,7 +89,7 @@ for grp in runs["group"].unique(maintain_order=True):
     c["class"] = classify(c)
     conds.append(c)
 conds = pl.DataFrame(conds)
-conds.write_csv(EXP / "results/conditions.csv", float_precision=6)
+conds.write_csv(RES / "conditions.csv", float_precision=6)
 C = {r["group"]: r for r in conds.iter_rows(named=True)}
 
 L = []
@@ -180,5 +183,5 @@ both = [C[f"hy:{r}:0.1:0.1"]["early_a"] for r in rules]
 p(f"(0.1,0.1) early a per rule {[round(x, 3) for x in both]}, median {np.median(both):.3f} "
   f"(D3 at eps 0.1: median 0.761; different rules, stream and window, so descriptive)")
 
-(EXP / "results/analysis.txt").write_text("\n".join(L) + "\n")
+(RES / "analysis.txt").write_text("\n".join(L) + "\n")
 print("\n".join(L))

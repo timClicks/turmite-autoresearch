@@ -68,22 +68,32 @@ print(c.with_columns(corner=corner).filter(pl.col("corner").is_not_null())
        .select("corner", "group", "runs", "escaped", "early_a", "early_beta", "late_a", "late_beta", "class")
        .sort("corner", "group"))
 print("\\n".join(l for l in txt if l.startswith(("V1", "F1", "corner"))))"""),
-md("""**What this shows.** Removing the wall while keeping the memory makes every one of the six ants porous, close to the
-memoryless walker: the forced turn on fresh ground is *necessary* here, and my prior was wrong. Keeping the wall with a
-memoryless interior lands between the memoryless walker and the ant, an "intermediate" class, so no registered corner
-reading applies to the pair.
+md("""**What this shows.** Randomising the first-departure turn while keeping the colour memory makes the condition mean of every
+one of the six ants porous, close to the memoryless walker. The forced turn on fresh ground matters under this
+intervention, and my prior was wrong. **What it does not show:** that reflection is the mechanism (a coin flip on first
+departure also breaks coherent first-visit loops and heading-colour correlations), or that deterministic R is the only
+compact-preserving policy (forced L is untested). Keeping the forced turn with a memoryless interior lands between the
+memoryless walker and the ant, an "intermediate" class, so no registered corner reading applies to the pair. The
+classification is of condition means: 39 of the 48 individual F1 runs meet the porous thresholds (see the post hoc
+section). Seeds are shared across rules, so the independent units are the six rules.
 
 ## Dose arms: low-rate noise on one cell type
 Shifts of the early area exponent above each rule's noise-free run, at 10% noise on revisited cells (Delta_V) or fresh cells
-(Delta_F), and 1% on revisited cells. Both registered dose predictions (one per explanation) failed."""),
+(Delta_F), and 1% on revisited cells. Both registered dose predictions (one per explanation) failed. Low noise does move the exponent (mean +0.047 revisit, +0.028 fresh at 10%); what did not change is the registered compact classification for fresh-cell noise."""),
 code("""print("\\n".join(l for l in txt if "|" in l and l.count("|") == 4 or l.startswith(("dose", "(0.1,0.1)"))))"""),
 md("""## Stage 2: does the wall alone reach the cube root?
 Registered after Stage 1 (and informed by it): V1 for 16 seeds and the rotor for 8, to 2^31 steps; fit k = 24..30, and the
 trend of the local exponent over k = 22..31 with a seed bootstrap."""),
 code("""print((R / "stage2_analysis.txt").read_text())"""),
-md("""The frozen rule reads "separate exponent", but by 0.002 against a between-seed sd of 0.021, and the trend interval
-includes both a flat line and a slow decline. I read Stage 2 as **unresolved**: at 2^31 steps the hybrid sits about 0.05 above
-the rotor, with no resolved trend.
+code("""print((R / "posthoc_review.txt").read_text())"""),
+md("""The frozen rule reads "separate exponent", but by 0.002 against a between-seed sd of 0.021. A trend interval containing zero
+is a failure to resolve a trend, not evidence of a plateau, and a significantly negative trend would not by itself identify
+2/3 as the limit. I read Stage 2 as **unresolved**: a finite-window separation of about 0.05 from the rotor, no asymptotic
+verdict.
+
+## Post hoc checks added after review (not registered)
+Individual-run counts against the porous thresholds, the 10% noise shifts, and the window sensitivity of Stage 2
+(`scripts/posthoc_review.py`; refitting V1 over k = 27..31 gives 0.717 against 0.732 at k = 24..30).
 
 ![local exponents](results/fig_local_exponents.png)
 
@@ -92,15 +102,19 @@ escape the board; the early window used for scoring is complete for all of them.
 
 ## Caveats
 - Six rules from one class (blob, width exponent 0.30-0.37, not bursty); not the census.
-- Finite windows: the early window ends at 2^23 steps, Stage 2 at 2^31. D3 showed exponent crossovers can be slow.
+- Finite windows: the CSV's k is log2 of the window end, so the early fit (k = 12..22) ends at 2^22 (corrected from 2^23), the late fit at 2^26, Stage 2 at 2^30 with a last window ending at 2^31. Late fits are censored by escapes (18 of 270 stage 1 runs). D3 showed exponent crossovers can be slow.
 - "Wall" means exactly the ant's fresh-cell turn (R for canonical rules). Other ways of weakening it (partial bias, forced L,
   intermediate rates between 0.1 and 1) were not run.
-- The hybrid is not the ant: its interior is memoryless. That the wall is necessary for the ant does not mean the ant's
-  mechanism is the hybrid's.
+- The hybrid is not the ant: its interior is memoryless (it keeps a `departed` flag, so "interior colour-dependent turns
+  removed" is more precise than "memory removed"). That randomising the fresh-cell turn breaks the ant does not mean the ant's
+  mechanism is the hybrid's, nor that reflection is the cause.
+- Six selected rules, 8 shared seeds: 48 trajectories are not 48 independent rule-level replications.
 - Timestamps in the README written by hand at registration were estimates; git commit times are authoritative (README
   correction, 23:15 NZDT). The order registration -> code -> run holds.
 
-## Next steps (none registered)
+## Next steps
+Registered in the README review addendum (item 9), not run: F-a forced L on first departure; F-b fresh-excursion mediator
+statistics; F-c longer V1/rotor with frozen windows; F-d fresh versus colour-zero noise. Proposed, not registered:
 - Q30: a dose curve in EF between 0.1 and 1, to find where the reflecting edge fails and whether the loss is sharp.
 - Q31: what memory adds on top of the wall. Compare neighbour discrepancies of visit counts (local times) in the ant, the
   rotor and the hybrid.

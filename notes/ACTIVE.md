@@ -80,9 +80,10 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
 ## Science: retained backlog (not an execution queue)
 
 - **Wall or memory (done 2026-10-26, owner-requested, `experiments/2026-10-26-wall-vs-memory/`):** turn noise split by
-  fresh/revisited cell. The fresh-ground rule is necessary in 6/6 core rules (memory without it is porous; dead end
-  `NR-20261026-wall-vs-memory-no-wall-porous`). The hybrid walker (wall, memoryless interior) reaches a 0.73 at 2^31,
-  rotor 0.68: sufficiency unresolved. Open: Q30 (where the edge fails between 10% and 100% fresh noise), Q31 (what memory
+  fresh/revisited cell. Randomising the first-departure turn disrupts compact growth in 6/6 core rules (condition means
+  porous; 39/48 runs; dead end `NR-20261026-wall-vs-memory-no-wall-porous`, amended after review; not shown to be
+  reflection specifically). The hybrid walker (forced R on fresh, memoryless interior) has a 0.73 at k = 24..30, 0.72 at
+  k = 27..31, rotor 0.68: finite-window separation, asymptote unresolved. Follow-ups F-a..F-d registered in the README. Open: Q30 (where the edge fails between 10% and 100% fresh noise), Q31 (what memory
   adds: local-time discrepancy). Relevant to priority 1: boundary access depends on the fresh-ground turn, so a
   boundary-access explanation should say how that turn shapes returns.
 

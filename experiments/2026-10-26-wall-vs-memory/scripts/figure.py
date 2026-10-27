@@ -1,9 +1,10 @@
 """Figure: local area exponent per octave for the factorial's corners and the controls.
 
-usage (repo root): uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/figure.py
+usage (repo root): uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/figure.py [RESULTS_DIR]
 Reads results/probe.csv and results/stage2_probe.csv; writes results/fig_local_exponents.png.
 Local exponent at octave k = log2 A(2^k) - log2 A(2^(k-1)), averaged over runs (and rules).
 """
+import sys
 from pathlib import Path
 
 import matplotlib
@@ -14,8 +15,10 @@ import numpy as np
 import polars as pl
 
 EXP = Path(__file__).resolve().parents[1]
-s1 = pl.read_csv(EXP / "results/probe.csv")
-s2 = pl.read_csv(EXP / "results/stage2_probe.csv")
+# Optional first argument: a results directory (e.g. a fresh rerun); default is the committed one.
+RES = Path(sys.argv[1]) if len(sys.argv) > 1 else EXP / "results"
+s1 = pl.read_csv(RES / "probe.csv")
+s2 = pl.read_csv(RES / "stage2_probe.csv")
 
 
 def local(df: pl.DataFrame, pattern: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -49,5 +52,5 @@ ax.set_ylim(0.45, 1.05)
 ax.set_title("Removing the wall makes the ant porous; the wall alone gets most of the way", fontsize=10)
 ax.legend(fontsize=7.5, loc="upper right", frameon=False)
 fig.tight_layout()
-fig.savefig(EXP / "results/fig_local_exponents.png")
+fig.savefig(RES / "fig_local_exponents.png")
 print("wrote results/fig_local_exponents.png")
