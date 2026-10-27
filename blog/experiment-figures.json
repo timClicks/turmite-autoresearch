@@ -95,9 +95,32 @@
       "alt": "Saved colour-field snapshot of the symmetric builder LLRR.",
       "caption": "LLRR is a reminder that an ant need not build an irregular blob. This selected saved snapshot is visual context; use the generating record for its run parameters rather than inferring a growth exponent from the shape.",
       "recipe": "experiments/2026-10-13-snapshots/README.md"
+    },
+    "excursion-cup-010": {
+      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/ccdf_cup_010.png",
+      "alt": "CCDF of cup-walker excursion durations coloured by window-end L, shown under tau/L and tau/L-squared scalings.",
+      "caption": "Revision-1 primary reflecting cup (stay-on-reject, p frozen before Scores). Collapse Score preferred the sweep scaling; confirmation was not run.",
+      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+    },
+    "excursion-cup-compactness": {
+      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/cup_compactness.png",
+      "alt": "Two panels: isoperimetric proxy A over P squared and linear size L versus window index for three frozen cup probabilities.",
+      "caption": "Cup compactness diagnostics: L grows, but the frozen filled-blob cut on A/P squared fails for every reported p.",
+      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+    },
+    "excursion-mf-rev1": {
+      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/ccdf_mf_rev1.png",
+      "alt": "CCDF of mean-field excursion durations under tau/L and tau/L-squared with fresh Revision-1 seeds.",
+      "caption": "Revision-1 mean-field L-control: Score still prefers the sweep scaling under the frozen margin.",
+      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
     }
   },
   "experiments": {
+    "2026-10-27-boundary-excursion-durations": [
+      "excursion-cup-010",
+      "excursion-cup-compactness",
+      "excursion-mf-rev1"
+    ],
     "2026-10-23-hidden-phase-return": ["hidden-phase"],
     "2026-10-12-knockout-maps": ["occupancy-home"],
     "2026-10-13-a1-kappa": ["boundary-factors"],

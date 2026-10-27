@@ -97,3 +97,17 @@ Confirmation family rule frozen: ≥75% of eligible reserved rules sharing D (or
 S) to retain that account; otherwise revise. Development cohort remains excluded.
 No confirmation run unless C0, C1' (cup:0.10→D + compactness), and C2 (mf→S with
 mean τ/L in band) all pass under the unchanged 0.75 Score margin.
+
+### 2026-10-27 21:05 NZDT · 9c2aeea · observation
+Revision-1 instrument: `ReflectingCup` in `examples/boundary_excursions.rs` (stay-on-reject).
+C0: `cup:1.0:7` ≡ `rw:7` under `--check`. Binary sha256 c84e20780315f4cc….
+Rev1 calib (20 specs, board 8192, max_log2 24) complete; see `results/rev1_calib_outer.log`.
+
+### 2026-10-27 21:06 NZDT · 9c2aeea · observation
+C1' INADEQUATE. Primary cup:0.10: L grows (range ≈6.47×; A range ≈56×) but median A/P² ≈0.0188 < 0.04; Score prefers S (0.103 vs 0.169). Diagnostics p=0.05/0.25 also S and fail compactness. C2 PASS (mf mean τ/L≈0.998). Rotor inconclusive. Confirmation not run.
+
+### 2026-10-27 21:07 NZDT · 9c2aeea · interpretation
+The cup fixed stage-1's "L never grows" failure but hit the registered trapping/compactness risk: frontier rejection keeps the walker near the edge (S-like Score) and the blob stays porous (A/P²). Not evidence about ants. Retire this cup-as-D design; do not P-shop.
+
+### 2026-10-27 21:07 NZDT · 9c2aeea · decision
+**Stop** confirmation. Pruning-index NR for reflecting-cup D calibrator. Next compact-domain candidate must be re-registered (visited-neighbour reflection, Eden, or IDLA) before any measurement.

@@ -6,11 +6,11 @@ the retained backlog is context, not a list of simultaneous commitments. Remove 
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
-## Pointer (2026-10-27): excursion-duration collapse stage 1
+## Pointer (2026-10-27): excursion-duration collapse stage 1 + Revision 1
 
-`experiments/2026-10-27-boundary-excursion-durations/` (registration `9bfa496`, before measurement).
+`experiments/2026-10-27-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`, before revised measurement).
 Implements P-C / Q32 from `notes/cube-root-routes-2026-10-26.md` on PR #18 (reference by branch/PR; do not mint colliding Q numbers here).
-Stage-1 outcome: **revise**. Mean-field L-control passed; random-walk D calibrator uninformative because window-end L=A/P never enters the frozen analysis band; rotor inconclusive as allowed; excluded pilot not interpreted. Next registered step: compact-domain D calibrator, then re-gate C1 before confirmation. Avoids first-passage C6 by never fitting (theta, z).
+Stage-1: **revise** (RW D calibrator never grows L). Revision 1 reflecting cup: L grows but compactness (A/P²) fails and Score prefers S (frontier trapping); C1' **inadequate**; confirmation **not run**; cup-as-D design **retired** (`NR-20261027-reflecting-cup-d-calibrator`). MF L-control still passes; rotor inconclusive. Next step only after a newly registered compact-domain D candidate (not P-shopping the cup).
 
 ## Next phase: boundary access, regime validation, closure
 

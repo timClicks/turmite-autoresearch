@@ -51,7 +51,7 @@
         {"text": "Why does rule identity matter much more for the area exponent than for the width exponent?", "source": "notes/open-questions-hypotheses.md"}
       ,
         {
-          "text": "Can a compact-domain walker with growing linear size serve as the missing L-squared calibrator for an excursion-duration collapse test?",
+          "text": "After a free random walk and a stay-on-reject reflecting cup both failed as diffusive excursion-duration calibrators, which filled compact-domain walker (visited-neighbour reflection, Eden growth, or internal DLA) can pass the registered compactness and L-squared collapse gates?",
           "source": "experiments/2026-10-27-boundary-excursion-durations/README.md"
         }],
       "turns": [
@@ -62,7 +62,7 @@
       ,
         {
           "ref": "2026-10-27-boundary-excursion-durations",
-          "change": "Collapse test stops: random-walk L scale never grows; design revised."
+          "change": "Revision 1 retires the reflecting-cup design after compactness and collapse gates fail; confirmation stays reserved."
         }]
     },
     {

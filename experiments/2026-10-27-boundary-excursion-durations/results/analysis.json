@@ -1,4 +1,5 @@
 {
+  "mode": "stage1",
   "calibration": {
     "rw": {
       "kind": "rw",
@@ -2215,5 +2216,6 @@
     "rw_verdict": "uninformative",
     "mf_verdict": "S",
     "mf_mean_tau_over_L": 1.0101535230605367
-  }
+  },
+  "confirmation": null
 }

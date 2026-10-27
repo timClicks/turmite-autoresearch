@@ -86,19 +86,67 @@ def plot_group(title, windows, hist, specs_filter, out_stem):
     plt.close(fig)
 
 
+def plot_compactness(windows, out_stem):
+    """A/P^2 and L vs k for cup specs."""
+    rows = [w for w in windows if w["spec"].startswith("cup:") and w["escaped"] == "false"]
+    if not rows:
+        return
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+    for p in ("0.05", "0.10", "0.25"):
+        sub = [w for w in rows if w["spec"].startswith(f"cup:{p}:")]
+        by_k = {}
+        for w in sub:
+            k = int(w["k"])
+            A, P, L = int(w["area"]), int(w["perimeter"]), float(w["L"])
+            by_k.setdefault(k, []).append((A / (P * P) if P else float("nan"), L, A))
+        ks = sorted(by_k)
+        ap2 = [sum(x[0] for x in by_k[k]) / len(by_k[k]) for k in ks]
+        Ls = [sum(x[1] for x in by_k[k]) / len(by_k[k]) for k in ks]
+        axes[0].plot(ks, ap2, "o-", label=f"p={p}")
+        axes[1].plot(ks, Ls, "o-", label=f"p={p}")
+    axes[0].axhline(0.04, color="k", ls="--", lw=1, label="threshold 0.04")
+    axes[0].set_xlabel("k"); axes[0].set_ylabel(r"$A/P^2$")
+    axes[0].set_title("isoperimetric proxy")
+    axes[1].set_xlabel("k"); axes[1].set_ylabel("L = A/P")
+    axes[1].set_title("linear size")
+    for ax in axes:
+        ax.grid(True, alpha=0.3); ax.legend(fontsize=8)
+    fig.suptitle("Revision-1 cup compactness diagnostics")
+    fig.tight_layout()
+    fig.savefig(FIG / f"{out_stem}.png", dpi=120)
+    plt.close(fig)
+
+
 def main():
-    calib_w = load_windows(RES / "calib_windows.csv")
-    calib_h = load_hist(RES / "calib_hist.csv")
-    plot_group("random walk", calib_w, calib_h, lambda s: s.startswith("rw:"), "ccdf_rw")
-    plot_group("mean-field", calib_w, calib_h, lambda s: s.startswith("mf:"), "ccdf_mf")
-    plot_group("rotor", calib_w, calib_h, lambda s: s.startswith("rotor:"), "ccdf_rotor")
-    if (RES / "pilot_windows.csv").exists():
-        pilot_w = load_windows(RES / "pilot_windows.csv")
-        pilot_h = load_hist(RES / "pilot_hist.csv")
-        plot_group("pilot ants (EXCLUDED)", pilot_w, pilot_h, lambda s: "@" in s, "ccdf_pilot")
-        for rule in sorted({w["spec"].split("@")[0] for w in pilot_w}):
-            plot_group(f"pilot {rule} (EXCLUDED)", pilot_w, pilot_h, lambda s, r=rule: s.startswith(r + "@"), f"ccdf_pilot_{rule}")
-    print("wrote", list(FIG.glob("*.png")))
+    import sys
+    mode = sys.argv[1] if len(sys.argv) > 1 else "stage1"
+    if mode == "stage1":
+        calib_w = load_windows(RES / "calib_windows.csv")
+        calib_h = load_hist(RES / "calib_hist.csv")
+        plot_group("random walk", calib_w, calib_h, lambda s: s.startswith("rw:"), "ccdf_rw")
+        plot_group("mean-field", calib_w, calib_h, lambda s: s.startswith("mf:"), "ccdf_mf")
+        plot_group("rotor", calib_w, calib_h, lambda s: s.startswith("rotor:"), "ccdf_rotor")
+        if (RES / "pilot_windows.csv").exists():
+            pilot_w = load_windows(RES / "pilot_windows.csv")
+            pilot_h = load_hist(RES / "pilot_hist.csv")
+            plot_group("pilot ants (EXCLUDED)", pilot_w, pilot_h, lambda s: "@" in s, "ccdf_pilot")
+            for rule in sorted({w["spec"].split("@")[0] for w in pilot_w}):
+                plot_group(f"pilot {rule} (EXCLUDED)", pilot_w, pilot_h, lambda s, r=rule: s.startswith(r + "@"), f"ccdf_pilot_{rule}")
+    elif mode == "rev1":
+        w = load_windows(RES / "rev1_calib_windows.csv")
+        h = load_hist(RES / "rev1_calib_hist.csv")
+        for p in ("0.05", "0.10", "0.25"):
+            plot_group(f"cup p={p}", w, h, lambda s, pp=p: s.startswith(f"cup:{pp}:"), f"ccdf_cup_{p.replace('.', '')}")
+        plot_group("mean-field (rev1)", w, h, lambda s: s.startswith("mf:"), "ccdf_mf_rev1")
+        plot_group("rotor (rev1)", w, h, lambda s: s.startswith("rotor:"), "ccdf_rotor_rev1")
+        plot_compactness(w, "cup_compactness")
+    elif mode == "confirm" and (RES / "confirm_windows.csv").exists():
+        w = load_windows(RES / "confirm_windows.csv")
+        h = load_hist(RES / "confirm_hist.csv")
+        plot_group("confirmation ants", w, h, lambda s: "@" in s, "ccdf_confirm")
+        for rule in sorted({r["spec"].split("@")[0] for r in w}):
+            plot_group(f"confirm {rule}", w, h, lambda s, r=rule: s.startswith(r + "@"), f"ccdf_confirm_{rule}")
+    print("wrote", sorted(FIG.glob("*.png")))
 
 
 if __name__ == "__main__":

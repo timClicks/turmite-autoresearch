@@ -1,0 +1,1915 @@
+{
+  "mode": "rev1",
+  "calibration": {
+    "cup:0.05": {
+      "kind": "cup:0.05",
+      "n_retained_windows": 34,
+      "L_min": 4.157407,
+      "L_max": 22.903088,
+      "L_range_ratio": 5.508983844978372,
+      "uninformative": false,
+      "Score_L": 0.10006804580559872,
+      "Score_L2": 0.17232382630725018,
+      "verdict": "S",
+      "mean_tau_over_L": 2.6111684709121965,
+      "slopes": [],
+      "Score_L_KM": 0.1001004895084811,
+      "Score_L2_KM": 0.172355994230289,
+      "censoring_fragile": false,
+      "windows": [
+        {
+          "spec": "cup:0.05:2026102731",
+          "k": 17,
+          "L": 5.0,
+          "kappa": 1.131058,
+          "n_completed": 4815,
+          "censored_step_share": 0.00071,
+          "mean_tau": 11.51048805815161,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102731",
+          "k": 18,
+          "L": 6.817259,
+          "kappa": 1.292227,
+          "n_completed": 7934,
+          "censored_step_share": 0.001224,
+          "mean_tau": 14.6218805142425,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102731",
+          "k": 19,
+          "L": 7.213793,
+          "kappa": 1.136291,
+          "n_completed": 13191,
+          "censored_step_share": 0.0,
+          "mean_tau": 18.32067318626336,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102731",
+          "k": 20,
+          "L": 9.984472,
+          "kappa": 1.161219,
+          "n_completed": 19477,
+          "censored_step_share": 2.4e-05,
+          "mean_tau": 25.997227499101506,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102731",
+          "k": 21,
+          "L": 11.64693,
+          "kappa": 1.196676,
+          "n_completed": 34730,
+          "censored_step_share": 0.000281,
+          "mean_tau": 29.583846818312697,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102731",
+          "k": 22,
+          "L": 15.126984,
+          "kappa": 1.220811,
+          "n_completed": 54424,
+          "censored_step_share": 0.000871,
+          "mean_tau": 38.50845215346171,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102731",
+          "k": 23,
+          "L": 17.727273,
+          "kappa": 1.167231,
+          "n_completed": 88325,
+          "censored_step_share": 0.000719,
+          "mean_tau": 48.07213133314464,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102731",
+          "k": 24,
+          "L": 22.61809,
+          "kappa": 1.248545,
+          "n_completed": 149041,
+          "censored_step_share": 0.00036,
+          "mean_tau": 57.60217658228273,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102732",
+          "k": 16,
+          "L": 4.230769,
+          "kappa": 1.15698,
+          "n_completed": 2798,
+          "censored_step_share": 0.0,
+          "mean_tau": 9.268406004288778,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102732",
+          "k": 17,
+          "L": 4.919463,
+          "kappa": 1.174243,
+          "n_completed": 4798,
+          "censored_step_share": 0.002505,
+          "mean_tau": 11.304293455606503,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102732",
+          "k": 18,
+          "L": 6.655556,
+          "kappa": 1.121175,
+          "n_completed": 6976,
+          "censored_step_share": 0.000147,
+          "mean_tau": 17.218033256880734,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102732",
+          "k": 19,
+          "L": 7.541502,
+          "kappa": 1.07557,
+          "n_completed": 11659,
+          "censored_step_share": 3.6e-05,
+          "mean_tau": 21.166566600909167,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102732",
+          "k": 20,
+          "L": 7.953431,
+          "kappa": 1.046591,
+          "n_completed": 21130,
+          "censored_step_share": 0.003082,
+          "mean_tau": 23.146474207288215,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102732",
+          "k": 21,
+          "L": 11.071579,
+          "kappa": 1.134013,
+          "n_completed": 34048,
+          "censored_step_share": 0.000101,
+          "mean_tau": 30.4421992481203,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102732",
+          "k": 22,
+          "L": 14.067769,
+          "kappa": 1.123817,
+          "n_completed": 53005,
+          "censored_step_share": 8.9e-05,
+          "mean_tau": 39.60501839449108,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102732",
+          "k": 23,
+          "L": 18.377984,
+          "kappa": 1.217788,
+          "n_completed": 87398,
+          "censored_step_share": 0.000676,
+          "mean_tau": 49.177029222636676,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102732",
+          "k": 24,
+          "L": 22.430417,
+          "kappa": 1.219158,
+          "n_completed": 146849,
+          "censored_step_share": 0.001325,
+          "mean_tau": 58.88501794360193,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102733",
+          "k": 17,
+          "L": 4.711409,
+          "kappa": 0.992016,
+          "n_completed": 4389,
+          "censored_step_share": 0.003788,
+          "mean_tau": 13.005696058327636,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102733",
+          "k": 18,
+          "L": 6.111675,
+          "kappa": 1.250387,
+          "n_completed": 8274,
+          "censored_step_share": 0.000691,
+          "mean_tau": 13.698573845781967,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102733",
+          "k": 19,
+          "L": 6.646465,
+          "kappa": 0.990971,
+          "n_completed": 12082,
+          "censored_step_share": 0.000256,
+          "mean_tau": 20.168515146498923,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102733",
+          "k": 20,
+          "L": 9.005405,
+          "kappa": 1.226295,
+          "n_completed": 22345,
+          "censored_step_share": 0.002087,
+          "mean_tau": 21.803087939136272,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102733",
+          "k": 21,
+          "L": 11.189691,
+          "kappa": 1.150347,
+          "n_completed": 33593,
+          "censored_step_share": 7.3e-05,
+          "mean_tau": 30.423629922900606,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102733",
+          "k": 22,
+          "L": 15.820183,
+          "kappa": 1.269959,
+          "n_completed": 54617,
+          "censored_step_share": 3.4e-05,
+          "mean_tau": 38.62429280260724,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102733",
+          "k": 23,
+          "L": 19.007225,
+          "kappa": 1.076472,
+          "n_completed": 75970,
+          "censored_step_share": 0.000242,
+          "mean_tau": 56.097406871133344,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102733",
+          "k": 24,
+          "L": 22.903088,
+          "kappa": 1.187803,
+          "n_completed": 139061,
+          "censored_step_share": 0.000109,
+          "mean_tau": 62.14432515227131,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102734",
+          "k": 16,
+          "L": 4.157407,
+          "kappa": 1.016388,
+          "n_completed": 2517,
+          "censored_step_share": 0.003433,
+          "mean_tau": 10.636074692093763,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102734",
+          "k": 17,
+          "L": 4.205714,
+          "kappa": 0.958055,
+          "n_completed": 4324,
+          "censored_step_share": 0.00409,
+          "mean_tau": 12.743061979648473,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102734",
+          "k": 18,
+          "L": 5.709091,
+          "kappa": 1.144632,
+          "n_completed": 7837,
+          "censored_step_share": 0.000258,
+          "mean_tau": 14.717366339160392,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102734",
+          "k": 19,
+          "L": 8.052419,
+          "kappa": 1.172304,
+          "n_completed": 12540,
+          "censored_step_share": 0.000214,
+          "mean_tau": 19.884130781499202,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102734",
+          "k": 20,
+          "L": 10.363333,
+          "kappa": 1.162685,
+          "n_completed": 19014,
+          "censored_step_share": 0.001725,
+          "mean_tau": 26.45724203218681,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102734",
+          "k": 21,
+          "L": 12.300699,
+          "kappa": 1.301281,
+          "n_completed": 34422,
+          "censored_step_share": 0.00154,
+          "mean_tau": 29.52422869095346,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102734",
+          "k": 22,
+          "L": 14.262799,
+          "kappa": 1.124476,
+          "n_completed": 53144,
+          "censored_step_share": 0.000376,
+          "mean_tau": 39.59920216769532,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102734",
+          "k": 23,
+          "L": 18.445652,
+          "kappa": 1.208784,
+          "n_completed": 88467,
+          "censored_step_share": 0.000507,
+          "mean_tau": 47.94131144946703,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.05:2026102734",
+          "k": 24,
+          "L": 20.963068,
+          "kappa": 1.079667,
+          "n_completed": 139319,
+          "censored_step_share": 0.000422,
+          "mean_tau": 61.630854370186405,
+          "slope": null
+        }
+      ],
+      "compactness": {
+        "pass": false,
+        "L_range_ratio": 5.508983844978372,
+        "A_range_ratio": 51.28409090909091,
+        "median_A_over_P2": 0.025745962998150733,
+        "reason": "median A/P^2 0.02575 < 0.04"
+      }
+    },
+    "cup:0.10": {
+      "kind": "cup:0.10",
+      "n_retained_windows": 36,
+      "L_min": 4.021459,
+      "L_max": 26.026797,
+      "L_range_ratio": 6.471978702257066,
+      "uninformative": false,
+      "Score_L": 0.10305350695195452,
+      "Score_L2": 0.16896350927727286,
+      "verdict": "S",
+      "mean_tau_over_L": 2.4644840406092823,
+      "slopes": [],
+      "Score_L_KM": 0.10310274608348073,
+      "Score_L2_KM": 0.16901302636711998,
+      "censoring_fragile": false,
+      "windows": [
+        {
+          "spec": "cup:0.10:2026102731",
+          "k": 16,
+          "L": 4.86413,
+          "kappa": 1.169422,
+          "n_completed": 2477,
+          "censored_step_share": 0.000482,
+          "mean_tau": 10.84578118691966,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102731",
+          "k": 17,
+          "L": 5.408088,
+          "kappa": 1.1477,
+          "n_completed": 4108,
+          "censored_step_share": 0.000116,
+          "mean_tau": 13.502190847127556,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102731",
+          "k": 18,
+          "L": 7.207715,
+          "kappa": 1.329065,
+          "n_completed": 7426,
+          "censored_step_share": 0.000243,
+          "mean_tau": 15.718287099380555,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102731",
+          "k": 19,
+          "L": 8.851685,
+          "kappa": 1.314699,
+          "n_completed": 12017,
+          "censored_step_share": 0.000206,
+          "mean_tau": 20.446950153948574,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102731",
+          "k": 20,
+          "L": 11.690167,
+          "kappa": 1.398192,
+          "n_completed": 19258,
+          "censored_step_share": 0.006473,
+          "mean_tau": 26.121975282999273,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102731",
+          "k": 21,
+          "L": 13.378866,
+          "kappa": 1.32609,
+          "n_completed": 32131,
+          "censored_step_share": 0.000492,
+          "mean_tau": 31.645731536522362,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102731",
+          "k": 22,
+          "L": 17.007172,
+          "kappa": 1.309125,
+          "n_completed": 50628,
+          "censored_step_share": 0.00222,
+          "mean_tau": 41.01485344078375,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102731",
+          "k": 23,
+          "L": 20.856685,
+          "kappa": 1.222305,
+          "n_completed": 76446,
+          "censored_step_share": 0.000596,
+          "mean_tau": 55.563914397090755,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102731",
+          "k": 24,
+          "L": 24.685111,
+          "kappa": 1.313601,
+          "n_completed": 139105,
+          "censored_step_share": 6.6e-05,
+          "mean_tau": 61.53550195895187,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102732",
+          "k": 16,
+          "L": 4.021459,
+          "kappa": 1.215225,
+          "n_completed": 2961,
+          "censored_step_share": 0.001356,
+          "mean_tau": 8.530901722391084,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102732",
+          "k": 17,
+          "L": 5.475694,
+          "kappa": 1.344777,
+          "n_completed": 4785,
+          "censored_step_share": 0.005785,
+          "mean_tau": 11.18098223615465,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102732",
+          "k": 18,
+          "L": 6.328084,
+          "kappa": 1.024683,
+          "n_completed": 6415,
+          "censored_step_share": 0.0,
+          "mean_tau": 18.504130943102105,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102732",
+          "k": 19,
+          "L": 8.7473,
+          "kappa": 1.411412,
+          "n_completed": 13116,
+          "censored_step_share": 0.000418,
+          "mean_tau": 18.07822506861848,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102732",
+          "k": 20,
+          "L": 10.646281,
+          "kappa": 1.274842,
+          "n_completed": 19591,
+          "censored_step_share": 0.000958,
+          "mean_tau": 25.68802000918789,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102732",
+          "k": 21,
+          "L": 13.009926,
+          "kappa": 1.263404,
+          "n_completed": 31548,
+          "censored_step_share": 1.1e-05,
+          "mean_tau": 32.73253455052618,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102732",
+          "k": 22,
+          "L": 15.358474,
+          "kappa": 1.267418,
+          "n_completed": 53463,
+          "censored_step_share": 0.000579,
+          "mean_tau": 38.77199184482726,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102732",
+          "k": 23,
+          "L": 21.489395,
+          "kappa": 1.340192,
+          "n_completed": 82659,
+          "censored_step_share": 0.000407,
+          "mean_tau": 52.277114409804135,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102732",
+          "k": 24,
+          "L": 25.188712,
+          "kappa": 1.305971,
+          "n_completed": 136959,
+          "censored_step_share": 0.000168,
+          "mean_tau": 62.805737483480456,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102733",
+          "k": 16,
+          "L": 4.628415,
+          "kappa": 1.170664,
+          "n_completed": 2612,
+          "censored_step_share": 0.001225,
+          "mean_tau": 10.431087289433384,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102733",
+          "k": 17,
+          "L": 5.668085,
+          "kappa": 1.052906,
+          "n_completed": 3608,
+          "censored_step_share": 0.000543,
+          "mean_tau": 16.659645232815965,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102733",
+          "k": 18,
+          "L": 7.482759,
+          "kappa": 1.197954,
+          "n_completed": 6290,
+          "censored_step_share": 0.0,
+          "mean_tau": 19.33195548489666,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102733",
+          "k": 19,
+          "L": 8.966921,
+          "kappa": 1.176792,
+          "n_completed": 10657,
+          "censored_step_share": 0.000224,
+          "mean_tau": 23.004222576710145,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102733",
+          "k": 20,
+          "L": 9.839196,
+          "kappa": 1.154983,
+          "n_completed": 19005,
+          "censored_step_share": 0.000346,
+          "mean_tau": 26.6123651670613,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102733",
+          "k": 21,
+          "L": 13.635036,
+          "kappa": 1.197521,
+          "n_completed": 29300,
+          "censored_step_share": 0.002196,
+          "mean_tau": 35.0339590443686,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102733",
+          "k": 22,
+          "L": 15.401198,
+          "kappa": 1.119087,
+          "n_completed": 46920,
+          "censored_step_share": 0.000306,
+          "mean_tau": 44.98902387041773,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102733",
+          "k": 23,
+          "L": 21.687175,
+          "kappa": 1.283928,
+          "n_completed": 78728,
+          "censored_step_share": 0.00037,
+          "mean_tau": 54.43063458998069,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102733",
+          "k": 24,
+          "L": 25.605575,
+          "kappa": 1.424602,
+          "n_completed": 146027,
+          "censored_step_share": 0.00103,
+          "mean_tau": 58.79733200024653,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102734",
+          "k": 16,
+          "L": 4.913043,
+          "kappa": 1.037395,
+          "n_completed": 2022,
+          "censored_step_share": 0.000619,
+          "mean_tau": 14.014342235410485,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102734",
+          "k": 17,
+          "L": 5.555118,
+          "kappa": 1.331479,
+          "n_completed": 4354,
+          "censored_step_share": 0.001485,
+          "mean_tau": 12.691318327974276,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102734",
+          "k": 18,
+          "L": 6.927374,
+          "kappa": 1.376575,
+          "n_completed": 8152,
+          "censored_step_share": 0.006284,
+          "mean_tau": 13.916339548577037,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102734",
+          "k": 19,
+          "L": 9.20283,
+          "kappa": 1.264203,
+          "n_completed": 10789,
+          "censored_step_share": 0.001052,
+          "mean_tau": 22.68986931133562,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102734",
+          "k": 20,
+          "L": 10.990792,
+          "kappa": 1.145915,
+          "n_completed": 17275,
+          "censored_step_share": 0.000645,
+          "mean_tau": 29.027727930535455,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102734",
+          "k": 21,
+          "L": 12.065012,
+          "kappa": 1.239183,
+          "n_completed": 33790,
+          "censored_step_share": 0.000169,
+          "mean_tau": 30.408197691624743,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102734",
+          "k": 22,
+          "L": 17.494493,
+          "kappa": 1.226394,
+          "n_completed": 47329,
+          "censored_step_share": 0.000606,
+          "mean_tau": 44.71687548860107,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102734",
+          "k": 23,
+          "L": 19.649657,
+          "kappa": 1.189927,
+          "n_completed": 79425,
+          "censored_step_share": 0.0,
+          "mean_tau": 53.74613786591124,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.10:2026102734",
+          "k": 24,
+          "L": 26.026797,
+          "kappa": 1.350515,
+          "n_completed": 138268,
+          "censored_step_share": 0.0,
+          "mean_tau": 62.33114675846906,
+          "slope": null
+        }
+      ],
+      "compactness": {
+        "pass": false,
+        "L_range_ratio": 6.471978702257066,
+        "A_range_ratio": 55.854614412136534,
+        "median_A_over_P2": 0.018842851509356807,
+        "reason": "median A/P^2 0.01884 < 0.04"
+      }
+    },
+    "cup:0.25": {
+      "kind": "cup:0.25",
+      "n_retained_windows": 36,
+      "L_min": 4.181269,
+      "L_max": 21.314582,
+      "L_range_ratio": 5.097634713289195,
+      "uninformative": false,
+      "Score_L": 0.1040032691897475,
+      "Score_L2": 0.1618080807699147,
+      "verdict": "S",
+      "mean_tau_over_L": 2.020335752173752,
+      "slopes": [],
+      "Score_L_KM": 0.10403615450965828,
+      "Score_L2_KM": 0.1618432760349495,
+      "censoring_fragile": false,
+      "windows": [
+        {
+          "spec": "cup:0.25:2026102731",
+          "k": 16,
+          "L": 4.661896,
+          "kappa": 1.30874,
+          "n_completed": 2658,
+          "censored_step_share": 0.000849,
+          "mean_tau": 9.718209179834462,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102731",
+          "k": 17,
+          "L": 6.106707,
+          "kappa": 1.312454,
+          "n_completed": 4060,
+          "censored_step_share": 0.0,
+          "mean_tau": 14.0,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102731",
+          "k": 18,
+          "L": 7.985393,
+          "kappa": 1.880898,
+          "n_completed": 8978,
+          "censored_step_share": 0.006178,
+          "mean_tau": 12.095010024504344,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102731",
+          "k": 19,
+          "L": 7.156443,
+          "kappa": 1.501345,
+          "n_completed": 15262,
+          "censored_step_share": 0.0,
+          "mean_tau": 14.960293539509895,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102731",
+          "k": 20,
+          "L": 8.883575,
+          "kappa": 1.679361,
+          "n_completed": 28574,
+          "censored_step_share": 0.000143,
+          "mean_tau": 16.425631693147615,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102731",
+          "k": 21,
+          "L": 10.340431,
+          "kappa": 1.537353,
+          "n_completed": 45568,
+          "censored_step_share": 0.000146,
+          "mean_tau": 21.36007724719101,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102731",
+          "k": 22,
+          "L": 12.904674,
+          "kappa": 1.924072,
+          "n_completed": 92858,
+          "censored_step_share": 6.2e-05,
+          "mean_tau": 20.70333196924336,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102731",
+          "k": 23,
+          "L": 18.869361,
+          "kappa": 1.751376,
+          "n_completed": 119583,
+          "censored_step_share": 2.6e-05,
+          "mean_tau": 34.764397949541326,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102731",
+          "k": 24,
+          "L": 21.314582,
+          "kappa": 1.599949,
+          "n_completed": 189655,
+          "censored_step_share": 0.0,
+          "mean_tau": 44.56351269410245,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102732",
+          "k": 16,
+          "L": 4.181269,
+          "kappa": 1.363302,
+          "n_completed": 3007,
+          "censored_step_share": 0.0,
+          "mean_tau": 7.905553708014632,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102732",
+          "k": 17,
+          "L": 5.020042,
+          "kappa": 1.532148,
+          "n_completed": 5465,
+          "censored_step_share": 0.000198,
+          "mean_tau": 9.18462946020128,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102732",
+          "k": 18,
+          "L": 7.504673,
+          "kappa": 1.438903,
+          "n_completed": 7872,
+          "censored_step_share": 0.000991,
+          "mean_tau": 14.389227642276422,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102732",
+          "k": 19,
+          "L": 8.438316,
+          "kappa": 1.398832,
+          "n_completed": 12737,
+          "censored_step_share": 0.000979,
+          "mean_tau": 18.9824919525791,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102732",
+          "k": 20,
+          "L": 11.159184,
+          "kappa": 1.615575,
+          "n_completed": 22621,
+          "censored_step_share": 0.000783,
+          "mean_tau": 21.36351178108837,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102732",
+          "k": 21,
+          "L": 13.495844,
+          "kappa": 1.710958,
+          "n_completed": 39877,
+          "censored_step_share": 0.00031,
+          "mean_tau": 25.001404318278706,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102732",
+          "k": 22,
+          "L": 16.062013,
+          "kappa": 1.486023,
+          "n_completed": 59220,
+          "censored_step_share": 0.001306,
+          "mean_tau": 35.21009793988517,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102732",
+          "k": 23,
+          "L": 15.392196,
+          "kappa": 1.742598,
+          "n_completed": 140303,
+          "censored_step_share": 9.9e-05,
+          "mean_tau": 28.9836924370826,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102732",
+          "k": 24,
+          "L": 18.041724,
+          "kappa": 1.574067,
+          "n_completed": 220456,
+          "censored_step_share": 7e-06,
+          "mean_tau": 37.27334252639982,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102733",
+          "k": 16,
+          "L": 4.803213,
+          "kappa": 1.274974,
+          "n_completed": 2595,
+          "censored_step_share": 0.01587,
+          "mean_tau": 9.882466281310212,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102733",
+          "k": 17,
+          "L": 6.147416,
+          "kappa": 1.611145,
+          "n_completed": 5156,
+          "censored_step_share": 0.000806,
+          "mean_tau": 10.316912335143522,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102733",
+          "k": 18,
+          "L": 6.765409,
+          "kappa": 1.694759,
+          "n_completed": 9037,
+          "censored_step_share": 0.007879,
+          "mean_tau": 11.76695806130353,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102733",
+          "k": 19,
+          "L": 7.751549,
+          "kappa": 1.152631,
+          "n_completed": 11433,
+          "censored_step_share": 0.0,
+          "mean_tau": 21.30665617073384,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102733",
+          "k": 20,
+          "L": 10.254565,
+          "kappa": 1.528167,
+          "n_completed": 22980,
+          "censored_step_share": 0.0,
+          "mean_tau": 21.056483899042647,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102733",
+          "k": 21,
+          "L": 11.712538,
+          "kappa": 1.710197,
+          "n_completed": 44635,
+          "censored_step_share": 1.8e-05,
+          "mean_tau": 21.67973563347149,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102733",
+          "k": 22,
+          "L": 16.844338,
+          "kappa": 1.203885,
+          "n_completed": 46571,
+          "censored_step_share": 9.6e-05,
+          "mean_tau": 44.92675699469627,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102733",
+          "k": 23,
+          "L": 18.758302,
+          "kappa": 1.620391,
+          "n_completed": 108180,
+          "censored_step_share": 0.011324,
+          "mean_tau": 37.765991865409504,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102733",
+          "k": 24,
+          "L": 20.801642,
+          "kappa": 1.912859,
+          "n_completed": 232076,
+          "censored_step_share": 9e-06,
+          "mean_tau": 36.19989572381461,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102734",
+          "k": 16,
+          "L": 4.74055,
+          "kappa": 1.269191,
+          "n_completed": 2463,
+          "censored_step_share": 0.000208,
+          "mean_tau": 10.805927730410069,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102734",
+          "k": 17,
+          "L": 6.123308,
+          "kappa": 1.259307,
+          "n_completed": 3964,
+          "censored_step_share": 0.001133,
+          "mean_tau": 14.079465186680121,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102734",
+          "k": 18,
+          "L": 7.308989,
+          "kappa": 1.36051,
+          "n_completed": 7114,
+          "censored_step_share": 0.003169,
+          "mean_tau": 16.14900196795052,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102734",
+          "k": 19,
+          "L": 8.285714,
+          "kappa": 1.550664,
+          "n_completed": 14227,
+          "censored_step_share": 0.000244,
+          "mean_tau": 16.171364307303016,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102734",
+          "k": 20,
+          "L": 11.967633,
+          "kappa": 1.430168,
+          "n_completed": 19564,
+          "censored_step_share": 0.000245,
+          "mean_tau": 25.676650991617255,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102734",
+          "k": 21,
+          "L": 13.214887,
+          "kappa": 1.526893,
+          "n_completed": 35988,
+          "censored_step_share": 0.001097,
+          "mean_tau": 27.867511392686453,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102734",
+          "k": 22,
+          "L": 15.102608,
+          "kappa": 1.704476,
+          "n_completed": 71022,
+          "censored_step_share": 1.6e-05,
+          "mean_tau": 28.49602939934105,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102734",
+          "k": 23,
+          "L": 18.181963,
+          "kappa": 1.668154,
+          "n_completed": 116452,
+          "censored_step_share": 4.3e-05,
+          "mean_tau": 35.46450898224161,
+          "slope": null
+        },
+        {
+          "spec": "cup:0.25:2026102734",
+          "k": 24,
+          "L": 19.394322,
+          "kappa": 1.58452,
+          "n_completed": 205000,
+          "censored_step_share": 0.004567,
+          "mean_tau": 41.15445365853658,
+          "slope": null
+        }
+      ],
+      "compactness": {
+        "pass": false,
+        "L_range_ratio": 5.097634713289195,
+        "A_range_ratio": 71.5861204013378,
+        "median_A_over_P2": 0.005558265137077483,
+        "reason": "median A/P^2 0.005558 < 0.04"
+      }
+    },
+    "mf": {
+      "kind": "mf",
+      "n_retained_windows": 36,
+      "L_min": 9.552486,
+      "L_max": 68.856657,
+      "L_range_ratio": 7.208244743828988,
+      "uninformative": false,
+      "Score_L": 0.059304705182878927,
+      "Score_L2": 0.1663343363049837,
+      "verdict": "S",
+      "mean_tau_over_L": 0.997701561471216,
+      "slopes": [],
+      "Score_L_KM": 0.059308113548316374,
+      "Score_L2_KM": 0.16635434929084636,
+      "censoring_fragile": false,
+      "windows": [
+        {
+          "spec": "mf:2026102731",
+          "k": 16,
+          "L": 10.870968,
+          "kappa": 1.083514,
+          "n_completed": 2923,
+          "censored_step_share": 0.000136,
+          "mean_tau": 11.418405747519671,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102731",
+          "k": 17,
+          "L": 13.187952,
+          "kappa": 1.109795,
+          "n_completed": 5038,
+          "censored_step_share": 0.000367,
+          "mean_tau": 13.420603414053195,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102731",
+          "k": 18,
+          "L": 16.541667,
+          "kappa": 1.097965,
+          "n_completed": 8119,
+          "censored_step_share": 3.3e-05,
+          "mean_tau": 16.773863776327133,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102731",
+          "k": 19,
+          "L": 21.621118,
+          "kappa": 1.13498,
+          "n_completed": 13030,
+          "censored_step_share": 2.8e-05,
+          "mean_tau": 21.14136607828089,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102731",
+          "k": 20,
+          "L": 26.429752,
+          "kappa": 1.115035,
+          "n_completed": 21178,
+          "censored_step_share": 4.8e-05,
+          "mean_tau": 26.09632637642837,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102731",
+          "k": 21,
+          "L": 34.875984,
+          "kappa": 1.162748,
+          "n_completed": 33783,
+          "censored_step_share": 1.5e-05,
+          "mean_tau": 32.94544593434568,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102731",
+          "k": 22,
+          "L": 40.171286,
+          "kappa": 1.072804,
+          "n_completed": 54524,
+          "censored_step_share": 3.7e-05,
+          "mean_tau": 41.05685569657398,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102731",
+          "k": 23,
+          "L": 51.124358,
+          "kappa": 1.077629,
+          "n_completed": 86532,
+          "censored_step_share": 0.0,
+          "mean_tau": 51.88264457079462,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102731",
+          "k": 24,
+          "L": 65.676212,
+          "kappa": 1.100662,
+          "n_completed": 138205,
+          "censored_step_share": 4e-06,
+          "mean_tau": 65.14603668463515,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102732",
+          "k": 16,
+          "L": 9.552486,
+          "kappa": 1.016817,
+          "n_completed": 3123,
+          "censored_step_share": 0.000239,
+          "mean_tau": 10.652577649695806,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102732",
+          "k": 17,
+          "L": 12.690205,
+          "kappa": 1.087079,
+          "n_completed": 5124,
+          "censored_step_share": 0.000401,
+          "mean_tau": 13.133489461358314,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102732",
+          "k": 18,
+          "L": 17.164062,
+          "kappa": 1.12317,
+          "n_completed": 8008,
+          "censored_step_share": 0.000261,
+          "mean_tau": 17.01048951048951,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102732",
+          "k": 19,
+          "L": 21.86875,
+          "kappa": 1.154736,
+          "n_completed": 13127,
+          "censored_step_share": 0.000125,
+          "mean_tau": 20.972804144130418,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102732",
+          "k": 20,
+          "L": 26.699401,
+          "kappa": 1.133083,
+          "n_completed": 21286,
+          "censored_step_share": 1e-05,
+          "mean_tau": 26.055623414450814,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102732",
+          "k": 21,
+          "L": 34.467899,
+          "kappa": 1.152068,
+          "n_completed": 33882,
+          "censored_step_share": 0.000103,
+          "mean_tau": 32.797886783542886,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102732",
+          "k": 22,
+          "L": 42.901602,
+          "kappa": 1.136452,
+          "n_completed": 54039,
+          "censored_step_share": 1.6e-05,
+          "mean_tau": 41.392790392124205,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102732",
+          "k": 23,
+          "L": 50.70871,
+          "kappa": 1.074139,
+          "n_completed": 87018,
+          "censored_step_share": 1e-06,
+          "mean_tau": 51.56060815003792,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102732",
+          "k": 24,
+          "L": 67.38881,
+          "kappa": 1.125001,
+          "n_completed": 137608,
+          "censored_step_share": 6e-06,
+          "mean_tau": 65.41751933027149,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102733",
+          "k": 16,
+          "L": 11.174497,
+          "kappa": 1.125361,
+          "n_completed": 2987,
+          "censored_step_share": 0.000339,
+          "mean_tau": 11.169065952460663,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102733",
+          "k": 17,
+          "L": 13.140049,
+          "kappa": 1.073684,
+          "n_completed": 4903,
+          "censored_step_share": 0.0,
+          "mean_tau": 13.637364878645727,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102733",
+          "k": 18,
+          "L": 18.329032,
+          "kappa": 1.174651,
+          "n_completed": 7829,
+          "censored_step_share": 6.5e-05,
+          "mean_tau": 17.442329799463533,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102733",
+          "k": 19,
+          "L": 19.795714,
+          "kappa": 1.071628,
+          "n_completed": 13422,
+          "censored_step_share": 1.2e-05,
+          "mean_tau": 20.55215318134406,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102733",
+          "k": 20,
+          "L": 27.544444,
+          "kappa": 1.176983,
+          "n_completed": 21406,
+          "censored_step_share": 4.4e-05,
+          "mean_tau": 25.919695412501166,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102733",
+          "k": 21,
+          "L": 33.415414,
+          "kappa": 1.127629,
+          "n_completed": 34177,
+          "censored_step_share": 1.7e-05,
+          "mean_tau": 32.6232261462387,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102733",
+          "k": 22,
+          "L": 42.389728,
+          "kappa": 1.10553,
+          "n_completed": 53255,
+          "censored_step_share": 2e-05,
+          "mean_tau": 42.04628673364003,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102733",
+          "k": 23,
+          "L": 53.401674,
+          "kappa": 1.122143,
+          "n_completed": 86292,
+          "censored_step_share": 4e-06,
+          "mean_tau": 51.975524961757756,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102733",
+          "k": 24,
+          "L": 66.910244,
+          "kappa": 1.120482,
+          "n_completed": 138087,
+          "censored_step_share": 1.4e-05,
+          "mean_tau": 65.2090566092391,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102734",
+          "k": 16,
+          "L": 11.263514,
+          "kappa": 1.121264,
+          "n_completed": 2929,
+          "censored_step_share": 0.000949,
+          "mean_tau": 11.392284055991807,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102734",
+          "k": 17,
+          "L": 13.100962,
+          "kappa": 1.079886,
+          "n_completed": 4989,
+          "censored_step_share": 0.000133,
+          "mean_tau": 13.53938665063139,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102734",
+          "k": 18,
+          "L": 16.930966,
+          "kappa": 1.093708,
+          "n_completed": 7877,
+          "censored_step_share": 8.2e-05,
+          "mean_tau": 17.501459946680207,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102734",
+          "k": 19,
+          "L": 19.777937,
+          "kappa": 1.051125,
+          "n_completed": 13149,
+          "censored_step_share": 2.4e-05,
+          "mean_tau": 20.88212031333181,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102734",
+          "k": 20,
+          "L": 27.669145,
+          "kappa": 1.184423,
+          "n_completed": 21441,
+          "censored_step_share": 7.6e-05,
+          "mean_tau": 25.819458047665687,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102734",
+          "k": 21,
+          "L": 32.882629,
+          "kappa": 1.060854,
+          "n_completed": 32680,
+          "censored_step_share": 1.6e-05,
+          "mean_tau": 34.25657894736842,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102734",
+          "k": 22,
+          "L": 41.73477,
+          "kappa": 1.127095,
+          "n_completed": 55042,
+          "censored_step_share": 4.7e-05,
+          "mean_tau": 40.686039751462516,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102734",
+          "k": 23,
+          "L": 52.376616,
+          "kappa": 1.092237,
+          "n_completed": 85634,
+          "censored_step_share": 9e-06,
+          "mean_tau": 52.40222341593292,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102734",
+          "k": 24,
+          "L": 68.856657,
+          "kappa": 1.153085,
+          "n_completed": 138164,
+          "censored_step_share": 2.7e-05,
+          "mean_tau": 65.24832807388321,
+          "slope": null
+        }
+      ]
+    },
+    "rotor": {
+      "kind": "rotor",
+      "n_retained_windows": 36,
+      "L_min": 8.070407,
+      "L_max": 60.498716,
+      "L_range_ratio": 7.496364929302823,
+      "uninformative": false,
+      "Score_L": 0.11951328151225774,
+      "Score_L2": 0.15355954652123002,
+      "verdict": "inconclusive",
+      "mean_tau_over_L": 1.9282710666798064,
+      "slopes": [],
+      "Score_L_KM": 0.1196049571318781,
+      "Score_L2_KM": 0.14440716008810758,
+      "censoring_fragile": false,
+      "windows": [
+        {
+          "spec": "rotor:2026102731",
+          "k": 16,
+          "L": 9.7139,
+          "kappa": 1.72264,
+          "n_completed": 1511,
+          "censored_step_share": 0.005082,
+          "mean_tau": 17.985440105890138,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102731",
+          "k": 17,
+          "L": 12.864745,
+          "kappa": 1.739026,
+          "n_completed": 2389,
+          "censored_step_share": 0.023502,
+          "mean_tau": 24.853076601088322,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102731",
+          "k": 18,
+          "L": 15.038462,
+          "kappa": 1.919047,
+          "n_completed": 4417,
+          "censored_step_share": 0.004827,
+          "mean_tau": 28.398686891555354,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102731",
+          "k": 19,
+          "L": 14.478665,
+          "kappa": 1.579296,
+          "n_completed": 7533,
+          "censored_step_share": 0.008405,
+          "mean_tau": 33.626443647949024,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102731",
+          "k": 20,
+          "L": 22.99797,
+          "kappa": 1.971475,
+          "n_completed": 12229,
+          "censored_step_share": 4.2e-05,
+          "mean_tau": 42.72769645923624,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102731",
+          "k": 21,
+          "L": 27.81151,
+          "kappa": 1.846407,
+          "n_completed": 18605,
+          "censored_step_share": 3e-06,
+          "mean_tau": 59.362966944369795,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102731",
+          "k": 22,
+          "L": 39.658596,
+          "kappa": 2.124597,
+          "n_completed": 30391,
+          "censored_step_share": 4.9e-05,
+          "mean_tau": 71.59886150505083,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102731",
+          "k": 23,
+          "L": 44.090875,
+          "kappa": 1.906093,
+          "n_completed": 48586,
+          "censored_step_share": 7e-06,
+          "mean_tau": 89.6005845305232,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102731",
+          "k": 24,
+          "L": 60.498716,
+          "kappa": 2.015663,
+          "n_completed": 75665,
+          "censored_step_share": 0.00034,
+          "mean_tau": 114.12050485693517,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102732",
+          "k": 16,
+          "L": 8.070407,
+          "kappa": 1.556548,
+          "n_completed": 1562,
+          "censored_step_share": 0.079363,
+          "mean_tau": 16.65044814340589,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102732",
+          "k": 17,
+          "L": 12.067171,
+          "kappa": 2.005364,
+          "n_completed": 2911,
+          "censored_step_share": 0.022381,
+          "mean_tau": 21.271384403984886,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102732",
+          "k": 18,
+          "L": 16.660225,
+          "kappa": 2.030541,
+          "n_completed": 4239,
+          "censored_step_share": 0.001755,
+          "mean_tau": 31.63246048596367,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102732",
+          "k": 19,
+          "L": 19.838366,
+          "kappa": 1.940746,
+          "n_completed": 6752,
+          "censored_step_share": 0.002956,
+          "mean_tau": 37.95556872037915,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102732",
+          "k": 20,
+          "L": 19.873122,
+          "kappa": 1.981255,
+          "n_completed": 13854,
+          "censored_step_share": 0.000178,
+          "mean_tau": 36.53782301140465,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102732",
+          "k": 21,
+          "L": 29.404974,
+          "kappa": 2.040812,
+          "n_completed": 19643,
+          "censored_step_share": 0.008064,
+          "mean_tau": 53.45354579239424,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102732",
+          "k": 22,
+          "L": 36.561673,
+          "kappa": 1.974274,
+          "n_completed": 30621,
+          "censored_step_share": 0.005817,
+          "mean_tau": 71.44864635380948,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102732",
+          "k": 23,
+          "L": 51.022203,
+          "kappa": 2.125053,
+          "n_completed": 47352,
+          "censored_step_share": 0.005585,
+          "mean_tau": 94.31449569183984,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102732",
+          "k": 24,
+          "L": 57.497974,
+          "kappa": 1.981919,
+          "n_completed": 77810,
+          "censored_step_share": 4e-06,
+          "mean_tau": 111.49273872252924,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102733",
+          "k": 16,
+          "L": 8.696677,
+          "kappa": 1.757489,
+          "n_completed": 1723,
+          "censored_step_share": 0.022451,
+          "mean_tau": 16.489262913522925,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102733",
+          "k": 17,
+          "L": 12.426499,
+          "kappa": 1.813462,
+          "n_completed": 2567,
+          "censored_step_share": 0.010738,
+          "mean_tau": 22.95714842228282,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102733",
+          "k": 18,
+          "L": 13.998678,
+          "kappa": 1.788283,
+          "n_completed": 4409,
+          "censored_step_share": 0.017607,
+          "mean_tau": 26.317985937854388,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102733",
+          "k": 19,
+          "L": 21.000613,
+          "kappa": 2.085689,
+          "n_completed": 7122,
+          "censored_step_share": 0.0,
+          "mean_tau": 36.35018253299635,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102733",
+          "k": 20,
+          "L": 25.540984,
+          "kappa": 1.993392,
+          "n_completed": 10954,
+          "censored_step_share": 0.003633,
+          "mean_tau": 49.00657294139127,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102733",
+          "k": 21,
+          "L": 28.489655,
+          "kappa": 1.759166,
+          "n_completed": 17378,
+          "censored_step_share": 0.000482,
+          "mean_tau": 62.089193232823106,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102733",
+          "k": 22,
+          "L": 32.657391,
+          "kappa": 1.876722,
+          "n_completed": 32181,
+          "censored_step_share": 0.001727,
+          "mean_tau": 65.99077095180385,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102733",
+          "k": 23,
+          "L": 48.726355,
+          "kappa": 2.094419,
+          "n_completed": 49009,
+          "censored_step_share": 0.00679,
+          "mean_tau": 87.10036931992083,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102733",
+          "k": 24,
+          "L": 57.7961,
+          "kappa": 2.0185,
+          "n_completed": 79134,
+          "censored_step_share": 0.005407,
+          "mean_tau": 107.72147243915384,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102734",
+          "k": 16,
+          "L": 10.129534,
+          "kappa": 1.840244,
+          "n_completed": 1537,
+          "censored_step_share": 0.003431,
+          "mean_tau": 19.439167208848406,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102734",
+          "k": 17,
+          "L": 12.309298,
+          "kappa": 1.932156,
+          "n_completed": 2687,
+          "censored_step_share": 0.000851,
+          "mean_tau": 23.070710829921847,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102734",
+          "k": 18,
+          "L": 14.625532,
+          "kappa": 1.70266,
+          "n_completed": 4038,
+          "censored_step_share": 0.012632,
+          "mean_tau": 31.131748390292223,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102734",
+          "k": 19,
+          "L": 18.736035,
+          "kappa": 1.960628,
+          "n_completed": 7496,
+          "censored_step_share": 0.0,
+          "mean_tau": 35.15981856990395,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102734",
+          "k": 20,
+          "L": 23.146606,
+          "kappa": 1.909473,
+          "n_completed": 11657,
+          "censored_step_share": 0.0,
+          "mean_tau": 45.32967315775929,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102734",
+          "k": 21,
+          "L": 30.790616,
+          "kappa": 1.914723,
+          "n_completed": 17509,
+          "censored_step_share": 0.027921,
+          "mean_tau": 60.82294819806956,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102734",
+          "k": 22,
+          "L": 35.298924,
+          "kappa": 1.909101,
+          "n_completed": 30638,
+          "censored_step_share": 0.000525,
+          "mean_tau": 68.68486846399895,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102734",
+          "k": 23,
+          "L": 50.012163,
+          "kappa": 2.057636,
+          "n_completed": 46946,
+          "censored_step_share": 0.000526,
+          "mean_tau": 94.45616239935245,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102734",
+          "k": 24,
+          "L": 57.282619,
+          "kappa": 1.953982,
+          "n_completed": 77504,
+          "censored_step_share": 0.002217,
+          "mean_tau": 113.41743651940546,
+          "slope": null
+        }
+      ]
+    }
+  },
+  "pilot": null,
+  "gates": {
+    "C1prime_cup010": "INADEQUATE",
+    "C1prime_pass": false,
+    "C2_mf_prefers_S_and_mean_in_band": true,
+    "run_confirmation": false,
+    "cup_verdict": "S",
+    "cup_compactness": {
+      "pass": false,
+      "L_range_ratio": 6.471978702257066,
+      "A_range_ratio": 55.854614412136534,
+      "median_A_over_P2": 0.018842851509356807,
+      "reason": "median A/P^2 0.01884 < 0.04"
+    },
+    "mf_verdict": "S",
+    "mf_mean_tau_over_L": 0.997701561471216,
+    "rotor_verdict": "inconclusive"
+  },
+  "confirmation": null
+}

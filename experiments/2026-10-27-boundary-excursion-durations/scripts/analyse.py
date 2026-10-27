@@ -74,6 +74,12 @@ def kind_of(spec: str) -> str:
         return "rotor"
     if spec.startswith("rw:"):
         return "rw"
+    if spec.startswith("cup:"):
+        # cup:P:SEED → cup:P (pool seeds per P)
+        parts = spec.split(":")
+        if len(parts) >= 2:
+            return f"cup:{parts[1]}"
+        return "cup"
     return "ant"
 
 
@@ -291,84 +297,241 @@ def analyse_kind(kind: str, windows, hist) -> dict:
     return out
 
 
+def compactness(windows_retained: list) -> dict:
+    """Revision-1 compactness pre-check on already-retained windows."""
+    if len(windows_retained) < 2:
+        return {
+            "pass": False,
+            "L_range_ratio": None,
+            "A_range_ratio": None,
+            "median_A_over_P2": None,
+            "reason": "too few retained windows",
+        }
+    Ls = [w["L"] for w, _, _ in windows_retained]
+    As = [w["area"] for w, _, _ in windows_retained]
+    ap2 = [w["area"] / (w["perimeter"] ** 2) for w, _, _ in windows_retained if w["perimeter"] > 0]
+    import statistics
+    L_ratio = max(Ls) / min(Ls) if min(Ls) > 0 else float("nan")
+    A_ratio = max(As) / min(As) if min(As) > 0 else float("nan")
+    med = float(statistics.median(ap2)) if ap2 else float("nan")
+    ok = (L_ratio >= 2.0) and (A_ratio >= 4.0) and (med >= 0.04)
+    reasons = []
+    if not (L_ratio >= 2.0):
+        reasons.append(f"L_range {L_ratio:.4g} < 2")
+    if not (A_ratio >= 4.0):
+        reasons.append(f"A_range {A_ratio:.4g} < 4")
+    if not (med >= 0.04):
+        reasons.append(f"median A/P^2 {med:.4g} < 0.04")
+    return {
+        "pass": ok,
+        "L_range_ratio": float(L_ratio),
+        "A_range_ratio": float(A_ratio),
+        "median_A_over_P2": med,
+        "reason": "ok" if ok else "; ".join(reasons),
+    }
+
+
 def main():
-    calib_w = load_windows(RES / "calib_windows.csv")
-    calib_h = load_hist(RES / "calib_hist.csv")
-    report = {"calibration": {}, "pilot": None, "gates": {}}
+    import sys
+    mode = "stage1"
+    if len(sys.argv) > 1 and sys.argv[1] in ("rev1", "confirm"):
+        mode = sys.argv[1]
+
+    if mode == "stage1":
+        win_path, hist_path = RES / "calib_windows.csv", RES / "calib_hist.csv"
+        out_json, out_txt = RES / "analysis.json", RES / "analysis.txt"
+        kinds = ("rw", "mf", "rotor")
+        pilot = True
+    elif mode == "rev1":
+        win_path, hist_path = RES / "rev1_calib_windows.csv", RES / "rev1_calib_hist.csv"
+        out_json, out_txt = RES / "rev1_analysis.json", RES / "rev1_analysis.txt"
+        kinds = ("cup:0.05", "cup:0.10", "cup:0.25", "mf", "rotor")
+        pilot = False
+    else:  # confirm
+        win_path, hist_path = RES / "confirm_windows.csv", RES / "confirm_hist.csv"
+        out_json, out_txt = RES / "confirm_analysis.json", RES / "confirm_analysis.txt"
+        kinds = ("ant",)
+        pilot = False
+
+    calib_w = load_windows(win_path)
+    calib_h = load_hist(hist_path)
+    report = {"mode": mode, "calibration": {}, "pilot": None, "gates": {}, "confirmation": None}
     lines = []
 
     def say(s=""):
         print(s)
         lines.append(s)
 
-    say("=== Calibration ===")
-    for kind in ("rw", "mf", "rotor"):
+    say(f"=== {mode} ===")
+    for kind in kinds:
         a = analyse_kind(kind, calib_w, calib_h)
+        # Attach compactness for cup kinds using retained window records
+        if kind.startswith("cup:"):
+            retained = []
+            for w in calib_w:
+                if kind_of(w["spec"]) != kind:
+                    continue
+                if not (K_LO <= w["k"] <= K_HI):
+                    continue
+                if w["escaped"] or w["n_completed"] < 200:
+                    continue
+                if w["censored_step_share"] > 0.20:
+                    continue
+                if not math.isfinite(w["L"]) or w["L"] < 4:
+                    continue
+                key = (w["spec"], w["k"])
+                bins = calib_h.get(key, {"bins": {}, "n_censored": 0})["bins"]
+                taus = expand_durations(bins)
+                if len(taus) < 200:
+                    continue
+                retained.append((w, taus, bins))
+            a["compactness"] = compactness(retained)
         report["calibration"][kind] = a
+        comp = a.get("compactness")
+        comp_s = ""
+        if comp:
+            comp_s = (
+                f" compact_pass={comp['pass']} A/P2_med={comp['median_A_over_P2']} "
+                f"A_range={comp['A_range_ratio']} ({comp['reason']})"
+            )
         say(
             f"{kind}: nwin={a['n_retained_windows']} L_range={a['L_range_ratio']} "
             f"Score(L)={a['Score_L']} Score(L^2)={a['Score_L2']} "
             f"verdict={a['verdict']} mean_tau/L={a['mean_tau_over_L']} "
-            f"fragile={a['censoring_fragile']} slopes={a['slopes'][:6]}"
+            f"fragile={a['censoring_fragile']}{comp_s}"
         )
 
-    rw_v = report["calibration"]["rw"]["verdict"]
-    mf_v = report["calibration"]["mf"]["verdict"]
-    mf_ratio = report["calibration"]["mf"]["mean_tau_over_L"]
-    c1_ok = rw_v == "D"
-    c2_ok = mf_v == "S" and mf_ratio is not None and 0.5 <= mf_ratio <= 2.0
-    report["gates"] = {
-        "C1_rw_prefers_D": c1_ok,
-        "C2_mf_prefers_S_and_mean_in_band": c2_ok,
-        "instrument_adequate": c1_ok and c2_ok,
-        "rw_verdict": rw_v,
-        "mf_verdict": mf_v,
-        "mf_mean_tau_over_L": mf_ratio,
-    }
-    say()
-    say(f"C1 (rw→D): {'PASS' if c1_ok else 'FAIL'} (verdict={rw_v})")
-    say(f"C2 (mf→S & E[tau]/L in [0.5,2]): {'PASS' if c2_ok else 'FAIL'} (verdict={mf_v}, ratio={mf_ratio})")
-    say(f"Instrument adequate: {c1_ok and c2_ok}")
-
-    pilot_path = RES / "pilot_windows.csv"
-    if pilot_path.exists():
+    if mode == "stage1":
+        rw_v = report["calibration"]["rw"]["verdict"]
+        mf_v = report["calibration"]["mf"]["verdict"]
+        mf_ratio = report["calibration"]["mf"]["mean_tau_over_L"]
+        c1_ok = rw_v == "D"
+        c2_ok = mf_v == "S" and mf_ratio is not None and 0.5 <= mf_ratio <= 2.0
+        report["gates"] = {
+            "C1_rw_prefers_D": c1_ok,
+            "C2_mf_prefers_S_and_mean_in_band": c2_ok,
+            "instrument_adequate": c1_ok and c2_ok,
+            "rw_verdict": rw_v,
+            "mf_verdict": mf_v,
+            "mf_mean_tau_over_L": mf_ratio,
+        }
         say()
-        say("=== Pilot (EXPLORATORY / EXCLUDED) ===")
-        pilot_w = load_windows(pilot_path)
-        pilot_h = load_hist(RES / "pilot_hist.csv")
-        # Pool all ant specs as one "ant" kind, and also per-rule
-        a_all = analyse_kind("ant", pilot_w, pilot_h)
-        report["pilot"] = {"pooled": a_all, "per_rule": {}}
-        say(
-            f"ant pooled: nwin={a_all['n_retained_windows']} L_range={a_all['L_range_ratio']} "
-            f"Score(L)={a_all['Score_L']} Score(L^2)={a_all['Score_L2']} "
-            f"verdict={a_all['verdict']} mean_tau/L={a_all['mean_tau_over_L']} "
-            f"(EXPLORATORY — not evidence)"
+        say(f"C1 (rw→D): {'PASS' if c1_ok else 'FAIL'} (verdict={rw_v})")
+        say(f"C2 (mf→S & E[tau]/L in [0.5,2]): {'PASS' if c2_ok else 'FAIL'} (verdict={mf_v}, ratio={mf_ratio})")
+        say(f"Instrument adequate: {c1_ok and c2_ok}")
+    elif mode == "rev1":
+        cup = report["calibration"]["cup:0.10"]
+        mf = report["calibration"]["mf"]
+        mf_ratio = mf["mean_tau_over_L"]
+        compact_ok = bool(cup.get("compactness", {}).get("pass"))
+        c1p_pass = cup["verdict"] == "D" and compact_ok and not cup["censoring_fragile"]
+        c1p_inconclusive = cup["verdict"] in ("S", "inconclusive") and compact_ok
+        c1p_inadequate = (
+            cup["verdict"] in ("uninformative", "censoring-fragile")
+            or not compact_ok
+            or cup["censoring_fragile"]
         )
-        rules = sorted({w["spec"].split("@")[0] for w in pilot_w})
+        c2_ok = mf["verdict"] == "S" and mf_ratio is not None and 0.5 <= mf_ratio <= 2.0
+        if c1p_pass:
+            c1p_label = "PASS"
+        elif c1p_inconclusive and not c1p_inadequate:
+            c1p_label = "INCONCLUSIVE"
+        else:
+            c1p_label = "INADEQUATE"
+        gates_ok = c1p_pass and c2_ok
+        report["gates"] = {
+            "C1prime_cup010": c1p_label,
+            "C1prime_pass": c1p_pass,
+            "C2_mf_prefers_S_and_mean_in_band": c2_ok,
+            "run_confirmation": gates_ok,
+            "cup_verdict": cup["verdict"],
+            "cup_compactness": cup.get("compactness"),
+            "mf_verdict": mf["verdict"],
+            "mf_mean_tau_over_L": mf_ratio,
+            "rotor_verdict": report["calibration"]["rotor"]["verdict"],
+        }
+        say()
+        say(
+            f"C1' (cup:0.10→D + compactness): {c1p_label} "
+            f"(verdict={cup['verdict']}, compact={compact_ok})"
+        )
+        say(f"C2 (mf→S & E[tau]/L in [0.5,2]): {'PASS' if c2_ok else 'FAIL'} (verdict={mf['verdict']}, ratio={mf_ratio})")
+        say(f"Run confirmation cohort: {gates_ok}")
+    else:
+        # confirmation: per-rule + family
+        say("=== Confirmation (reserved cohort) ===")
+        rules = sorted({w["spec"].split("@")[0] for w in calib_w})
+        per = {}
+        eligible = []
         for rule in rules:
-            # temporarily filter by rewriting specs' kind via a shallow copy
-            subset = []
-            for w in pilot_w:
-                if w["spec"].startswith(rule + "@") or w["spec"] == rule:
-                    ww = dict(w)
-                    # analyse_kind uses kind_of; force by prefixing a fake? easier: call with filtered list
-                    # and a local kind. Reuse analyse_kind by tagging specs as ant still — pool per rule
-                    # by filtering windows first.
-                    subset.append(ww)
-            # Manual analyse on subset: monkey by renaming kind check — call analyse_kind on
-            # windows that all kind_of as ant; filter inside by rebuilding hist/windows only for rule.
-            sub_w = [w for w in pilot_w if w["spec"].split("@")[0] == rule]
-            a = analyse_kind("ant", sub_w, pilot_h)
-            report["pilot"]["per_rule"][rule] = a
+            sub_w = [w for w in calib_w if w["spec"].split("@")[0] == rule]
+            a = analyse_kind("ant", sub_w, calib_h)
+            per[rule] = a
             say(
                 f"  {rule}: nwin={a['n_retained_windows']} L_range={a['L_range_ratio']} "
                 f"Score(L)={a['Score_L']} Score(L^2)={a['Score_L2']} verdict={a['verdict']} "
                 f"mean_tau/L={a['mean_tau_over_L']}"
             )
+            if a["verdict"] in ("D", "S"):
+                eligible.append((rule, a["verdict"]))
+        n_d = sum(1 for _, v in eligible if v == "D")
+        n_s = sum(1 for _, v in eligible if v == "S")
+        n_el = len(eligible)
+        if n_el >= 4 and n_d / n_el >= 0.75:
+            family = "D"
+            decision = "retain-diffusive"
+        elif n_el >= 4 and n_s / n_el >= 0.75:
+            family = "S"
+            decision = "retain-sweep"
+        else:
+            family = "neither"
+            decision = "revise"
+        pooled = analyse_kind("ant", calib_w, calib_h)
+        report["confirmation"] = {
+            "per_rule": per,
+            "pooled": pooled,
+            "n_eligible": n_el,
+            "n_D": n_d,
+            "n_S": n_s,
+            "family": family,
+            "decision": decision,
+            "escapes": sum(1 for w in calib_w if w["escaped"]),
+            "n_window_rows": len(calib_w),
+        }
+        say()
+        say(f"eligible rules with D/S: {n_el} (D={n_d}, S={n_s})")
+        say(f"family={family} decision={decision}")
+        say(
+            f"pooled: nwin={pooled['n_retained_windows']} verdict={pooled['verdict']} "
+            f"Score(L)={pooled['Score_L']} Score(L^2)={pooled['Score_L2']}"
+        )
 
-    (RES / "analysis.json").write_text(json.dumps(report, indent=2, allow_nan=False, default=lambda o: None if isinstance(o, float) and not math.isfinite(o) else o))
-    # Fix NaN for json
+    if mode == "stage1" and pilot:
+        pilot_path = RES / "pilot_windows.csv"
+        if pilot_path.exists():
+            say()
+            say("=== Pilot (EXPLORATORY / EXCLUDED) ===")
+            pilot_w = load_windows(pilot_path)
+            pilot_h = load_hist(RES / "pilot_hist.csv")
+            a_all = analyse_kind("ant", pilot_w, pilot_h)
+            report["pilot"] = {"pooled": a_all, "per_rule": {}}
+            say(
+                f"ant pooled: nwin={a_all['n_retained_windows']} L_range={a_all['L_range_ratio']} "
+                f"Score(L)={a_all['Score_L']} Score(L^2)={a_all['Score_L2']} "
+                f"verdict={a_all['verdict']} mean_tau/L={a_all['mean_tau_over_L']} "
+                f"(EXPLORATORY — not evidence)"
+            )
+            rules = sorted({w["spec"].split("@")[0] for w in pilot_w})
+            for rule in rules:
+                sub_w = [w for w in pilot_w if w["spec"].split("@")[0] == rule]
+                a = analyse_kind("ant", sub_w, pilot_h)
+                report["pilot"]["per_rule"][rule] = a
+                say(
+                    f"  {rule}: nwin={a['n_retained_windows']} L_range={a['L_range_ratio']} "
+                    f"Score(L)={a['Score_L']} Score(L^2)={a['Score_L2']} verdict={a['verdict']} "
+                    f"mean_tau/L={a['mean_tau_over_L']}"
+                )
+
     def clean(o):
         if isinstance(o, float) and not math.isfinite(o):
             return None
@@ -378,10 +541,12 @@ def main():
             return [clean(v) for v in o]
         return o
 
-    (RES / "analysis.json").write_text(json.dumps(clean(report), indent=2))
-    (RES / "analysis.txt").write_text("\n".join(lines) + "\n")
+    out_json.write_text(json.dumps(clean(report), indent=2))
+    out_txt.write_text("\n".join(lines) + "\n")
     say()
-    say(f"wrote {RES / 'analysis.json'} and analysis.txt")
+    say(f"wrote {out_json} and {out_txt.name}")
+
+
 
 
 if __name__ == "__main__":

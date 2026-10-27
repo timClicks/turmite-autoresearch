@@ -10,10 +10,13 @@
 //! excursions at window end are counted as right-censored (not in the hist).
 //!
 //! Specs: RULE, RULE@SEED, rotor:SEED, rw:SEED, mf:SEED (mean-field of
-//! examples/kappa_uniform_baseline.rs / kappa_exposure_classes.rs).
+//! examples/kappa_uniform_baseline.rs / kappa_exposure_classes.rs),
+//! cup:P:SEED (reflecting cup: RW on visited set; birth onto unvisited with
+//! probability P, else stay — Revision 1 D calibrator).
 //! `--check` compares every recorded window's (area, perimeter, new_cells,
 //! boundary_steps) with probe::probe_walker and asserts the per-window step
-//! budget boundary_steps + interior_steps = window length.
+//! budget boundary_steps + interior_steps = window length. For cup:1.0:SEED,
+//! totals must match rw:SEED (accept-draw skipped at P=1).
 use rayon::prelude::*;
 use std::io::Write;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -98,7 +101,13 @@ struct Out {
 
 trait Mover {
     fn start_cell(&mut self, cur: usize, region: &Region) -> usize;
-    fn advance(&mut self, at: usize, colour: &mut [u8], size: usize) -> (usize, i64, i64);
+    fn advance(
+        &mut self,
+        at: usize,
+        colour: &mut [u8],
+        size: usize,
+        region: &Region,
+    ) -> (usize, i64, i64);
 }
 
 struct WalkerMover<W: Walker> {
@@ -112,7 +121,13 @@ impl<W: Walker> Mover for WalkerMover<W> {
     fn start_cell(&mut self, cur: usize, _: &Region) -> usize {
         cur
     }
-    fn advance(&mut self, at: usize, colour: &mut [u8], size: usize) -> (usize, i64, i64) {
+    fn advance(
+        &mut self,
+        at: usize,
+        colour: &mut [u8],
+        size: usize,
+        _: &Region,
+    ) -> (usize, i64, i64) {
         self.w.step(&mut colour[at], &mut self.h);
         let (dx, dy) = DIRS[self.h as usize];
         self.x += dx as i64;
@@ -137,7 +152,13 @@ impl Mover for MeanField {
         self.r = splitmix_next(&mut self.st);
         self.cells[((self.r >> 8) % self.cells.len() as u64) as usize]
     }
-    fn advance(&mut self, at: usize, _: &mut [u8], size: usize) -> (usize, i64, i64) {
+    fn advance(
+        &mut self,
+        at: usize,
+        _: &mut [u8],
+        size: usize,
+        _: &Region,
+    ) -> (usize, i64, i64) {
         let s = size as isize;
         let d = [-s, 1, s, -1][(self.r & 3) as usize];
         let j = (at as isize + d) as usize;
@@ -161,8 +182,77 @@ impl Mover for MeanFieldSync {
         }
         self.inner.start_cell(cur, region)
     }
-    fn advance(&mut self, at: usize, colour: &mut [u8], size: usize) -> (usize, i64, i64) {
-        self.inner.advance(at, colour, size)
+    fn advance(
+        &mut self,
+        at: usize,
+        colour: &mut [u8],
+        size: usize,
+        region: &Region,
+    ) -> (usize, i64, i64) {
+        self.inner.advance(at, colour, size, region)
+    }
+}
+
+/// Reflecting cup: simple random walk on the visited set; a proposed step onto
+/// an unvisited cell is accepted with probability `p` (else stay). Revision 1
+/// compact-domain D calibrator. At p = 1 the accept draw is skipped so the
+/// trajectory matches `RandomWalk` with the same seed.
+struct ReflectingCup {
+    st: u64,
+    p_q32: u64,
+    p_is_one: bool,
+    x: i64,
+    y: i64,
+}
+
+impl ReflectingCup {
+    fn new(seed: u64, p: f64) -> Self {
+        assert!(p.is_finite() && (0.0..=1.0).contains(&p), "cup p in [0,1]");
+        Self {
+            st: seed,
+            p_q32: (p * 4294967296.0) as u64,
+            p_is_one: p >= 1.0,
+            x: 0,
+            y: 0,
+        }
+    }
+}
+
+impl Mover for ReflectingCup {
+    fn start_cell(&mut self, cur: usize, _: &Region) -> usize {
+        cur
+    }
+    fn advance(
+        &mut self,
+        at: usize,
+        _: &mut [u8],
+        size: usize,
+        region: &Region,
+    ) -> (usize, i64, i64) {
+        let dir = (splitmix_next(&mut self.st) & 3) as usize;
+        let (dx, dy) = DIRS[dir];
+        let nx = self.x + dx as i64;
+        let ny = self.y + dy as i64;
+        let s = size as isize;
+        let j = (at as isize + dy as isize * s + dx as isize) as usize;
+        if region.visited(j) {
+            self.x = nx;
+            self.y = ny;
+            return (j, self.x, self.y);
+        }
+        // Unvisited target: accept birth with probability p; else stay.
+        if self.p_is_one {
+            self.x = nx;
+            self.y = ny;
+            return (j, self.x, self.y);
+        }
+        let r = splitmix_next(&mut self.st);
+        if (r >> 32) < self.p_q32 {
+            self.x = nx;
+            self.y = ny;
+            return (j, self.x, self.y);
+        }
+        (at, self.x, self.y)
     }
 }
 
@@ -208,7 +298,7 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
                 w.interior_steps += 1;
             }
 
-            let (j, x, y) = mv.advance(at, &mut colour, size);
+            let (j, x, y) = mv.advance(at, &mut colour, size, &region);
             idx = j;
             t += 1;
             if !region.visited(idx) {
@@ -266,6 +356,15 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
         }
     }
     Out { wins, escaped }
+}
+
+fn run_cup(seed: u64, p: f64, size: usize, max_log2: u32) -> Out {
+    run(
+        ReflectingCup::new(seed, p),
+        vec![0u8; size * size],
+        size,
+        max_log2,
+    )
 }
 
 fn run_mf(seed: u64, size: usize, max_log2: u32) -> Out {
@@ -367,7 +466,40 @@ fn format_block(spec: &str, out: &Out) -> (String, String) {
 }
 
 fn run_spec(s: &str, size: usize, max_log2: u32, check: bool) -> Out {
-    if let Some(seed) = s.strip_prefix("mf:") {
+    if let Some(rest) = s.strip_prefix("cup:") {
+        // cup:P:SEED
+        let (p_str, seed_str) = rest
+            .split_once(':')
+            .unwrap_or_else(|| panic!("cup spec must be cup:P:SEED, got {s}"));
+        let p: f64 = p_str.parse().expect("cup P");
+        let seed: u64 = seed_str.parse().expect("cup SEED");
+        let out = run_cup(seed, p, size, max_log2);
+        if check {
+            for w in &out.wins {
+                let win_len = 1u64 << (w.k - 1);
+                assert_eq!(
+                    w.boundary_steps + w.interior_steps,
+                    win_len,
+                    "cup budget k={}",
+                    w.k
+                );
+            }
+            if (p - 1.0).abs() < 1e-12 {
+                let rw = walker_out(RandomWalk { state: seed }, size, max_log2);
+                assert_eq!(rw.escaped, out.escaped, "cup:1 vs rw escape");
+                assert_eq!(rw.wins.len(), out.wins.len(), "cup:1 vs rw nwindows");
+                for (a, b) in rw.wins.iter().zip(&out.wins) {
+                    assert_eq!(
+                        (a.area, a.perimeter, a.new_cells, a.boundary_steps),
+                        (b.area, b.perimeter, b.new_cells, b.boundary_steps),
+                        "cup:1.0:{seed} must match rw:{seed} at k={}",
+                        b.k
+                    );
+                }
+            }
+        }
+        out
+    } else if let Some(seed) = s.strip_prefix("mf:") {
         let out = run_mf(seed.parse().unwrap(), size, max_log2);
         // MF has no probe_walker equivalent; check budget identity only.
         if check {

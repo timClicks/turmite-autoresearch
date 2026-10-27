@@ -491,7 +491,12 @@ PR #18 merges. Cite them as "P-C / Q32 (PR #18 note)" until then.
 - **Result of stage 1:** instrument **revise**. The nonparametric collapse Score separates planted
   pure-scale L vs L² laws, and mean-field prefers L as registered. The random-walk calibrator never
   grows L=A/P into the analysis band, so C1 fails and the excluded ant pilot is not evidence.
-- **Open (unnumbered here to avoid clashing with PR #18):** what compact-domain walker with growing
-  linear size re-passes C1 as a D calibrator? Until that is registered and green, do not run the
-  reserved confirmation specs.
+- **Revision 1** (registration `9c2aeea`, before revised measurement): stay-on-reject reflecting
+  cup grew L but failed the frozen compactness pre-check (porous A/P²) and Score preferred S
+  (frontier trapping). C1' **inadequate**; C2 (mean-field) still passed; confirmation **not run**.
+  Cup-as-D design retired (`NR-20261027-reflecting-cup-d-calibrator`).
+- **Open (unnumbered here to avoid clashing with PR #18):** which *filled* compact-domain walker
+  (visited-neighbour reflection, Eden growth, or internal DLA) can pass compactness and prefer D
+  under the frozen Score? Until that is newly registered and green, do not run the reserved
+  confirmation specs. Do not P-shop the retired cup.
 

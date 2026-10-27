@@ -403,3 +403,32 @@ excluded.
 ### Compute
 
 Aim < 2 CPU-hours for revision calib + (if gated) confirmation. RAYON_NUM_THREADS=4.
+
+## Revision 1 results (appended after registration `9c2aeea1732e2cb281544f7c4e07829847272873`)
+
+**Revision registration (hypotheses frozen, no outcomes):** `9c2aeea1732e2cb281544f7c4e07829847272873`  
+**First revised-results commit:** (commit that appends this section; see git log on `exp/excursion-durations`)  
+**Instrument binary sha256:** `c84e20780315f4cc3b1a83b9200d314a6569c166ec9c1c9b42e0450d11ea0682`  
+**Board / horizon:** 8192 / max_log2 24 / RAYON_NUM_THREADS=4 / `--check` on every long run.  
+**Compute:** rev1 calib 20 specs finished in ~1–2 s wall on this box (see `results/rev1_calib_outer.log`); confirmation **not run**.
+
+### C0
+PASS. `cup:1.0:7` matched `rw:7` window totals (area, perimeter, new_cells, boundary_steps) under `--check`. Cup/mf budget identity held. Stage-1 mutant behaviour unchanged.
+
+### Compactness pre-check (primary cup:0.10)
+**FAIL.** Retained windows: 36; L_range ≈ 6.47 (≥ 2); A_range ≈ 55.9 (≥ 4); median A/P² ≈ 0.0188 (**< 0.04**). Territory grows in L but is too porous/ragged relative to the frozen isoperimetric cut. Diagnostics: p=0.05 median A/P² ≈ 0.0257; p=0.25 ≈ 0.0056 (worse). Figure: `results/figures/cup_compactness.png`.
+
+### C1' (cup:0.10 → D + compactness)
+**INADEQUATE — STOP.** Score(L)=0.1031, Score(L²)=0.1690, frozen verdict=**S** (not D); compactness fail; not censoring-fragile. Mean τ/L ≈ 2.46. Diagnostics also prefer S (p=0.05 and 0.25). Matches the registered near-boundary trapping caveat: stay-on-reject at the frontier inflates short returns so Score looks sweep-like even though L grows. Do **not** interpret as evidence for the ant's sweep account.
+
+### C2 (mf re-gate)
+**PASS.** Score(L)=0.0593, Score(L²)=0.1663, verdict=S; mean τ/L ≈ 0.998. Fresh seeds `2026102731`..`34`.
+
+### C3 (rotor, measured)
+Score(L)=0.1195, Score(L²)=0.1536, verdict=**inconclusive** (allowed). mean τ/L ≈ 1.93. L_range ≈ 7.50.
+
+### Confirmation
+**Not run** (C1' gate failed). Reserved specs in `results/reserved_confirmation_specs.txt` remain untouched.
+
+### Retain / revise / stop (Revision 1)
+**Stop confirmation; retire this reflecting-cup design as a D calibrator** (pruning entry below). Keep the excursion instrument, MF L-control, Score/margin, and reserved cohort. A future revision needs a compact-domain walker that (i) passes A/P² (or an equivalent filled-blob test) and (ii) prefers D under Score without P-shopping — e.g. reflecting onto visited neighbours only, Eden growth, or internal DLA — registered before measuring.
