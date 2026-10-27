@@ -70,3 +70,30 @@ Score would prefer D; not evidence. Trajectories remain excluded.
 **Revise** (not retain, not abandon). Keep definitions, MF control, Score, check-mode,
 excluded-pilot discipline. Replace D calibrator with a compact-domain growing walker;
 re-register C1 before any confirmation. Recorded in README Results and blog post.
+
+### 2026-10-27 20:50 NZDT · c2b3c39 · intent
+Revision 1 after user approval of the stage-1 **Revise** recommendation
+(`Work on your fix`). Keep original registration, C1 FAIL, and excluded pilot on
+record. Replace the D calibrator; re-freeze Score only by carrying the stage-1
+margin forward; gate confirmation on C0∧C1'∧C2.
+
+### 2026-10-27 20:50 NZDT · c2b3c39 · decision
+Walker search: no reflecting/cup/IDLA/sticky compact-domain walker in
+`src/walkers.rs` or prior experiments; cookies, edge-reinforcement, persistent,
+and memoryless/noisy-rotor controls all expand freely (same failure mode as RW
+for L=A/P). Implement reflecting-cup mover in `examples/boundary_excursions.rs`.
+Pruning: still **RUN** (new calibrator, same question; no new NR signature that
+covers cup excursion collapse). Primary P=0.10; diagnostics 0.05 and 0.25 chosen
+for compactness only, before outcomes.
+
+### 2026-10-27 20:50 NZDT · c2b3c39 · assumption
+A reflecting cup with stay-on-reject and small P produces a compact blob with
+growing L=A/P and a diffusive interior sojourn law (D). False if frontier
+rejection traps the walker on the boundary hard enough that Score prefers S
+(registered as C1' inconclusive, not as evidence for sweep). Status: untested.
+
+### 2026-10-27 20:50 NZDT · c2b3c39 · decision
+Confirmation family rule frozen: ≥75% of eligible reserved rules sharing D (or
+S) to retain that account; otherwise revise. Development cohort remains excluded.
+No confirmation run unless C0, C1' (cup:0.10→D + compactness), and C2 (mf→S with
+mean τ/L in band) all pass under the unchanged 0.75 Score margin.

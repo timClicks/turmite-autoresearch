@@ -268,3 +268,138 @@ definitions, scores and 0.75 margin, (3) requires C1/C2 to re-pass on a new
 calibrator seed block, (4) states a family-level pass rule before measuring
 (e.g. prefer D on >= 75% of eligible rules, or prefer S, or report neither),
 (5) keeps development trajectories excluded.
+
+## Revision 1 registration (2026-10-27 20:50 NZDT, +13:00)
+
+**Registered before any revised measurement.** Base commit for this revision:
+`c2b3c3902ac2c5b7fd27aec85185aadc03fbf0dd` (stage-1 results on record). The
+original registration (`9bfa496`), C1 FAIL verdict, and the excluded pilot stay
+unchanged. This section only adds C1' and the confirmation gate.
+
+### Search for an existing compact-domain walker
+
+Preflight (same pruning index revision `5b96f68`, plus title/keyword read of
+`notes/walker-comparisons-2026-10-13.md`, `src/walkers.rs`, kappa-uniform /
+walker-reference experiments, frontier notes on the memoryless κ≈1.3–1.45
+figure):
+
+- `RandomWalk`, `CookieWalk`, `EdgeReinforcedWalk`, `PersistentWalk`,
+  `NoisyRotor` (eps→1 = memoryless): all **expand freely** onto unvisited
+  cells. Their territories are porous; stage-1 already showed RW never grows
+  L=A/P into the analysis band. Not suitable as a compact-domain D calibrator.
+- No reflecting / sticky / cup / internal-DLA walker exists in `src/walkers.rs`
+  or the probe examples. The κ≈1.3–1.45 memoryless figure is a free-expansion
+  control, not a cup.
+
+**Decision: implement a new reflecting-cup mover** in
+`examples/boundary_excursions.rs` (same place as `MeanFieldSync`, because the
+`Walker` trait cannot see the visited set). Credit the search above; do not
+claim novelty beyond this instrument.
+
+### Reflecting cup (frozen definition)
+
+Spec: `cup:P:SEED` with `P` in `{0.05, 0.10, 0.25}` (decimal). Seeds
+`2026102731`..`2026102734` (four per P; 12 cup specs). Also `cup:1.0:SEED` as
+an oracle-only smoke (must match `rw:SEED` window totals when the accept draw
+is skipped at P=1).
+
+Each step:
+
+1. Draw a uniform direction among the four lattice neighbours (same SplitMix64
+   stream convention as `RandomWalk`).
+2. If the target is already visited: move there.
+3. If the target is unvisited: with probability P accept the birth and move;
+   with probability 1−P **stay** (reject the move; do not relocate to another
+   neighbour).
+
+Justification for stay (not “bounce to a random visited neighbour”): stay is
+the minimal rejection of an expansion attempt; it does not require enumerating
+visited neighbours and does not add a degree bias among them. P is the only
+growth knob.
+
+**P grid (frozen before outcomes, compactness only):** {0.05, 0.10, 0.25}.
+Smaller P spends more time mixing before birthing, favouring a filled blob;
+larger P approaches free RW. Primary gate uses **P=0.10**; 0.05 and 0.25 are
+reported diagnostics (same Score rule). No P is chosen by looking at
+excursion scores.
+
+### Compactness pre-check (registered; required for C1')
+
+On windows retained under the same filters as Score (k∈[16,24], not escaped,
+n_completed≥200, censored_step_share≤0.20, L≥4), for the primary P=0.10 pool:
+
+1. L_max/L_min ≥ 2;
+2. A_max/A_min ≥ 4 (area should track L² growth);
+3. median over retained windows of A/P² ≥ 0.04 (lattice disk/square isoperimetric
+   order; spider/porous territories fall well below).
+
+If any fails: **C1' inadequate — STOP** (do not run confirmation).
+
+### Prediction and ambiguity (frozen)
+
+- **Predicted shape: D** (collapse in τ/L²; heavy intermediate tail).
+- **Known contamination risk:** rejection at the frontier makes the walker
+  spend extra time on boundary cells. Near-boundary trapping can inflate the
+  short-return atom and make even a cup look **S**-like under Score, while the
+  Kac mean remains ~L for both D and S. This is why the mean cannot decide.
+- **C1' outcomes:**
+  - Prefers **D**, compactness passes, not censoring-fragile → **C1' PASS**.
+  - Prefers **S** or **inconclusive**, compactness passes → **C1' INCONCLUSIVE**
+    (trapping not ruled out) → STOP confirmation; do not read ants.
+  - Uninformative, compactness fail, or censoring-fragile → **C1' INADEQUATE**
+    → STOP.
+
+Diagnostic P∈{0.05,0.25}: reported; they do not override the primary gate.
+If primary is inconclusive but a diagnostic is cleanly D with compactness, still
+STOP (do not shop for P after seeing scores).
+
+### Decision rule (re-frozen; not tuned on ant data)
+
+Identical to stage 1: prefer D if Score(L²) ≤ 0.75·Score(L); prefer S if
+Score(L) ≤ 0.75·Score(L²); else inconclusive. Same retention filters, same u-grid,
+same censoring-fragile rule. Grounds: stage-1 synthetic check already separated
+planted pure-scale D vs S under this margin; revision changes only the D
+*calibrator*, not the Score. **No retuning on ant or cup excursion outcomes.**
+
+### Gates before confirmation
+
+- **C0:** `--check` budget identity on cup/mf; probe match on rw/rotor/ant;
+  `cup:1.0:seed` matches `rw:seed` on (area, perimeter, new_cells, boundary_steps)
+  for a tiny non-cohort smoke; mutant still panics.
+- **C1':** primary `cup:0.10` → D + compactness as above.
+- **C2:** mean-field re-evaluated under the same frozen Score (re-run or re-score
+  on revision calib); must again prefer S with E[τ]/L ∈ [0.5, 2.0].
+- **C3:** rotor remains measured-only (no D/S bet).
+
+If C0, C1', and C2 all PASS: run **exactly** the reserved confirmation cohort in
+`results/reserved_confirmation_specs.txt` (rules/seeds/windows unchanged). If any
+gate fails: stop, record, **do not** run the cohort.
+
+### Confirmation decision rule (frozen now; used only if gates pass)
+
+On reserved specs, same Score/margin/filters; development trajectories stay
+excluded.
+
+- Per eligible rule (pooled seeds): verdict D / S / inconclusive / uninformative.
+- Report every window, escape, non-reaching run, censored share.
+- **Family-level:** among rules with a D or S verdict (eligible), prefer **D**
+  if ≥ 75% prefer D; prefer **S** if ≥ 75% prefer S; else **neither**.
+- **Retain / revise / retire:**
+  - Family D → retain the **diffusive-excursion** account as the working
+    explanation for this cohort (sweep not supported here).
+  - Family S → retain the **sweep-like** account for this cohort.
+  - Neither, or < 4 eligible rules → **revise** (instrument or cohort insufficient).
+  - Do not retire the cube-root question; this test only discriminates excursion
+    shape accounts.
+
+### Sample (revision)
+
+- Board / horizon / analysis band: unchanged (8192, max_log2 24, k=16..24).
+- Cup: `cup:0.05|0.10|0.25:2026102731`..`2026102734` (primary gate on 0.10).
+- MF / rotor re-calib seeds: `2026102731`..`2026102734` (fresh block; stage-1
+  seeds remain on record and are not reused for the gate).
+- Confirmation: only `results/reserved_confirmation_specs.txt`, and only if gates pass.
+
+### Compute
+
+Aim < 2 CPU-hours for revision calib + (if gated) confirmation. RAYON_NUM_THREADS=4.
