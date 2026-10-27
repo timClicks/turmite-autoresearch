@@ -37,6 +37,7 @@ jobs:
           npm ci --prefix web
           node blog/scripts/test_stats.js
           node blog/scripts/test_ants.js
+          node blog/scripts/test_widgets.js
           node blog/scripts/test_experiment.js
           python3 blog/scripts/test_atlas.py
       - uses: astral-sh/setup-uv@v6
