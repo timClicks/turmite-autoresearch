@@ -51,6 +51,17 @@
     return dark ? `hsl(${hue} 50% 66%)` : `hsl(${hue} 52% 46%)`;
   }
 
+  // Text colour that reads on the chip: whichever of white or near-black contrasts more.
+  function textOn(index, count, dark) {
+    const css = colourCss(index, count, dark);
+    if (!css) return null;
+    const [h, s, l] = css.match(/[\d.]+/g).map(Number);
+    const f = n => { const k = (n + h / 30) % 12, a = s / 100 * Math.min(l / 100, 1 - l / 100); return l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)); };
+    const lin = v => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+    const lum = 0.2126 * lin(f(0)) + 0.7152 * lin(f(8)) + 0.0722 * lin(f(4));
+    return 1.05 / (lum + 0.05) >= (lum + 0.05) / 0.0645 ? '#fff' : '#1b2220';
+  }
+
   function describe(step) {
     const facing = HEADINGS[step.before], now = HEADINGS[step.after];
     const turn = step.turn === 'R' ? 'right' : 'left';
@@ -62,7 +73,7 @@
     ];
   }
 
-  if (typeof module !== 'undefined') module.exports = { Ant, parseRule, colourCss, describe, MAX_STEPS };
+  if (typeof module !== 'undefined') module.exports = { Ant, parseRule, colourCss, textOn, describe, MAX_STEPS };
   if (typeof document === 'undefined') return;
   const root = document.querySelector('.ant-explainer');
   if (!root) return;
@@ -76,7 +87,6 @@
   const speed = $('#ex-speed'), speedLabel = $('#ex-speed-label'), counter = $('#ex-steps');
   const narration = $('#ex-narration'), summary = $('#ex-summary');
   const dark = matchMedia('(prefers-color-scheme: dark)');
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const SPEEDS = [1, 3, 10, 30, 100, 300, 1000, 3000];
 
   let ant = new Ant('RL'), last = null, playing = false, frame = null, previous = null, owed = 0;
@@ -96,7 +106,7 @@
         chip.className = 'ex-chip' + (index === 0 ? ' ex-blank' : '');
         chip.textContent = index;
         const css = colourCss(index, n, dark.matches);
-        if (css) chip.style.background = css;
+        if (css) { chip.style.background = css; chip.style.color = textOn(index, n, dark.matches); }
         cell.appendChild(chip);
         return cell;
       };
@@ -147,10 +157,10 @@
       context.fillStyle = colourCss(colour, n, dark.matches);
       const pad = size >= 9 ? 1 : 0;
       context.fillRect(left + cx * size + pad, top + cy * size + pad, size - pad, size - pad);
-      if (size >= 22) { context.fillStyle = dark.matches ? '#1b2220' : '#fff'; context.fillText(colour, left + (cx + .5) * size, top + (cy + .5) * size); }
+      if (size >= 22) { context.fillStyle = textOn(colour, n, dark.matches); context.fillText(colour, left + (cx + .5) * size, top + (cy + .5) * size); }
     }
     // The square just left is ringed, so the change is easy to spot.
-    if (last) {
+    if (last && size >= 4) {
       context.strokeStyle = t.ink;
       context.lineWidth = 2;
       context.strokeRect(left + last.x * size + 1, top + last.y * size + 1, size - 2, size - 2);
@@ -177,7 +187,7 @@
     canvas.setAttribute('aria-label', `Rule ${ant.rule} after ${ant.steps} steps: ${painted} non-blank squares, ant facing ${HEADINGS[ant.heading]}.`);
     backButton.disabled = ant.steps === 0;
     const atCap = ant.steps >= MAX_STEPS;
-    stepButton.disabled = atCap;
+    for (const b of [stepButton, playButton, ...root.querySelectorAll('[data-skip]')]) b.disabled = atCap;
     if (atCap && playing) pause();
     if (last) {
       const lines = describe(last);
@@ -191,7 +201,7 @@
     draw();
   }
 
-  function setRule(rule, announce) {
+  function setRule(rule) {
     pause();
     ant = new Ant(rule);
     last = null;
@@ -200,7 +210,7 @@
     for (const b of root.querySelectorAll('.ex-preset')) b.setAttribute('aria-pressed', String(b.dataset.rule === rule));
     buildTable();
     render();
-    if (announce) ruleInput.setAttribute('aria-invalid', 'false');
+    ruleInput.setAttribute('aria-invalid', 'false');
   }
 
   function advance(count) {
@@ -222,7 +232,6 @@
     if (frame !== null) cancelAnimationFrame(frame);
     frame = null;
     playButton.textContent = 'Play';
-    playButton.setAttribute('aria-pressed', 'false');
     narration.setAttribute('aria-live', 'polite');
   }
   function play() {
@@ -230,7 +239,6 @@
     playing = true;
     narration.setAttribute('aria-live', 'off');
     playButton.textContent = 'Pause';
-    playButton.setAttribute('aria-pressed', 'true');
     frame = requestAnimationFrame(tick);
   }
   function tick(now) {
@@ -251,11 +259,11 @@
   for (const b of root.querySelectorAll('[data-skip]')) b.addEventListener('click', () => { pause(); advance(Number(b.dataset.skip)); });
   $('#ex-reset').addEventListener('click', () => setRule(ant.rule));
   speed.addEventListener('input', () => { speedLabel.textContent = `${SPEEDS[Number(speed.value)].toLocaleString('en-NZ')} steps/s`; });
-  for (const b of root.querySelectorAll('.ex-preset')) b.addEventListener('click', () => setRule(b.dataset.rule, true));
+  for (const b of root.querySelectorAll('.ex-preset')) b.addEventListener('click', () => setRule(b.dataset.rule));
   $('#ex-rule-form').addEventListener('submit', event => {
     event.preventDefault();
     const rule = parseRule(ruleInput.value);
-    if (rule) setRule(rule, true);
+    if (rule) setRule(rule);
     else { ruleError.textContent = `Use ${2}–${MAX_RULE} letters, each L or R.`; ruleInput.setAttribute('aria-invalid', 'true'); }
   });
   table.addEventListener('click', event => {

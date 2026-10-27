@@ -3,9 +3,9 @@ name: Research blog
 on:
   push:
     branches: [main]
-    paths: ['blog/**', 'experiments/**', 'research-outputs/cube-root-growth-paper/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
+    paths: ['blog/**', 'web/sim.js', 'web/package-lock.json', 'experiments/**', 'research-outputs/cube-root-growth-paper/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
   pull_request:
-    paths: ['blog/**', 'experiments/**', 'research-outputs/cube-root-growth-paper/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
+    paths: ['blog/**', 'web/sim.js', 'web/package-lock.json', 'experiments/**', 'research-outputs/cube-root-growth-paper/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
   workflow_dispatch:
 
 permissions:

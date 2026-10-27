@@ -1,12 +1,16 @@
 // "Compare walkers": an ant, a rotor walker and two random walkers, run in lock-step
 // from the same origin. Dynamics follow src/walkers.rs (heading 0 = north; the ant reads,
 // turns, advances the colour, then moves; the rotor advances its arrow, then steps along it).
-// Differences from the Rust code: the rotor's initial arrows come from a 32-bit hash
-// of (seed, x, y), not the Rust SplitMix64 stream, and the board is finite (see HALF).
+// Differences from the Rust code: every random choice (the rotor's initial arrows, and the
+// random and persistent walks' draws) comes from a 32-bit generator (mix32 / mulberry32),
+// not the Rust SplitMix64 stream, and the board is finite (see HALF).
 (() => {
   'use strict';
   const DX = [0, 1, 0, -1], DY = [-1, 0, 1, 0];
-  const HALF = 1024, SIDE = 2 * HALF;      // walkers stop if they reach the edge of the board
+  // Walkers stop if they reach the edge of their board. The ant and rotor need a byte per
+  // square for their state; the random walks only need a visited bit, so theirs is wider
+  // (a 2^20-step walk has rms displacement near 1000, so 1024 would end half the runs early).
+  const HALF = 1024, WIDE_HALF = 4096;
   const VIEW = 256, MAX_STEPS = 1 << 20;   // picture resolution; stopping point
   const VISITED = 128;
 
@@ -31,8 +35,12 @@
       this.kind = kind;
       this.rule = options.rule || null;
       this.seed = options.seed || 1;
-      // Low bits: ant colour, or rotor arrow + 1 (0 = not yet left). Bit 7: ever visited.
-      this.board = new Uint8Array(SIDE * SIDE);
+      // Ant and rotor: a byte per square. Low bits: ant colour, or rotor arrow + 1 (0 = not yet
+      // left); bit 7: ever visited. Random walks: one visited bit per square.
+      this.bits = kind === 'randomwalk' || kind === 'persistent';
+      this.half = this.bits ? WIDE_HALF : HALF;
+      this.side = 2 * this.half;
+      this.board = new Uint8Array(this.bits ? this.side * this.side / 8 : this.side * this.side);
       if (kind === 'ant') {
         this.turn = Uint8Array.from(this.rule, ch => (ch === 'R' ? 1 : 3));
         this.next = Uint8Array.from(this.rule, (_, i) => (i + 1) % this.rule.length);
@@ -47,11 +55,20 @@
       this.pending = false;
       this.samples = { t: [], spread: [] };
       this.nextSample = 1;
-      this.visit(HALF * SIDE + HALF);
+      this.visit(this.half * this.side + this.half);
     }
     // Record that the walker is on the square at board[index]: area, and the picture.
     visit(index) {
-      if (!(this.board[index] & VISITED)) { this.board[index] |= VISITED; this.area++; this.moment += this.x * this.x + this.y * this.y; }
+      let fresh;
+      if (this.bits) {
+        const byte = index >> 3, mask = 1 << (index & 7);
+        fresh = !(this.board[byte] & mask);
+        this.board[byte] |= mask;
+      } else {
+        fresh = !(this.board[index] & VISITED);
+        this.board[index] |= VISITED;
+      }
+      if (fresh) { this.area++; this.moment += this.x * this.x + this.y * this.y; }
       this.plot();
     }
     plot() {
@@ -80,11 +97,11 @@
     }
     // Runs up to `count` steps; stops early (leaving `pending` set) when the picture needs to zoom out.
     run(count) {
-      const board = this.board, kind = this.kind;
+      const board = this.board, kind = this.kind, half = this.half, side = this.side;
       let done = 0;
       while (done < count && !this.stopped && !this.pending && this.steps < MAX_STEPS) {
         let { x, y, heading } = this;
-        const index = (y + HALF) * SIDE + x + HALF;
+        const index = (y + half) * side + x + half;
         if (kind === 'ant') {
           const c = board[index] & 127;
           heading = (heading + this.turn[c]) & 3;
@@ -104,8 +121,8 @@
         this.steps++; done++;
         const reach = Math.max(Math.abs(x), Math.abs(y));
         if (reach > this.extent) this.extent = reach;
-        if (reach >= HALF - 1) { this.stopped = 'reached the edge of the board'; }
-        else this.visit((y + HALF) * SIDE + x + HALF);
+        if (reach >= half - 1) { this.stopped = 'reached the edge of the board'; }
+        else this.visit((y + half) * side + x + half);
         if (this.steps >= this.nextSample) this.sample();
       }
       if (this.steps >= MAX_STEPS && !this.stopped) this.stopped = 'finished';
@@ -164,9 +181,9 @@
   const SPEEDS = [300, 3000, 30000, 300000];
   const SERIES = [
     { name: 'Ant', light: '#b74727', dark: '#f09b76', dash: [] },
-    { name: 'Rotor', light: '#2f6f6a', dark: '#98bbb8', dash: [] },
-    { name: 'Random walk', light: '#8a6d1f', dark: '#d7bc83', dash: [] },
-    { name: 'Persistent walk', light: '#5d6f46', dark: '#b6c895', dash: [] },
+    { name: 'Rotor', light: '#2f6f6a', dark: '#98bbb8', dash: [9, 4] },
+    { name: 'Random walk', light: '#8a6d1f', dark: '#d7bc83', dash: [2, 3] },
+    { name: 'Persistent walk', light: '#5d6f46', dark: '#b6c895', dash: [10, 3, 2, 3] },
   ];
   const colourOf = i => (dark.matches ? SERIES[i].dark : SERIES[i].light);
 
@@ -209,7 +226,7 @@
     p.context.strokeStyle = t.panel;
     p.context.lineWidth = 1.5;
     p.context.stroke();
-    p.stats.textContent = `reach ${w.extent.toLocaleString('en-NZ')} · ${w.area.toLocaleString('en-NZ')} sites`
+    p.stats.textContent = `spread ${w.spread.toFixed(1)} · reach ${w.extent.toLocaleString('en-NZ')} · ${w.area.toLocaleString('en-NZ')} sites`
       + (w.k ? ` · 1 pixel = ${2 ** w.k}×${2 ** w.k}` : '')
       + (w.stopped && w.stopped !== 'finished' ? ` · ${w.stopped}` : '');
     p.canvas.setAttribute('aria-label', `${SERIES[i].name}${i === 0 ? ' ' + race.rule : ''} after ${w.steps} steps: reach ${w.extent}, ${w.area} sites visited.`);
@@ -221,7 +238,7 @@
     const height = width < 520 ? 300 : Math.round(width * 0.42);
     if (chart.width !== width || chart.height !== height) { chart.width = width; chart.height = height; }
     const c = chartContext, W = chart.width, H = chart.height;
-    const pad = { l: 46, r: width < 520 ? 44 : 96, t: 14, b: 38 };
+    const pad = { l: 54, r: width < 520 ? 44 : 96, t: 14, b: 38 };
     const X0 = 0, X1 = Math.log10(MAX_STEPS), Y0 = 0, Y1 = Math.log10(2048);
     const sx = v => pad.l + (Math.log10(v) - X0) / (X1 - X0) * (W - pad.l - pad.r);
     const sy = v => H - pad.b - (Math.log10(Math.max(1, v)) - Y0) / (Y1 - Y0) * (H - pad.t - pad.b);
@@ -254,11 +271,23 @@
     race.walkers.forEach((w, i) => {
       const s = w.samples, n = s.t.length;
       if (!n) return;
-      c.strokeStyle = colourOf(i); c.lineWidth = 2; c.beginPath();
+      c.strokeStyle = colourOf(i); c.lineWidth = 2; c.setLineDash(SERIES[i].dash); c.beginPath();
       for (let j = 0; j < n; j++) { const x = sx(s.t[j]), y = sy(s.spread[j]); if (j) c.lineTo(x, y); else c.moveTo(x, y); }
       c.lineTo(sx(Math.max(1, w.steps)), sy(w.spread));
       c.stroke();
     });
+    // Legend: each series by line style as well as colour.
+    c.setLineDash([]); c.textAlign = 'left'; c.textBaseline = 'middle'; c.font = '11px ui-monospace, monospace';
+    SERIES.forEach((series, i) => {
+      const y = pad.t + 12 + i * 16;
+      c.strokeStyle = colourOf(i); c.lineWidth = 2; c.setLineDash(series.dash);
+      c.beginPath(); c.moveTo(pad.l + 10, y); c.lineTo(pad.l + 40, y); c.stroke();
+      c.setLineDash([]); c.fillStyle = t.ink;
+      c.fillText(series.name, pad.l + 46, y);
+    });
+    chart.setAttribute('aria-label', `Log-log chart of spread against steps after ${race.steps} steps. `
+      + race.walkers.map((w, i) => `${SERIES[i].name}: ${w.spread.toFixed(1)}`).join('; ')
+      + '. Dashed reference lines show steps to the half and to the third.');
   }
 
   function render() {
@@ -270,6 +299,7 @@
       : 'Each picture is scaled to fit its own walker, so compare the numbers and the chart, not the sizes.';
     seedLabel.textContent = `seed ${seed}`;
     if (race.done && playing) pause();
+    playButton.disabled = race.done;
   }
 
   function pause() {
@@ -277,7 +307,6 @@
     if (frame !== null) cancelAnimationFrame(frame);
     frame = null;
     playButton.textContent = 'Play';
-    playButton.setAttribute('aria-pressed', 'false');
   }
   function schedule() {
     if (frame !== null) cancelAnimationFrame(frame);
@@ -288,7 +317,6 @@
     if (race.done) return;
     playing = true;
     playButton.textContent = 'Pause';
-    playButton.setAttribute('aria-pressed', 'true');
     schedule();
   }
   function tick(now) {
@@ -303,14 +331,15 @@
     if (whole > 0) { race.advance(whole); render(); }
     schedule();
   }
-  function restart(newSeed) {
+  function restart(newSeed, first) {
+    const resume = playing || first;
     pause();
     if (newSeed !== undefined) seed = newSeed;
     race = new Race(ruleSelect.value, seed, scaleSelect.value === 'shared');
     owed = 0;
     race.advance(1 << 12);   // a still preview, so the picture is never blank
     render();
-    if (!reducedMotion.matches) play();
+    if (resume && !reducedMotion.matches) play();
   }
   function skipTo(target) {
     pause();
@@ -332,12 +361,13 @@
   speed.value = '2';
   speed.dispatchEvent(new Event('input'));
   root.hidden = false;
-  restart();
+  if (typeof IntersectionObserver === 'undefined') visible = true;
+  restart(undefined, true);
   if (typeof IntersectionObserver !== 'undefined') {
     new IntersectionObserver(entries => {
       visible = entries[0].isIntersecting;
       previous = null;
       schedule();
     }).observe(root);
-  } else visible = true;
+  }
 })();

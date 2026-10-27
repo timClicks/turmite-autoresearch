@@ -38,7 +38,7 @@ preliminary_results: true
       <div class="ex-controls">
         <button type="button" id="ex-back">Back</button>
         <button type="button" id="ex-step">Step</button>
-        <button type="button" id="ex-play" aria-pressed="false">Play</button>
+        <button type="button" id="ex-play">Play</button>
         <button type="button" data-skip="100">+100</button>
         <button type="button" data-skip="1000">+1,000</button>
         <button type="button" id="ex-reset">Reset</button>
@@ -47,7 +47,7 @@ preliminary_results: true
       <input id="ex-speed" type="range" min="0" max="7" step="1" value="4">
     </div>
   </div>
-  <p class="homepage-note">The ringed square is the one the ant just left; the highlighted row is the entry it will read next. Try <code>RL</code> for about 10,000 steps: after a long tangle it settles into a diagonal “highway”. Runs stop at 100,000 steps. The same rule drives the nine live runs below.</p>
+  <p class="homepage-note">The ringed square is the one the ant just left; the highlighted row is the entry it will read next. Try <code>RL</code> for about 10,000 steps: after a long tangle it settles into a diagonal “highway”. Runs stop at 100,000 steps. The nine live runs below follow the same read, turn, paint, move procedure with other rules.</p>
 </section>
 <section class="ant-playground" aria-labelledby="ants-heading" hidden>
   <div class="section-heading"><h2 id="ants-heading">Nine rules, endless trails</h2><div class="ant-controls"><button type="button" id="ants-pause">Pause</button><button type="button" id="ants-reset">New rules</button></div></div>
@@ -66,9 +66,9 @@ preliminary_results: true
 </section>
 <section class="walker-compare" aria-labelledby="walkers-heading" hidden>
   <div class="section-heading"><h2 id="walkers-heading">Four walkers, one start</h2><span id="wc-steps">0 steps</span></div>
-  <p class="ex-lede">Our central puzzle is how fast a walker’s territory grows. An ordinary random walk spreads like <i>t</i><sup>½</sup>. The rotor walker and the ants that build a blob grow much more slowly, close to <i>t</i><sup>⅓</sup>, and we want to know why. Here are four walkers leaving the same square together; the colour is stronger wherever a walker has been more often.</p>
+  <p class="ex-lede">Our central puzzle is how fast a walker’s territory grows. An ordinary random walk spreads like <i>t</i><sup>½</sup>. The rotor walker and many of the ants we study (RLL, for example) grow much more slowly, close to <i>t</i><sup>⅓</sup> in our measurements, and we want to know why. Here are four walkers leaving the same square together; the colour is stronger wherever a walker has been more often.</p>
   <div class="wc-controls">
-    <button type="button" id="wc-play" aria-pressed="false">Play</button>
+    <button type="button" id="wc-play">Play</button>
     <button type="button" id="wc-reset">Reset</button>
     <button type="button" id="wc-reseed">New seed</button><span id="wc-seed" class="wc-seed">seed 1</span>
     <label for="wc-rule">Ant rule</label>
@@ -87,7 +87,7 @@ preliminary_results: true
   </div>
   <canvas id="wc-chart" class="wc-chart" width="760" height="320" role="img" aria-label="Log-log chart of each walker’s spread against steps, with dashed reference lines for t to the half and t to the third."></canvas>
   <p id="wc-summary" class="homepage-note"></p>
-  <p class="homepage-note">Spread is the root-mean-square distance from the start of the squares visited so far; reach is the furthest square. One run each, so the random walks wander around the <i>t</i><sup>½</sup> line, which is the point of the seed button: the ant’s curve never changes, because its board starts blank. The dashed lines are references through (1, 1), not fits. Our census of blob rules and the rotor calibration are in the results below. The rotor’s starting arrows come from a 32-bit hash in your browser, not the generator used for our measurements, so only its statistics, not its exact picture, match the Rust code. A walker that reaches the edge of this 2,048-square board stops there.</p>
+  <p class="homepage-note">Spread is the root-mean-square distance from the start of the squares visited so far; reach is the furthest square. One run each. A single random walk is noisy and, on average, runs roughly parallel to and a little below the <i>t</i><sup>½</sup> line; the seed button shows how much: the ant’s curve never changes, because its board starts blank. The dashed lines are references through (1, 1), not fits. Our census of blob rules and the rotor calibration are in the results below. The random choices here use a 32-bit generator in your browser, not the one in our Rust code, so the pictures should match in distribution but not square for square; we only check that the rotor’s starting arrows are close to uniform. A walker that reaches the edge of its board stops there: 2,048 squares wide for the ant and rotor, 8,192 for the random walks.</p>
 </section>
 {% include preliminary-results.html %}
 <section class="highlights" aria-labelledby="results-heading">

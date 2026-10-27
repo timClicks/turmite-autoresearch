@@ -41,6 +41,20 @@ for (const rule of ['RL', 'LLRR', 'RLR', 'RLLLLLRRL', 'RRLRLLRRRLR']) {
 }
 assert.equal(explainer.describe({ colour: 0, turn: 'R', before: 0, after: 1, painted: 1 }).length, 4);
 assert.equal(explainer.colourCss(0, 4, false), null);
+{
+  // Every chip's text must reach WCAG AA (4.5:1) against its background, in both themes.
+  const lum = css => {
+    const [h, s, l] = css.match(/[\d.]+/g).map(Number), a = s / 100 * Math.min(l / 100, 1 - l / 100);
+    const f = n => { const k = (n + h / 30) % 12; return l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)); };
+    const lin = v => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+    return 0.2126 * lin(f(0)) + 0.7152 * lin(f(8)) + 0.0722 * lin(f(4));
+  };
+  for (const dark of [false, true]) for (let n = 2; n <= 12; n++) for (let c = 1; c < n; c++) {
+    const bg = lum(explainer.colourCss(c, n, dark)), fg = explainer.textOn(c, n, dark) === '#fff' ? 1 : 0.0145;
+    const ratio = (Math.max(bg, fg) + 0.05) / (Math.min(bg, fg) + 0.05);
+    assert.ok(ratio >= 4.5, `chip contrast ${ratio.toFixed(2)} for colour ${c} of ${n}, dark=${dark}`);
+  }
+}
 assert.equal(new Set([1, 2, 3].map(c => explainer.colourCss(c, 4, false))).size, 3);
 
 // ---------- walkers: each against a plain Map-based oracle ----------
@@ -115,6 +129,14 @@ for (const [kind, options] of [['ant', { rule: 'RLL' }], ['ant', { rule: 'LLRR' 
   fitted.advance(100000);
   assert.ok(fitted.walkers[0].k < fitted.walkers[2].k, 'the ant needs less zoom than the random walk');
   for (const w of fitted.walkers) assert.equal(w.view.reduce((a, b) => a + b, 0), w.steps + 1);
+  // Random walks have their own, wider board: most 2^20-step runs must reach the end.
+  let early = 0;
+  for (let seed = 1; seed <= 12; seed++) {
+    const r = new compare.Race('RLL', seed);
+    r.advance(compare.MAX_STEPS);
+    if (r.walkers[2].stopped !== 'finished' || r.walkers[3].stopped !== 'finished') early++;
+  }
+  assert.ok(early <= 1, `${early} of 12 seeds ran a random walk off its board`);
   // Blob-forming ants and the rotor grow far more slowly than random walks.
   const blob = new compare.Race('RLL', 1);
   blob.advance(compare.MAX_STEPS);
@@ -126,7 +148,7 @@ for (const [kind, options] of [['ant', { rule: 'RLL' }], ['ant', { rule: 'LLRR' 
 }
 
 // ---------- controls, in jsdom ----------
-function load(reduced) {
+function load(reduced, noObserver) {
   const html = read('../index.html');
   const dom = new JSDOM(html, { runScripts: 'outside-only', pretendToBeVisual: true });
   const w = dom.window, d = w.document;
@@ -142,7 +164,7 @@ function load(reduced) {
   w.HTMLCanvasElement.prototype.getContext = () => context;
   w.requestAnimationFrame = cb => { frames.set(++nextId, cb); return nextId; };
   w.cancelAnimationFrame = id => frames.delete(id);
-  w.IntersectionObserver = class { constructor(cb) { observer = cb; } observe() {} };
+  if (!noObserver) w.IntersectionObserver = class { constructor(cb) { observer = cb; } observe() {} };
   const advance = () => {
     const callbacks = [...frames.values()];
     frames.clear(); now += 100;
@@ -168,11 +190,15 @@ function checkExplainer(reduced) {
   assert.equal(steps(), 101);
   $('#ex-back').click();
   assert.equal(steps(), 100);
-  // Back must land exactly where stepping 100 times lands.
+  // Back must land exactly where stepping 100 times lands: same heading, same painted count, same position.
   const forward = new explainer.Ant('RL'); forward.run(100);
   assert.match($('#ex-summary').textContent, new RegExp(`facing ${['north', 'east', 'south', 'west'][forward.heading]}`));
+  assert.match($('#ex-summary').textContent, new RegExp(`^${[...forward.cells.values()].filter(Boolean).length} squares`));
+  assert.equal(d.querySelectorAll('#ex-narration li').length, 4);
+  const replay = new explainer.Ant('RL'); replay.run(99);
+  assert.equal($('#ex-narration li').textContent, explainer.describe(replay.step())[0], 'narration describes step 100');
   $('#ex-play').click();
-  assert.equal($('#ex-play').getAttribute('aria-pressed'), 'true');
+  assert.equal($('#ex-play').textContent, 'Pause');
   advance(); advance();
   assert.ok(steps() > 100, 'play advances');
   $('#ex-play').click();
@@ -192,6 +218,9 @@ function checkExplainer(reduced) {
   $('#ex-rule-form').dispatchEvent(new dom.window.Event('submit', { cancelable: true }));
   assert.match($('#ex-rule-error').textContent, /L or R/);
   assert.equal($('#ex-rule').value, 'RLQ', 'a bad rule does not replace the working one');
+  assert.equal($('#ex-rule').getAttribute('aria-invalid'), 'true');
+  $('.ex-turn[data-index="0"]').click();
+  assert.equal($('#ex-rule').getAttribute('aria-invalid'), 'false', 'a valid rule clears the invalid flag');
   $('.ex-preset[data-rule="LLRR"]').click();
   assert.equal(d.querySelectorAll('#ex-table tbody tr').length, 4);
   assert.equal($('.ex-preset[data-rule="LLRR"]').getAttribute('aria-pressed'), 'true');
@@ -205,7 +234,7 @@ function checkCompare(reduced) {
   const $ = s => d.querySelector(s), steps = () => Number($('#wc-steps').textContent.replace(/[^0-9]/g, ''));
   assert.equal($('.walker-compare').hidden, false);
   assert.equal(steps(), 4096, 'a still preview is drawn at once');
-  assert.equal($('#wc-play').getAttribute('aria-pressed'), String(!reduced));
+  assert.equal($('#wc-play').textContent, reduced ? 'Play' : 'Pause');
   visible(true);
   if (reduced) { assert.equal(frames.size, 0); $('#wc-play').click(); }
   advance(); advance();
@@ -214,7 +243,7 @@ function checkCompare(reduced) {
   assert.equal(frames.size, 0, 'offscreen walkers stop scheduling frames');
   visible(true);
   $('#wc-play').click();
-  assert.equal($('#wc-play').getAttribute('aria-pressed'), 'false');
+  assert.equal($('#wc-play').textContent, 'Play');
   const before = steps();
   advance();
   assert.equal(steps(), before, 'pause stops');
@@ -238,8 +267,18 @@ function checkCompare(reduced) {
   assert.equal($('.wc-stats').textContent.includes('sites'), true);
   dom.window.close();
 }
+function checkNoObserver() {
+  // Without IntersectionObserver the widget must still autoplay (and say so).
+  const { dom, d, w, advance, frames } = load(false, true);
+  assert.equal(d.querySelector('#wc-play').textContent, 'Pause');
+  assert.ok(frames.size > 0, 'autoplay schedules frames');
+  const before = Number(d.querySelector('#wc-steps').textContent.replace(/[^0-9]/g, ''));
+  advance(); advance();
+  assert.ok(Number(d.querySelector('#wc-steps').textContent.replace(/[^0-9]/g, '')) > before);
+  dom.window.close();
+}
 checkExplainer(false);
-checkExplainer(true);
+checkNoObserver();
 checkCompare(false);
 checkCompare(true);
-console.log('PASS: explainer vs web simulator, four walkers vs sparse oracles incl. zoom, chunk independence, seeds, board edge, exponents, controls, reduced motion');
+console.log('PASS: explainer vs web simulator, four walkers vs sparse oracles incl. zoom, chunk independence, seeds, board edge, exponents, controls, reduced motion, no-observer fallback, chip contrast');

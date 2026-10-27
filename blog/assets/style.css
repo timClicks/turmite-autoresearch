@@ -215,15 +215,14 @@ input[type=search] { width: min(100%, 640px); margin-top: 10px; padding: 14px 16
 .ex-side button:hover:not(:disabled), .wc-controls button:hover { border-color: var(--accent); }
 .ex-side button:disabled { opacity: .45; cursor: default; }
 .ex-side button:focus-visible, .wc-controls button:focus-visible, .ex-side input:focus-visible, .wc-controls input:focus-visible, .wc-controls select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-#ex-table { border-collapse: collapse; width: 100%; font: 13px ui-monospace, monospace; }
+#ex-table { display: table; overflow: visible; border-collapse: collapse; width: 100%; font: 13px ui-monospace, monospace; }
 #ex-table caption { text-align: left; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; padding-bottom: 6px; }
 #ex-table th { text-align: left; font-weight: normal; color: var(--muted); font-size: 11px; padding: 4px 8px; border-bottom: 1px solid var(--ink); }
 #ex-table td { padding: 3px 8px; border-bottom: 1px solid var(--line); }
 #ex-table tr.ex-now td { background: var(--panel); }
 #ex-table tr.ex-now td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
-.ex-chip { display: inline-block; min-width: 26px; text-align: center; color: #fff; border-radius: 3px; font-size: 12px; line-height: 22px; }
+.ex-chip { display: inline-block; min-width: 26px; text-align: center; border-radius: 3px; font-size: 12px; line-height: 22px; }
 .ex-chip.ex-blank { background: var(--panel); color: var(--muted); border: 1px solid var(--line); line-height: 20px; }
-@media (prefers-color-scheme: dark) { .ex-chip:not(.ex-blank) { color: #1b2220; } }
 #ex-table .ex-turn { width: 100%; text-align: left; border-color: transparent; }
 #ex-table .ex-turn:hover { border-color: var(--accent); }
 .ex-narration { list-style: none; counter-reset: ex; margin: 16px 0; padding: 0; font-size: 15px; line-height: 1.55; min-height: 6.4em; }
@@ -238,7 +237,7 @@ input[type=search] { width: min(100%, 640px); margin-top: 10px; padding: 14px 16
 .wc-seed { font-variant-numeric: tabular-nums; }
 .wc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
 .wc-panel { margin: 0; min-width: 0; }
-.wc-panel canvas { display: block; width: 100%; height: auto; aspect-ratio: 1; background: var(--panel); image-rendering: pixelated; }
+.wc-panel canvas { display: block; width: 100%; height: auto; aspect-ratio: 1; background: var(--panel); }
 .wc-panel figcaption { font: 12px/1.6 ui-monospace, monospace; color: var(--muted); margin-top: 10px; }
 .wc-panel strong { display: block; color: var(--ink); font-size: 14px; font-weight: normal; }
 .wc-key { display: inline-block; width: 10px; height: 10px; margin-right: 8px; background: var(--key); }
