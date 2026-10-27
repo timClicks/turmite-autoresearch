@@ -7,6 +7,9 @@ was made for this note. Nothing here is registered: each proposal states a predi
 suggestion, not a decision, and it does not change the priorities in [ACTIVE.md](ACTIVE.md). Every number quoted below
 comes from an existing, linked record; none is new.
 
+**Revised 2026-10-27 (appended, original text unchanged):** a reviewer's ranking is C -> A -> B -> D, with corrections to
+P-A, P-C and P-D. See section 8 at the end; where it disagrees with sections 5-6, section 8 supersedes them.
+
 Companion blog post: `blog/_posts/2026-10-26-four-constants-that-came-before-their-theories.md`. Open questions: Q34-Q37
 in [open-questions-hypotheses.md](open-questions-hypotheses.md) (section "Added 2026-10-26").
 
@@ -263,3 +266,75 @@ about content were checked against abstracts or full text as noted).
 
 Not cited (unverified): Gale, Propp, Sutherland and Troubetzkoy (1995), listed "from memory" in proof-track; any claim
 about the current status of a rigorous proof of the 2D self-avoiding-walk exponent; experimental KPZ confirmations.
+
+## 8. Revision of 2026-10-27: reviewer ranking, corrections and a proposed P-C pilot
+
+**STATUS: still proposals.** Nothing here is registered or has run. It records review feedback on PR 18, received
+2026-10-27 and checked against the pinned note. The original sections above are kept as written. Evidence cited by the
+reviewer: the first-passage closure lost to persistence (mean absolute error 0.0372 against 0.0277, P2 FAIL in
+`experiments/2026-10-20-kappa-first-passage/README.md`, line 272) and the tail estimator failed calibration (C6). The
+reviewer's tail-budget figures (median relative error 0.123 against persistence 0.072) were not re-checked against the
+tail-budget records for this revision.
+
+### 8a. Ranking: C -> A -> B -> D
+
+| Rank | Route | Tractability | Decision |
+|---|---|---|---|
+| 1 | P-C / Q36 | Highest: the episode sampler already emits entry-conditioned counts, duration-bin time sums, in-band occupation and unresolved fragments | Directly separates two ways of producing E[T] ~ L. Advance to calibration and a small excluded pilot |
+| 2 | P-A / Q34 | Counting multiplicity and coverage is feasible; enough complete origin excursions may not be | Repair the argument before commissioning (8b) |
+| 3 | P-B / Q35 | Existing moment files allow reconnaissance; distributions need radial profiles | Defer: it supplies no prediction about boundary occupation or return budgets |
+| 4 | P-D / Q37 | Operational definitions are missing | Not the next experiment; keep as a conjecture needing an independently defined classifier |
+
+No route is ready for a confirmation study. The project's gate still requires distinguishable explanations, calibrated
+measurement, an excluded pilot and, finally, independent prediction that beats persistence.
+
+### 8b. Corrections to the proposals above
+
+1. **P-C gate (replaces "the random walk must come out D ... rotor measured as calibrators").** The random walk and the
+   rotor need not receive different classifications; they could share one duration law. Failing to separate known D and S
+   processes shows inadequate resolution. Agreement between two walkers of unknown class shows nothing. Calibrate on
+   *synthetic* D and S episode streams instead (8c, step 1). The walkers remain useful as additional checks.
+2. **P-C scope.** A successful collapse classifies return dynamics; it does not yet explain them. The route must go on to
+   predict later occupation or drift on separate trajectories and beat persistence.
+3. **P-A needs another premise.** Visiting a fixed fraction of boundary cells does not ensure discovering a comparable
+   number of new cells, and a global lower bound on c does not give an excursion-by-excursion growth guarantee. A repaired
+   test needs an explicit new-cell gain per excursion, a fixed boundary reference, precise rotor-excursion conventions and a
+   rule for unfinished excursions. A finite measurement can reject the adaptation but cannot establish a uniform bound.
+4. **P-B limit.** Centring and scaling each rule removes location and amplitude, the quantities most plausibly tied to
+   occupation, and no bridge to stationary access is specified. Heterogeneous shapes would reject this collapse only, not
+   every shared transport mechanism.
+5. **P-D kill criterion (corrects the second clause).** "A cube-root grower that breaks one condition" would refute
+   necessity of the conditions, but the conjecture as stated is a sufficiency claim, so only the first clause (a compact,
+   untethered, unlocked walker whose kappa drifts) can kill it. Tether and edge lock must also be measured from early
+   spatial behaviour without consulting later kappa; the known failures are development examples, not validation.
+6. **Explanatory gate.** Reject any version that measures the target trajectory's E[T], dwell, geometry or growth factors
+   and then reconstructs its kappa or exponent. That remains a useful accounting check and fails the gate.
+
+### 8c. Proposed smallest P-C pilot (design only)
+
+Not a registration. A registration would go in an experiment README before measurement, after the pruning-index check in 5b.
+
+1. **Calibrate before simulating ants.** Generate matched synthetic D and S episode streams with the same mean scaling,
+   short-return atoms, serial dependence and imposed censoring, plus a process fitting neither. Freeze the scoring rule and
+   decision margin on these. Require reliable D/S recovery and controlled false preference.
+2. **Reuse the episode accountant.** Use the sampler's counts, duration-bin time sums, in-band occupation and unresolved
+   fragments. Add finer duration output only if calibration shows the logarithmic bins cannot resolve the predictions.
+3. **Rules and starts.** Two development rules from different six-letter families, four fresh starts each, chosen by a
+   frozen rule-list procedure without ranking their new return outcomes. Two starts per rule for development, two for
+   validation. All eight starts are reserved from later confirmation; no family-transfer claim.
+4. **Bands and budget.** Area bands 2^15, 2^17, 2^19, each of width A/16. Measure L = A/P; do not substitute sqrt(A).
+   Board 8192, step cap 2^32, at most two workers. Profile first and freeze a total compute ceiling. Nonattainment is a result.
+5. **Score the time budget.** Besides survival curves, use the duration-weighted distribution
+   H_L(s) = sum_i T_i * 1(T_i <= s) / sum_i T_i. Its time-carrying component should move on an L^2 scale under D and an L
+   scale under S. Calibrate the effects of short returns, fragments and binning. Fit nuisance constants on development
+   starts at the smaller bands only; score the largest band on validation starts. Allowed outcomes: D, S, both compatible,
+   neither, unresolved.
+6. **Occupation test.** Freeze each model's prediction of validation-start B/S from development-only return and
+   boundary-dwell estimates, and compare with small-band occupation persistence under identical permitted inputs. Target-run
+   return means cannot enter. Any target geometry supplied must be available to every comparator and labelled.
+
+**Proceed to confirmation only if** calibration resolves D versus S at the observed sample sizes, rare excursions have
+adequate independent-start support, censoring cannot change the verdict, and validation results justify testing a
+predictive advantage over persistence. The pilot need not show that advantage; it must show the confirmation could resolve
+it within budget. Count every requested start, overflow, escape, cap and non-reaching band: a small censored count is not
+enough if those episodes could dominate time.

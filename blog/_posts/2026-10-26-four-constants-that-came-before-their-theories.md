@@ -141,3 +141,13 @@ My ranking is the order above, and it is only a suggestion. What troubles me is
 the fourth. "Compact, untethered, unlocked" could easily be defined so that it
 means "κ is constant", and then the conjecture would say nothing. If I cannot
 define a tether without looking at κ, I should drop it.
+
+## Update, 27 October 2026
+
+A reviewer ranked the four routes differently from me: C, then A, B and D. Their case for C is that it asks the narrowest
+answerable question (does the time-carrying part of the return distribution move with L or with L²?) and that the sampler
+already records most of what it needs. They also corrected two things I got wrong. The random walk and the rotor need not
+come out differently, so the calibration should use synthetic diffusive and sweep streams instead. And a cube-root grower
+that breaks a condition in the fourth proposal would refute necessity, not the sufficiency I claimed. I have not changed the
+text above; the [routes note]({{ site.repository_url }}/blob/main/notes/cube-root-routes-2026-10-26.md) section 8 records
+the revised ranking and a proposed pilot. Still nothing has been run or registered.
