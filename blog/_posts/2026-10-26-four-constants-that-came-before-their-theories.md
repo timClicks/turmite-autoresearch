@@ -115,12 +115,12 @@ fillers ride their own edge with a proved cost (the
 
 ## Four tests we could run (none registered)
 
-1. **An excursion lemma for ants (Q30).** Measure the two halves of the rotor
+1. **An excursion lemma for ants (Q34).** Measure the two halves of the rotor
    argument separately: are visits per cell per trip from the origin bounded,
    and does each long trip cover a fixed share of the edge? *Prediction:* yes
    for blob rules, and tethered rules fail the second. *Kill:* either quantity
    drifts with territory size in blob rules.
-2. **Fluctuation shape (Q31).** Do chaotic rules share one rescaled distribution
+2. **Fluctuation shape (Q35).** Do chaotic rules share one rescaled distribution
    of edge fluctuations, distinct from the rotor's? Edge-width exponents first
    looked about twice the rotor's
    ([boundary width]({{ '/experiments/2026-10-13-a4-boundary-width/' | relative_url }})),
@@ -128,10 +128,10 @@ fillers ride their own edge with a proved cost (the
    ([longest windows]({{ '/experiments/2026-10-13-w4-edge-exponent-2e36/' | relative_url }})).
    Exponents may not decide it, and distributions might.
    *Kill:* rules differ from each other as much as from the rotor.
-3. **Diffusion or sweep (Q32).** Test which rescaling collapses the excursion
+3. **Diffusion or sweep (Q36).** Test which rescaling collapses the excursion
    times, by s/L² or by s/L, with no exponent fit. A random walk and the rotor
    must be told apart first. If they cannot, the test stops as uninformative.
-4. **A universality conjecture (Q33).** Stationary edge access holds for any
+4. **A universality conjecture (Q37).** Stationary edge access holds for any
    walker with a compact territory, no tether and nothing locking it to its
    edge, whatever kind of walker it is. Every failure we know breaks one of
    those conditions. *Kill:* a walker that meets all three by definitions

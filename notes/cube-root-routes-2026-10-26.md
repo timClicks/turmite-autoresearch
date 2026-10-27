@@ -7,7 +7,7 @@ was made for this note. Nothing here is registered: each proposal states a predi
 suggestion, not a decision, and it does not change the priorities in [ACTIVE.md](ACTIVE.md). Every number quoted below
 comes from an existing, linked record; none is new.
 
-Companion blog post: `blog/_posts/2026-10-26-four-constants-that-came-before-their-theories.md`. Open questions: Q30-Q33
+Companion blog post: `blog/_posts/2026-10-26-four-constants-that-came-before-their-theories.md`. Open questions: Q34-Q37
 in [open-questions-hypotheses.md](open-questions-hypotheses.md) (section "Added 2026-10-26").
 
 ## 1. Why this note exists
@@ -126,7 +126,7 @@ value is not evidence of a connection, and the repo's own walker comparisons alr
 
 ## 5. Proposals (ranked suggestion)
 
-### P-A (Q30). Excursion lemma, adapted: a one-sided bound and its failure in tethered rules
+### P-A (Q34). Excursion lemma, adapted: a one-sided bound and its failure in tethered rules
 
 **Idea.** Split FLP's argument into two properties that can be measured on ant trajectories, rule by rule:
 - *(M) bounded multiplicity:* between consecutive visits to a reference set (first choice: the origin cell, any
@@ -137,6 +137,15 @@ If (M) and (B) held with c bounded below, the same counting as FLP gives a lower
 `<= M A`, gain `>~ c m P ~ A^(1/2)`). A proof target would be a rule-restricted version of (M) and (B); the measurement
 would only say whether the target is plausible.
 
+**Step zero (cheap, before anything else).** FLP's excursions are from the origin, and nothing in the repo shows that a
+blank-board chaotic ant revisits its origin cell often, or at all. Count origin returns on a few census rules first. If
+returns are sparse, replace the origin with a territory-relative reference set (for example the current boundary), which
+leaves only the Kac reading of 3a.
+
+**Scope of (B).** A measured coverage fraction is a necessary condition only. FLP get "each excursion adds a whole layer"
+from the abelian property and Eulerian structure, which the ant lacks; a rule passing (M) and (B) is consistent with the
+counting argument, not covered by it.
+
 **Prediction (if registered).** Blob rules satisfy (M) and (B) with constants that do not drift with L; tethered
 log-growers fail (B) (their excursions from home do not reach the edge); the sqrt(t) cluster is excluded because it is
 not compact; highways are excluded because the origin is not revisited.
@@ -146,7 +155,7 @@ coverage fraction falls with L. Any of these kills the origin-based adaptation; 
 (3a) would remain. Calibration first: the rotor must satisfy (M) and (B) exactly, and a random walk on a growing
 cluster must fail (M).
 
-### P-B (Q31). Fluctuation-shape collapse across chaotic rules versus the rotor
+### P-B (Q35). Fluctuation-shape collapse across chaotic rules versus the rotor
 
 **Idea.** The KPZ lesson: classes are told apart by fluctuation distributions, not exponents. The repo already finds
 the ants' boundary-width exponent at 0.22-0.25 against about 0.12 for the rotor through 2^34, and says "the universality
@@ -165,7 +174,7 @@ weaken any single-mechanism story.
 harmonics h2/h4/h8, Wsurf). A first look at standardised moment ratios could use them. A distribution test needs saved
 radial profiles, which means a new (small) run.
 
-### P-C (Q32). Excursion-duration collapse: diffusive or sweep?
+### P-C (Q36). Excursion-duration collapse: diffusive or sweep?
 
 **Idea.** Test 3b's two readings directly, without fitting theta and z. Builds on the dynamic-scaling item in
 [kappa-mechanisms-2026-10-15.md](kappa-mechanisms-2026-10-15.md) and the calibration list under "First-passage closure"
@@ -180,7 +189,7 @@ calibrators, not given a guessed answer. If the calibrators cannot be told apart
 the test is uninformative and stops (as C6 did). For the ants, the reading whose collapse fails by the margin is
 rejected; if both fail, report "neither". Censoring must use the tail-budget sampler's bounds.
 
-### P-D (Q33). Universality conjecture: what produces stationary access
+### P-D (Q37). Universality conjecture: what produces stationary access
 
 The identity makes "compact + stationary kappa + bounded c => cube root" automatic, so that statement has no content
 on its own. The conjecture with content is:
@@ -201,6 +210,14 @@ predicting late kappa drift (the priority-1 criterion in ACTIVE.md).
 **Kill criterion.** A compact walker with neither tether nor edge lock, by the frozen definitions, whose kappa drifts;
 or a cube-root grower that breaks one condition. P5 agreement must not be used as support (2026-10-16 correction).
 
+## 5b. Before any of these is registered
+
+Each proposal that becomes a sweep or a variation on a failed test needs the negative-result pruning-index check first
+(`notes/pruning-index/README.md`): record the index revision, search terms, matching signature IDs and the
+run/skip/reopen decision in the experiment README and NOTEBOOK, including a no-match search. P-B and P-C are the likeliest
+to touch existing signatures (edge-width and first-passage dead ends). The cheapest start is P-B on the existing a4 moment
+files, before any new run.
+
 ## 6. What would change my mind about the ranking
 
 If P-C's calibration shows that the random walk and the rotor cannot be told apart at sizes we can reach, then P-C
@@ -214,7 +231,7 @@ Verified 2026-10-26 against arXiv abstract pages, publisher pages or Crossref me
 about content were checked against abstracts or full text as noted).
 
 - Bou-Rabee, A., and Peres, Y. (2026). Eulerian walkers on Z^2 have range exponent 2/3. arXiv:2608.23545. Full text read.
-  No journal reference listed.
+  No journal reference listed. Flagged 2026-10-27 for a manual re-check of the arXiv identifier; not independently re-verified in this revision.
 - Florescu, L., Levine, L., and Peres, Y. (2016). The range of a rotor walk. Amer. Math. Monthly 123(7), 627-642.
   doi:10.4169/amer.math.monthly.123.7.627; arXiv:1408.5533. Full text read.
 - Priezzhev, V. B., Dhar, D., Dhar, A., and Krishnamurthy, S. (1996). Eulerian walkers as a model of self-organised

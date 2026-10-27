@@ -489,15 +489,43 @@ reframes the target and records four candidate questions with predictions and ki
   on Kac's schedule for a uniform occupant, up to a rule constant. Meng and Cohen (1994) used the same boundary-return
   argument. A diffusive excursion law (tail `s^(-1/2)`, cutoff `L^2`) and a sweep law (scale L) both give
   `z(1 - theta) = 1`, so the mean cannot separate them.
-- Q30. Does an adapted Florescu-Levine-Peres excursion lemma hold for blob rules: bounded visits per cell per origin
+- Q34. Does an adapted Florescu-Levine-Peres excursion lemma hold for blob rules: bounded visits per cell per origin
   excursion (M), and each long excursion covering a fixed fraction of the boundary (B)? Together they would give a
   lower bound `A >~ t^(2/3)`. Prediction: tethered log-growers fail (B). Kill: per-excursion multiplicity or coverage
   drifts with L in blob rules. Credits frontier-results items 29/28, item 6 and kappa-mechanisms (no Eulerian identity).
-- Q31. Do chaotic blob rules share one standardised edge-fluctuation distribution, distinct from the rotor's (the KPZ
+- Q35. Do chaotic blob rules share one standardised edge-fluctuation distribution, distinct from the rotor's (the KPZ
   and Tracy-Widom lesson)? Kill: between-rule spread as large as the ant-rotor gap, against rotor seed spread.
-- Q32. Is the ant's excursion-duration law diffusive (collapse in `s/L^2`) or a sweep (collapse in `s/L`)? It must be
+- Q36. Is the ant's excursion-duration law diffusive (collapse in `s/L^2`) or a sweep (collapse in `s/L`)? It must be
   gated on random-walk and rotor calibrators being distinguishable; otherwise it is uninformative, as C6 was.
-- Q33. Universality conjecture: stationary boundary access holds for any compact walker with no tether and no edge
+- Q37. Universality conjecture: stationary boundary access holds for any compact walker with no tether and no edge
   lock, whatever its class. Known failures each break one condition (tethered rules, crawler fillers, sqrt(t) cluster,
   highways; rotor examples from Bou-Rabee and Peres 2026). Kill: a compact, untethered, unlocked walker (frozen
   operational definitions) whose kappa drifts. P5 agreement is not evidence.
+
+## Added 2026-10-26: wall or memory (`experiments/2026-10-26-wall-vs-memory/`)
+
+A 2x2 factorial splits the ant's turn noise by cell type (fresh vs revisited; `hy:RULE:EV:EF:SEED`, oracle-tested).
+Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per condition, `probe 27 16384`.
+
+- **First-departure randomisation disrupts compact growth (scored).** Keeping the colour memory but randomising turns on
+  fresh cells (F1) gave porous condition means in all six rules (early a 0.86-0.91, beta 0.84-0.89; deterministic 0.59-0.71;
+  39 of 48 individual runs meet both thresholds). The registered H-memory prior (memory alone keeps the ant compact) failed
+  in 6/6. This is an intervention result: it also breaks first-visit chirality and short-loop geometry, so it does not show
+  reflection is the mechanism, nor that deterministic R is the only compact-preserving first-departure policy. Early window
+  ends at 2^22. Dead end, exact scope only: `NR-20261026-wall-vs-memory-no-wall-porous` (amended 2026-10-27).
+- **Wall not shown sufficient.** The hybrid walker (forced R on fresh cells, memoryless +/-90 deg turns elsewhere) reaches
+  a 0.732 (sd 0.021), beta 0.585 at k = 24..30 (16 seeds, 2^31 steps), against the rotor's 0.677 / 0.521 and the
+  memoryless walker's 0.93 / 0.92. Frozen reading "separate exponent", but only 0.002 over its threshold and the trend
+  interval [-0.012, +0.003] per octave includes slow convergence: unresolved. Post hoc, refitting at k = 27..31 gives
+  0.717 (0.732 at k = 24..30): window-dependent, so "finite-window separation", not an asymptotic verdict.
+- **Low fresh-cell noise shifts a little, not the class.** 10% noise on fresh cells left all six compact (mean early-a shift
+  +0.028; revisit-only +0.047); 100% made all six porous. Registered dose predictions failed.
+- Q32. Registered follow-ups from the PR 19 review (designs and predictions in the experiment README, item 9 of the review
+  addendum, not run): forced-L on first departure (F-a), fresh-excursion mediator statistics (F-b), V1/rotor to 2^33-2^35 with
+  frozen windows (F-c), noise on every colour-zero read vs fresh-only (F-d).
+- Q30. Where between EF = 0.1 and 1 does the reflecting edge fail, and is the loss sharp (a percolation-like transition of the
+  edge) or a smooth crossover? Needs a derived prediction before a registered EF dose curve.
+- Q31. What does interior memory add on top of the wall? Candidate observable: neighbour discrepancy of visit counts (local
+  times), which the rotor router keeps bounded. Prediction: ant and rotor low, hybrid diffusive-scale. Not registered.
+- Reading for Q1/Q6 (interpretation, not a test): the original "blank cells repel" ingredient is now the one with direct
+  causal support; the "well-mixed interior" ingredient, in its memoryless form, is not enough by itself at these horizons.

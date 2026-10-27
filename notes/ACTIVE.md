@@ -79,6 +79,14 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
 
 ## Science: retained backlog (not an execution queue)
 
+- **Wall or memory (done 2026-10-26, owner-requested, `experiments/2026-10-26-wall-vs-memory/`):** turn noise split by
+  fresh/revisited cell. Randomising the first-departure turn disrupts compact growth in 6/6 core rules (condition means
+  porous; 39/48 runs; dead end `NR-20261026-wall-vs-memory-no-wall-porous`, amended after review; not shown to be
+  reflection specifically). The hybrid walker (forced R on fresh, memoryless interior) has a 0.73 at k = 24..30, 0.72 at
+  k = 27..31, rotor 0.68: finite-window separation, asymptote unresolved. Follow-ups F-a..F-d registered in the README. Open: Q30 (where the edge fails between 10% and 100% fresh noise), Q31 (what memory
+  adds: local-time discrepancy). Relevant to priority 1: boundary access depends on the fresh-ground turn, so a
+  boundary-access explanation should say how that turn shapes returns.
+
 - **Proof track (bounded closure only this phase; started 2026-10-20):** turn simulated regularities into checked macro-transitions
   (`notes/proof-track-2026-10-20.md`). First target: is the `RLRLLL` column sweeper `C(L) -> C(L+g)` for all heights?
   `experiments/2026-10-20-rlrlll-macro-transition/`: P1-P5 held and the family is checked closed for all even m >= 2
@@ -180,8 +188,8 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
   `notes/paper-figure-proposals-2026-10-16.md`, `notes/handover-paper-figures-2026-10-17.md` (stale for item 4).
 - **Routes to explaining the cube root (proposals only, 2026-10-26):** a literature survey (Kac's lemma, FLP and
   Bou-Rabee-Peres excursion arguments, constants that came before their theories) with four unregistered proposals: an
-  adapted excursion lemma (Q30), fluctuation-shape collapse (Q31), a diffusive-versus-sweep duration collapse (Q32) and
-  a universality conjecture for stationary access (Q33). None is scheduled; a choice must still pass the priority-1
+  adapted excursion lemma (Q34), fluctuation-shape collapse (Q35), a diffusive-versus-sweep duration collapse (Q36) and
+  a universality conjecture for stationary access (Q37). None is scheduled; a choice must still pass the priority-1
   feasibility gate. `notes/cube-root-routes-2026-10-26.md`.
 
 ## Uncommitted work in progress (do not lose)
