@@ -407,7 +407,7 @@ Aim < 2 CPU-hours for revision calib + (if gated) confirmation. RAYON_NUM_THREAD
 ## Revision 1 results (appended after registration `9c2aeea1732e2cb281544f7c4e07829847272873`)
 
 **Revision registration (hypotheses frozen, no outcomes):** `9c2aeea1732e2cb281544f7c4e07829847272873`  
-**First revised-results commit:** (commit that appends this section; see git log on `exp/excursion-durations`)  
+**First revised-results commit:** `889f31833d3b2829e2fd847766afc410e9234c28`  
 **Instrument binary sha256:** `c84e20780315f4cc3b1a83b9200d314a6569c166ec9c1c9b42e0450d11ea0682`  
 **Board / horizon:** 8192 / max_log2 24 / RAYON_NUM_THREADS=4 / `--check` on every long run.  
 **Compute:** rev1 calib 20 specs finished in ~1–2 s wall on this box (see `results/rev1_calib_outer.log`); confirmation **not run**.
