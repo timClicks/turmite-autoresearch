@@ -44,6 +44,11 @@ fn main() {
             } else if let Some(spec) = r.strip_prefix("errw:") {
                 let (increment, seed) = spec.split_once(':').unwrap();
                 probe_walker(turmite::walkers::EdgeReinforcedWalk::new(seed.parse().unwrap(), increment.parse().unwrap()), size, 8, max_log2)
+            } else if let Some(spec) = r.strip_prefix("hy:") {
+                // hy:RULE:EV:EF:SEED (wall-vs-memory: turn noise EV on revisited cells, EF on fresh ones)
+                let p: Vec<&str> = spec.split(':').collect();
+                let w = turmite::walkers::HybridWalker::new(&p[0].parse::<Rule>().unwrap(), p[3].parse().unwrap(), p[1].parse().unwrap(), p[2].parse().unwrap());
+                probe_walker(w, size, 8, max_log2)
             } else if let Some(seed) = r.strip_prefix("rw:") {
                 probe_walker(RandomWalk { state: seed.parse().unwrap() }, size, 8, max_log2)
             } else if let Some((rule, seed)) = r.split_once('@') {

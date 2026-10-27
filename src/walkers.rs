@@ -337,6 +337,66 @@ impl Walker for NoisyRotor {
     }
 }
 
+/// Ant with turn noise split by cell type (wall-vs-memory experiment,
+/// `experiments/2026-10-26-wall-vs-memory/`). On a cell it stands on for the
+/// first time (fresh) the turn is randomised with probability `ef`, elsewhere
+/// with probability `ev`; the colour advances as in the ant either way. A
+/// fresh cell is one never departed from, tracked in bit 7 so that a revisited
+/// cell back at colour 0 is not mistaken for fresh ground.
+///
+/// One SplitMix64 draw per step: the low 32 bits decide whether the step is
+/// noisy and the high 32 bits pick R (below 2^31) or L, the same test as
+/// `PersistentWalk` at q = 0.5. So `ev = ef = 1` is `PersistentWalk::new(seed, 0.5)`
+/// step for step, and `ev = 1, ef = 0` is the same trajectory for every rule
+/// that turns R on colour 0 (the hybrid wall walker).
+pub struct HybridWalker {
+    turn: Vec<u8>,
+    next: Vec<u8>,
+    state: u64,
+    ev32: u64,
+    ef32: u64,
+}
+
+const DEPARTED: u8 = 0x80;
+
+/// Specified noise semantics: a step is noisy iff the low 32 bits of the draw are strictly
+/// below `floor(eps * 2^32)`. So `eps = 1` is always noisy (threshold 2^32) and a non-dyadic
+/// `eps` has probability `floor(eps * 2^32) / 2^32`, up to 2^-32 below `eps`.
+pub fn noise_threshold32(eps: f64) -> u64 {
+    (eps * 4294967296.0).floor() as u64
+}
+
+impl HybridWalker {
+    pub fn new(rule: &Rule, seed: u64, ev: f64, ef: f64) -> HybridWalker {
+        let n = rule.len();
+        assert!(n < DEPARTED as usize);
+        assert!((0.0..=1.0).contains(&ev) && (0.0..=1.0).contains(&ef));
+        HybridWalker {
+            turn: rule.0.iter().map(|t| t.delta()).collect(),
+            next: (0..n).map(|i| ((i + 1) % n) as u8).collect(),
+            state: seed,
+            ev32: noise_threshold32(ev),
+            ef32: noise_threshold32(ef),
+        }
+    }
+}
+
+impl Walker for HybridWalker {
+    const RANDOM_INIT: bool = false;
+    fn initial_cell(&self, _: i64, _: i64) -> u8 {
+        0
+    }
+    #[inline(always)]
+    fn step(&mut self, cell: &mut u8, heading: &mut u8) {
+        let r = splitmix_next(&mut self.state);
+        let c = (*cell & !DEPARTED) as usize;
+        let eps32 = if *cell & DEPARTED == 0 { self.ef32 } else { self.ev32 };
+        let turn = if (r & 0xFFFF_FFFF) < eps32 { if (r >> 32) < 1 << 31 { 1 } else { 3 } } else { self.turn[c] };
+        *heading = (*heading + turn) & 3;
+        *cell = self.next[c] | DEPARTED;
+    }
+}
+
 /// Multi-state turmite (`ext::Turmite`) as a probe/shape walker: same table semantics as
 /// `ext::SqSim` (write colour, quarter-turn clockwise, next state), blank board, heading north.
 pub struct TurmiteWalker {
