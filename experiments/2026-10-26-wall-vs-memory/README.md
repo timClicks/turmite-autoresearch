@@ -1,5 +1,13 @@
 # Wall or memory: where does the ant's cube root live?
 
+> **Scope after review (2026-10-27, see "Addendum: PR 19 review" at the end).** What this
+> experiment supports is an *intervention* result: randomising the turn on first departure from
+> a cell disrupts compact growth in six sampled core-class rules, over finite windows ending at
+> 2^22 (Stage 1 early fit) to 2^31 (Stage 2). It does **not** establish reflection as the
+> mechanism, and it does not establish a separate asymptotic exponent for V1. Where the text
+> below says the wall or fresh-ground rule is "necessary", read "necessary under this
+> particular intervention and these windows".
+
 ## Question and registered prediction
 
 Registered 2026-10-26 23:05 NZDT (+1300), base commit
@@ -127,7 +135,8 @@ ant wander onto fresh ground, and how far depends on the rule's low colours.
 
 ### What this cannot show
 
-A finite-window exponent (2^27 steps at most, early window ending at 2^23) is
+A finite-window exponent (2^27 steps at most, early window ending at 2^22: the probe's `k`
+is log2 of the window's *end* t, so the registered `k = 12..22` fit ends at 2^22) is
 not an asymptotic class: D3's smooth rise shows crossovers can be slow. A
 "compact" verdict for V1 or F1 says the ingredient keeps the walker compact
 over these windows, not that a = 2/3 exactly. Six rules from one class are a
@@ -171,8 +180,23 @@ uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/analyse.py
 ```
 
 `run.sh` builds `probe` into a fresh `CARGO_TARGET_DIR`, records the commit and
-binary sha256, and writes `results/probe.csv`, `results/probe.log` and
-`results/run.done`.
+binary sha256, and writes `probe.csv`, `probe.log` and `run.done` into its output
+directory. The committed `results/` already holds `run.done`, so the bare commands above
+skip the simulation. To actually re-simulate, give a fresh directory and verify it
+(added after review; see the addendum):
+
+```sh
+OUT=experiments/2026-10-26-wall-vs-memory/scratch/rerun   # gitignored
+sh experiments/2026-10-26-wall-vs-memory/scripts/run.sh $OUT
+sh experiments/2026-10-26-wall-vs-memory/scripts/run_stage2.sh $OUT
+uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/verify.py $OUT --against experiments/2026-10-26-wall-vs-memory/results
+uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/analyse.py $OUT
+uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/analyse_stage2.py $OUT
+```
+
+`verify.py` checks the specs hash, the CSV hash against provenance, that exactly the
+registered specs are present with complete windows, and (with `--against`) byte identity
+with the committed CSV.
 
 ## Results, uncertainty and limitations
 
@@ -240,7 +264,8 @@ reproduces its census a and beta exactly (difference 0.0000).
   My registered prior (H-memory, about 70%) is wrong for this arm: with the
   ant's memory intact, randomising only the turn on fresh cells makes every
   rule porous, close to the memoryless walker. The fresh-ground rule is
-  **necessary** for the compact cube-root regime in all six rules.
+  **necessary** for the compact cube-root regime in all six rules *under this
+  intervention* (randomising it; the review narrows this, see the addendum).
 - **V1 is intermediate**, so no registered corner reading applies. The wall
   alone takes the walker from a 0.93 / beta 0.92 (`pw:0.5`) most of the way
   towards the rotor and the ant (0.80 / 0.70 early, 0.76 / 0.63 late), with
@@ -255,9 +280,9 @@ reproduces its census a and beta exactly (difference 0.0000).
   within 0.02 in 4/6 rules (the two exceptions are `RRRLLLLR` +0.063 and
   `RRRRLLLLLLLR` +0.028). (0.1, 0.1) median early a 0.717 against D3's 0.761 at
   eps 0.1 (different rules, stream and window).
-- **Post hoc, descriptive:** the contrast between EF = 0.1 (little effect) and
-  EF = 1 (porous in every rule) says the wall tolerates occasional leaks. With
-  EF = 0.1 a fresh cell turns L only 5% of the time.
+- **Post hoc, descriptive:** EF = 0.1 shifts early a by +0.028 on average without
+  changing the compact classification, while EF = 1 makes every condition mean porous.
+  With EF = 0.1 a fresh cell turns L only 5% of the time.
 
 Interpretation (mine, not a registered test): the cube root in these ants
 needs the repelling fresh-ground rule; interior memory does not substitute for
@@ -333,9 +358,12 @@ runs that share seeds with Stage 1 reproduce its rows exactly for k <= 27.
    memoryless walker's a 0.93 / beta 0.92 to 0.73 / 0.59 at k = 24..30, against
    the rotor's 0.68 / 0.52 and the six ants' 0.59-0.70 / 0.51-0.55 (k = 20..26).
    Whether it converges to 2/3 is unresolved at 2^31.
-3. **Low-rate noise is tolerated on either cell type.** At 10%, neither cell
-   type dominates rule by rule; revisit noise moves the exponent somewhat more on
-   average. The registered dose predictions failed in both directions.
+3. **Low-rate noise shifts the exponent a little but did not change the registered
+   classification.** At 10%, neither cell type dominates rule by rule; mean early-a
+   shifts are +0.047 (revisit noise) and +0.028 (fresh-cell noise), and 10% fresh-cell
+   noise left all six conditions compact. The registered dose predictions failed in
+   both directions. (Reworded after review: classification stability is narrower than
+   "negligible effect".)
 
 What this does not show: that the ant's cube root *is* the hybrid's mechanism
 (the ant's interior is not memoryless); anything beyond six rules of one class;
@@ -349,8 +377,8 @@ written for V1 (unresolved) or the dose arms (failed predictions of a contrast,
 not a dead end).
 
 Next questions (none registered):
-- *Why does the wall matter so much and leaks so little?* EF = 0.1 barely moves
-  the exponent but EF = 1 makes every rule porous. A dose curve in EF between 0.1
+- *How does the response to fresh-cell noise grow with EF?* EF = 0.1 moves early a by
+  +0.028 on average (no change of class) but EF = 1 makes every condition mean porous. A dose curve in EF between 0.1
   and 1 would locate the threshold and test whether it is a sharp transition (a
   percolation-like loss of the reflecting edge) or a smooth crossover. Prediction
   to be derived before registering.
@@ -368,3 +396,109 @@ Next questions (none registered):
 uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/figure.py         # results/fig_local_exponents.png
 uv run --frozen experiments/2026-10-26-wall-vs-memory/scripts/build_notebook.py  # then execute as in its docstring
 ```
+
+## Addendum: PR 19 review (2026-10-27 20:45 NZDT, append only)
+
+An external review of head `15d41a9` recomputed the main fits (they reproduce) and asked
+for narrower claims. Registered scores and frozen fits above are **unchanged**; the
+following corrections and limits are appended. Review-time numbers come from
+`scripts/posthoc_review.py` -> `results/posthoc_review.txt` and are post hoc, descriptive.
+
+1. **What the factorial supports.** It separates two intervention policies: randomising the
+   first-departure turn (EF) and randomising later turns (EV). Supported: (a) EF = 1
+   changes growth in all six sampled rules and every F1 condition mean meets the registered
+   porous criterion; (b) from fully random, forcing R on first departure substantially
+   lowers the finite-window exponent; (c) ant -> V1 shows the interior turn policy matters,
+   i.e. removing interior colour-dependent turns does not preserve the ant's behaviour.
+   Under the registered table neither explanation wins (V1 intermediate).
+
+2. **"Wall removed" is not "reflection removed".** Randomising first departures also breaks
+   coherent first-visit chirality, short-loop geometry and the correlations between
+   heading and the evolving colour field, and F1's colour memory then develops along a
+   different trajectory. This experiment identifies a consequential first-departure
+   policy, not why it matters. Likewise V1 keeps historical information in the `departed`
+   flag, so "interior colour-dependent turns removed" is more accurate than "memory
+   removed", and randomising the interior does not test whether the interior is well
+   mixed. "Necessary" throughout means: under this intervention, over these windows.
+   Not shown: that deterministic R is the only first-departure policy compatible with
+   compact growth (forced L is untested; see item 9).
+
+3. **Conditions are not individual runs.** The registered classification applies to
+   condition means (F1: 6/6 porous). Applying the same early thresholds (a >= 0.85 and
+   beta >= 0.80) to individual runs, **39 of 48 F1 runs** meet both (per rule 7, 6, 6, 8, 7,
+   5 of 8; lowest run a = 0.824). Seeds are shared across rules, so the 48 trajectories
+   are not 48 independent rule-level replications; the independent units are the six
+   selected rules, drawn from an already compact core class.
+
+4. **Time-window correction.** `csv_rows` emits `k = log2(t_end)` for the window
+   (2^(k-1), 2^k], so the CSV's `k = 12..22` early fit ends at **2^22**, not 2^23 (the
+   earlier text, the notebook and the pruning entry said 2^23); late `k = 20..26` ends at
+   2^26, Stage 2 `k = 24..30` at 2^30 with `k = 31` the last window. The frozen fits are
+   unchanged. `verify.py` checks `k = 9..27` / `9..31` contiguity. Late-window escape
+   censoring (18 of 270 stage 1 runs escaped) warrants caution for late fits; it does not
+   affect the complete early-window result.
+
+5. **Stage 2 cannot establish a separate exponent.** The registered rule read V1 as
+   "separate exponent" because a(24..30) = 0.732 >= 0.73 and the trend interval
+   [-0.012, +0.003] contains zero. An interval containing zero is failure to resolve a
+   trend, not evidence of a plateau, and a significantly negative trend would not by
+   itself identify 2/3 as the limit. Post hoc: V1 a(24..30) = 0.7320 (seed-level
+   bootstrap 95% of the mean [0.722, 0.742], n = 16); refitting over `k = 27..31` gives
+   **0.7170** ([0.699, 0.736]); the per-seed shift between windows is -0.015 (sd 0.034).
+   Rotor: 0.6767 -> 0.6735. The score stands as registered (borderline "separate
+   exponent", cleared by 0.002) but the scientific conclusion is **unresolved**: the
+   finite-window separation of V1 from the rotor is real, its asymptote is not determined.
+   Use "finite-window separation", not an asymptotic verdict.
+
+6. **Low noise is not negligible.** Mean early-a shifts at 10% are +0.047 (revisit-only)
+   and +0.028 (fresh-only); both registered dose predictions failed. The supported
+   statement is "10% fresh-cell noise did not change the registered compact
+   classification in any of six rules" (revisit-only 10% left 5 of 6 compact). Replaces
+   "low-rate leaks don't matter" / "tolerates occasional leaks" everywhere.
+
+7. **Oracle discrepancy resolved.** The sparse reference in `tests/hybrid_walker.rs` compared
+   `low32 / 2^32 < eps` in floating point while production compared `low32 < floor(eps *
+   2^32)`; they differ exactly when `low32 == floor(eps * 2^32)` for non-dyadic eps. The
+   specified semantics are now the integer ones (`walkers::noise_threshold32`, doc-comment
+   on `HybridWalker`): noisy iff `low32 < floor(eps * 2^32)`; eps = 1 always noisy, eps = 0
+   never. The reference restates this independently, and
+   `noise_threshold_boundary_is_strict_integer_comparison` aims the first draw (by
+   inverting SplitMix64's `mix64`) at threshold - 1, threshold and threshold + 1 for
+   several eps. Production behaviour is unchanged, so every committed result stands; the
+   fresh rerun below re-checks that byte for byte.
+
+8. **Reproduction now re-simulates.** `run.sh` / `run_stage2.sh` take an optional output
+   directory (the committed one still skips because it holds the `.done` markers), the
+   analysis scripts take a results directory, and `verify.py` validates specs, completeness
+   and hashes (and byte identity with `--against`). Outcome of the fresh rerun (both stages, 4 threads, new
+   binary built after the change in item 7): `verify.py --against` passes; `probe.csv` and
+   `stage2_probe.csv` are byte-identical to the committed files and the analysis outputs are
+   identical. Recorded in `NOTEBOOK.md`.
+
+9. **Follow-up tests, registered here before any measurement (not run).** Each is
+   independent of the merge criterion.
+   - **F-a. Deterministic first-departure L.** Same cohort, seeds and windows; revisited
+     cells unchanged; compare forced R, forced L and fair R/L on first departure.
+     Prediction (mine, ~60%): forced L is also compact (it is the mirror image on fresh
+     ground, so its loops are also coherent), a within 0.05 of forced R in >= 5/6 rules and
+     both far from fair R/L. If so, "R is necessary" is wrong and the operative property is
+     *coherent chirality on first departure*; if forced L is porous, the colour-0 R policy
+     itself matters (rule asymmetry with the interior's R/L colours).
+   - **F-b. Mediator measurement.** Record per fresh excursion: length, maximum
+     penetration into fresh ground, new cells deposited before the first return to previously
+     departed territory, and return probability, for ant, F1, V1 and forced-L. Prediction:
+     these statistics rank the conditions in the same order as their early a (Spearman
+     >= 0.8 over the 6 rules x 4 conditions), and fresh excursion length is longer and heavier
+     tailed in F1. If they do not predict growth, the reflecting-edge explanation fails.
+   - **F-c. Convergence extension.** V1 and rotor at two longer horizons (2^33, 2^35) with
+     new seeds, board large enough to avoid escape, equal-width late windows frozen before
+     running (5 octaves each), reporting window sensitivity and seed-level uncertainty.
+     Prediction: V1 a(window) keeps decreasing with horizon (-0.015 to -0.03 per window
+     shift); a ~0.70 at the later window. The verdict word is "finite-window separation".
+     Needs the tiled grid ported to the probe (not done).
+   - **F-d. Fresh versus colour-zero noise.** Compare noise on first departure with noise
+     on every colour-zero read (including revisits). Prediction: colour-zero noise at the
+     same rate shifts a more than fresh-only noise (it also hits revisits), so "blank cells
+     repel" is not the same intervention as "fresh ground repels".
+   A denser EF dose curve follows these controls; a steep finite-time curve alone would not
+   separate a transition from a noise-dependent crossover.

@@ -359,6 +359,13 @@ pub struct HybridWalker {
 
 const DEPARTED: u8 = 0x80;
 
+/// Specified noise semantics: a step is noisy iff the low 32 bits of the draw are strictly
+/// below `floor(eps * 2^32)`. So `eps = 1` is always noisy (threshold 2^32) and a non-dyadic
+/// `eps` has probability `floor(eps * 2^32) / 2^32`, up to 2^-32 below `eps`.
+pub fn noise_threshold32(eps: f64) -> u64 {
+    (eps * 4294967296.0).floor() as u64
+}
+
 impl HybridWalker {
     pub fn new(rule: &Rule, seed: u64, ev: f64, ef: f64) -> HybridWalker {
         let n = rule.len();
@@ -368,8 +375,8 @@ impl HybridWalker {
             turn: rule.0.iter().map(|t| t.delta()).collect(),
             next: (0..n).map(|i| ((i + 1) % n) as u8).collect(),
             state: seed,
-            ev32: (ev * 4294967296.0) as u64,
-            ef32: (ef * 4294967296.0) as u64,
+            ev32: noise_threshold32(ev),
+            ef32: noise_threshold32(ef),
         }
     }
 }

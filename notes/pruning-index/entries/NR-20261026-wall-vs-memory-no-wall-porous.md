@@ -41,4 +41,12 @@
 
 ## Amendments (append only)
 
-None.
+### 2026-10-27 amendment 1 (review of PR 19): narrowed reading, status stays `active`
+
+- Evidence revision: data `15d41a95d852d81713d0bab2900b6cd690760520` (unchanged); individual-run counts in `experiments/2026-10-26-wall-vs-memory/results/posthoc_review.txt`, added with this amendment.
+- Reason: external review. The original claim text above is kept; read it with these limits.
+  1. **Condition means, not runs.** "Porous in 6/6" classifies the six *condition means* under the registered criterion. Applying the same thresholds (early a >= 0.85 and beta >= 0.80) to individual runs, 39 of the 48 specs meet both (per rule: 7, 6, 6, 8, 7, 5 of 8; lowest run a = 0.824). The entry does not claim that all 48 trajectories are individually porous. Seeds are shared across rules, so the independent units are the six selected rules, not 48.
+  2. **What the intervention is.** F1 randomises the turn on first departure; it also breaks coherent first-visit chirality and short-loop geometry and changes how the colour field develops. The entry records that this intervention disrupts compact growth, not that reflection is the mechanism or that deterministic R is the only first-departure policy that keeps growth compact (forced L is untested).
+  3. **Window.** The early window `k = 12..22` ends at 2^22, not 2^23 (`k` is log2 of the window end); the Confounds line above is corrected by this amendment. The frozen fit is unchanged.
+  4. **Noise.** EF = 0.1 shifted mean early a by +0.028 and left all six conditions compact: a statement about classification, not about a negligible effect.
+- Replacement status: `active`, scope unchanged (exactly the 48 tested specs, same instrument and windows).

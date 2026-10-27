@@ -90,3 +90,42 @@ Write-up: README outcome, `notebook.ipynb` (built by `scripts/build_notebook.py`
 committed results only), figure `scripts/figure.py`, notes (cube-root-hypothesis update, Q30/Q31), ACTIVE backlog,
 atlas filing under cube-root-growth, blog post and homepage card. Stop here; follow-ups (Q30 EF dose curve, Q31 local-time
 discrepancy, longer V1) need new registrations.
+
+### 2026-10-27 20:45 (+1300) · 15d41a9 · intent
+Respond to the external review of PR 19. Plan: narrow claims; correct the window label; fix the oracle's
+float-vs-floor noise comparison; make reproduction really re-simulate; add post hoc checks; register follow-ups
+(forced L, mediator statistics, convergence extension, colour-zero noise) without running them.
+
+### 2026-10-27 20:50 (+1300) · 15d41a9 · observation
+Reviewer's numbers reproduce (`results/posthoc_review.txt`, new): 39 of 48 F1 runs individually meet the porous
+thresholds (7, 6, 6, 8, 7, 5 of 8 per rule); V1 a(24..30) = 0.7320, seed-level bootstrap 95% [0.722, 0.742]; refit at
+k = 27..31 gives 0.7170; mean 10% shifts +0.047 (revisit) and +0.028 (fresh). `k` is log2 of the window END
+(`csv_rows`), so the early fit k = 12..22 ends at 2^22.
+
+### 2026-10-27 20:55 (+1300) · 15d41a9 · deviation
+Earlier text (README "What this cannot show", notebook caveat, pruning-entry confound) said the early window ends at
+2^23. Wrong by one octave; corrected in the README addendum and the pruning-entry amendment. The frozen fit
+(k = 12..22) is unchanged; no score changes.
+
+### 2026-10-27 21:05 (+1300) · 15d41a9 · decision
+Oracle: specified integer semantics (`walkers::noise_threshold32`, noisy iff low32 < floor(eps * 2^32)); the sparse
+reference restates it independently; `noise_threshold_boundary_is_strict_integer_comparison` aims the first SplitMix64
+draw (via an inverse of `mix64`) at threshold - 1, threshold, threshold + 1. Production behaviour unchanged (the
+old expression was already `(eps * 2^32) as u64`, a floor for eps >= 0), so no result should move.
+
+### 2026-10-27 21:20 (+1300) · 15d41a9 (7 tracked files modified) · observation
+Fresh rerun of both stages into the gitignored `scratch/rerun` with the new `run.sh` / `run_stage2.sh` (fresh
+`CARGO_TARGET_DIR`, 4 threads, ~3 + ~3 min): `verify.py --against results/` passes, `probe.csv` and `stage2_probe.csv`
+are byte-identical to the committed ones, and `analyse.py` / `analyse_stage2.py` outputs are identical. So the
+semantics change moved nothing, and the committed numbers regenerate. The rerun's binary hash is in
+`scratch/rerun/*provenance.txt` (not committed: the build differs from the original only by the refactor).
+
+### 2026-10-27 21:30 (+1300) · 15d41a9 · interpretation
+Narrowed reading: first-departure turn randomisation disrupts compact growth in six sampled rules (condition means);
+reflection as the mechanism is untested (F1 also breaks first-visit chirality and short-loop geometry); V1 is a
+finite-window separation with window-dependent a (0.732 -> 0.717), unresolved asymptotically; 10% fresh noise left the
+class unchanged but shifted a. Independent units: six rules (seeds shared).
+
+### 2026-10-27 21:35 (+1300) · 15d41a9 · decision
+Follow-ups F-a..F-d registered in the README addendum (item 9) with predictions, not run. Notes (Q32), pruning-entry
+amendment 1, blog post/homepage/atlas/guide wording and `notebook.ipynb` updated to match.

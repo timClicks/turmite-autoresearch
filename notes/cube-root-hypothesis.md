@@ -96,8 +96,11 @@ Evidence revision `3040a0b86f69489a999e3881b8d4ff89886a0ac8`
 ingredients of the mechanism above (step 1, repulsion by blank cells; step 2,
 mixing inside) were separated by turn noise applied only on fresh or only on
 revisited cells. Removing step 1 while keeping the ant's memory made all six
-tested rules porous (a ~ 0.86-0.91): step 1 is necessary there. Keeping step 1
-with a memoryless interior gave a = 0.73 at 2^31 steps (rotor 0.68), so step 2
-in its memoryless form is not shown sufficient. The original predictions above
+tested rules porous (a ~ 0.86-0.91): randomising the turn on first departure
+disrupts compact growth there (it also breaks first-visit chirality, so this
+does not isolate reflection; forced L is untested). Keeping step 1 with a
+memoryless interior gave a = 0.73 at k = 24..30 (0.717 at k = 27..31; rotor
+0.68), a finite-window separation whose asymptote is unresolved, so step 2 in
+its memoryless form is not shown sufficient. The original predictions above
 are unchanged; this is new evidence on which ingredient carries the exponent,
 not a derivation.

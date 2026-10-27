@@ -55,7 +55,7 @@
         {"ref": "2026-10-13-item4-exponent-rotor-calibrated", "change": "An uncalibrated extrapolation is withdrawn as too strong."},
         {"ref": "2026-10-13-memory-walkers", "change": "Memory alone is shown not to be enough."},
         {"ref": "2026-10-20-kappa-first-passage", "change": "The renewal identity is confirmed as an identity and its prediction fails."},
-        {"ref": "2026-10-26-wall-vs-memory", "change": "The repelling fresh ground is shown necessary in the tested rules; memory alone does not keep the ant compact."}
+        {"ref": "2026-10-26-wall-vs-memory", "change": "Randomising the first-departure turn disrupts compact growth in the tested rules; the mechanism is not isolated."}
       ]
     },
     {
