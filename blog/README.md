@@ -316,3 +316,10 @@ Check with `node blog/scripts/test_ants.js` from the repository root (after
 web simulator, exercises replacement and controls, and checks the classic RL
 highway against LLRR builder passes. Desktop uses three columns; narrow
 screens stack the cards for readable trails.
+
+## Home-page widgets
+
+`assets/ant-explainer.js` ("How an ant works") and `assets/walker-compare.js`
+("Four walkers, one start") are dependency-free and hidden until they load.
+`node blog/scripts/test_widgets.js` checks them against `web/sim.js` and sparse
+oracles, then drives their controls in jsdom; CI runs it with `test_ants.js`.

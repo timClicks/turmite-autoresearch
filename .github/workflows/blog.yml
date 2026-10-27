@@ -3,9 +3,9 @@ name: Research blog
 on:
   push:
     branches: [main]
-    paths: ['blog/**', 'experiments/**', 'research-outputs/cube-root-growth-paper/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
+    paths: ['blog/**', 'web/sim.js', 'web/package-lock.json', 'experiments/**', 'research-outputs/cube-root-growth-paper/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
   pull_request:
-    paths: ['blog/**', 'experiments/**', 'research-outputs/cube-root-growth-paper/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
+    paths: ['blog/**', 'web/sim.js', 'web/package-lock.json', 'experiments/**', 'research-outputs/cube-root-growth-paper/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
   workflow_dispatch:
 
 permissions:
@@ -37,6 +37,7 @@ jobs:
           npm ci --prefix web
           node blog/scripts/test_stats.js
           node blog/scripts/test_ants.js
+          node blog/scripts/test_widgets.js
           node blog/scripts/test_experiment.js
           python3 blog/scripts/test_atlas.py
       - uses: astral-sh/setup-uv@v6
