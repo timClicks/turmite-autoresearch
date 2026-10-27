@@ -37,3 +37,36 @@ Status: untested.
 Does the rotor's excursion-duration shape prefer L or L^2 collapse at accessible
 sizes, or neither? P-C left this as a measured calibrator; T1 and FLP/Bou-Rabee
 arguments suggest sweep-like structure, but that is not registered here.
+
+### 2026-10-27 20:45 NZDT · 9bfa496 · decision
+Instrument `examples/boundary_excursions.rs` written (probe-aligned Region,
+evolving boundary, completion-window attribution, log2 duration bins, right-censored
+open excursions). `--check` matches `probe::probe_walker` on rw/rotor/patched;
+`--mutant` inverts `on_boundary` and panics under `--check` (C0). Mean-field uses
+the exposure-classes `MeanFieldSync` (uniform resample of visited cells, then a
+random neighbour). Tiny non-cohort smoke (grid 256, max_log2 12, seeds 7) green
+before the long calibration.
+
+### 2026-10-27 20:46 NZDT · 9bfa496 · observation
+C0 smoke on `rw:7` / `rotor:7` (256 board, max_log2 12): check exit 0. Mutant
+on `rw:7` panicked at window k=9 with boundary_steps mismatch (probe 133 vs
+mutant 123) as required. Starting calibration under frozen specs
+(`results/calib_specs.txt`), board 8192, max_log2 24, RAYON_NUM_THREADS=4,
+binary sha256 d16f6e6870320e07536e1b7edfb571607dd938747a4942d228276d799ae00a92.
+
+### 2026-10-27 20:55 NZDT · 9bfa496 · observation
+Calibration complete under `--check` (12 specs, board 8192, max_log2 24). C0 PASS.
+C2 PASS: mf Score(L)=0.0580 < 0.75·Score(L²)=0.1221, verdict S; mean τ/L=1.010.
+C3: rotor inconclusive (Score L 0.120 vs L² 0.146). C1 FAIL: rw retained windows = 0
+because L=A/P stays ~2.55–3.83 across k=16..24 (never reaches L≥4; range <2×). Instrument
+inadequate — STOP. Synthetic pure-scale Score check still separates D from S, so the
+statistic is fine; the RW-on-own-range calibrator is the wrong family for L=A/P.
+
+### 2026-10-27 20:56 NZDT · 9bfa496 · observation
+Excluded pilot ran (8 rule@seed, `--check`). Descriptive only under STOP: pooled frozen
+Score would prefer D; not evidence. Trajectories remain excluded.
+
+### 2026-10-27 20:57 NZDT · 9bfa496 · decision
+**Revise** (not retain, not abandon). Keep definitions, MF control, Score, check-mode,
+excluded-pilot discipline. Replace D calibrator with a compact-domain growing walker;
+re-register C1 before any confirmation. Recorded in README Results and blog post.

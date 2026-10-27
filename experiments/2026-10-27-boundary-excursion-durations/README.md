@@ -223,9 +223,41 @@ Exact commands, commit hashes and sha256 of binaries/outputs are appended below
 after the registration commit and runs (this section above the results heading
 is not edited post hoc; results are appended).
 
-## Results, uncertainty and limitations
+## Results (appended after registration `9bfa4964332323daffe73af0854c020475f1c659`)
 
-*(Appended after registration commit and runs. Predictions above stay unedited.)*
+**Registration commit (hypotheses frozen, no outcomes):** `9bfa4964332323daffe73af0854c020475f1c659`  
+**Instrument binary sha256 (prefix):** `d16f6e6870320e07`  
+**Board / horizon:** 8192 / max_log2 24 / RAYON_NUM_THREADS=4 / `--check` on every long run.  
+**Compute:** C0 smoke + calibration (~12 walker specs) + excluded pilot (8 rule@seed) finished in well under the 2 CPU-hour budget (wall clock under a few minutes on this box; see `results/*_outer.log`).
+
+### C0 (instrument)
+PASS. Tiny non-cohort smoke (`rw:7`, `rotor:7`, grid 256, max_log2 12) matched `probe_walker`. `--mutant` inverted `on_boundary` and panicked under `--check` (boundary_steps mismatch at window k=9). All calibration and pilot specs also ran with `--check`.
+
+### C1 (random walk → D)
+**FAIL — instrument inadequate — STOP.** Retained windows under the frozen filters: 0. Cause: window-end $L=A/P$ for `rw:2026102711`..`14` stays in about [2.55, 3.83] across k=16..24, so the $L \ge 4$ filter never fires and $L_\mathrm{max}/L_\mathrm{min}$ cannot reach 2. Diagnostic (not a gate): even with $L \ge 2$ the frozen Score prefers S or is inconclusive, and $L$ range stays below 2×. A 2D random walk on its own range is not a compact blob of growing linear size $L$; using it as the D calibrator was a design error relative to the $L=A/P$ scale.
+
+### C2 (mean-field → L-scaling)
+**PASS.** Score(L)=0.0580, Score(L²)=0.1628, verdict=S; mean completed $\tau/L$ = 1.010 (band [0.5, 2.0]). L range ≈ 6.81× over 36 retained windows. Not censoring-fragile.
+
+### C3 (rotor, measured)
+Score(L)=0.1202, Score(L²)=0.1462, verdict=**inconclusive** (allowed). mean $\tau/L$ ≈ 1.88. L range ≈ 6.39×.
+
+### Synthetic Score check (not a walker)
+`results/synthetic_score_check.txt`: planted pure-scale laws with $L$ over an 8× range are separated correctly (D→D, S/geom→S). So the collapse statistic itself works; C1 failed because the RW calibrator is the wrong physical family for $L=A/P$.
+
+### P-pilot (EXCLUDED / exploratory — not evidence)
+C1 STOP forbids reading these as a D/S claim. Descriptive only (`results/analysis.json`):
+pooled ants Score(L)=0.1629, Score(L²)=0.0801, frozen verdict would have been D on 67 windows — **do not promote**. Per-rule exploratory verdicts in `analysis.json`. Trajectories permanently excluded from confirmation.
+
+### Why the earlier tail estimator failed, and how this avoided it
+First-passage C6 (`experiments/2026-10-20-kappa-first-passage/`): parametric $(\theta,z)$ fit failed |bias ln τ| and coverage, and $z(1-\theta)\sim 1$ is forced by $E[T]\sim L$. This experiment never estimated $\theta$ or $z$; it used a nonparametric collapse Score with a 0.75 margin, required RW→D and MF→S before any ant reading, and treated censoring flips as uninformative. The new failure mode is different: the chosen D calibrator cannot grow $L$.
+
+### Retain / revise / stop
+**Revise.** Keep the excursion definition, probe `--check`, MF L-control, rotor as measured calibrator, nonparametric Score, and excluded-pilot discipline. Replace the D calibrator with a **compact-domain** walker whose linear size grows (e.g. random walk in a growing disk/cup of radius $R$ with $L\sim R$, or Brownian hitting times in a growing interval), re-register C1 against that calibrator, and only then revisit confirmation. Do not interpret the excluded pilot as evidence.
+
+### Confirmation protocol proposal (stage 2; not run)
+Unchanged in spirit from the registration section, with one addition: (0) re-pass C1 on the revised compact-domain D calibrator and C2 on a fresh MF seed block; (1) reserved specs in `results/reserved_confirmation_specs.txt` plus further held-out RL-prefix census rules; (2) same Score and 0.75 margin; (3) family-level pass rule frozen before measuring; (4) development trajectories stay excluded.
+
 
 ## Confirmation protocol proposal (stage 2; not run)
 

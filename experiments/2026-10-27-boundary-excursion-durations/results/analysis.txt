@@ -1,0 +1,15 @@
+=== Calibration ===
+rw: nwin=0 L_range=None Score(L)=None Score(L^2)=None verdict=uninformative mean_tau/L=None fragile=False slopes=[]
+mf: nwin=36 L_range=6.812717064935449 Score(L)=0.0579846020861797 Score(L^2)=0.16280155220679074 verdict=S mean_tau/L=1.0101535230605367 fragile=False slopes=[]
+rotor: nwin=36 L_range=6.392629001939839 Score(L)=0.12024012721482383 Score(L^2)=0.14623806353971192 verdict=inconclusive mean_tau/L=1.8848195548583822 fragile=False slopes=[]
+
+C1 (rw→D): FAIL (verdict=uninformative)
+C2 (mf→S & E[tau]/L in [0.5,2]): PASS (verdict=S, ratio=1.0101535230605367)
+Instrument adequate: False
+
+=== Pilot (EXPLORATORY / EXCLUDED) ===
+ant pooled: nwin=67 L_range=14.484260990840477 Score(L)=0.16293419819399257 Score(L^2)=0.08011884410074871 verdict=D mean_tau/L=2.3349991186375187 (EXPLORATORY — not evidence)
+  RLLLLRLL: nwin=14 L_range=7.0606207369792 Score(L)=0.17826572335520113 Score(L^2)=0.049242869452473546 verdict=D mean_tau/L=2.981201165286175
+  RLLLRR: nwin=17 L_range=6.670378502511567 Score(L)=0.1454905409786871 Score(L^2)=0.056524746018756705 verdict=D mean_tau/L=3.0911534423055307
+  RLLR: nwin=18 L_range=12.257340207920716 Score(L)=0.2631700078069697 Score(L^2)=0.0914862434617064 verdict=D mean_tau/L=1.2039102927248218
+  RLLRL: nwin=18 L_range=5.939739098020686 Score(L)=0.09906960199126852 Score(L^2)=0.11337353608680334 verdict=inconclusive mean_tau/L=2.2493406025814737

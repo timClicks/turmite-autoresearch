@@ -6,6 +6,12 @@ the retained backlog is context, not a list of simultaneous commitments. Remove 
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
+## Pointer (2026-10-27): excursion-duration collapse stage 1
+
+`experiments/2026-10-27-boundary-excursion-durations/` (registration `9bfa496`, before measurement).
+Implements P-C / Q32 from `notes/cube-root-routes-2026-10-26.md` on PR #18 (reference by branch/PR; do not mint colliding Q numbers here).
+Stage-1 outcome: **revise**. Mean-field L-control passed; random-walk D calibrator uninformative because window-end L=A/P never enters the frozen analysis band; rotor inconclusive as allowed; excluded pilot not interpreted. Next registered step: compact-domain D calibrator, then re-gate C1 before confirmation. Avoids first-passage C6 by never fitting (theta, z).
+
 ## Next phase: boundary access, regime validation, closure
 
 **Central question:** what makes boundary access settle into the scaling needed

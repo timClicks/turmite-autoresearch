@@ -479,3 +479,19 @@ first-read time of the last colour), because experiment titles, scripts and appe
 way. The square-ring questions are renumbered: ring onset from a blank board is now **Q27**, and the reversed family and
 corner proof is now **Q29**. The crawler-support question is Q28. Older append-only records keep the numbers they were
 written with; read "Q25/Q26" in `experiments/2026-10-25-square-ring-fillers/NOTEBOOK.md` as Q27/Q29.
+
+## Added 2026-10-27: excursion-duration collapse (stage 1) — points at PR #18
+
+Stage-1 experiment `experiments/2026-10-27-boundary-excursion-durations/` (registration commit `9bfa496`)
+implements the excursion-duration discrimination idea labelled **P-C / Q32** in
+`notes/cube-root-routes-2026-10-26.md` on branch `survey/cube-root-routes` (PR #18, unmerged at
+registration). That note also proposes Q30–Q33; those numbers are **not** claimed on main until
+PR #18 merges. Cite them as "P-C / Q32 (PR #18 note)" until then.
+
+- **Result of stage 1:** instrument **revise**. The nonparametric collapse Score separates planted
+  pure-scale L vs L² laws, and mean-field prefers L as registered. The random-walk calibrator never
+  grows L=A/P into the analysis band, so C1 fails and the excluded ant pilot is not evidence.
+- **Open (unnumbered here to avoid clashing with PR #18):** what compact-domain walker with growing
+  linear size re-passes C1 as a D calibrator? Until that is registered and green, do not run the
+  reserved confirmation specs.
+

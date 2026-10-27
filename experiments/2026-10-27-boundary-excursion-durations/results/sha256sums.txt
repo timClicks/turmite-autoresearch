@@ -1,0 +1,5 @@
+d16f6e6870320e07536e1b7edfb571607dd938747a4942d228276d799ae00a92  target/release/examples/boundary_excursions
+5f94c000170835be4ce345a3c27f18e277c4c25271133bb6acf025a43dd8c336  experiments/2026-10-27-boundary-excursion-durations/results/calib_windows.csv
+28a702cb21ae7b9b70dacd20bac23e9b66ef14b0759bd34758a4fc254625c3f0  experiments/2026-10-27-boundary-excursion-durations/results/calib_hist.csv
+7e2c34a7f05492195c555c12bf4d703e49b7aa08bb27d6909bf64723c1b4be96  experiments/2026-10-27-boundary-excursion-durations/results/pilot_windows.csv
+7dc3baebfaab57db3275c97d57a8cd84ea696a353b61c325a5c6e374a166001b  experiments/2026-10-27-boundary-excursion-durations/results/pilot_hist.csv

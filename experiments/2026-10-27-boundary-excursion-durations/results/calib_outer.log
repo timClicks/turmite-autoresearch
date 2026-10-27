@@ -1,0 +1,9 @@
+bin=/workspace/turmite-autoresearch/target/release/examples/boundary_excursions sha256=d16f6e6870320e07536e1b7edfb571607dd938747a4942d228276d799ae00a92
+max_log2=24 grid=8192 threads=4
+git=9bfa4964332323daffe73af0854c020475f1c659
+2 specs, max_log2 12, grid 256, check true
+wrote hist /workspace/turmite-autoresearch/experiments/2026-10-27-boundary-excursion-durations/results/c0_smoke_hist.csv
+C0 smoke (check) OK
+C0 mutant panicked as required (exit 101)
+calibration windows: 193
+calibration hist rows: 1849

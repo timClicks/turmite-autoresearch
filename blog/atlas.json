@@ -18,7 +18,7 @@
       "question": "Why cube-root growth?",
       "state": "empirical-unexplained",
       "state_summary": "Many chaotic rules cluster at the same width exponent, matching a calibrated rotor walker at finite windows; every accounting of the growth reproduces it without explaining it.",
-      "reviewed": "2026-10-25",
+      "reviewed": "2026-10-27",
       "claims": ["BO-01"],
       "evidence": [
         {"ref": "2026-10-13-probe-growth-census"},
@@ -41,26 +41,36 @@
         "2026-10-13-transport-forecast", "2026-10-13-log-growers", "2026-10-13-snapshots",
         "2026-10-13-occupancy-pages", "2026-10-13-mixing", "2026-10-13-layers-colours",
         "2026-10-13-c2-arrow-bias", "2026-10-15-literature-review", "2026-10-16-kappa-uniform-baseline"
-      ],
-      "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md"],
+      ,
+        "2026-10-27-boundary-excursion-durations"],
+      "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md",
+        "2026-10-27-when-the-diffusive-calibrator-refuses-to-grow.md"],
       "open": [
         {"text": "Is the shared exponent exact asymptotically, or only within the windows we can reach?", "source": "notes/cube-root-hypothesis.md"},
         {"text": "Which factor of the growth identity carries the amplitude, and why does the area exponent move when the width exponent does not?", "source": "notes/open-questions-hypotheses.md"},
         {"text": "Why does rule identity matter much more for the area exponent than for the width exponent?", "source": "notes/open-questions-hypotheses.md"}
-      ],
+      ,
+        {
+          "text": "Can a compact-domain walker with growing linear size serve as the missing L-squared calibrator for an excursion-duration collapse test?",
+          "source": "experiments/2026-10-27-boundary-excursion-durations/README.md"
+        }],
       "turns": [
         {"ref": "2026-10-13-probe-growth-census", "change": "The crowded peak near a third is measured."},
         {"ref": "2026-10-13-item4-exponent-rotor-calibrated", "change": "An uncalibrated extrapolation is withdrawn as too strong."},
         {"ref": "2026-10-13-memory-walkers", "change": "Memory alone is shown not to be enough."},
         {"ref": "2026-10-20-kappa-first-passage", "change": "The renewal identity is confirmed as an identity and its prediction fails."}
-      ]
+      ,
+        {
+          "ref": "2026-10-27-boundary-excursion-durations",
+          "change": "Collapse test stops: random-walk L scale never grows; design revised."
+        }]
     },
     {
       "slug": "boundary-return",
       "question": "What controls boundary return?",
       "state": "models-rejected",
       "state_summary": "Boundary occupation is accounted for and its uniform baseline is calibrated, but prefix, launch-rate, tail, return-map and gate explanations each failed or stayed uninformative when tested on fresh data.",
-      "reviewed": "2026-10-25",
+      "reviewed": "2026-10-27",
       "claims": ["BO-01", "BO-02", "BO-03", "BO-04", "RD-01", "RD-02", "RD-03", "RD-04", "RD-05"],
       "evidence": [
         {"ref": "2026-10-16-kappa-uniform-baseline"},
@@ -95,8 +105,10 @@
         "2026-10-16-kappa-growth-clock", "2026-10-16-kappa-leadrun-fresh", "2026-10-16-kappa-loop-surgery",
         "2026-10-16-kappa-prefix-decode", "2026-10-20-kappa-spread-features", "2026-10-20-kappa-prefix-runs", "2026-10-20-kappa-prefix-ablation",
         "2026-10-20-kappa-prefix-additive", "2026-10-kappa-rule-space"
-      ],
-      "posts": ["2026-10-20-making-kappa-a-consequence.md", "2026-10-20-where-kappa-is-not.md", "2026-10-20-the-wrong-waits-survive-a-change-of-clock.md", "2026-10-23-what-the-evidence-can-carry.md", "2026-10-23-the-turn-map-hides-a-clock.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-flat-edge-is-where-the-ant-goes-missing.md", "2026-10-20-joining-the-hunt-for-mechanisms.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-20-what-the-new-experiments-change-in-the-paper.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-23-learning-to-ask-the-ant.md", "2026-10-25-the-crawler-is-a-ceiling-not-a-blueprint.md"],
+      ,
+        "2026-10-27-boundary-excursion-durations"],
+      "posts": ["2026-10-20-making-kappa-a-consequence.md", "2026-10-20-where-kappa-is-not.md", "2026-10-20-the-wrong-waits-survive-a-change-of-clock.md", "2026-10-23-what-the-evidence-can-carry.md", "2026-10-23-the-turn-map-hides-a-clock.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-flat-edge-is-where-the-ant-goes-missing.md", "2026-10-20-joining-the-hunt-for-mechanisms.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-20-what-the-new-experiments-change-in-the-paper.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-23-learning-to-ask-the-ant.md", "2026-10-25-the-crawler-is-a-ceiling-not-a-blueprint.md",
+        "2026-10-27-when-the-diffusive-calibrator-refuses-to-grow.md"],
       "open": [
         {"text": "Gate baseline eligibility is unknown, so the single-cell null does not reject gate mechanisms in general.", "source": "notes/evidence-ledger.md"},
         {"text": "What is the next test that has two explanations disagreeing on a time-weighted outcome, an excluded pilot, and a persistence comparator frozen in advance?", "source": "notes/ACTIVE.md"},
@@ -110,7 +122,11 @@
         {"ref": "2026-10-21-boundary-return-map", "change": "Typical excursions have a compact state; time-weighted returns do not."},
         {"ref": "2026-10-22-single-cell-gates", "change": "Single-cell gates are not resolved."},
         {"ref": "2026-10-25-exposure-classifier-check", "change": "The exposure classes are checked exact; their corner and flat-edge wording is shown to be a loose reading."}
-      ]
+      ,
+        {
+          "ref": "2026-10-27-boundary-excursion-durations",
+          "change": "Shape test gated out: need a compact-domain diffusive calibrator."
+        }]
     },
     {
       "slug": "field-memory-tether",
