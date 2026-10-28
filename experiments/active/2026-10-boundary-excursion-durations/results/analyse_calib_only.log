@@ -1,0 +1,11 @@
+Installed 1 package in 265ms
+=== Calibration ===
+rw: nwin=0 L_range=None Score(L)=None Score(L^2)=None verdict=uninformative mean_tau/L=None fragile=False slopes=[]
+mf: nwin=36 L_range=6.812717064935449 Score(L)=0.0579846020861797 Score(L^2)=0.16280155220679074 verdict=S mean_tau/L=1.0101535230605367 fragile=False slopes=[]
+rotor: nwin=36 L_range=6.392629001939839 Score(L)=0.12024012721482383 Score(L^2)=0.14623806353971192 verdict=inconclusive mean_tau/L=1.8848195548583822 fragile=False slopes=[]
+
+C1 (rw→D): FAIL (verdict=uninformative)
+C2 (mf→S & E[tau]/L in [0.5,2]): PASS (verdict=S, ratio=1.0101535230605367)
+Instrument adequate: False
+
+wrote /workspace/turmite-autoresearch/experiments/2026-10-27-boundary-excursion-durations/results/analysis.json and analysis.txt

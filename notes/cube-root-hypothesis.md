@@ -118,5 +118,5 @@ reversal, which has neither, grew compactly in every run that did not form a hig
 readings were unresolved (thresholds narrowly missed), so this is a well-supported pattern, not a
 scored confirmation. Restated step 1, as an interpretation: *the fresh-ground turn must return the
 walker to departed territory within O(1) steps*. Nothing here yet explains why the bounded regime
-sits at a ~ 0.69-0.74 in these windows, or derives 2/3; see Q33-Q35 in
+sits at a ~ 0.69-0.74 in these windows, or derives 2/3; see Q33, Q38 and Q39 in
 `notes/open-questions-hypotheses.md`. The original predictions above stand unchanged.

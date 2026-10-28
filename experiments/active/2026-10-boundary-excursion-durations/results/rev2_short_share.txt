@@ -1,0 +1,13 @@
+# Post hoc exploratory (not a gate): short-excursion shares, Rev2 calib
+eden: windows=36 completed=605935 interior_steps=64681360 L=[6.81,49.98]
+  tau_le_3: count_share=0.5196 time_share_of_interior=[0.0067,0.0085] time_share_of_completed=[0.0047,0.0117]
+  tau_le_7: count_share=0.6646 time_share_of_interior=[0.0121,0.0180] time_share_of_completed=[0.0085,0.0247]
+idla: windows=36 completed=91094 interior_steps=66856549 L=[6.80,27.31]
+  tau_le_3: count_share=0.3389 time_share_of_interior=[0.0006,0.0007] time_share_of_completed=[0.0004,0.0010]
+  tau_le_7: count_share=0.4054 time_share_of_interior=[0.0009,0.0013] time_share_of_completed=[0.0007,0.0018]
+mf: windows=36 completed=1450373 interior_steps=65488214 L=[10.30,68.00]
+  tau_le_3: count_share=0.0757 time_share_of_interior=[0.0028,0.0039] time_share_of_completed=[0.0019,0.0053]
+  tau_le_7: count_share=0.1657 time_share_of_interior=[0.0108,0.0178] time_share_of_completed=[0.0075,0.0242]
+rotor: windows=36 completed=813928 interior_steps=63957102 L=[9.17,56.98]
+  tau_le_3: count_share=0.7277 time_share_of_interior=[0.0123,0.0154] time_share_of_completed=[0.0086,0.0210]
+  tau_le_7: count_share=0.8451 time_share_of_interior=[0.0183,0.0258] time_share_of_completed=[0.0127,0.0351]

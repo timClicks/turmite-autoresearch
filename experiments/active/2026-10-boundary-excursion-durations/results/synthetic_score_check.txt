@@ -1,0 +1,7 @@
+Synthetic pure-scale Score check (not a walker; validates the collapse statistic).
+MARGIN=0.75; L in [np.float64(8.0), np.float64(12.0), np.float64(16.0), np.float64(24.0), np.float64(32.0), np.float64(48.0), np.float64(64.0)]
+D: T=L^2*U^2: Score(L)=0.1323 Score(L^2)=0.0156 verdict=D
+S: atom~1.5L: Score(L)=0.0071 Score(L^2)=0.3814 verdict=S
+geom mean~L: Score(L)=0.0191 Score(L^2)=0.1910 verdict=S
+Conclusion: Score separates pure-scale D from pure-scale S/geom when L ranges over ~8x.
+Therefore C1 failure is about the RW calibrator (L=A/P barely grows; not a compact-domain D family), not a broken Score.

@@ -1,0 +1,134 @@
+{
+ "eden": {
+  "L_max": 49.980892,
+  "L_min": 6.808511,
+  "completed_time_bracket": [
+   46784548,
+   92963161
+  ],
+  "interior_steps": 64681360,
+  "n_completed": 605935,
+  "n_windows": 36,
+  "tau_le_3": {
+   "count_share": 0.5196118395537476,
+   "time_share_of_completed": [
+    0.0046603100873448405,
+    0.011737676026496308
+   ],
+   "time_share_of_interior": [
+    0.006689531574475243,
+    0.008511339279198829
+   ]
+  },
+  "tau_le_7": {
+   "count_share": 0.6646389464216459,
+   "time_share_of_completed": [
+    0.008470313888081523,
+    0.024714065313466375
+   ],
+   "time_share_of_interior": [
+    0.01212398749809837,
+    0.018021637145539303
+   ]
+  }
+ },
+ "idla": {
+  "L_max": 27.30504,
+  "L_min": 6.804348,
+  "completed_time_bracket": [
+   48274635,
+   96458176
+  ],
+  "interior_steps": 66856549,
+  "n_completed": 91094,
+  "n_windows": 36,
+  "tau_le_3": {
+   "count_share": 0.3388587612795574,
+   "time_share_of_completed": [
+    0.00040164725243740804,
+    0.0009653600001623777
+   ],
+   "time_share_of_interior": [
+    0.0005794346339952426,
+    0.0006971643122052262
+   ]
+  },
+  "tau_le_7": {
+   "count_share": 0.40540540540540543,
+   "time_share_of_completed": [
+    0.0006531744884710042,
+    0.0018435346640582292
+   ],
+   "time_share_of_interior": [
+    0.0009421216162383733,
+    0.0013318665311307049
+   ]
+  }
+ },
+ "mf": {
+  "L_max": 67.998081,
+  "L_min": 10.302115,
+  "completed_time_bracket": [
+   47767308,
+   94084243
+  ],
+  "interior_steps": 65488214,
+  "n_completed": 1450373,
+  "n_windows": 36,
+  "tau_le_3": {
+   "count_share": 0.07572121102640493,
+   "time_share_of_completed": [
+    0.0019341738629732124,
+    0.005306262714436577
+   ],
+   "time_share_of_interior": [
+    0.0027766217597566486,
+    0.003876239471120712
+   ]
+  },
+  "tau_le_7": {
+   "count_share": 0.1657380549693079,
+   "time_share_of_completed": [
+    0.00752044233191221,
+    0.024211692589209338
+   ],
+   "time_share_of_interior": [
+    0.010751064306013903,
+    0.017831513927070906
+   ]
+  }
+ },
+ "rotor": {
+  "L_max": 56.979367,
+  "L_min": 9.174065,
+  "completed_time_bracket": [
+   46564146,
+   92314364
+  ],
+  "interior_steps": 63957102,
+  "n_completed": 813928,
+  "n_windows": 36,
+  "tau_le_3": {
+   "count_share": 0.7276663292084804,
+   "time_share_of_completed": [
+    0.008550267431286427,
+    0.021022799207519666
+   ],
+   "time_share_of_interior": [
+    0.01231516087142285,
+    0.015369927173998597
+   ]
+  },
+  "tau_le_7": {
+   "count_share": 0.8450501764283819,
+   "time_share_of_completed": [
+    0.012738537363581319,
+    0.035110421159684366
+   ],
+   "time_share_of_interior": [
+    0.018290541056722676,
+    0.025826842498273297
+   ]
+  }
+ }
+}

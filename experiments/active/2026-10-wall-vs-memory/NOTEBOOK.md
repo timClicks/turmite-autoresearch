@@ -220,3 +220,8 @@ My hand-written entry times from 18:30 onwards ran ahead of the clock (entries s
 18:28 and 18:44; the clock reads 18:51 as I write this). Git commit times are authoritative; the README has a table
 mapping each registration and run to its commit or provenance time. The order registration -> code -> run holds for
 Stages 3, 3b and 3c. Earlier entries are left as written.
+
+### 2026-10-28 (+1300) · merge of origin/main · deviation
+Merging main brought in Q34-Q37 (cube-root-routes proposals, numbered on main first). My questions Q34 and Q35 from
+2026-10-28 are renumbered **Q38** (forced turns crystallise rules) and **Q39** (bounded regime near 0.70); Q33 is unchanged.
+References in notes, the homepage and the notebook are updated; links pinned at `df2e5bb` still show the old numbers.

@@ -480,6 +480,28 @@ way. The square-ring questions are renumbered: ring onset from a blank board is 
 corner proof is now **Q29**. The crawler-support question is Q28. Older append-only records keep the numbers they were
 written with; read "Q25/Q26" in `experiments/archive/2026-10-square-ring-fillers/NOTEBOOK.md` as Q27/Q29.
 
+## Added 2026-10-26: routes to explaining the cube root (proposals, not results)
+
+Survey note `notes/cube-root-routes-2026-10-26.md` (written 2026-10-26 23:05 NZDT; nothing run, nothing registered). It
+reframes the target and records four candidate questions with predictions and kill criteria. Priorities in
+`notes/ACTIVE.md` are unchanged.
+- **Reframing (prior art credited).** Constant kappa is equivalent to E[T] tracking L, i.e. the ant returns to its edge
+  on Kac's schedule for a uniform occupant, up to a rule constant. Meng and Cohen (1994) used the same boundary-return
+  argument. A diffusive excursion law (tail `s^(-1/2)`, cutoff `L^2`) and a sweep law (scale L) both give
+  `z(1 - theta) = 1`, so the mean cannot separate them.
+- Q34. Does an adapted Florescu-Levine-Peres excursion lemma hold for blob rules: bounded visits per cell per origin
+  excursion (M), and each long excursion covering a fixed fraction of the boundary (B)? Together they would give a
+  lower bound `A >~ t^(2/3)`. Prediction: tethered log-growers fail (B). Kill: per-excursion multiplicity or coverage
+  drifts with L in blob rules. Credits frontier-results items 29/28, item 6 and kappa-mechanisms (no Eulerian identity).
+- Q35. Do chaotic blob rules share one standardised edge-fluctuation distribution, distinct from the rotor's (the KPZ
+  and Tracy-Widom lesson)? Kill: between-rule spread as large as the ant-rotor gap, against rotor seed spread.
+- Q36. Is the ant's excursion-duration law diffusive (collapse in `s/L^2`) or a sweep (collapse in `s/L`)? It must be
+  gated on random-walk and rotor calibrators being distinguishable; otherwise it is uninformative, as C6 was.
+- Q37. Universality conjecture: stationary boundary access holds for any compact walker with no tether and no edge
+  lock, whatever its class. Known failures each break one condition (tethered rules, crawler fillers, sqrt(t) cluster,
+  highways; rotor examples from Bou-Rabee and Peres 2026). Kill: a compact, untethered, unlocked walker (frozen
+  operational definitions) whose kappa drifts. P5 agreement is not evidence.
+
 ## Added 2026-10-26: wall or memory (`experiments/active/2026-10-wall-vs-memory/`)
 
 A 2x2 factorial splits the ant's turn noise by cell type (fresh vs revisited; `hy:RULE:EV:EF:SEED`, oracle-tested).
@@ -525,9 +547,45 @@ Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per
   dichotomy into a quantitative prediction. Also reframes Q30: at fresh-noise rate EF < 1 the fresh-run length has a
   geometric tail with a scale set by EF, so the EF dose curve should collapse on run-length scale / territory size.
   Not registered.
-- Q34. Why does forcing L on fresh ground crystallise 13% of compact core-class rules into square-spiral fillers with
+- Q38. Why does forcing L on fresh ground crystallise 13% of compact core-class rules into square-spiral fillers with
   rational clocks (A/t = 1/10, 1/8, 1/6, 1/4), and reversal send 37% into highways, when the same rules under R do
   neither (selection) and the census base rate of early highways is ~7%? The two forced-L runs of `RLRLLRRLRLR` and
   `RLRLLRRRRRRR` are one byte-identical trajectory, so these structures form before long colours are read.
-- Q35. Why is the bounded regime's early a about 0.69-0.74 rather than 2/3 at these windows, and does bounded randomness
+- Q39. Why is the bounded regime's early a about 0.69-0.74 rather than 2/3 at these windows, and does bounded randomness
   (+0.05) share V1's finite-window offset (Stage 2)? Unresolved; needs the longer horizons of F-c.
+
+## Added 2026-10-27: excursion-duration collapse (stage 1) — P-C in PR #18
+
+Stage-1 experiment `experiments/active/2026-10-boundary-excursion-durations/` (registration commit `9bfa496`)
+implements the excursion-duration discrimination idea P-C in `notes/cube-root-routes-2026-10-26.md`
+on branch `survey/cube-root-routes` (PR #18, unmerged at registration; merged 2026-10-28). P-C is **Q36** in the
+2026-10-26 section above, which also holds the related Q34, Q35 and Q37. The open items below are unnumbered; they
+concern the instrument for Q36.
+
+- **Result of stage 1:** instrument **revise**. The nonparametric collapse Score separates planted
+  pure-scale L vs L² laws, and mean-field prefers L as registered. The random-walk calibrator never
+  grows L=A/P into the analysis band, so C1 fails and the excluded ant pilot is not evidence.
+- **Revision 1** (registration `9c2aeea`, before revised measurement): stay-on-reject reflecting
+  cup grew L but failed the frozen compactness pre-check (porous A/P²) and Score preferred S
+  (frontier trapping). C1' **inadequate**; C2 (mean-field) still passed; confirmation **not run**.
+  Cup-as-D design retired (`NR-20261027-reflecting-cup-d-calibrator`).
+- **Open (unnumbered):** which *filled* compact-domain walker (visited-neighbour reflection,
+  Eden growth, or internal DLA) can pass compactness and prefer D under the frozen Score? Until that
+  is newly registered and green, do not run the reserved confirmation specs. Do not P-shop the retired cup.
+- **Revision 2** (registration `900f25f`, results `1da42bd`, 2026-10-28): Eden-style growth and internal
+  DLA both pass compactness, yet the frozen Score prefers S (Eden) or neither (IDLA), not D. Gate fail;
+  confirmation **not run**; both retired for this Score (`NR-20261028-excursion-score-compact-d-calibrators`).
+  Reading: short boundary returns have an L-independent head in compact walkers and dominate the
+  number-weighted Score, so it cannot certify diffusion even where diffusion is built in. This is an
+  instrument limitation; it does not bear on whether ant excursions diffuse or sweep.
+- **Open (unnumbered, supersedes the item above):** can a newly registered tail-restricted or step-weighted
+  collapse statistic prefer D on IDLA (and Eden) while mean-field still prefers L? Calibrate before any ant
+  data; do not retune the retired Score.
+- **Added 2026-10-28 (post hoc, exploratory; proposal, not registered):** in the Rev2 calibration data, short excursions
+  (τ ≤ 3) are a third to three quarters of the completed-excursion count for Eden, IDLA and the rotor. They are a few
+  percent or less of off-boundary time for every walker (`experiments/active/2026-10-boundary-excursion-durations/results/rev2_short_share.txt`).
+  **Open (unnumbered):** does a time-weighted collapse statistic, or the slope of log τ on log (maximum depth)
+  (≈2 diffusive, ≈1 sweep), separate the calibration panel? The panel is Eden, IDLA and a slope-1 ballistic control.
+  The statistic should also pass a synthetic-mixture gate (mostly short returns plus a tail) before any ant data. The square-ring fillers are
+  expected to be a no-deep-excursion control rather than a slope-1 control (unchecked). Proposals are in the experiment README's
+  "Next steps proposal".

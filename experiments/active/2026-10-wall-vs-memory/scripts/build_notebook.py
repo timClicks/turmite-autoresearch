@@ -143,7 +143,7 @@ md("""## Caveats
 ## Next steps
 From the README review addendum (item 9): F-a (forced L) ran as Stage 3, below; F-b is deferred (its excursion length is
 bounded by 4 for every deterministic arm); F-c (longer V1/rotor with frozen windows) and F-d (fresh versus colour-zero noise)
-are registered, not run. Proposed, not registered (Q33-Q35 in `notes/open-questions-hypotheses.md`): a dose curve in the
+are registered, not run. Proposed, not registered (Q33, Q38 and Q39 in `notes/open-questions-hypotheses.md`): a dose curve in the
 bound itself (fresh runs bounded by m cells); why forced L crystallises some rules into square-spiral fillers; why the
 bounded regime sits at a ~ 0.69-0.74. Older proposals:
 - Q30: a dose curve in EF between 0.1 and 1, to find where the reflecting edge fails and whether the loss is sharp.

@@ -30,6 +30,7 @@ reserved where relevant. No new sweep is proposed or registered by this ledger.
 | What does kappa below uniform mean? | BO-02, BO-04 | Exact window/geometry baseline; seed-disjoint 2^26-step replication |
 | Can the rule predict occupation? | BO-03, RD-01 | Family split and persistence comparator |
 | Are long returns local? | RD-03, RD-04, RD-05 | Calibration, weighting, shuffle intervention and missing eligibility |
+| Can excursion-duration shape tell diffusion from sweeping? | RD-06 | Compact-walker calibration of the collapse Score; pruning entry for the retired calibrators |
 | Is the ant still in the modeled regime? | RG-01, RG-02, RG-03 | Censoring, second-board checks, calibrated windows |
 | Can a null result justify skipping a family? | [Pruning index](pruning-index/README.md) | Exact membership, objective and evidence class; never this ledger alone |
 

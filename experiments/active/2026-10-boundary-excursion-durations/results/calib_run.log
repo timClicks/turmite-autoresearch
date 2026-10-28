@@ -1,0 +1,2 @@
+12 specs, max_log2 24, grid 8192, check true
+wrote hist /workspace/turmite-autoresearch/experiments/2026-10-27-boundary-excursion-durations/results/calib_hist.csv

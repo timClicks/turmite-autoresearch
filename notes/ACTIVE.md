@@ -6,6 +6,12 @@ the retained backlog is context, not a list of simultaneous commitments. Remove 
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
+## Pointer (2026-10-28): excursion-duration collapse stage 1 + Revisions 1–2
+
+`experiments/active/2026-10-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`, each before its measurement).
+Implements P-C / Q32 from `notes/cube-root-routes-2026-10-26.md` on PR #18 (reference by branch/PR; do not mint colliding Q numbers here).
+Stage-1: **revise** (RW D calibrator never grows L). Revision 1 reflecting cup: L grows but compactness (A/P²) fails and Score prefers S (frontier trapping); C1' **inadequate**; confirmation **not run**; cup-as-D design **retired** (`NR-20261027-reflecting-cup-d-calibrator`). MF L-control still passes; rotor inconclusive. Revision 2: Eden-style and IDLA both pass compactness but the frozen number-weighted Score does not prefer D (Eden S, IDLA inconclusive); gate **fail**, confirmation **not run**; both retired as D calibrators for this Score (`NR-20261028-excursion-score-compact-d-calibrators`). Instrument limitation, not an ant result. Paused: any next step needs a newly registered observable (e.g. tail-restricted collapse) calibrated on these walkers before ant data.
+
 ## Next phase: boundary access, regime validation, closure
 
 **Central question:** what makes boundary access settle into the scaling needed
@@ -101,7 +107,7 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
   63/63 compact when not escaping). Forced turns crystallise rules (highways; square-spiral fillers). F-a done (its
   prediction failed), F-b deferred (bounded at 4 cells by construction). Dead end, exact scope:
   `NR-20261028-wall-vs-memory-bounded-random-fresh-compact`. Open: Q33 (does the bound's size set a crossover? a
-  candidate priority-1 test, since it predicts boundary access from a parameter fixed in advance), Q34, Q35.
+  candidate priority-1 test, since it predicts boundary access from a parameter fixed in advance), Q38, Q39.
 
 - **Proof track (bounded closure only this phase; started 2026-10-20):** turn simulated regularities into checked macro-transitions
   (`notes/proof-track-2026-10-20.md`). First target: is the `RLRLLL` column sweeper `C(L) -> C(L+g)` for all heights?
@@ -202,6 +208,11 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
 - **Paper figures 1-5 are built** (2026-10-20: `fig:walker-map`, `fig:edge-gap`, `fig:layers`, `fig:prefix`; late-switch earlier). `rebuild_figures.py`
   confirmed 2026-10-20 to regenerate all figures and `main.pdf` cleanly. Proposals 6-8 remain unattempted.
   `notes/paper-figure-proposals-2026-10-16.md`, `notes/handover-paper-figures-2026-10-17.md` (stale for item 4).
+- **Routes to explaining the cube root (proposals only, 2026-10-26):** a literature survey (Kac's lemma, FLP and
+  Bou-Rabee-Peres excursion arguments, constants that came before their theories) with four unregistered proposals: an
+  adapted excursion lemma (Q34), fluctuation-shape collapse (Q35), a diffusive-versus-sweep duration collapse (Q36) and
+  a universality conjecture for stationary access (Q37). Reviewer ranking 2026-10-27: Q36 first, then Q34, Q35, Q37 (note section 8). None is scheduled; a choice must still pass the priority-1
+  feasibility gate. `notes/cube-root-routes-2026-10-26.md`.
 
 ## Uncommitted work in progress (do not lose)
 
