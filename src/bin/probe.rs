@@ -54,6 +54,11 @@ fn main() {
                 let (rule, t) = spec.split_once(':').unwrap();
                 let w = turmite::walkers::FreshTurnAnt::new(&rule.parse::<Rule>().unwrap(), turmite::walkers::FreshTurnAnt::parse_turn(t));
                 probe_walker(w, size, 8, max_log2)
+            } else if let Some(spec) = r.strip_prefix("fs:") {
+                // fs:RULE:SET:SEED (wall-vs-memory Stage 3c: fresh turn drawn uniformly from SET)
+                let p: Vec<&str> = spec.split(':').collect();
+                let w = turmite::walkers::FreshSetWalker::new(&p[0].parse::<Rule>().unwrap(), p[1], p[2].parse().unwrap());
+                probe_walker(w, size, 8, max_log2)
             } else if let Some(seed) = r.strip_prefix("rw:") {
                 probe_walker(RandomWalk { state: seed.parse().unwrap() }, size, 8, max_log2)
             } else if let Some((rule, seed)) = r.split_once('@') {

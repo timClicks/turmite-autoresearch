@@ -445,6 +445,47 @@ impl Walker for FreshTurnAnt {
     }
 }
 
+/// Ant with a random fresh-ground turn from a fixed set (wall-vs-memory Stage 3c): on a
+/// never-departed cell the turn is `set[(high32 * len) >> 32]` of one SplitMix64 draw; elsewhere
+/// it is the ant. One draw per step, consumed on every step as in `HybridWalker`, so with
+/// `set = [R, L]` this is `HybridWalker::new(rule, seed, 0.0, 1.0)` step for step (F1).
+pub struct FreshSetWalker {
+    turn: Vec<u8>,
+    next: Vec<u8>,
+    set: Vec<u8>,
+    state: u64,
+}
+
+impl FreshSetWalker {
+    /// `set` is a string of letters R, L, U (reversal), e.g. "RU".
+    pub fn new(rule: &Rule, set: &str, seed: u64) -> FreshSetWalker {
+        let n = rule.len();
+        assert!(n < DEPARTED as usize);
+        assert!(!set.is_empty());
+        FreshSetWalker {
+            turn: rule.0.iter().map(|t| t.delta()).collect(),
+            next: (0..n).map(|i| ((i + 1) % n) as u8).collect(),
+            set: set.chars().map(|c| FreshTurnAnt::parse_turn(&c.to_string())).collect(),
+            state: seed,
+        }
+    }
+}
+
+impl Walker for FreshSetWalker {
+    const RANDOM_INIT: bool = false;
+    fn initial_cell(&self, _: i64, _: i64) -> u8 {
+        0
+    }
+    #[inline(always)]
+    fn step(&mut self, cell: &mut u8, heading: &mut u8) {
+        let r = splitmix_next(&mut self.state);
+        let c = (*cell & !DEPARTED) as usize;
+        let turn = if *cell & DEPARTED == 0 { self.set[(((r >> 32) * self.set.len() as u64) >> 32) as usize] } else { self.turn[c] };
+        *heading = (*heading + turn) & 3;
+        *cell = self.next[c] | DEPARTED;
+    }
+}
+
 /// Multi-state turmite (`ext::Turmite`) as a probe/shape walker: same table semantics as
 /// `ext::SqSim` (write colour, quarter-turn clockwise, next state), blank board, heading north.
 pub struct TurmiteWalker {

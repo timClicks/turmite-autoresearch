@@ -195,3 +195,8 @@ bounded policy separates them: R and U mixed at random is bounded (a U returns a
 ### 2026-10-28 19:30 (+1300) · 9f8a06a · decision
 Registered Stage 3c (random but bounded fresh turns RU/LU vs unbounded RLU; F1 identity gate). Priors H-bound 65%,
 H-random 25%. Added a "filler" class before running, from the Stage 3b post hoc finding.
+
+### 2026-10-28 19:50 (+1300) · 9fbcbf2 · intent
+T0' passes (`cargo test --release --locked --test fresh_set`: sparse reference, RL = F1, RU/LU bound, RLU long runs;
+hybrid_walker and fresh_turn still pass). Specs (350), runner and scorer committed before the run; the scorer was
+checked on synthetic input only (F1 and Stage 3b rows relabelled), where it reproduces Stage 1's F1 numbers.
