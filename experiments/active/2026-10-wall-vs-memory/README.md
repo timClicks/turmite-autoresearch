@@ -610,3 +610,11 @@ establish it.
   the plain ant, "fresh" target directories). The additive-law entry concerns conservation laws.
 - Decision: **run**. `ft:RULE:R` deliberately replicates the deterministic ants (gate T1).
 - Budget: 18 runs of 2^27 steps on 4 cores (minutes). No extension without a new registration.
+
+Clarification (2026-10-28 18:55 NZDT, still before any run): Stage 1's `classify()` applies the
+late-window test only to conditions with >= 6 runs, so the single-run deterministic ants were
+classed on the early window alone. Stage 3 conditions are single runs and use the same function
+unchanged; the late a (when the run completes `k = 20..26`) is reported beside the class and
+scored separately as "late a <= 0.74", not folded into the class. Specs:
+`results/stage3_specs.txt` (18 lines, `ft:RULE:T` for T = R, L, U); scorer `scripts/analyse_stage3.py`,
+committed before the run.
