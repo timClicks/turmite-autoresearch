@@ -198,7 +198,9 @@ input[type=search] { width: min(100%, 640px); margin-top: 10px; padding: 14px 16
 /* Home page widgets: "How an ant works" (ex-) and "Four walkers" (wc-). */
 .ant-explainer, .walker-compare { margin-bottom: 55px; --wc-0: #b74727; --wc-1: #2f6f6a; --wc-2: #8a6d1f; --wc-3: #5d6f46; }
 .ant-explainer[hidden], .walker-compare[hidden] { display: none; }
-.ex-lede { max-width: 760px; font-size: 18px; color: var(--muted); margin: 22px 0; }
+.ex-lede, .section-lede { max-width: 760px; font-size: 18px; color: var(--muted); margin: 22px 0; }
+/* A bridge closes a home-page section by handing the reader on to the next one. */
+.section-bridge { color: var(--ink); margin: 30px 0 0; }
 .ex-lede code, .homepage-note code { font: .9em ui-monospace, monospace; color: var(--ink); }
 .ex-layout { display: grid; grid-template-columns: minmax(0, 460px) minmax(0, 1fr); gap: 34px; align-items: start; }
 .ex-board canvas { display: block; width: 100%; height: auto; aspect-ratio: 1; background: var(--panel); }
