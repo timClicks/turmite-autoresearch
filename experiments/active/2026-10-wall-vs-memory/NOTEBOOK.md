@@ -144,3 +144,8 @@ deterministic arms; it only separates F1 again. F-a's eight seeds are also moot:
 Registered Stage 3 in the README before any code: `ft:RULE:T` for T in {R, L, U}, 6 rules, one run each, three
 explanations (H-bound / H-chiral / H-match) with a reading table, a "stalled" class added before running, gates T0/T1.
 F-b deferred with reason. Pruning preflight: no member entry; run. Priors H-bound 40%, H-chiral 30%, H-match 20%.
+
+### 2026-10-28 19:00 (+1300) · feb6e2d · intent
+T0 passed (`cargo test --release --locked --test fresh_turn`, 4 tests, 96 proptest cases per property, fixed seed
+20261028). Specs, runner and scorer committed at `feb6e2d` before the run. Launching
+`RAYON_NUM_THREADS=3 sh scripts/run_stage3.sh` (3 threads: an unrelated single-threaded audit is using one core).
