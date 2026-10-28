@@ -214,3 +214,9 @@ experiments, Python only). The probe binary does not read them; its sources were
 The bound on fresh runs is the strongest separator found: bounded policies 0 + 1 porous of 514 runs, unbounded 73/148
 (+ F1 39/48). Bounded randomness shifts early a by +0.056 (sd 0.040) in cohort B: compact but not the ant. My
 thresholds (0.90, 0.50, 0.70) were too sharp for the near-edge intermediates; I do not move them after the fact.
+
+### 2026-10-28 18:55 (+1300) · 367df8f · deviation
+My hand-written entry times from 18:30 onwards ran ahead of the clock (entries stamped 19:10-19:55 were written between
+18:28 and 18:44; the clock reads 18:51 as I write this). Git commit times are authoritative; the README has a table
+mapping each registration and run to its commit or provenance time. The order registration -> code -> run holds for
+Stages 3, 3b and 3c. Earlier entries are left as written.

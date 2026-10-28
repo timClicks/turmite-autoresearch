@@ -883,3 +883,19 @@ Stage 1 ("forced R on a fresh cell bounds penetration into fresh ground"), now t
 alternatives that Stage 1 could not separate. It is still a finite-window, core-class result: it
 does not say why the bounded regime's exponent is near 2/3 rather than 0.70-0.74, and the
 registered thresholds were not met cleanly.
+
+### Timestamp correction for Stages 3-3c (2026-10-28 18:55 NZDT, append only)
+
+The NZDT times I wrote by hand in the Stage 3, 3b and 3c headings ran ahead of the clock (some lie in the future of
+the work). Git commit times are authoritative, and they confirm the order registration -> code -> run for every stage:
+
+| event | written | commit (NZDT, from git) |
+|---|---|---|
+| Stage 3 registered | 18:35 | `caa1fe1` 18:22 |
+| Stage 3 clarification, walker, scorer | 18:55 | `feb6e2d` 18:25 |
+| Stage 3 run | 18:25 | provenance 18:25:34-18:25:44 |
+| Stage 3b registered (with scorer) | 19:05 | `383fe4c` 18:29 |
+| Stage 3b run | 18:29-18:32 | provenance 18:29:16-18:32:32 |
+| Stage 3c registered | 19:30 | `9fbcbf2` 18:35 |
+| Stage 3c walker, scorer | (not stated) | `3d13c18` 18:36 |
+| Stage 3c run | 18:37-18:41 | provenance 18:37:05-18:41:21 |

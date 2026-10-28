@@ -42,3 +42,11 @@
 ## Amendments (append only)
 
 None.
+
+### 2026-10-28 18:55 NZDT amendment 1: registration time, status stays `active`
+
+- Evidence revision: unchanged (`df2e5bb1908e052a0e7ac3cd93d3fa2e2a9b233b`).
+- Reason: the "Registered" field above (20:00+13:00) was a hand-written estimate ahead of the clock. The entry was
+  committed at `2c3ca5a3` (2026-10-28 18:43 NZDT). The Stage 3c registration it cites was committed at `9fbcbf2f`
+  (18:35 NZDT), not 19:30. Scope and claim unchanged.
+- Replacement status: `active`.

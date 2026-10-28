@@ -70,3 +70,7 @@ Regenerated intervals against the committed ones (run at `797704a`): M2 between 
 No verdict changes: M1 failed, M2 failed (within - between = -0.851 against >= 0.3), M3 held (|rho| >= 0.30 and
 intervals exclude 0 at both windows). The old numbers were one draw from the same bootstrap distribution, not wrong
 by more than its Monte Carlo error; they were not reproducible.
+
+### 2026-10-28 18:55 (+1300) · 367df8f · deviation
+The times on my three entries above are approximate: the fix was committed at `4fd558b` (18:18 NZDT) and the
+regenerated result at `d60e0f4` (18:25). Order unchanged.
