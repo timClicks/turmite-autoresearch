@@ -207,3 +207,70 @@ Appended below after the run, in order, never edited.
 ## Pruning-index outcome and next question
 
 Pending the run.
+
+## Results (run 2026-10-28 08:00-08:14 UTC, commit `7608a6f`; appended 2026-10-28 21:15 (+1300) NZDT)
+
+Command: `RAYON_NUM_THREADS=3 sh experiments/active/2026-10-leak-titration/scripts/run.sh`, then
+`uv run --frozen python experiments/active/2026-10-leak-titration/scripts/analyse.py`. Clean tree; probe sha256
+`a0615a05...` (the Stage 3c binary); `probe.csv` sha256 `9f81f18c...`; `results/provenance.txt`. 1068 runs in 14 min.
+Scored output: `results/analysis.txt`; per-run fits `results/runs.csv`; curves `results/curves.csv`; figure `results/fig_curves.png`.
+
+**Gates G1-G5 all pass** (G1 102/102 and G2 6/6 byte-identical; G3 max |d| 0.023, G4 max |d| 0.029; G5 102/102 and 12/12).
+
+| prediction | outcome |
+|---|---|
+| P1 shape, arm R | **unresolved**: M = 0.289, just above the frozen smooth cut 0.28 and well below the sharp cut 0.40; per-rule S 0.22-0.42. Not H-sharp, not H-endpoint (EF_step 0.0-0.4). |
+| P1 shape, arm L | H-smooth on 3 scoreable rules (M = 0.230); thin evidence. |
+| P2 median EF_50 in [0.3, 0.7] | **held** at the edge: median 0.30 (per rule 0.3, 0.3, 0.4, 0.5, 0.3, 0.3). |
+| P3 monotone within 0.015 | **held**, 5 of 6 (RRLLLRLRRRLL dips by 0.035 from 0.8 to 1.0). |
+| P4 handedness | **failed**: EF_50 within 0.1 in 1 of 3 rules scoreable in both arms; readings L = smooth, R = unresolved. |
+| P5 window drift | **unresolved**: median |D| = 0.10 (D: 0, nan, +0.30, +0.20, -0.10, +0.10). |
+
+Run-level classes, arm R (compact / intermediate / porous of 48): EF 0.1: 48/0/0; 0.2: 38/10/0; 0.3: 17/29/2;
+0.4: 1/35/12; 0.5: 0/26/22; 0.6: 0/10/38; 0.7: 0/10/38; 0.8: 0/7/41; 0.9: 0/4/44; 1.0: 0/9/39. **No coexistence
+cell** (>= 2 compact and >= 2 porous in one rule at one EF) in either arm. Between-seed sd of a stays
+0.013-0.031 and has no sharp peak.
+
+Observations (the numbers above; no mechanism implied):
+- On the base-R arm the change of class happens between EF = 0.1 and about 0.6, passing through a wide
+  *intermediate* band rather than a mixture of compact and porous runs. The rise is steepest at EF = 0.1-0.4 and
+  saturates after about 0.5; EF = 0.5 to 1.0 adds little (a rises 0.01-0.05). The registered grid sits
+  in the saturated part from 0.6 up, so in hindsight the 0.6-0.9 additions cost little but also confirm there is no
+  endpoint jump.
+- The registered priors: smooth 50 / sharp 25 / unresolved 25. The result is "unresolved" by the frozen rule, with
+  every secondary indicator (no coexistence, no sd peak, S below 0.43 everywhere, class passing through intermediate)
+  pointing the smooth way. I do not upgrade it to H-smooth: the cut was frozen and missed by 0.009.
+
+Post hoc, descriptive (not registered, not scored):
+- **Arm L, small leaks destroy the forced-L highways and land them in the porous class.** The two rules that escape
+  as highways at EF = 0 (`RLRLLRRLRLR`, `RLRLLRRRRRRR`) have early a 0.88-0.90 already at EF = 0.1 (16 porous runs of 48 in the arm at that
+  EF, all from those rules). So in these rules a leak of 10% takes an ordered structure straight to porous growth with no compact stage.
+  Excluding them, arm L's other rules rise more slowly than arm R's (EF_50 0.4-0.7 against 0.3-0.5), which is the P4 miss: with a forced-L
+  base the loss of compactness needs more leak. Three rules, one base turn, no mechanism: this is a lead, not a finding.
+- `RRRRLLLLLLLR` in arm L has a rise of only 0.07 (its forced-L run is already at 0.777) and was unscoreable.
+- Window dependence: two rules (`RRLLLRLRRRLL`, `RRLLRLLRLR`) have EF_50 that moves up by 0.2-0.3 as the window lengthens, three do not.
+  A pattern of "compactness survives larger leaks at later times" would fit scale competition but is two rules.
+
+### What this does and does not say
+
+- Supported (finite window k = 12..22, six core rules, 8 seeds): over EF 0.1 to 0.6 the six rules change from compact to
+  porous gradually, through an intermediate band, with no run-level coexistence and no step carrying more than 43% of the rise
+  in any rule. There is no abrupt percolation-like threshold at 0.1 resolution **in these data**; by the calibration, a
+  transition narrower than about 0.05 sitting inside one grid step could still produce S near 0.43 and would be hard to tell
+  from this. Stage B's fine grid is the test for that, and by the registered rule Stage B is not triggered (M = 0.289 < 0.34).
+- Not supported: any universality class; any statement about asymptotic t; any statement about other rules; "H-smooth" as a registered verdict.
+- Falsification-harness check (AGENTS.md): the words "compact" and "porous" here are the frozen run classes, not claims that a rule
+  "is chaotic" or "forms a highway", so no harness claim was registered.
+
+## Pruning-index outcome and next question
+
+No dead-end signature is written. The result is unresolved by the registered rule, and the neighbouring-rule, longer-horizon
+and finer-grid questions are untested. If a later stage settles the shape, a signature for "no sharp EF threshold at 0.1 resolution"
+would need the exact specs (`results/specs.txt`, sha256 `c0ee07fe...`), this scorer and an explicit finite-window scope.
+
+Next questions (none registered):
+- Stage C (deferred in the registration): measure the fresh-run length distribution versus EF. The smooth, saturating
+  curve is what a continuously growing run-length scale would give, and the arm-L lag asks whether the base turn changes that scale.
+- Why do forced-L highways collapse straight to porous growth at EF = 0.1? A cheap test: arm L on rules that are *not* highway at EF = 0
+  (the Stage 3b cohort has 78 of 100 such rules), which would also fix the 3-rule thinness of P4.
+- Whether the EF_50 drift in two rules is real needs more rules and a longer window (the tiled probe port noted in wall-vs-memory F-c).

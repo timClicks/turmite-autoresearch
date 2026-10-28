@@ -1,0 +1,66 @@
+# leak titration scoring; 1068 registered specs, 1068 present in probe.csv
+
+G1 gate_hy rows (EF = 0, 0.1, 1) identical to wall-vs-memory Stage 1 probe.csv: 102/102 -> PASS
+G2 ft:RULE:L rows identical to wall-vs-memory Stage 3: 6/6 -> PASS
+G3 base R through fs: vs hy: at EF 0.5, 0.8: mean d -0.0013 (<= 0.02), max |d| 0.0233 (<= 0.04) -> PASS
+G4 arm L vs arm R at EF = 1: mean d +0.0032, max |d| 0.0286 -> PASS
+G5 classifier: per-run early a/beta equal Stage 1 runs.csv (tol 5e-4): 102/102; EF 0 and 1 condition classes equal Stage 1 conditions.csv: 12/12 -> PASS
+
+curve statistics (S = share of the total rise in the steepest 0.1 step; EF_50 = first grid EF at half the rise)
+-- arm R
+   rule          scoreable   Delta      S  EF_step  EF_50  min step   early a at EF = 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+   RLRLLRRLRLR   yes         0.193  0.357      0.2    0.3    -0.014   0.690 0.705 0.771 0.840 0.874 0.880 0.891 0.877 0.896 0.897 0.883
+   RLRLLRRRRRRR  yes         0.186  0.424      0.1    0.3    -0.014   0.675 0.667 0.746 0.792 0.830 0.840 0.850 0.836 0.853 0.863 0.861
+   RRLLLRLRRRLL  yes         0.199  0.244      0.3    0.4    -0.035   0.670 0.708 0.721 0.749 0.798 0.832 0.862 0.894 0.897 0.904 0.869
+   RRLLRLLRLR    yes         0.201  0.237      0.3    0.5    -0.010   0.705 0.695 0.728 0.752 0.800 0.825 0.868 0.878 0.898 0.907 0.906
+   RRRLLLLR      yes         0.286  0.334      0.0    0.3    -0.014   0.591 0.686 0.724 0.776 0.831 0.867 0.884 0.891 0.895 0.891 0.877
+   RRRRLLLLLLLR  yes         0.221  0.220      0.4    0.3    -0.012   0.646 0.683 0.730 0.769 0.817 0.866 0.891 0.886 0.875 0.878 0.867
+-- arm L
+   rule          scoreable   Delta      S  EF_step  EF_50  min step   early a at EF = 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+   RLRLLRRLRLR   NO            nan    nan      nan    nan      +nan   nan 0.904 0.899 0.883 0.868 0.870 0.873 0.854 0.893 0.884 0.890   [EF = 0 run is escape]
+   RLRLLRRRRRRR  NO            nan    nan      nan    nan      +nan   nan 0.876 0.881 0.883 0.842 0.834 0.831 0.831 0.848 0.845 0.866   [EF = 0 run is escape]
+   RRLLLRLRRRLL  yes         0.207  0.230      0.6    0.7    -0.004   0.691 0.712 0.712 0.708 0.739 0.760 0.785 0.833 0.868 0.894 0.898
+   RRLLRLLRLR    yes         0.189  0.187      0.2    0.4    -0.008   0.717 0.740 0.768 0.803 0.815 0.843 0.865 0.871 0.895 0.886 0.906
+   RRRLLLLR      yes         0.265  0.399      0.0    0.5    -0.006   0.611 0.717 0.710 0.723 0.743 0.757 0.778 0.814 0.816 0.857 0.876
+   RRRRLLLLLLLR  NO          0.070  0.625      0.7    0.9    -0.102   0.777 0.675 0.707 0.714 0.720 0.724 0.746 0.757 0.800 0.832 0.847   [rise 0.070 < 0.1]
+
+P1 arm R: 6 scoreable rules, M = median S = 0.289, EF_step per rule [0.2, 0.1, 0.3, 0.3, 0.0, 0.4] -> unresolved
+P1 arm L: 3 scoreable rules, M = median S = 0.230, EF_step per rule [0.6, 0.2, 0.0] -> H-smooth
+P2 median EF_50 (arm R) = 0.30 (registered [0.3, 0.7]) -> HELD
+P3 monotone within 0.015 in 5/6 rules (registered >= 5) -> HELD
+P4 handedness: EF_50 within 0.1 in 1/3 rules (need >= 2/3), readings L=H-smooth, R=unresolved -> FAILED
+P5 window drift (arm R): EF_50 from fits over k = 12..k_end
+   RLRLLRRLRLR    EF_50 at k_end (16, 18, 20, 22): [0.3, 0.3, 0.3, 0.3]   D = +0.00
+   RLRLLRRRRRRR   EF_50 at k_end (16, 18, 20, 22): [nan, 0.3, 0.3, 0.3]   D = +nan
+   RRLLLRLRRRLL   EF_50 at k_end (16, 18, 20, 22): [0.1, 0.3, 0.4, 0.4]   D = +0.30
+   RRLLRLLRLR     EF_50 at k_end (16, 18, 20, 22): [0.3, 0.4, 0.4, 0.5]   D = +0.20
+   RRRLLLLR       EF_50 at k_end (16, 18, 20, 22): [0.4, 0.3, 0.3, 0.3]   D = -0.10
+   RRRRLLLLLLLR   EF_50 at k_end (16, 18, 20, 22): [0.2, 0.3, 0.3, 0.3]   D = +0.10
+P5 median |D| = 0.10 -> unresolved
+
+descriptive (not scored): classes pooled over rules and seeds; escape rate
+-- arm R: EF: compact/intermediate/porous/escape/other of the runs; between-seed sd of early a averaged over rules
+   EF 0.0: 6/0/0/0/0   sd nan
+   EF 0.1: 48/0/0/0/0   sd 0.013
+   EF 0.2: 38/10/0/0/0   sd 0.022
+   EF 0.3: 17/29/2/0/0   sd 0.027
+   EF 0.4: 1/35/12/0/0   sd 0.026
+   EF 0.5: 0/26/22/0/0   sd 0.031
+   EF 0.6: 0/10/38/0/0   sd 0.026
+   EF 0.7: 0/10/38/0/0   sd 0.026
+   EF 0.8: 0/7/41/0/0   sd 0.026
+   EF 0.9: 0/4/44/0/0   sd 0.027
+   EF 1.0: 0/9/39/0/0   sd 0.026
+-- arm L: EF: compact/intermediate/porous/escape/other of the runs; between-seed sd of early a averaged over rules
+   EF 0.0: 4/0/0/2/0   sd nan
+   EF 0.1: 30/2/16/0/0   sd 0.024
+   EF 0.2: 26/6/16/0/0   sd 0.019
+   EF 0.3: 24/9/15/0/0   sd 0.021
+   EF 0.4: 21/17/10/0/0   sd 0.023
+   EF 0.5: 14/23/11/0/0   sd 0.027
+   EF 0.6: 3/33/12/0/0   sd 0.022
+   EF 0.7: 4/29/15/0/0   sd 0.029
+   EF 0.8: 0/21/27/0/0   sd 0.031
+   EF 0.9: 0/20/28/0/0   sd 0.030
+   EF 1.0: 0/9/39/0/0   sd 0.031
+coexistence cells (>= 2 compact and >= 2 porous of 8 at one rule and EF): 0: []

@@ -30,3 +30,20 @@ own registration.
 
 ### 2026-10-28 20:59 (+1300) · 1b14a1e · question
 Could the leak on revisited cells (EV) show the same shape? Not in scope; recorded so it is not forgotten.
+
+### 2026-10-28 21:15 (+1300) · 7608a6f · observation
+Ran the 1068 specs (14 min). Gates G1-G5 pass (102/102 and 6/6 byte-identical to the committed rows). Scoring: P1 arm R
+unresolved (M = 0.289 against a smooth cut of 0.28), P2 held (median EF_50 0.30), P3 held (5/6), P4 failed (1/3), P5 unresolved
+(median |D| 0.10). No coexistence cells, no sd peak. See README "Results".
+
+### 2026-10-28 21:15 (+1300) · 7608a6f · surprise
+In arm L the two forced-L highway rules are already porous (a 0.88-0.90) at EF = 0.1: a 10% leak sends an ordered structure
+straight to porous growth, skipping the compact stage. Post hoc, three-rule-thin elsewhere.
+
+### 2026-10-28 21:15 (+1300) · 7608a6f · interpretation
+The data lean smooth (steepest 0.1-step carries at most 43% of the rise, class passes through a wide intermediate band, no
+coexistence) but the frozen rule says unresolved and I keep that word. I expected the rise to be spread out to EF = 1; it
+saturates by about 0.5. My prior put median EF_50 near 0.5; it came out 0.3 (inside the registered interval, at its edge).
+
+### 2026-10-28 21:15 (+1300) · 7608a6f · decision
+Stage B not triggered (M < 0.34). No pruning-index signature. Next candidates in README; none registered.
