@@ -5,7 +5,7 @@ import pypdfium2 as pdfium
 root=Path(__file__).resolve().parents[4]
 base=root/'experiments/archive/2026-10-literature-review'
 out=base/'scratch/review-pages';out.mkdir(parents=True,exist_ok=True)
-pdf=pdfium.PdfDocument(root/'research-outputs/working-papers/cube-root-growth/main.pdf')
+pdf=pdfium.PdfDocument(root/'research-outputs/scholarly-articles/cube-root-growth/main.pdf')
 indices=[]
 for i in range(len(pdf)):
     text=pdf[i].get_textpage().get_text_range()
@@ -18,7 +18,7 @@ for i in indices:
 sheet=Image.new('RGB',(450*3,640*((len(images)+2)//3)),'white')
 for j,im in enumerate(images):sheet.paste(im,((j%3)*450,(j//3)*640))
 sheet.save(out/'contact.png')
-files=[root/'research-outputs/working-papers/cube-root-growth/main.typ',root/'research-outputs/working-papers/cube-root-growth/refs.bib',root/'research-outputs/working-papers/cube-root-growth/main.pdf',base/'reports/Cube root growth literature.md',base/'notebook.ipynb',base/'results/claim_audit.json']
+files=[root/'research-outputs/scholarly-articles/cube-root-growth/main.typ',root/'research-outputs/scholarly-articles/cube-root-growth/refs.bib',root/'research-outputs/scholarly-articles/cube-root-growth/main.pdf',base/'reports/Cube root growth literature.md',base/'notebook.ipynb',base/'results/claim_audit.json']
 manifest={'review_date':'2026-10-15 NZDT','base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'status':'uncommitted working-tree outputs, no commit authorized','pdf_pages':len(pdf),'rendered_pages':[i+1 for i in indices],'files':{p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files},'verification':{'notebook':'nbconvert clean-kernel execution succeeded','typst':'compiled without diagnostics','simulations':'none','rust_release_tests':'not rerun for documentary/editorial change; no simulator or estimator modifications'}}
 (base/'results/verification.json').write_text(json.dumps(manifest,indent=2)+'\n')
 print(json.dumps({'pages':len(pdf),'rendered':[i+1 for i in indices]}))

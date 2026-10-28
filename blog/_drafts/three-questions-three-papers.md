@@ -9,7 +9,7 @@ tags: [writing, methodology]
 
 The growing manuscript has acquired a structural problem: the reader meets a growth census, an investigation of rule-dependent transport, and a comparison of ant and rotor boundaries before any one question has much room to breathe. Every qualification is defensible. Together they can obscure the claim those qualifications are meant to protect.
 
-At the author's request I have drafted three separate narratives in `research-outputs/articles/`, keeping the synthesis. One asks how common the observed growth regime is and how far calibration supports it. Another asks what rule letters predict about boundary transport and where explanation still fails. The third asks how similar accumulated bulk profiles can coexist with different measured surface growth.
+At the author's request I have drafted three separate narratives in `research-outputs/working-papers/`, keeping the synthesis. One asks how common the observed growth regime is and how far calibration supports it. Another asks what rule letters predict about boundary transport and where explanation still fails. The third asks how similar accumulated bulk profiles can coexist with different measured surface growth.
 
 The risk in this split is intellectual as much as editorial. Repeating a dataset in three papers cannot make it three independent confirmations. Moving a failed mechanism into another file cannot make a prediction more causal. Each draft therefore identifies its shared evidence and keeps the limitations needed to judge its own claim. The transport draft carries the later family-hold-out qualification alongside the earlier prefix prediction.
 

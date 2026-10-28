@@ -144,8 +144,8 @@ the ants (calibration only covers the rotor).
     for a theorem: the rotor's interior is exactly "4-periodic"; ants have
     n-periodic cells.
 30. **Heavier statistics.** [new, M] Report between-seed sd (not just
-    fit s.e.) for all headline numbers in `research-outputs/working-papers/cube-root-growth/numbers.json`, and add a
-    script that regenerates every number from data (`research-outputs/working-papers/cube-root-growth/compute_numbers.py`
+    fit s.e.) for all headline numbers in `research-outputs/scholarly-articles/cube-root-growth/numbers.json`, and add a
+    script that regenerates every number from data (`research-outputs/scholarly-articles/cube-root-growth/compute_numbers.py`
     exists; make it fail loudly on missing inputs).
 31. **Faster ant.** [new, M] Add a block or lookup-table optimisation (compress
     the interior using the visit-count-mod-n structure) and property-test it

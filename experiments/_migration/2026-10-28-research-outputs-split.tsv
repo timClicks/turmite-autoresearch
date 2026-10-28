@@ -1,5 +1,5 @@
 old_path	new_path	bucket	reason
 research-outputs/cube-root-growth-paper/supplementary/rule-census	research-outputs/data-papers/rule-census	data-papers	per-rule census dataset; needs its own describing data paper
 research-outputs/cube-root-growth-paper/supplementary/walker-reference	research-outputs/data-papers/walker-reference	data-papers	walker-reference dataset; needs its own describing data paper
-research-outputs/cube-root-growth-paper	research-outputs/working-papers/cube-root-growth	working-papers	synthesis manuscript with its figures, number scripts, bibliography and reproducibility audit
-research-outputs/focused-papers	research-outputs/articles	articles	focused drafts; each keeps its own subfolder and reuses the synthesis figures and numbers in place
+research-outputs/cube-root-growth-paper	research-outputs/scholarly-articles/cube-root-growth	scholarly-articles	synthesis manuscript with its figures, number scripts, bibliography and reproducibility audit
+research-outputs/focused-papers	research-outputs/working-papers	working-papers	focused drafts; each keeps its own subfolder and reuses the synthesis figures and numbers in place

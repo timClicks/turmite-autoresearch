@@ -5,7 +5,7 @@
 # Bypass for a genuine WIP commit: git commit --no-verify
 S=research-outputs/data-papers/rule-census/build_rule_census.py
 D=research-outputs/data-papers/rule-census/
-N=research-outputs/working-papers/cube-root-growth/numbers.json
+N=research-outputs/scholarly-articles/cube-root-growth/numbers.json
 staged=$(git diff --cached --name-only)
 trigger=$( { uv run "$S" --list-inputs; echo "$N"; } | while read -r f; do
     echo "$staged" | grep -qxF "$f" && echo "$f"; done)

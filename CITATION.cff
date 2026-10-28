@@ -19,7 +19,7 @@ license:
 repository-code: "https://github.com/timClicks/turmite-autoresearch"
 url: "https://github.com/timClicks/turmite-autoresearch"
 # Add when known: version, date-released, and doi (Zenodo).
-# The manuscript in research-outputs/working-papers/cube-root-growth/ is the preferred citation. Update
+# The manuscript in research-outputs/scholarly-articles/cube-root-growth/ is the preferred citation. Update
 # type/status, and add doi, url and year/date-released, when it is posted or published.
 preferred-citation:
   type: unpublished

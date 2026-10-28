@@ -84,8 +84,8 @@ From the repository root in WSL, after setting
 nohup bash experiments/archive/2026-10-g1-ribbon-breakout/scripts/g1_builder_run.sh > experiments/archive/2026-10-g1-ribbon-breakout/results/g1_regenerate.log 2>&1 &
 # Fast archival extraction (writes only this experiment's results):
 uv run experiments/archive/2026-10-g1-ribbon-breakout/scripts/g1_wake_extract.py experiments/archive/2026-10-g1-ribbon-breakout/dumps
-uv run research-outputs/working-papers/cube-root-growth/late_switch_figure.py
-typst compile --root . research-outputs/working-papers/cube-root-growth/main.typ research-outputs/working-papers/cube-root-growth/main.pdf
+uv run research-outputs/scholarly-articles/cube-root-growth/late_switch_figure.py
+typst compile --root . research-outputs/scholarly-articles/cube-root-growth/main.typ research-outputs/scholarly-articles/cube-root-growth/main.pdf
 # Optional PDF rendering/byte-repeat verification; pypdfium2 version is recorded:
 uv run --with pypdfium2==5.14.0 experiments/archive/2026-10-g1-ribbon-breakout/scripts/verify_figure.py
 ```
@@ -93,7 +93,7 @@ uv run --with pypdfium2==5.14.0 experiments/archive/2026-10-g1-ribbon-breakout/s
 Compact results are `g1_wake_extract.json`, `g1_wake_crop_*.csv`,
 `g1_wake_shape_*.csv`, and `g1_sweep_trace_*.csv`. The paper script reads only
 results, never raw dumps. Output PDF/PNG and `late_switch_numbers.json` live in
-`research-outputs/working-papers/cube-root-growth/fig/`; that JSON hashes source and inputs.
+`research-outputs/scholarly-articles/cube-root-growth/fig/`; that JSON hashes source and inputs.
 No randomness: one blank-board RLRLLL trajectory, 32768 board; 400,000-step
 windows at 12.8 and 12.9 billion steps. Wake snapshots are at each window's END;
 trace sample 0 is the position after the first step of each window (an offset of

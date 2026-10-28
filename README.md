@@ -32,7 +32,7 @@ motion, crystal growth and column builders make that distinction important.
 Some useful entry points into the current evidence:
 
 - **Growth and classification.** The [census](experiments/archive/2026-10-census-sweeps/)
-  and [draft synthesis](research-outputs/working-papers/cube-root-growth/README.md)
+  and [draft synthesis](research-outputs/scholarly-articles/cube-root-growth/README.md)
   bring together growth measurements and the diversity of behaviours. A
   finite run without a highway does not establish that one will never appear.
 - **The cost of fresh ground.** The opening run of identical turns predicts
@@ -66,7 +66,7 @@ claim as current.
 | [Research blog](blog/index.html) · [publishing guide](blog/README.md) | Current highlights, active questions and reflections on failed explanations |
 | [Experiments guide](experiments/README.md) | Investigations with protocols, lab notebooks, shareable notebooks, scripts and results |
 | [Research notes](notes/) | Cross-cutting hypotheses, audits and unresolved questions |
-| [Synthesis manuscript](research-outputs/working-papers/cube-root-growth/README.md) · [articles](research-outputs/articles/README.md) · [data papers](research-outputs/data-papers/README.md) | Draft writing and scripts that turn results into figures and numerical claims |
+| [Synthesis manuscript](research-outputs/scholarly-articles/cube-root-growth/README.md) · [working papers](research-outputs/working-papers/README.md) · [data papers](research-outputs/data-papers/README.md) | Draft writing and scripts that turn results into figures and numerical claims |
 | [Browser explorer](web/) | Interactive simulations and census exploration; build instructions below |
 | [Rust library and tools](src/) · [tests](tests/) | Reference and fast simulators, growth probes, highway detection and calibration walkers |
 

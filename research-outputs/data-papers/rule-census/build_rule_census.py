@@ -16,7 +16,7 @@ Guards (exit 1 on failure):
   --list-inputs  print the repo-relative files the table is built from (used by
                  .githooks/pre-commit to decide when to run --check)
 Every build, with or without --check, also asserts that the table agrees with the
-census counts and blob median exponent in ../../working-papers/cube-root-growth/numbers.json, so the paper and
+census counts and blob median exponent in ../../scholarly-articles/cube-root-growth/numbers.json, so the paper and
 the dataset cannot drift apart silently.
 """
 import argparse
@@ -53,7 +53,7 @@ INPUTS = [
 SPREAD = ROOT / "experiments/archive/2026-10-kappa-uniform-baseline/results/census_spread.txt"
 CSV = OUT / "rule_census.csv"
 SUMMARY = OUT / "rule_census.build.json"
-NUMBERS = ROOT / "research-outputs/working-papers/cube-root-growth/numbers.json"
+NUMBERS = ROOT / "research-outputs/scholarly-articles/cube-root-growth/numbers.json"
 
 
 def build() -> tuple[pl.DataFrame, str, dict]:

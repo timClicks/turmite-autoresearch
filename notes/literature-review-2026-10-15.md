@@ -24,4 +24,4 @@ is conditional, temporal surface-width slopes do not measure an interface class,
 and the selected prefix cohort does not establish general prediction. Existing
 body math spans, numerical references and audit links were checked for retention.
 Build commands, editorial scope and verification are recorded in the
-[manuscript build notes](../research-outputs/working-papers/cube-root-growth/README.md).
+[manuscript build notes](../research-outputs/scholarly-articles/cube-root-growth/README.md).

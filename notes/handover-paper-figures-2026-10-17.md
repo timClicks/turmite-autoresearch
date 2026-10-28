@@ -11,7 +11,7 @@ wake, (iii) predicted vs measured d|x|^2/dt (0.86, 0.84 vs 0.86, 0.83). Items 1-
 
 ## State of item 4: figure built, not yet in the paper
 
-Draft figure: `research-outputs/working-papers/cube-root-growth/fig/late_switch.{pdf,png}` (four panels: a steps/new cell vs t;
+Draft figure: `research-outputs/scholarly-articles/cube-root-growth/fig/late_switch.{pdf,png}` (four panels: a steps/new cell vs t;
 b y(t) sawtooth; c wake colour crop; d predicted vs measured). Last render was inspected and looks acceptable.
 
 Files created (all untracked):
@@ -21,13 +21,13 @@ Files created (all untracked):
 | `experiments/archive/2026-10-g1-ribbon-breakout/scripts/g1_wake_extract.py` | Only reader of the gitignored dumps; writes the small committed extract |
 | `experiments/archive/2026-10-g1-ribbon-breakout/results/g1_wake_extract.json` | L, x, colour shares, lag agreement, dump sha256, crop coordinates |
 | `.../results/g1_wake_shape_<T0>.csv`, `g1_wake_crop_<T0>.csv`, `g1_sweep_trace_<T0>.csv` | T0 = 12800000000 and 12900000000 (about 250 KB total) |
-| `research-outputs/working-papers/cube-root-growth/late_switch_figure.py` | Figure script; reads only committed `results/` |
+| `research-outputs/scholarly-articles/cube-root-growth/late_switch_figure.py` | Figure script; reads only committed `results/` |
 | `.../fig/late_switch_numbers.json` | Predicted and measured d\|x\|^2/dt, onset, as plotted |
 
 Run (from the worktree root, PowerShell tool; the Bash tool refuses `wsl` here):
 ```
 wsl -e bash -lc 'export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy; cd /mnt/f/Code/turmite/.claude/worktrees/paper-figure-proposals; uv run experiments/archive/2026-10-g1-ribbon-breakout/scripts/g1_wake_extract.py /mnt/f/Code/turmite/.claude/worktrees/g1-builder-structure/dumps'
-wsl -e bash -lc '... uv run research-outputs/working-papers/cube-root-growth/late_switch_figure.py'
+wsl -e bash -lc '... uv run research-outputs/scholarly-articles/cube-root-growth/late_switch_figure.py'
 ```
 Quirks: WSL calls fail if the cwd is a subdirectory or the command has heredocs or `&&` chains inside `bash -lc "..."`;
 use single-quoted `-lc` strings and `Set-Location` to the worktree root. Edit tool paths must include the
@@ -54,7 +54,7 @@ sha256s in `g1_wake_extract.json`. Treat the committed extract as the durable re
 1. **Insert into `main.typ`** in section `sec:late-switch` (around line 589-595): `#figure(image("fig/late_switch.pdf", width: 100%), caption: [...]) <fig:late-switch>`
    and reference it from the prose. Caption must state: single blank-board trajectory, panel a coarse (1e8) and fine (1e6)
    windows, black ticks = windows with no new cell, panel b/c from the 1.28e10 dump, c is a stretched 36x80 crop,
-   d predicted vs measured with the same-trajectory caveat. Then compile (`typst compile --root . research-outputs/working-papers/cube-root-growth/main.typ ...`; check typst is available in WSL or Windows).
+   d predicted vs measured with the same-trajectory caveat. Then compile (`typst compile --root . research-outputs/scholarly-articles/cube-root-growth/main.typ ...`; check typst is available in WSL or Windows).
 2. **Register in `rebuild_figures.py`**: add `late_switch_figure.py` to `SCRIPTS`; add `g1_ribbon.csv`, `g1_wake_extract.json`,
    `g1_wake_shape_*`, `g1_wake_crop_*`, `g1_sweep_trace_*` to `INPUTS`. Don't run the full rebuild casually (it overwrites all figures and the recipe).
 3. **Provenance gaps** (the paper's audit table already flags them as "absent from checkout"):
@@ -68,13 +68,13 @@ sha256s in `g1_wake_extract.json`. Treat the committed extract as the durable re
 5. **Polish (optional)**: panel c bracket label "one period (3 columns)" sits close to the title; the crop's ragged top is the wake's low-y
    boundary (turnaround region) and is real, the clean stripes begin about 25 rows in; panel a's black rug of empty windows is a thick bar.
    Check the PDF at final width in the compiled paper, not just the PNG.
-6. Add `late_switch*` to the figure list in `research-outputs/working-papers/cube-root-growth/README.md` if it enumerates figures.
+6. Add `late_switch*` to the figure list in `research-outputs/scholarly-articles/cube-root-growth/README.md` if it enumerates figures.
 7. Update `notes/paper-figure-proposals-2026-10-16.md` status line for item 4 (append, don't rewrite).
 
 ## Other figures still to do (priority order from the proposals note)
 1 walker map (a, kappa) plane; 2 edge gap W(t) ants vs rotor; 3 layer profiles rho(d); then 5 prefix lookup, 7 calibration local slope.
 The note says data availability was **not** checked for any of them; step one for each is locating the committed CSV/JSON
-(audit numbers in `research-outputs/working-papers/cube-root-growth/audit.typ` give script and result paths). Follow the same pattern as above:
+(audit numbers in `research-outputs/scholarly-articles/cube-root-growth/audit.typ` give script and result paths). Follow the same pattern as above:
 figure script reads only committed `results/`, uses `style.py` (`st.apply()`, `st.save`, palette meanings), writes into `fig/`,
 gets registered in `rebuild_figures.py`.
 

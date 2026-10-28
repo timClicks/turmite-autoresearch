@@ -29,7 +29,7 @@ run cube_fill experiments/archive/2026-10-probe-growth-census/scripts/cube_fill.
 run shape_stats experiments/archive/2026-10-shape-limit/scripts/shape_stats.py experiments/archive/2026-10-shape-limit/results/shape_rotor.csv experiments/archive/2026-10-shape-limit/results/shape_ants.csv
 run c_letters experiments/archive/2026-10-probe-growth-census/scripts/c_letters.py
 run mixing_calib experiments/archive/2026-10-mixing/scripts/mixing_calib.py
-uv run research-outputs/working-papers/cube-root-growth/seed_uncertainty.py 2>&1 | grep -v "Reading inline" > experiments/archive/2026-10-probe-growth-census/results/seed_uncertainty.$ext
+uv run research-outputs/scholarly-articles/cube-root-growth/seed_uncertainty.py 2>&1 | grep -v "Reading inline" > experiments/archive/2026-10-probe-growth-census/results/seed_uncertainty.$ext
 run ext_cube_long experiments/archive/2026-10-ext-other-lattices-turmites-noise/scripts/ext_long_stats.py cube
 run ext_tm_long experiments/archive/2026-10-ext-other-lattices-turmites-noise/scripts/ext_long_stats.py tm
 run h1e10_stats experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/scripts/h1e10_stats.py

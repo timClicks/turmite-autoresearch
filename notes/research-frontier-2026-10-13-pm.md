@@ -9,7 +9,7 @@ This note builds directly on:
 - `notes/frontier-2026-10-13-results.md` (results ledger documenting the resolution of all Phase 2 items),
 - `notes/kappa-experiment-design.md` (Arms A, B, C testing and ruling out five mechanisms for $\kappa$),
 - `notes/open-questions-hypotheses.md` (questions Q8–Q16),
-- and `research-outputs/working-papers/cube-root-growth/main.typ` / `notes/summary-2026-10-13.md`.
+- and `research-outputs/scholarly-articles/cube-root-growth/main.typ` / `notes/summary-2026-10-13.md`.
 
 **Pre-registration declaration:**
 Nothing here has been measured. Every prediction below is an explicit proposal written on 2026-10-13 PM *before* any test; per `AGENTS.md`, do not edit a prediction after seeing data, append what happened and any revision underneath. Predictions are quantitative guesses designed to discriminate between competing physical mechanisms, not summaries of results.

@@ -703,14 +703,14 @@ S/t^(2/3) falls 10% -> 1.3% over 14 octaves (K&D/Bou-Rabee-Peres: deterministic 
 **Hypothesis** (2026-10-13). Between-seed sd of the per-rule headline numbers is of the same size as the Part C
 within-rule sd (alpha_w 0.016, alpha_rg 0.011, a 0.020) and is much larger than the fit standard errors; c has
 essentially no seed noise (it is set by the rule's letters, cf. item 3). 
-**Result** (`research-outputs/working-papers/cube-root-growth/seed_uncertainty.py`, `experiments/archive/2026-10-probe-growth-census/results/seed_uncertainty.txt`, `research-outputs/working-papers/cube-root-growth/seed_uncertainty.json`; 11 rules x 24 patched
+**Result** (`research-outputs/scholarly-articles/cube-root-growth/seed_uncertainty.py`, `experiments/archive/2026-10-probe-growth-census/results/seed_uncertainty.txt`, `research-outputs/scholarly-articles/cube-root-growth/seed_uncertainty.json`; 11 rules x 24 patched
 starts, census windows k = 20..26): median between-seed sd across the 11 rules: alpha_w 0.0165, alpha_rg 0.0096, area exponent
 0.0126, beta (edge) 0.0128, **c 0.0006**, kappa 0.041. Both predictions held (Part C: 0.016 / 0.011 / 0.020). c is
 deterministic to 3 digits across starts (0.0000-0.0030 per rule), kappa is not (0.017-0.061). The exception again is
 RRLLLLLLR: alpha_w 0.379 +- 0.065, a 0.763 +- 0.137, kappa 2.2 +- 1.1 (non-self-averaging).
-`research-outputs/working-papers/cube-root-growth/compute_numbers.py` now exits with an error before computing anything if any data file named in the
-script is missing or empty (tested by hiding `experiments/archive/2026-10-census-sweeps/results/census.csv`), and reproduces `research-outputs/working-papers/cube-root-growth/numbers.json` bit for bit
-(`cmp` against the committed copy). `main.typ` was not changed; the new sd numbers live in `research-outputs/working-papers/cube-root-growth/seed_uncertainty.json`
+`research-outputs/scholarly-articles/cube-root-growth/compute_numbers.py` now exits with an error before computing anything if any data file named in the
+script is missing or empty (tested by hiding `experiments/archive/2026-10-census-sweeps/results/census.csv`), and reproduces `research-outputs/scholarly-articles/cube-root-growth/numbers.json` bit for bit
+(`cmp` against the committed copy). `main.typ` was not changed; the new sd numbers live in `research-outputs/scholarly-articles/cube-root-growth/seed_uncertainty.json`
 for a later edit of the manuscript.
 
 ### Correction to the H18 result above (2026-10-13)
