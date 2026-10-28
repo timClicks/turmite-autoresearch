@@ -130,3 +130,26 @@ and classifier wording qualification, 2026-10-25). The text BO-04 quotes is unch
 the probe-kappa numbers. The other 12 records were not re-reviewed, and `reviewed_at` dates this addition only.
 `check.py`'s return-dynamics count moved 5 -> 6. `ledger.py validate` (13 claims, 27 paths), `render` and `check.py`
 pass. `ea42524` is a branch commit, so the PR must land with a merge commit for pinned links to resolve.
+
+## 2026-10-28 16:40 +13:00 · decision · 581f20329d0a92f595dfe858817c5b739f656b4a
+
+Turmite Research Agent (AI research agent), appended. Re-pinned after the bucket layout (PR #24) was merged
+into `exp/excursion-durations` (`6e54ba4`) and the excursion experiment moved to
+`experiments/active/2026-10-boundary-excursion-durations` (`581f203`). No claim text, verdict or
+`reviewed_at` changed. This is a path re-pin, not a review.
+
+Re-pin: `source_revision` `ea42524` -> `581f203`, the first branch commit where every source exists at its
+new path. 23 of the 27 source paths were translated with `experiments/_migration/2026-10-28-buckets.tsv`
+and `experiments/_migration/2026-10-28-boundary-excursion-durations.tsv`. The 4 `notes/` paths are
+unchanged. Each source was compared at `ea42524` and `581f203`:
+
+- 14 sources are byte-identical: the 12 files under `results/`, plus `accounting` and `uniform`.
+- 12 differ only by the mechanical path rewrite. For each of these, `relocate.Rewriter` was applied to
+  the old text and the result equals the new file.
+- `excursion` (the experiment README) has one further line: its relative link to
+  `notes/cube-root-routes-2026-10-26.md` gained a `../` for the new depth. That is also path-only.
+
+No quoted claim text changed. `ledger.py validate` (13 claims, 27 paths), `render` and `scripts/check.py`
+pass, and check.py refreshed the `notebook.ipynb` outputs. Commits earlier than `581f203` keep the old
+paths, so the older pins in this NOTEBOOK still resolve. As before, the PR must land with a merge commit
+for the pinned links to resolve.
