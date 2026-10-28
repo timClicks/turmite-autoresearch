@@ -1,4 +1,4 @@
-//! experiments/2026-10-20-rlrlll-macro-transition, Task A: cell-level windows at the sweeper's own front.
+//! experiments/archive/2026-10-rlrlll-macro-transition, Task A: cell-level windows at the sweeper's own front.
 //! usage: rlrlll_macro_transition_window RULE T_TRACK OUTDIR GRID TARGET[,TARGET...] [APRON=450]
 //! Hot loop, DIRS and update order are those of `rlrlll_macro_transition_trace` (no state bits added to `cells`).
 //! The front is the ant's own minimum x since T_TRACK (not the global front, which belongs to the old blob).

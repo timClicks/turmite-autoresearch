@@ -28,7 +28,7 @@ for (const [input, hash] of Object.entries(data.inputs)) {
 }
 // Independent oracle: all published, numpy-computed rows, including missing runs,
 // sample sd, and stationarity counts. Published text is rounded to three decimals.
-const analysis = fs.readFileSync(path.join(root, 'experiments/2026-10-19-kappa-walker-reference/results/analysis_nrotor.txt'), 'utf8');
+const analysis = fs.readFileSync(path.join(root, 'experiments/archive/2026-10-kappa-walker-reference/results/analysis_nrotor.txt'), 'utf8');
 let rows, checked = 0;
 for (const line of analysis.split('\n')) {
   const window = line.match(/^== windows k=(\d+)\.\.(\d+)/);

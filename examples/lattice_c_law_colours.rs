@@ -1,7 +1,7 @@
 //! lattice_c_law_colours LOG2 SIZE < specs > traces.jsonl
 //! One spec per line: `LATTICE RULE` (LATTICE in square|hex|tri). One JSON line per spec, in spec order
 //! (independent of thread count): the `lattice_trace` fields for the last octave (steps (2^(LOG2-1), 2^LOG2]).
-//! Used by experiments/2026-10-20-lattice-c-law-colours.
+//! Used by experiments/archive/2026-10-lattice-c-law-colours.
 
 use rayon::prelude::*;
 use std::io::Read;

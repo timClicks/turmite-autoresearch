@@ -1,0 +1,20 @@
+{
+  "version": "forgotten-phase-information-pilot-v1",
+  "rules_source": "experiments/active/2026-10-c-law-renewal/results/design/families.csv",
+  "modes": ["full", "uniform:4", "turn:4", "next:4", "word2:4"],
+  "warmup_reads": 2048,
+  "measure_reads": 8192,
+  "max_log2": 28,
+  "interior_to_reset_seed": {"2026102021": 2026102061, "2026102022": 2026102062},
+  "control_seeds": [2026102051, 2026102052, 2026102053, 2026102054, 2026102055, 2026102056, 2026102057, 2026102058],
+  "min_reference_births": 500,
+  "min_eligible_pairs": 6,
+  "median_abs_log_limit": 0.10,
+  "max_abs_log_limit": 0.25,
+  "median_budget_error_limit": 0.20,
+  "sensitive_rule": "RRRRLLRRLLLLRR",
+  "sensitive_max_abs_log_limit": 0.10,
+  "sensitive_max_budget_error_limit": 0.20,
+  "min_changed_boundary_fraction": 0.10,
+  "min_exposed_pairs": 4
+}

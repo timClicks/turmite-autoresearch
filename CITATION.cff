@@ -11,7 +11,7 @@ authors:
     orcid: "https://orcid.org/0000-0002-2494-2700"
     affiliation: "Accelerant Limited"
 # Copyright holder: Accelerant Limited. The author asserts the moral right of attribution.
-# Code is MIT OR Apache-2.0. Data under experiments/*/results/ is CC0-1.0 and writing and
+# Code is MIT OR Apache-2.0. Data under experiments/*/*/results/ is CC0-1.0 and writing and
 # figures are CC-BY-4.0; see LICENSE.md. CFF can only express the code license here.
 license:
   - MIT

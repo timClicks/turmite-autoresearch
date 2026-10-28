@@ -39,7 +39,7 @@ cargo test --release --locked
 cargo check --release --locked --features cuda --all-targets
 cargo build --release --locked --bin sweep --bin sweep_lean --bin probe
 uv run --frozen python .github/scripts/check_determinism.py --output /tmp/turmite-reproducibility
-uv run --frozen python experiments/2026-10-15-fixed-area-cycles/scripts/check_analysis.py
+uv run --frozen python experiments/archive/2026-10-fixed-area-cycles/scripts/check_analysis.py
 npm ci --prefix web
 mkdir -p web/dist
 uv run --frozen python web/build.py web/dist/explorer.html
@@ -57,7 +57,7 @@ dependencies in the npm lockfile; it is not shipped with the simulator.
 Register a dedicated Linux x64 runner with labels `self-hosted`, `linux`,
 `x64`, `cuda`. Install Rust toolchain **1.98.1**, an NVIDIA driver, and NVRTC
 12.9.86 under `$HOME/cuda-libs` following
-`experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh`. The runner service must
+`experiments/active/2026-10-gpu-ant-sweep/scripts/env.sh`. The runner service must
 have `cargo`, `rustc`, `rustup` and `nvidia-smi` on its PATH. In WSL, register
 and run the service inside WSL rather than as a Windows runner.
 

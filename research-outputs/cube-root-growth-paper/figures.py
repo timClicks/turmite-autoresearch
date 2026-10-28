@@ -16,11 +16,11 @@ st.apply()  # shared palette and conventions: research-outputs/cube-root-growth-
 OUT = R / "research-outputs" / "cube-root-growth-paper" / "fig"
 OUT.mkdir(exist_ok=True)
 
-summ = pl.read_csv(D / "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv")
+summ = pl.read_csv(D / "experiments/archive/2026-10-probe-growth-census/results/probe_summary.csv")
 blob = summ.filter((pl.col("cls") == "blob") & ~pl.col("bursty"))
 logs = summ.filter((pl.col("cls") == "log") & ~pl.col("bursty"))
 ap.KLO, ap.KHI = 20, 26
-rot = ap.per_rule(pl.read_csv(D / "experiments/2026-10-13-calib-instrument-calibration/results/calib_rotor.csv"))
+rot = ap.per_rule(pl.read_csv(D / "experiments/archive/2026-10-calib-instrument-calibration/results/calib_rotor.csv"))
 
 # Fig 1: exponent distributions, ants vs rotor.
 fig, ax = plt.subplots(1, 2, figsize=(st.W, 2.4), sharey=False)
@@ -34,7 +34,7 @@ ax[0].set_ylabel("density"); ax[0].legend()
 fig.tight_layout(); st.save(fig, OUT / "exponents.pdf"); plt.close(fig)
 
 # Fig 2: c and kappa against time on six long runs.
-cs = json.loads((D / "experiments/2026-10-13-probe-growth-census/results/cube_stats.json").read_text())["long"]
+cs = json.loads((D / "experiments/archive/2026-10-probe-growth-census/results/cube_stats.json").read_text())["long"]
 fig, ax = plt.subplots(1, 2, figsize=(st.W, 2.3))
 for r, v in cs.items():
     ax[0].plot(v["k"], v["c"], label=st.short(r)); ax[1].plot(v["k"], v["kappa"], label=st.short(r))
@@ -57,7 +57,7 @@ ax[1].set_xlim(0.45, 1.0); ax[1].set_ylim(0.45, 1.0)
 fig.tight_layout(); st.save(fig, OUT / "deviations.pdf"); plt.close(fig)
 
 # Fig 4: held-out c model.
-m = pl.read_csv(D / "experiments/2026-10-13-probe-growth-census/results/c_model.csv").filter(pl.col("held_out"))
+m = pl.read_csv(D / "experiments/archive/2026-10-probe-growth-census/results/c_model.csv").filter(pl.col("held_out"))
 fig, ax = plt.subplots(figsize=(st.W_HALF, 2.8))
 ax.scatter(m["c_pred"], m["c"], s=2, c=st.ANT, alpha=.4)
 st.guide_line(ax, [0.1, 0.7], [0.1, 0.7])

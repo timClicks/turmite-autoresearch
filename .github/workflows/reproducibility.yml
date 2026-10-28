@@ -32,7 +32,7 @@ jobs:
       - name: Compare thread counts and record provenance
         run: uv run --frozen python .github/scripts/check_determinism.py --output "$RUNNER_TEMP/reproducibility"
       - name: Check analysis against exact answers and an independent PRESS calculation
-        run: uv run --frozen python experiments/2026-10-15-fixed-area-cycles/scripts/check_analysis.py
+        run: uv run --frozen python experiments/archive/2026-10-fixed-area-cycles/scripts/check_analysis.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:

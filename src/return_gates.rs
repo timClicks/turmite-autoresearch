@@ -1,4 +1,4 @@
-//! Observation-only rim/interior crossing instrument (experiments/2026-10-15-kappa-return-gates).
+//! Observation-only rim/interior crossing instrument (experiments/archive/2026-10-kappa-return-gates).
 //!
 //! Conventions (frozen in that experiment's README before any ant outcome):
 //! - depth of a visited cell = 4-neighbour graph distance through visited cells to the

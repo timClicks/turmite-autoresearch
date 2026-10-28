@@ -16,7 +16,7 @@ therefore cannot show the column sweeper described immediately below it.
 That gap deserves a visible label. Without one, putting the animation beside
 the finding could imply that the reader is watching the evidence for it.
 
-The [sweeper record](../../experiments/2026-10-13-g1-ribbon-breakout/README.md)
+The [sweeper record](../../experiments/archive/2026-10-g1-ribbon-breakout/README.md)
 contains the long trajectory's archived extracts and provenance. The live
 portrait is a short run from a blank grid, checked against an independent
 stepping loop and the existing web simulator. Those checks establish its

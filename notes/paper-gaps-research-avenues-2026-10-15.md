@@ -18,7 +18,7 @@ on fresh stationary rules of lengths 13–14. Its area-controlled score still
 uses measured early area. The exploratory cross-check shows that including
 non-stationary census rules in training substantially reduces its gain even
 on the same stationary test rules. That is evidence of conditional prediction,
-not a rule-to-kappa mechanism. See the [W3c registration and corrections](../experiments/2026-10-kappa-rule-space/README.md).
+not a rule-to-kappa mechanism. See the [W3c registration and corrections](../experiments/archive/2026-10-kappa-rule-space/README.md).
 
 **Next test.** Combine direct fixed-area sampling with a frozen prefix model.
 Train once on the existing census; test on fresh rules and starts. Record each
@@ -46,7 +46,7 @@ a different and harder question; do not relabel the current test as that test.
 probability mass matters. The independent-area association survives disjoint
 seed roles, but noisy area and earlier selection remain; the previous noise-floor
 gate is still failed. See [the existing cutoff proposals](cutoff-research-avenues-2026-10-15.md)
-and [independent-area results](../experiments/2026-10-15-independent-area/README.md).
+and [independent-area results](../experiments/archive/2026-10-independent-area/README.md).
 
 **Next test.** At the area targets above, partition steps into boundary episodes
 and interior excursions. Reconstruct boundary occupancy exactly, including
@@ -91,7 +91,7 @@ Counting tens of thousands of edited colour-2 cells does not establish that
 the relevant staircase encountered those cells. Full-window alternation also
 mixes the original ray with later motion. In all three tested rules, colours
 2 and 3 specify the same immediate turn; a phase advance can affect motion
-only through a revisit. See [the protocol and failed predictions](../experiments/2026-10-crystal-rules/README.md).
+only through a revisit. See [the protocol and failed predictions](../experiments/archive/2026-10-crystal-rules/README.md).
 
 **Next test.** First add exposure instrumentation without changing the old
 verdicts. Record visits to edited cells, first divergent turn, revisit counts,
@@ -120,7 +120,7 @@ the empirical cube-root census.
 edge gap. The band analysis places more relative excess at long wavelengths,
 but the normalised spectrum's temporal decay partly restates W/R scaling.
 Its failed stability prediction was mis-specified; do not present that failure
-as an independent discovery. See [hull-width results and correction](../experiments/2026-10-14-hull-width/README.md).
+as an independent discovery. See [hull-width results and correction](../experiments/archive/2026-10-hull-width/README.md).
 
 **Next test.** Save r(theta) profiles across a registered checkpoint sequence,
 including a census-sampled rule cohort and rotor controls at matched radii.

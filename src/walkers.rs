@@ -338,7 +338,7 @@ impl Walker for NoisyRotor {
 }
 
 /// Ant with turn noise split by cell type (wall-vs-memory experiment,
-/// `experiments/2026-10-26-wall-vs-memory/`). On a cell it stands on for the
+/// `experiments/active/2026-10-wall-vs-memory/`). On a cell it stands on for the
 /// first time (fresh) the turn is randomised with probability `ef`, elsewhere
 /// with probability `ev`; the colour advances as in the ant either way. A
 /// fresh cell is one never departed from, tracked in bit 7 so that a revisited

@@ -23,10 +23,10 @@
   },
   "crop_view_rows": 48,
   "sha256": {
-    "experiments/2026-10-13-g1-ribbon-breakout/results/g1_ribbon.csv": "b0ffc88b3d027ae9062d2d9ab672f39d1eef1ad00d8c31c0f2bc6154d95127e4",
-    "experiments/2026-10-13-g1-ribbon-breakout/results/g1_wake_extract.json": "c91e60f3327a934221bbac1109796531b0bb58862471c04f5c248bc5ff9aea86",
-    "experiments/2026-10-13-g1-ribbon-breakout/results/g1_wake_crop_12800000000.csv": "09d3c453fb822c238562f939b2cf526b9a50092f81f67335c197d3c32071ff20",
-    "experiments/2026-10-13-g1-ribbon-breakout/results/g1_sweep_trace_12800000000.csv": "9d8b22b888856ea2130bcb7d53ce6fc39315dfe92ba2bfdd596c449f4507fde2",
+    "experiments/archive/2026-10-g1-ribbon-breakout/results/g1_ribbon.csv": "b0ffc88b3d027ae9062d2d9ab672f39d1eef1ad00d8c31c0f2bc6154d95127e4",
+    "experiments/archive/2026-10-g1-ribbon-breakout/results/g1_wake_extract.json": "c91e60f3327a934221bbac1109796531b0bb58862471c04f5c248bc5ff9aea86",
+    "experiments/archive/2026-10-g1-ribbon-breakout/results/g1_wake_crop_12800000000.csv": "09d3c453fb822c238562f939b2cf526b9a50092f81f67335c197d3c32071ff20",
+    "experiments/archive/2026-10-g1-ribbon-breakout/results/g1_sweep_trace_12800000000.csv": "9d8b22b888856ea2130bcb7d53ce6fc39315dfe92ba2bfdd596c449f4507fde2",
     "research-outputs/cube-root-growth-paper/late_switch_figure.py": "8313ee55e9b431f402e5e87fe9993115a3f7d11a8465e30422faa99e4ed27d5e",
     "research-outputs/cube-root-growth-paper/style.py": "8bb340838c3cdcf4faf7a71be27cd840d217e5fac77a28bfdda2ca4f27123a3d"
   },

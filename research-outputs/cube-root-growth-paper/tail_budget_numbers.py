@@ -9,7 +9,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent
-E = ROOT / "experiments/2026-10-15-kappa-tail-budget/results"
+E = ROOT / "experiments/archive/2026-10-kappa-tail-budget/results"
 a = json.loads((E / "confirm-v1.analysis.json").read_text())
 d = json.loads((E / "confirm-v1.decomposition.json").read_text())
 files = [E / "confirm-v1.analysis.json", E / "confirm-v1.decomposition.json", Path(__file__)]

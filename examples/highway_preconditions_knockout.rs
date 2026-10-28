@@ -1,5 +1,5 @@
 //! highway_preconditions_knockout RESULTS_DIR
-//! Experiment `2026-10-21-highway-preconditions`, Part 2. For each independent event in RESULTS_DIR/events.csv (first
+//! Experiment `2026-10-highway-preconditions`, Part 2. For each independent event in RESULTS_DIR/events.csv (first
 //! row per `used`), rebuild the board at `tau_pre`, knock out (set to 0) each pre-onset seed cell in turn (cells from
 //! seeds.tsv `pre_key`, in the ant's frame), run `B = (onset - tau_pre) + 200p` steps and score whether the original
 //! highway (period, drift) holds over the last 20p steps. Controls: no knock-out (K2) and up to 3 nonzero non-seed cells

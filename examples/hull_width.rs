@@ -1,4 +1,4 @@
-//! Outer-hull vs hole-rim surface width (experiment 2026-10-14-hull-width).
+//! Outer-hull vs hole-rim surface width (experiment 2026-10-hull-width).
 //!
 //! usage: hull_width MAX_LOG2 [GRID] < specs.txt > hull.csv
 //! Specs as in `shape`: an ant rule, `RULE@SEED` (random 5x5 patch), `rotor:SEED`.

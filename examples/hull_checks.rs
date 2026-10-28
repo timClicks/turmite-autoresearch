@@ -1,4 +1,4 @@
-//! Frozen hull_width instrument plus profiles for 2026-10-15-hull-checks.
+//! Frozen hull_width instrument plus profiles for 2026-10-hull-checks.
 //!
 //! usage: hull_checks MAX_LOG2 [GRID] [MIN_LOG2] < specs.txt > hull.csv
 //! Specs as in `shape`: an ant rule, `RULE@SEED` (random 5x5 patch), `rotor:SEED`.

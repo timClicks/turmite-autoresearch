@@ -1,4 +1,4 @@
-// Known-answer calibration of the gate-concentration statistic (experiments/2026-10-15-kappa-return-gates).
+// Known-answer calibration of the gate-concentration statistic (experiments/archive/2026-10-kappa-return-gates).
 // No arguments; prints JSON. Uniform flow (events proportional to exposure) must give ~0, planted gates > 0.
 use turmite::return_gates::{self, Key, Tally};
 use turmite::walkers::mix64;

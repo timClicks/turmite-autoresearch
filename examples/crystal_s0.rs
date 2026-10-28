@@ -1,4 +1,4 @@
-//! crystal-rules S0 (experiments/2026-10-crystal-rules): run RULE for 2^K steps on a
+//! crystal-rules S0 (experiments/archive/2026-10-crystal-rules): run RULE for 2^K steps on a
 //! blank SIZE^2 board (deterministic, no seed), write OUT/RULE.grid (u8 colour, 255 =
 //! never visited, row-major SIZE x SIZE) and print bbox / visit statistics.
 //! usage: crystal_s0 RULE K SIZE OUTDIR

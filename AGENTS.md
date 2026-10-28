@@ -45,7 +45,7 @@ choosing commands; adapt shell syntax and paths without changing the experiment.
 ## Reproducibility is the first requirement
 
 A result that cannot be regenerated is not a result. Every number that lands
-in `notes/` or `experiments/*/results/` must be traceable to code, inputs and a seed.
+in `notes/` or `experiments/*/*/results/` must be traceable to code, inputs and a seed.
 
 1. **Determinism.** All randomness is seeded explicitly; no `thread_rng`, no
    time-based seeds, no hash-order dependence. Parallel code (`rayon`) must give
@@ -111,7 +111,7 @@ The aim is understanding, not a pile of plots. Be bold:
   predictions (an exponent, a ratio, a scaling collapse), then try hard to
   break it. Prefer a sharp wrong hypothesis to a vague correct one.
 - Chase the strange: rules that don't fit the census, outliers in the fits,
-  unresolved cases (`experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`), anything where the story in
+  unresolved cases (`experiments/archive/2026-10-census-sweeps/results/unresolved_le10.txt`), anything where the story in
   `notes/open-questions-hypotheses.md` is thin. Connect to the literature
   (rotor walkers, internal DLA, Kapri & Dhar, Bou-Rabee & Peres) and try to
   sharpen it, up to a conjecture or proof sketch where one is within reach.
@@ -130,22 +130,22 @@ The aim is understanding, not a pile of plots. Be bold:
 | `src/rule.rs` | `Rule`, `Turn`: rule parsing, canonical forms |
 | `src/reference.rs` | Oracle ant (and reference rotor); clarity over speed |
 | `src/fast.rs` | Fast ant used by sweeps; tested against `reference` |
-| `src/tiled.rs` | Tiled CPU grid for the lean ant (`sweep_lean` with `TURMITE_GRID=tiled`): sparse 2^k tiles, bounded cache, raw/packed/LZ4 inactive tiles, `TTK1` checkpoints; equals `reference`/`lean` (`tests/tiled.rs`); dense stays default. Design, limits and when to use it: `experiments/2026-10-23-tiled-grid-backend/DESIGN.md` |
+| `src/tiled.rs` | Tiled CPU grid for the lean ant (`sweep_lean` with `TURMITE_GRID=tiled`): sparse 2^k tiles, bounded cache, raw/packed/LZ4 inactive tiles, `TTK1` checkpoints; equals `reference`/`lean` (`tests/tiled.rs`); dense stays default. Design, limits and when to use it: `experiments/active/2026-10-tiled-grid-backend/DESIGN.md` |
 | `src/walkers.rs` | Calibration walkers: `Rotor`, `RandomWalk` |
 | `src/detect.rs` | Highway / periodicity detection |
 | `src/probe.rs` | Growth/shape probe: width, area, edge, gyration statistics |
 | `src/synth.rs` | Synthetic data generation for tests |
 | `src/bin/sweep.rs` | Census sweep over rules |
-| `src/portable_gpu/`, `src/bin/wgpu_sweep.rs` | Native wgpu batch sweep; Metal on macOS, Vulkan/DX12 elsewhere; `--features wgpu`. Oracle checks: `tests/portable_gpu.rs`. Setup and limits: `experiments/2026-10-23-macos-gpu/README.md` |
-| `src/gpu/`, `src/bin/gpu_sweep.rs` | CUDA batch runner for thousands of (rule, background-seed) ants; `--features cuda`; output must equal `fast::run`/`sweep_lean` (`tests/gpu.rs`). Setup and usage: `experiments/2026-10-16-gpu-ant-sweep/README.md` |
-| `src/gpu/probe.{rs,cu}`, `src/bin/gpu_probe.rs` | `probe` on the GPU for plain rules and `RULE@SEED` only (other walkers stay CPU); CSV byte-identical to `src/bin/probe.rs` (`tests/gpu_probe.rs`). Use for `probe 27 8192` batches of hundreds+ runs. `experiments/2026-10-16-gpu-probe/README.md` |
+| `src/portable_gpu/`, `src/bin/wgpu_sweep.rs` | Native wgpu batch sweep; Metal on macOS, Vulkan/DX12 elsewhere; `--features wgpu`. Oracle checks: `tests/portable_gpu.rs`. Setup and limits: `experiments/active/2026-10-macos-gpu/README.md` |
+| `src/gpu/`, `src/bin/gpu_sweep.rs` | CUDA batch runner for thousands of (rule, background-seed) ants; `--features cuda`; output must equal `fast::run`/`sweep_lean` (`tests/gpu.rs`). Setup and usage: `experiments/active/2026-10-gpu-ant-sweep/README.md` |
+| `src/gpu/probe.{rs,cu}`, `src/bin/gpu_probe.rs` | `probe` on the GPU for plain rules and `RULE@SEED` only (other walkers stay CPU); CSV byte-identical to `src/bin/probe.rs` (`tests/gpu_probe.rs`). Use for `probe 27 8192` batches of hundreds+ runs. `experiments/active/2026-10-gpu-probe/README.md` |
 | `src/bin/confirm.rs` | Re-verify claimed highways / classifications |
-| `src/falsify.rs`, `src/bin/falsify.rs`, `src/bin/falsify_search.rs` | Falsification harness: attacks a registered claim ("R is chaotic", "R forms this highway from every start") with perturbed starts, obstacles, edge starts and an evolutionary search; verdicts Falsified / Invalid / Unsupported / Survived. **Read `experiments/2026-10-22-falsification-harness/GUIDE.md` before using or extending it** |
+| `src/falsify.rs`, `src/bin/falsify.rs`, `src/bin/falsify_search.rs` | Falsification harness: attacks a registered claim ("R is chaotic", "R forms this highway from every start") with perturbed starts, obstacles, edge starts and an evolutionary search; verdicts Falsified / Invalid / Unsupported / Survived. **Read `experiments/active/2026-10-falsification-harness/GUIDE.md` before using or extending it** |
 | `src/bin/growth.rs` | Growth-exponent measurement |
 | `src/bin/probe.rs` | Run the probe on a rule/seed |
 | `examples/*.rs` | One-off analyses (`edgestats`, `rotorstats`, `occupancy`, `longperiod`, ...); run with `cargo run --release --example NAME -- ARGS` |
 | `tests/` | Property tests (`proptest`) comparing fast vs reference |
-| `experiments/YYYY-MM-slug/` | **New work goes here.** One folder per investigation: `README.md` (question, timestamped hypothesis, commands, results), `NOTEBOOK.md` (lab notebook), `notebook.ipynb` (shareable Jupyter write-up), `scripts/`, `results/` (small, committed), `experiments/2026-10-12-knockout-maps/dumps/` + `scratch/` (bulk, gitignored). Copy `experiments/_template/` to start. See `experiments/README.md` |
+| `experiments/{proposed,active,archive}/YYYY-MM-slug/` | **New work goes here.** One folder per investigation, in the bucket for its status (`proposed`: registered, nothing run; `active`: open work or a maintained instrument; `archive`: concluded or paused): `README.md` (question, timestamped hypothesis, commands, results), `NOTEBOOK.md` (lab notebook), `notebook.ipynb` (shareable Jupyter write-up), `scripts/`, `results/` (small, committed), `experiments/archive/2026-10-knockout-maps/dumps/` + `scratch/` (bulk, gitignored). Copy `experiments/_template/` to start; move between buckets with `experiments/_migration/relocate.py`. See `experiments/README.md` |
 | `research-outputs/<name>/` | Publishable artefacts (currently `cube-root-growth-paper/`: Typst manuscript, figure/number scripts, `fig/`). Reads committed results, not `dumps/` (one known exception, see conventions) |
 | `experiments/_lib/` | Shared Python helpers imported by several experiments (`analyse_probe.py`, `mixing.py`, `calib_kd.py`, `tether.py`, `lawmod.py` exact conservation-law solver); scripts add it with `sys.path.insert(0, "experiments/_lib")` |
 | `experiments/_migration/` | One-off tooling and `map.tsv` (old path -> new path) from the 2026-10-14 restructure of the flat `data/` layout |
@@ -160,7 +160,7 @@ Typical commands (from the repository root):
 cargo test --release --locked               # property tests vs oracle
 cargo run --release --bin sweep -- ...       # census sweep
 cargo run --release --example rotorstats -- ...
-uv run experiments/2026-10-13-census-sweeps/scripts/census.py                        # analysis over the census CSVs
+uv run experiments/archive/2026-10-census-sweeps/scripts/census.py                        # analysis over the census CSVs
 mkdir -p web/dist                            # POSIX shell; create this directory in your shell
 uv run --frozen web/build.py web/dist/explorer.html
 node web/smoke.js                            # web smoke test (if node installed)
@@ -183,13 +183,13 @@ it does not establish GPU execution or speed. See the macOS GPU experiment guide
 
 Two batch runners exist, both byte-identical to their CPU counterparts and gated behind `--features cuda`
 (requires compatible NVIDIA hardware and CUDA runtime libraries). The environment helper in
-`experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh` is one Linux setup example; inspect and adapt its paths before use. Full usage, flags, Rust API and
+`experiments/active/2026-10-gpu-ant-sweep/scripts/env.sh` is one Linux setup example; inspect and adapt its paths before use. Full usage, flags, Rust API and
 etiquette: "Using the GPU sweeper" and "`gpu_probe`" in `experiments/README.md`.
 
 | You need | Use | Historical benchmark (hardware and recipe in linked experiment) |
 |---|---|---|
-| End state of thousands of (rule, background-seed) ants: the `sweep_lean` CSV | `gpu_sweep` | 4.9x at 1e8 steps, 4083 rules (`2026-10-16-gpu-ant-sweep`) |
-| `probe MAX_LOG2 GRID` on hundreds+ of `RULE` / `RULE@SEED` lines | `gpu_probe` | 5.8x at `probe 27 8192`, 2400 runs, but the CPU baseline shifted 34% unexplained (681.6 -> 912.5 s), so quote it as roughly 4-6x (`2026-10-16-gpu-probe`) |
+| End state of thousands of (rule, background-seed) ants: the `sweep_lean` CSV | `gpu_sweep` | 4.9x at 1e8 steps, 4083 rules (`2026-10-gpu-ant-sweep`) |
+| `probe MAX_LOG2 GRID` on hundreds+ of `RULE` / `RULE@SEED` lines | `gpu_probe` | 5.8x at `probe 27 8192`, 2400 runs, but the CPU baseline shifted 34% unexplained (681.6 -> 912.5 s), so quote it as roughly 4-6x (`2026-10-gpu-probe`) |
 
 Reach for the GPU when **all** of these hold: the work is many independent ants (>= ~2000-4000, enough to fill the lanes),
 stepping-bound (budget >= ~1e8 steps; at 1e6 the CPU cost is mostly per-rule overhead), the instrument is one of the two
@@ -212,7 +212,7 @@ Using them for further research:
   `ps -eo pid,args | grep -E '/release/|cargo'` and `nvidia-smi` first.
 - **Stale-build trap (it produced a wrong "P2 held" result):** on some filesystems source mtimes can stay older than the binary
   after edits, so cargo rebuilds nothing. For any timed or published run, build into a fresh `CARGO_TARGET_DIR`, check the
-  build's exit status (never pipe it through `tail`) and log the binary's sha256. `experiments/2026-10-16-gpu-probe/scripts/bench_p2.sh`
+  build's exit status (never pipe it through `tail`) and log the binary's sha256. `experiments/active/2026-10-gpu-probe/scripts/bench_p2.sh`
   does this and is the template for timing scripts.
 - The benchmarks are n = 1-2 runs on one GPU; cite speedups with that caveat and with the CPU baseline's own provenance.
 
@@ -286,7 +286,7 @@ shareable notebook and `notes/`; they do not replace them.
   All three are optional, so default builds do not compile them.
 - Match surrounding style; comments explain *why*, not what.
 - **Attack classification claims before asserting them.** A "chaotic", "stabilised" or "forms highway X from every start" statement in
-  `notes/`, the blog or the paper should have survived the falsification harness (`experiments/2026-10-22-falsification-harness/GUIDE.md`),
+  `notes/`, the blog or the paper should have survived the falsification harness (`experiments/active/2026-10-falsification-harness/GUIDE.md`),
   with the claim registered and committed before the run. A blank-board horizon run alone is not enough; say which verdict you got
   (a `Survived` is "no counterexample found", never a proof) or that the claim has not been attacked.
 - **Ask for the exact laws before the exponent.** To vet a claimed invariant, or before proposing a mechanism for a rule
@@ -301,18 +301,20 @@ shareable notebook and `notes/`; they do not replace them.
   template). Treat any constraint a law places on a tile, period or displacement as a necessary condition, never a
   certificate.
 - **Isolate working material.** Each investigation lives in its own
-  `experiments/YYYY-MM-slug/` folder (scripts, investigation-specific notes,
-  results). Bulk output (dumps, knockout maps, scratch) goes in that folder's
+  `experiments/<bucket>/YYYY-MM-slug/` folder (scripts, investigation-specific notes,
+  results). Slugs are unique across buckets, and a slug's month is when the work started;
+  status changes move the folder between `proposed/`, `active/` and `archive/` with
+  `experiments/_migration/relocate.py`, which also rewrites references (see `experiments/README.md`). Bulk output (dumps, knockout maps, scratch) goes in that folder's
   `dumps*/`, `knock*/` or `scratch/`, never in the repo root or
   `research-outputs/`. Scripts write only inside their own folder and find the
-  repo root via `Path(__file__).resolve().parents[3]` (script in `experiments/<slug>/scripts/`). Rust one-offs stay in
+  repo root via `Path(__file__).resolve().parents[4]` (script in `experiments/<bucket>/<slug>/scripts/`). Rust one-offs stay in
   `examples/` (Cargo only discovers them there), prefixed with the experiment
   slug. The former flat `data/`, `calib/`, `occ/`, `snaps/`, `dumps*`, `knock*` no longer
   exist: their contents were migrated into experiment folders (old path -> new path in
-  `experiments/_migration/map.tsv`; helpers in `experiments/_lib/`). Cross-cutting hypotheses and open questions stay
-  in `notes/`; paper numbers are computed from `experiments/*/results/` by scripts in
+  `experiments/_migration/map.tsv`, then `experiments/_migration/2026-10-28-buckets.tsv`; helpers in `experiments/_lib/`). Cross-cutting hypotheses and open questions stay
+  in `notes/`; paper numbers are computed from `experiments/*/*/results/` by scripts in
   `research-outputs/`, which should not read `dumps/` (known exception: `memory_figures.py`
-  reads `experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv`).
+  reads `experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv`).
 - **Keep a lab notebook, and write a shareable notebook.** Every experiment has an
   append-only `NOTEBOOK.md` (dated entries tagged `intent`, `assumption`,
   `observation`, `interpretation`, `surprise`, `decision`, `dead-end`, `question`,
@@ -327,7 +329,7 @@ shareable notebook and `notes/`; they do not replace them.
   are still registered in the README before the measurement. Full rules and the
   Jupyter setup (not yet in `pyproject.toml`): `experiments/README.md`.
 - Don't commit large raw dumps: `dumps*/`, `knock*/` (at the root
-  and under `experiments/*/`), `experiments/*/scratch/`, `/synth` and `/target` are gitignored for a
+  and under `experiments/*/*/`), `experiments/*/*/scratch/`, `/synth` and `/target` are gitignored for a
   reason. Summaries and the scripts that regenerate them are what belong in git.
 - Commit frequently and freely, without waiting for explicit permission. Make
   small, coherent commits at useful milestones with clear messages, and include

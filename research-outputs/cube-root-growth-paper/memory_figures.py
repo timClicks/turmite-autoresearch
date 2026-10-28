@@ -1,5 +1,5 @@
 """uv run research-outputs/cube-root-growth-paper/memory_figures.py; seed-301 paths from examples/memory_paths.rs.
-Inputs: experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv and experiments/2026-10-13-memory-walkers/results/memory_walkers_pilot/combined.csv.
+Inputs: experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv and experiments/archive/2026-10-memory-walkers/results/memory_walkers_pilot/combined.csv.
 Outputs and recipes are recorded in research-outputs/cube-root-growth-paper/fig/memory_recipe.json.
 """
 import hashlib
@@ -16,7 +16,7 @@ names = {"ant:RLR": "Ant RLR", "rotor": "Rotor", "rw": "Random walk",
          "cookie:0.25": "East cookie B=0.25", "cookie:0.75": "East cookie B=0.75",
          "rcookie:0.25": "Random cookie B=0.25", "rcookie:0.75": "Random cookie B=0.75",
          "errw:1": "Reinforced edge I=1", "errw:4": "Reinforced edge I=4"}
-paths = pl.read_csv("experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv")
+paths = pl.read_csv("experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv")
 assert set(paths["spec"].unique()) == set(names), "missing illustration model"
 for spec in names:
     steps = paths.filter(pl.col("spec") == spec)["t"].to_numpy()
@@ -47,7 +47,7 @@ style.save(fig, "research-outputs/cube-root-growth-paper/fig/memory_paths.pdf")
 
 plt.close(fig)
 
-d = pl.read_csv("experiments/2026-10-13-memory-walkers/results/memory_walkers_pilot/combined.csv")
+d = pl.read_csv("experiments/archive/2026-10-memory-walkers/results/memory_walkers_pilot/combined.csv")
 colours = {"rotor": style.ROTOR, "rw": style.RANDOM, "cookie:0.25": "#dca02c",
            "cookie:0.75": "#8c6d31", "rcookie:0.25": "#1fa187", "rcookie:0.75": "#317873",
            "errw:1": "#7a3b8f", "errw:4": "#3b4cc0"}
@@ -92,9 +92,9 @@ fig.tight_layout(rect=(0, .17, 1, 1))
 style.save(fig, "research-outputs/cube-root-growth-paper/fig/memory_growth.pdf")
 
 plt.close(fig)
-inputs = ["experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv", "experiments/2026-10-13-memory-walkers/results/memory_walkers_pilot/combined.csv", "research-outputs/cube-root-growth-paper/memory_figures.py", "research-outputs/cube-root-growth-paper/style.py", "examples/memory_paths.rs"]
+inputs = ["experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv", "experiments/archive/2026-10-memory-walkers/results/memory_walkers_pilot/combined.csv", "research-outputs/cube-root-growth-paper/memory_figures.py", "research-outputs/cube-root-growth-paper/style.py", "examples/memory_paths.rs"]
 Path("research-outputs/cube-root-growth-paper/fig/memory_recipe.json").write_text(json.dumps({"command": "uv run research-outputs/cube-root-growth-paper/memory_figures.py",
-    "path_command": "cargo run --release --example memory_paths -- 301 16 > experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv",
+    "path_command": "cargo run --release --example memory_paths -- 301 16 > experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv",
     "path_seed": 301, "path_steps": 65536,
     "sha256": {p: hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in inputs}}, indent=2) + "\n")
 

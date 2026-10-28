@@ -81,10 +81,10 @@ mechanistic reading of prediction beyond early area; it does not remove the
 prefix prediction, prove no direct effect, or explain the shortening mutation.
 
 Records, commands, seeds and caveats:
-[c law](../experiments/2026-10-19-kappa-chiral-edge/README.md),
-[mechanism and conditioning](../experiments/2026-10-19-c-law-mechanism/README.md),
-[uniform control](../experiments/2026-10-16-kappa-uniform-baseline/README.md),
-[walker controls](../experiments/2026-10-19-kappa-walker-reference/README.md).
+[c law](../experiments/archive/2026-10-kappa-chiral-edge/README.md),
+[mechanism and conditioning](../experiments/archive/2026-10-c-law-mechanism/README.md),
+[uniform control](../experiments/archive/2026-10-kappa-uniform-baseline/README.md),
+[walker controls](../experiments/archive/2026-10-kappa-walker-reference/README.md).
 The square-loop null, unrun surgery and growth-clock support failure retain
 their distinct verdicts. The headline census and growth exponent are unchanged;
 neither stationarity nor cube-root growth is derived from the microscopic rule.
@@ -92,7 +92,7 @@ neither stationarity nor cube-root growth is derived from the microscopic rule.
 ## Update 2026-10-26: the "blank cells repel" ingredient tested directly
 
 Evidence revision `3040a0b86f69489a999e3881b8d4ff89886a0ac8`
-([wall-vs-memory](../experiments/2026-10-26-wall-vs-memory/README.md)). The two
+([wall-vs-memory](../experiments/active/2026-10-wall-vs-memory/README.md)). The two
 ingredients of the mechanism above (step 1, repulsion by blank cells; step 2,
 mixing inside) were separated by turn noise applied only on fresh or only on
 revisited cells. Removing step 1 while keeping the ant's memory made all six

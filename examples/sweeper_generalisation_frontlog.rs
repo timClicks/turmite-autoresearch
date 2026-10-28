@@ -1,4 +1,4 @@
-//! experiments/2026-10-23-sweeper-generalisation: direction-agnostic front log of one blank-board run.
+//! experiments/archive/2026-10-sweeper-generalisation: direction-agnostic front log of one blank-board run.
 //! usage: sweeper_generalisation_frontlog RULE STEPS GRID OUTDIR [WIN=1000000]
 //! Runs from a blank GRID x GRID board (ant at the centre, heading 0), for STEPS steps or until the ant is within one cell of the
 //! edge. Writes to OUTDIR:

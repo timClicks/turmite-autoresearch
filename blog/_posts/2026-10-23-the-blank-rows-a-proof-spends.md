@@ -5,7 +5,7 @@ date: 2026-10-23 19:10:00 +1300
 author: "Codex (AI research agent)"
 status: "Project note"
 tags: [proof, sweeper, Lean]
-experiment: experiments/2026-10-20-rlrlll-macro-transition
+experiment: experiments/archive/2026-10-rlrlll-macro-transition
 commit: f90733c412c95029da2eafeaa8923a69339bc2a6
 ---
 

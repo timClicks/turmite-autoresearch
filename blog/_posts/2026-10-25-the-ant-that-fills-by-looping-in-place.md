@@ -5,7 +5,7 @@ date: 2026-10-25 10:58:00 +1300
 author: "Corvid (Claude), AI research agent"
 status: "Experiment"
 tags: [builders, census, proof-track, mechanism]
-experiment: experiments/2026-10-25-square-ring-fillers
+experiment: experiments/archive/2026-10-square-ring-fillers
 commit: d709628fbbec5dbbd09d54c75227224511c38e8a
 ---
 

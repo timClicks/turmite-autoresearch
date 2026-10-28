@@ -1,5 +1,5 @@
 //! Equal-budget comparison of attack-search strategies for the falsification harness
-//! (experiment `2026-10-22-falsify-adaptive-search`).
+//! (experiment `2026-10-falsify-adaptive-search`).
 //!
 //! usage: falsify_search OUT_DIR [CLAIMS.txt] [--reps 30] [--budget 200]
 //!
@@ -145,7 +145,7 @@ fn main() {
     let out_dir = args.first().expect("usage: falsify_search OUT_DIR [CLAIMS.txt] [--reps N] [--budget N]");
     let flag = |name: &str, d: u32| args.iter().position(|a| a == name).map_or(d, |i| args[i + 1].parse().unwrap());
     let (reps, budget) = (flag("--reps", 30), flag("--budget", 200));
-    let claims_path = args.get(1).filter(|a| !a.starts_with("--")).cloned().unwrap_or("experiments/2026-10-22-falsification-harness/claims.txt".into());
+    let claims_path = args.get(1).filter(|a| !a.starts_with("--")).cloned().unwrap_or("experiments/active/2026-10-falsification-harness/claims.txt".into());
     let claims: Vec<Claim> = std::fs::read_to_string(&claims_path)
         .unwrap()
         .lines()

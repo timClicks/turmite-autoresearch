@@ -20,14 +20,14 @@ the ants and the recurring terms without assuming a reader knows what boundary
 occupation means.
 
 The distinction matters most when an experiment did not deliver a clean answer.
-The [growth-clock test]({{ '/experiments/2026-10-16-kappa-growth-clock/' | relative_url }})
+The [growth-clock test]({{ '/experiments/2026-10-kappa-growth-clock/' | relative_url }})
 failed its support gate, so its introduction should say that the planned effect
-was not estimated. The [loop-surgery page]({{ '/experiments/2026-10-16-kappa-loop-surgery/' | relative_url }})
+was not estimated. The [loop-surgery page]({{ '/experiments/2026-10-kappa-loop-surgery/' | relative_url }})
 describes a test that was deliberately never run. Neither deserves a confident
 result-shaped story just because the page has a slot for findings.
 
 Figures need the same editorial care. The
-[late-switch figure]({{ '/experiments/2026-10-13-g1-ribbon-breakout/#visual-evidence' | relative_url }})
+[late-switch figure]({{ '/experiments/2026-10-g1-ribbon-breakout/#visual-evidence' | relative_url }})
 gives a reader something specific to inspect: the cost of a new cell changes,
 the wake repeats, the trajectory sweeps. That is a stronger invitation than a
 directory of outputs. It still does not reveal what triggers the transition.

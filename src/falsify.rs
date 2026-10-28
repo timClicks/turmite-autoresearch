@@ -1,4 +1,4 @@
-//! Falsification harness (experiment `2026-10-22-falsification-harness`).
+//! Falsification harness (experiment `2026-10-falsification-harness`).
 //!
 //! A registered claim about a rule ("this rule forms a stable highway", "this rule is chaotic")
 //! is attacked rather than merely re-run for longer: perturbed initial boards, asymmetric
@@ -535,7 +535,7 @@ fn mutate(rule: &Rule, parent: &Trial, st: &mut u64, idx: u32, claim_seed: u64, 
 /// search (mu = 8 elites) mutates uniformly chosen elites. With `immigrate`, a quarter of the children are
 /// fresh random draws instead, which keeps rare structures (a start that gives a different highway) from
 /// being starved by delay-ranking. Equal-budget results against random sampling and the one-cell hill-climb:
-/// `experiments/2026-10-22-falsify-adaptive-search`. `salt` separates the random streams of different arms.
+/// `experiments/archive/2026-10-falsify-adaptive-search`. `salt` separates the random streams of different arms.
 pub fn evolve_chain(rule: &Rule, kind: Kind, rep: u32, budget: u32, immigrate: bool, claim_seed: u64, salt: u64, size: usize, horizon: u64, base: &Baseline) -> Vec<TrialResult> {
     let drawn_seed = claim_seed ^ salt;
     let mut st = mix64(claim_seed ^ salt ^ rep as u64);

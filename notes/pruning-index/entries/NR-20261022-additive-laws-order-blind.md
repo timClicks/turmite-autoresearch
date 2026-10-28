@@ -23,10 +23,10 @@
 
 ## Evidence and limits
 
-- Preregistered criterion: `experiments/2026-10-22-invariant-mining-snf/README.md`, P1 (fingerprint a function of `(n, #R)` alone, zero exceptions), registered at commit `db7eb400e4a59556b8cf6083cd984372069845de` before any solver code existed. P1 held; the coarser `(n, ±D mod 4, trivial?)` form is post hoc.
+- Preregistered criterion: `experiments/archive/2026-10-invariant-mining-snf/README.md`, P1 (fingerprint a function of `(n, #R)` alone, zero exceptions), registered at commit `db7eb400e4a59556b8cf6083cd984372069845de` before any solver code existed. P1 held; the coarser `(n, ±D mod 4, trivial?)` form is post hoc.
 - Evidence revision: `849272d9208fd0bd9ec4d5b4ec15b300d44a2f4f`.
-- Inputs/results (SHA-256): `experiments/2026-10-22-invariant-mining-snf/results/fingerprints.csv` d0a6b0228f87effc0828a13c3f98b351c500ef7daaab3504ff46c4569e8e274a; `universal.csv` b764e1339b7f3b9e50b982ed3546faff37bd79b07a0bd0472e2c5cf07bce4746; `summary.json` f08cbcda1a1dda85203bac092588d142df4dde6350e49d18fa9b608db2699405; `oracle_summary.json` 849eecf83b4ffa69f171df1b76d4629cf1c2bd5d1329d14493925522128279bf; `crosscheck_peer.json` f0d33debe45278a388457965322eecdccb6e92bfd2a98f3f9cee26f75c13b179.
-- Recipe: `uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/census.py --nmax 8`, then `scripts/summarize.py`; oracle `scripts/oracle.py --exe <invariant_mining_snf_verify> --nmax 6 --steps 2000 --starts 16` (seed 20261022); cross-check `scripts/cross_check_peer.py`. Full command list in the experiment README.
+- Inputs/results (SHA-256): `experiments/archive/2026-10-invariant-mining-snf/results/fingerprints.csv` d0a6b0228f87effc0828a13c3f98b351c500ef7daaab3504ff46c4569e8e274a; `universal.csv` b764e1339b7f3b9e50b982ed3546faff37bd79b07a0bd0472e2c5cf07bce4746; `summary.json` f08cbcda1a1dda85203bac092588d142df4dde6350e49d18fa9b608db2699405; `oracle_summary.json` 849eecf83b4ffa69f171df1b76d4629cf1c2bd5d1329d14493925522128279bf; `crosscheck_peer.json` f0d33debe45278a388457965322eecdccb6e92bfd2a98f3f9cee26f75c13b179.
+- Recipe: `uv run --no-project experiments/archive/2026-10-invariant-mining-snf/scripts/census.py --nmax 8`, then `scripts/summarize.py`; oracle `scripts/oracle.py --exe <invariant_mining_snf_verify> --nmax 6 --steps 2000 --starts 16` (seed 20261022); cross-check `scripts/cross_check_peer.py`. Full command list in the experiment README.
 - Proof or measured result: 508 rules x 4 families, 0 fingerprint differences among rules with equal `(n, #R)`; 68 groups by `(family, n, ±D mod 4, trivial?)`, none split. Argument for all `n` (not a checked proof): a cell potential cannot see the heading, so each colour contributes a constant `E_R` or `E_L` per class, and the only rule-dependent condition is `#R E_R + #L E_L = 0 (mod m)` round the colour cycle.
 - Controls and oracle checks: solver equals brute force on random matrices and tiny rules, and equals exact integer elimination on all rules of length <= 5 (selftest); 14,416 generator lines conserved over 2000 `reference::Ant` steps from seeded starts (0 violations); 6560/6560 random non-laws (n <= 4) violated; agrees with the independent enumerative miner (`src/bin/invariants.rs`) on 1016/1016 (rule, m in {2, 4}) cells.
 - Confounds: oracle lengths <= 6 only; the controls are random, not adversarial; the local solver does not see primes above 37; the independence of the two miners is partial (same ansatz, different search).
@@ -36,8 +36,8 @@
 
 - Reopen if: a family outside the stated ansatz yields a law whose existence depends on the order of the colours and passes the same oracle test; or the fingerprint computed at some `n > 8` differs between two rules of equal `(n, ±D mod 4, trivial?)`; or the oracle finds a violation of a generator.
 - Discriminating next test: pair-potential family with a quotient by functionals that vanish on all finite fields (registered in the experiment README as the next question); budget seconds of exact algebra for `n <= 6`.
-- Experiment / lab notebook / scientific note: `experiments/2026-10-22-invariant-mining-snf/README.md`, `NOTEBOOK.md`, `notebook.ipynb`; `notes/research-frontier-2026-10-13-pm.md` (T4, appended note).
-- Related signature IDs: none. Related work: `experiments/2026-10-22-invariant-mining/` (enumerative miner at m = 2, 4; family A0 is its ansatz and the two agree).
+- Experiment / lab notebook / scientific note: `experiments/archive/2026-10-invariant-mining-snf/README.md`, `NOTEBOOK.md`, `notebook.ipynb`; `notes/research-frontier-2026-10-13-pm.md` (T4, appended note).
+- Related signature IDs: none. Related work: `experiments/archive/2026-10-invariant-mining/` (enumerative miner at m = 2, 4; family A0 is its ansatz and the two agree).
 
 ## Amendments (append only)
 

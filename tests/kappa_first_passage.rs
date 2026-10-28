@@ -1,6 +1,6 @@
 //! SUPERSEDED (2026-10-20): prototype oracle only. Its geometry flag cannot fire, it drops skipped milestones and runs a full BFS per step;
 //! the instrument is src/first_passage.rs, tested in tests/first_passage.rs. See the correction in the experiment NOTEBOOK.
-//! Tests and prototype oracle verification for `experiments/2026-10-20-kappa-first-passage`.
+//! Tests and prototype oracle verification for `experiments/archive/2026-10-kappa-first-passage`.
 //! Implements:
 //! 1. From-scratch full BFS depth oracle from boundary cells.
 //! 2. Step-by-step evolving depth tracking at ant location.

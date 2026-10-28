@@ -1,5 +1,5 @@
 //! Fixed-area sampling with boundary/interior cycle accounting
-//! (experiments/2026-10-15-fixed-area-cycles; conventions in its NOTEBOOK.md).
+//! (experiments/archive/2026-10-fixed-area-cycles; conventions in its NOTEBOOK.md).
 //!
 //! Two deliberately separate parts so each has its own oracle in `tests/fixed_area.rs`:
 //! - the *producer* [`drive`]: a walker on a dense board plus an incrementally

@@ -1,4 +1,4 @@
-// Rim/interior crossing observer (experiments/2026-10-15-kappa-return-gates).
+// Rim/interior crossing observer (experiments/archive/2026-10-kappa-return-gates).
 // Args: OUT CAP GRID LO-HI,... HASH THREADS ; specs on stdin: RULE@SEED | rotor:SEED | rw:SEED.
 // Output per spec: <name>.gates.csv (one row per band) and a .done marker holding the config hash.
 use rayon::prelude::*;

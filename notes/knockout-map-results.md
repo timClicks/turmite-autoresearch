@@ -4,11 +4,11 @@ Run 2026-10-12/13. Predictions written beforehand, unchanged:
 knockout-map-hypotheses.md.
 
 Code: examples/knock.rs (runner; its intact run agrees with examples/transplant
-to 4 digits: near_home 0.4737/0.4938, spread 14.378/14.434), experiments/2026-10-12-knockout-maps/scripts/knockout.py
-(job generation), experiments/2026-10-12-knockout-maps/scripts/knockout_analyse.py (statistics), experiments/2026-10-12-knockout-maps/scripts/knockout_checks.py
-(ad hoc checks quoted below). Data: experiments/2026-10-12-knockout-maps/results/knockout_RULE_*.csv/json (coarse and
-refine rows, tile table, hot tiles, summary). Fields: experiments/2026-10-12-knockout-maps/dumps/RULE.grid from
-`dump RULE 24 dumps` (7,264 and 11,144 visited cells; note experiments/2026-10-13-tether-rules/dumps_f/ is a
+to 4 digits: near_home 0.4737/0.4938, spread 14.378/14.434), experiments/archive/2026-10-knockout-maps/scripts/knockout.py
+(job generation), experiments/archive/2026-10-knockout-maps/scripts/knockout_analyse.py (statistics), experiments/archive/2026-10-knockout-maps/scripts/knockout_checks.py
+(ad hoc checks quoted below). Data: experiments/archive/2026-10-knockout-maps/results/knockout_RULE_*.csv/json (coarse and
+refine rows, tile table, hot tiles, summary). Fields: experiments/archive/2026-10-knockout-maps/dumps/RULE.grid from
+`dump RULE 24 dumps` (7,264 and 11,144 visited cells; note experiments/archive/2026-10-tether-rules/dumps_f/ is a
 different age, 2^26).
 
 Recipe, from the repo root in WSL (no commit exists yet; Cargo.lock as is):
@@ -18,10 +18,10 @@ Recipe, from the repo root in WSL (no commit exists yet; Cargo.lock as is):
     cargo build --release --examples      # CARGO_TARGET_DIR=$HOME/turmite-target
     for r in RRRRRLLLLLL RLLLLRRRRLR; do
       $CARGO_TARGET_DIR/release/examples/dump $r 24 dumps
-      uv run experiments/2026-10-12-knockout-maps/scripts/knockout.py coarse $r && uv run experiments/2026-10-12-knockout-maps/scripts/knockout_analyse.py $r
-      uv run experiments/2026-10-12-knockout-maps/scripts/knockout.py refine $r
+      uv run experiments/archive/2026-10-knockout-maps/scripts/knockout.py coarse $r && uv run experiments/archive/2026-10-knockout-maps/scripts/knockout_analyse.py $r
+      uv run experiments/archive/2026-10-knockout-maps/scripts/knockout.py refine $r
     done
-    uv run experiments/2026-10-12-knockout-maps/scripts/knockout_followup.py      # centred geometry, full-tile P4, fresh permutations
+    uv run experiments/archive/2026-10-knockout-maps/scripts/knockout_followup.py      # centred geometry, full-tile P4, fresh permutations
 
 The coarse and refine runs were made with the system Python (numpy 1.26.4,
 scipy 1.11.4); rerunning the analysis under uv reproduced every summary
@@ -93,7 +93,7 @@ down (north is -y).
 Distances in the pre-registered analysis are from the start cell. The intact
 ant's mean position is not the start: (0.54, -5.49) for RRRRRLLLLLL and
 (1.63, 4.53) for RLLLLRRRRLR, so I recomputed everything about that tether
-centre (experiments/2026-10-12-knockout-maps/scripts/knockout_followup.py).
+centre (experiments/archive/2026-10-knockout-maps/scripts/knockout_followup.py).
 
 - Loss by tile ring about the start cell, mean over tiles: r < 10: 0.011/0.015;
   10-15: 0.023/0.038; 15-20: 0.013/0.012; 20-30: 0.0065/0.006; beyond 30:
@@ -157,7 +157,7 @@ window: 0.09-0.15, that is 20-30% of the tether.
 - Why is RRRRRLLLLLL's hot region one-sided (north of its tether centre)? Is
   it tied to a fixed direction in the rule's geometry or to where this
   particular field happened to build up? A second territory age (the 2^26
-  grids in experiments/2026-10-13-tether-rules/dumps_f/) would show whether the lobe moves.
+  grids in experiments/archive/2026-10-tether-rules/dumps_f/) would show whether the lobe moves.
 - Is the sensitive disc set by the 10-cell tether radius or by the excursion
   scale? Redo the loss map with near_home measured at radius 6 and 15.
 - A route definition that breaks the collinearity: last exit-to-return path

@@ -1,4 +1,4 @@
-//! experiments/2026-10-20-rlrlll-macro-transition: entry probe for the RLRLLL sweeper.
+//! experiments/archive/2026-10-rlrlll-macro-transition: entry probe for the RLRLLL sweeper.
 //! usage: rlrlll_macro_transition_entry RULE T_END LOG_FROM OUTDIR [GRID=32768] [MINSWING=40]
 //! Plain loop as in `rlrlll_macro_transition_trace`, stopped at step T_END. From step LOG_FROM writes
 //! OUTDIR/turns.csv (t,x,y,kind: kind +1 = y-maximum, -1 = y-minimum, each after a swing >= MINSWING rows)

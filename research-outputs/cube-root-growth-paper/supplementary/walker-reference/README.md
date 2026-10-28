@@ -11,7 +11,7 @@ uv run research-outputs/cube-root-growth-paper/supplementary/walker-reference/bu
 uv run research-outputs/cube-root-growth-paper/supplementary/walker-reference/build_walker_reference.py --check
 ```
 
-Inputs: `experiments/2026-10-19-kappa-walker-reference/results/probe_{mem,rotor}.csv` (SHA-256 in
+Inputs: `experiments/archive/2026-10-kappa-walker-reference/results/probe_{mem,rotor}.csv` (SHA-256 in
 `walker_reference.build.json`), produced by that experiment's `scripts/run.sh` at commit 34fbf45
 (`probe 23 16384` for the memoryless walkers, `probe 27 8192` for the rotor; seeds 2026101901..08). The CSV is
 regenerated, never hand-edited.
@@ -39,7 +39,7 @@ regenerated, never hand-edited.
 | rotor | k12-22 / k20-26 | 1.686 / 1.799 |
 
 The ant census (single run per rule, 2185 stationary blob rules) has median 0.814, IQR 0.664-0.957, 5-95%
-0.443-1.332 (`experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt`; copied into the build JSON).
+0.443-1.332 (`experiments/archive/2026-10-kappa-uniform-baseline/results/census_spread.txt`; copied into the build JSON).
 The mean-field uniform walker (ratio 1.010, sd 0.009) is from that earlier experiment and is not in this table.
 
 ## Caveats
