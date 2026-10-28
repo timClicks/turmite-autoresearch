@@ -111,3 +111,29 @@ The cup fixed stage-1's "L never grows" failure but hit the registered trapping/
 
 ### 2026-10-27 21:07 NZDT · 9c2aeea · decision
 **Stop** confirmation. Pruning-index NR for reflecting-cup D calibrator. Next compact-domain candidate must be re-registered (visited-neighbour reflection, Eden, or IDLA) before any measurement.
+
+### 2026-10-28 15:50 NZDT · e40df03 · intent
+Revision 2 at the user's request ("Can we explore eden style and internal dla?").
+Two new D calibrators, frozen before measuring: C1E `eden` (neighbour-supported
+births, `q1 = 1/64` fallback for straight edges) and C1I `idla` (origin restarts
+counted as ordinary excursions). Same Score, margin and compactness rule. The
+earlier registration, the Revision 1 cup verdict and the excluded pilot stay
+unchanged.
+
+### 2026-10-28 15:50 NZDT · e40df03 · decision
+Pruning preflight (`eden|idla|internal|aggregation|compact`): the only related
+entry, the reflecting-cup NR, defers Eden and IDLA to a new registration.
+Nothing covers them. **RUN.**
+
+### 2026-10-28 15:50 NZDT · e40df03 · assumption
+IDLA's centre-launched excursions scale as L², so C1I should prefer D. This
+tests whether the instrument can see diffusion. It does not test likeness to
+the ant (IDLA width ~ t^(1/4)). For Eden, D is predicted, but the
+L-independent short head of boundary-launched excursions may push the Score
+toward S or inconclusive. If so, that is an instrument finding. Status:
+untested.
+
+### 2026-10-28 15:50 NZDT · e40df03 · decision
+Gate: confirmation runs only if C0 ∧ C2 ∧ (C1E PASS ∨ C1I PASS). The
+confirmation readout is interpreted relative to the passing calibrator(s).
+Otherwise stop. `idlar` (restart excursions dropped) is a diagnostic only.

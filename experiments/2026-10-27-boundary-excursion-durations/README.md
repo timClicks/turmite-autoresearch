@@ -432,3 +432,210 @@ Score(L)=0.1195, Score(L²)=0.1536, verdict=**inconclusive** (allowed). mean τ/
 
 ### Retain / revise / stop (Revision 1)
 **Stop confirmation; retire this reflecting-cup design as a D calibrator** (pruning entry below). Keep the excursion instrument, MF L-control, Score/margin, and reserved cohort. A future revision needs a compact-domain walker that (i) passes A/P² (or an equivalent filled-blob test) and (ii) prefers D under Score without P-shopping — e.g. reflecting onto visited neighbours only, Eden growth, or internal DLA — registered before measuring.
+
+## Revision 2 registration (2026-10-28 15:50 NZDT, +13:00)
+
+**Registered before any Revision 2 measurement.** Base commit:
+`e40df036740c1868af077b58aae0c00ddabdb247` (branch tip after the Copilot merge of
+`main`; Revision 1 results on record). The original registration (`9bfa496`),
+the stage-1 C1 FAIL, the Revision 1 cup verdict
+(`NR-20261027-reflecting-cup-d-calibrator`) and the excluded pilot stay
+unchanged. This section adds two new D calibrators, C1E and C1I, and re-states
+the confirmation gate. Prompted by the user's request to explore an Eden-style
+walker and internal DLA.
+
+### Pruning-index preflight
+
+`rg -i -e eden -e idla -e internal -e aggregation -e compact` over
+`notes/pruning-index/entries/` (index at `e40df03`):
+
+- `NR-20261027-reflecting-cup-d-calibrator`: retires the stay-on-reject cup
+  (`cup:P`) as a D calibrator, and says explicitly that "Eden/IDLA are
+  different designs requiring a new registration". It does not cover them.
+- `NR-20261026-wall-vs-memory-no-wall-porous`: matches "compact" only as a
+  property of ant territories under fresh-ground noise; it is a different
+  question.
+- No entry mentions Eden growth, internal DLA, aggregation or a
+  visited-neighbour birth rule.
+
+**Decision: RUN.** No signature covers these designs. `src/walkers.rs` has no
+Eden or IDLA walker (checked again), so both are implemented as new movers in
+`examples/boundary_excursions.rs` next to `ReflectingCup`, because they need
+the visited set.
+
+### C1E: Eden-style compact walker (frozen definition)
+
+Spec `eden:SEED`. A simple random walk on the visited set with a
+neighbour-supported birth rule. Each step:
+
+1. Draw a uniform direction among the four lattice neighbours (same SplitMix64
+   stream convention as `cup`).
+2. If the target is visited, move there.
+3. If the target is unvisited, count its visited 4-neighbours `n` (the
+   walker's own cell is one of them, so `n ≥ 1`).
+   - If `n ≥ 2`: accept the birth and move (probability 1, no extra draw).
+   - If `n = 1`: accept with probability `q1 = 1/64`, else **stay**.
+
+**Justification (compactness only).** The cup failed compactness because every
+frontier proposal could birth with the same probability, so single-support
+births grew fingers. Under this rule, a cell bordered on two or more sides by
+territory (a notch or a kink beside a step) fills as soon as it is proposed. A
+cell that would stick out from a flat face (one supporting neighbour) is born
+only rarely. Faces then advance row by row: a rare bump nucleates, and the kinks
+beside it fill in. This is the layer-growth picture of a faceted, filled blob.
+
+**Stall check.** Any axis-aligned rectangle (for example the 1×1 start, a
+straight row, or a full square) has **no** unvisited cell with two or more
+visited 4-neighbours. With `q1 = 0` the walker would stall forever. The frozen
+fallback is `q1 = 1/64` (exact in the Q32 accept draw). It is strictly
+positive, so every frontier proposal has positive birth probability and there
+is no absorbing state. It is below the smallest cup `P` (0.05) by more than
+3×, so single-support births are rarer than in any Revision 1 cup run. It was
+not chosen by running anything. No other `q1` is run: no grid and no
+diagnostics.
+
+### C1I: internal DLA (frozen definition)
+
+Spec `idla:SEED`. One walker (a "particle") at a time:
+
+1. The particle starts at the origin (the first visited cell).
+2. It takes simple random-walk steps (uniform direction, SplitMix64) on the
+   visited set. Steps onto visited cells are always accepted.
+3. The first time a step targets an unvisited cell, the particle moves there
+   and that cell is born.
+4. The next particle restarts at the origin. The restart is an instantaneous
+   **teleport**: it costs no time step. The next step starts at the origin.
+
+**Restart treatment (frozen): restarts are not boundaries.** The instrument is
+applied unmodified. A step is a boundary step iff it *starts* on a visited
+cell with an unvisited neighbour. The step after a teleport starts at the
+origin (interior once the blob has grown), so the run from restart to first
+boundary hit is a **completed excursion**, counted like any other. The step
+that ends the previous particle (the birth) starts on a boundary cell, so it
+already closes any open excursion. The teleport therefore never splices two
+excursions together.
+
+Why not censor these runs or treat restarts as excursion boundaries? These
+centre-launched runs are exactly the excursions whose duration is set by
+diffusion across the blob, of order L² (expected exit time from the centre of
+a disk of radius R is R²/2). Censoring them would remove the diffusive scale
+the calibrator is meant to supply. Treating the teleport as a boundary visit
+would change the instrument's definition for one walker only.
+
+**Registered diagnostic, not gate:** `idlar:SEED` is the identical trajectory
+(same seed and geometry), but excursions that **began at a restart** are
+dropped. They are not completed and not censored, and their steps stay in the
+`interior_steps` budget. This lets the boundary-return excursions be read
+alone. It does not override C1I.
+
+**Growth note.** IDLA width grows like t^(1/4), not t^(1/3): each birth costs a
+particle about R² steps, so A ~ t^(1/2). This matches the internal-DLA remark
+in `notes/cube-root-hypothesis.md`. C1I therefore **does not** test whether
+IDLA resembles the ant. It tests whether the instrument and Score can see
+diffusive, L²-scaled excursions inside a compact, growing territory.
+
+### Predictions and ambiguity (frozen)
+
+- **C1I: predicted D.** About one centre-launched excursion per particle, each
+  of order L², with only a few short boundary-return excursions per particle.
+  The particle leaves through a boundary cell with probability ≥1/4 per
+  boundary step.
+- **C1E: predicted D, with an honest ambiguity.** The territory grows slowly,
+  and the walker's stationary law on it is uniform. Its excursions all start
+  next to the boundary. In a two-dimensional domain, the number-weighted
+  survival of such excursions has an L-independent short-time head (roughly
+  τ^(-1/2)) and only its cutoff scales with L². The Score compares
+  number-weighted survival curves on a fixed u-grid, so a short head that does
+  not move with L may push the Score toward S or inconclusive **even for a
+  genuinely diffusive, compact walker**. The stage-1 synthetic check planted
+  pure-scale laws, which have no such head. A C1E result that is compact but S
+  or inconclusive is therefore read as evidence about the **instrument**: the
+  Score may not see boundary-launched diffusion. It is not read as evidence
+  that Eden is sweep-like.
+
+### Compactness pre-check (unchanged rule, applied to each calibrator)
+
+Use the same retention filters as Score (k∈[16,24], not escaped,
+n_completed≥200, censored_step_share≤0.20, L≥4, ≥200 binned durations).
+Apply the check to the pooled `eden` seeds and, separately, the pooled `idla`
+seeds:
+
+1. L_max/L_min ≥ 2;
+2. A_max/A_min ≥ 4;
+3. median A/P² ≥ 0.04.
+
+`idlar` has the same geometry as `idla`, so its compactness is reported only.
+
+### Calibrator outcomes (frozen; one label per walker)
+
+- **PASS:** compactness passes, frozen verdict D, not censoring-fragile.
+- **INCONCLUSIVE:** compactness passes, verdict S or inconclusive.
+- **INADEQUATE:** compactness fails, or verdict uninformative or
+  censoring-fragile.
+
+Score rule unchanged: prefer D if Score(L²) ≤ 0.75·Score(L); prefer S if
+Score(L) ≤ 0.75·Score(L²); else inconclusive. The u-grid, filters, KM
+censoring-fragile rule and margin are all unchanged. If a walker fails, it
+fails. There is no parameter shopping, no re-run with other seeds and no
+alternative restart treatment.
+
+### Controls
+
+- **C0 (instrument):**
+  - The stage-1 probe match on `rw:7`/`rotor:7` and the mutant panic, re-run
+    on a tiny non-cohort smoke.
+  - `--check` budget identity on every spec.
+  - For `eden` and `idla`, which have no `probe_walker` equivalent, `--check`
+    instead recomputes area and perimeter from scratch at every recorded
+    window by scanning the board. This is an independent count, not the
+    incremental `Region` counters, and the two must agree.
+  - `eden` must also show that every accepted birth had `n ≥ 2` or used the
+    `q1` draw; `idla` births must start on a boundary cell.
+  - `idla:S` and `idlar:S` must agree on area, perimeter, new_cells and
+    boundary_steps in every window.
+- **C2 (mean-field):** fresh seeds; must again prefer S with mean τ/L in
+  [0.5, 2.0].
+- **C3 (rotor):** measured only; no D/S bet.
+
+### Gate (frozen)
+
+Run the reserved confirmation cohort (`results/reserved_confirmation_specs.txt`,
+exactly as reserved) **only if** all three hold:
+
+- C0 PASS;
+- C2 PASS;
+- **at least one** of C1E or C1I is PASS.
+
+If both C1E and C1I are INCONCLUSIVE or INADEQUATE: **stop**, and do not run
+the cohort.
+
+If the gate passes, apply the confirmation decision rule frozen in
+Revision 1, unchanged: per-rule verdicts, a ≥75% family rule, and fewer than 4
+eligible rules means revise. Interpret the readout **only relative to the
+passing calibrator(s)**:
+
+- **If only C1I passes:** the instrument has shown that it can see diffusive
+  L² excursions that are launched from inside the territory. An ant S or
+  "neither" readout then cannot be read as "the ant does not diffuse along
+  its boundary".
+- **If C1E passes:** boundary-launched diffusion is also visible.
+
+### Sample (Revision 2)
+
+- Board, horizon and band unchanged: 8192, max_log2 24, k=16..24,
+  `RAYON_NUM_THREADS=4`, `--check` on every run.
+- Fresh seeds `2026102841`..`2026102844` (four each) for:
+  - `eden:SEED`;
+  - `idla:SEED`;
+  - `idlar:SEED`;
+  - `mf:SEED`;
+  - `rotor:SEED`.
+
+  That is 20 specs in `results/rev2_calib_specs.txt`.
+- Confirmation: only `results/reserved_confirmation_specs.txt`, and only if
+  the gate passes.
+
+### Compute
+
+Expected to be minutes of wall time at most for the calibration (Revision 1
+took seconds). Confirmation cost is as reserved.
