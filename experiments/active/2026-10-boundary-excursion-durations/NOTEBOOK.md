@@ -208,3 +208,24 @@ No new runs, and no ant or pilot data.
   time from bin edges as the denominator.
 - **Prior guess on record (unverified, told to the user):** "nearly half of excursions, a sliver of time". The numbers will be reported against it as they come out.
 - Script `scripts/short_share.py` writes `results/rev2_short_share.{json,txt}`.
+
+### 2026-10-28 16:58 NZDT · f466101 · observation
+**Post hoc and exploratory**, as planned in the 16:50 entry. Source: `results/rev2_short_share.txt` (from `scripts/short_share.py`).
+Short means τ ≤ 3. Time is given as a bracket from the bin edges, with the window's interior steps as the denominator.
+
+| kind | share of completed excursions | share of off-boundary time |
+|---|---|---|
+| eden | 0.520 | 0.0067–0.0085 |
+| idla | 0.339 | 0.0006–0.0007 |
+| mf | 0.076 | 0.0028–0.0039 |
+| rotor | 0.728 | 0.0123–0.0154 |
+
+The τ ≤ 7 sensitivity line gives 0.66, 0.41, 0.17 and 0.85 of the counts, with every time share below 0.026.
+
+**Guess on record:** "nearly half of excursions, a sliver of time".
+- **Eden:** the guess held. Just over half of the excursions, under 1% of the time.
+- **IDLA:** about a third of the excursions, roughly 0.1% of the time.
+- **Rotor:** larger than guessed. About three quarters of the excursions, but still under 2% of the time.
+- **Mean-field:** the guess does not apply. Only about 8% of its excursions are short.
+
+The "sliver of time" half held for every kind. These numbers fit the Rev2 registration's stated worry: a number-weighted Score is dominated by a short head that does not move with L. They do not test it. Nothing is registered by this entry.
