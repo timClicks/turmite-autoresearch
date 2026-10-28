@@ -61,12 +61,14 @@ def slopes(df):
         (pl.col("lnA") - pl.col("lnA").mean().over("rule")).alias("dx"),
     )
     within = float((d["dx"] * d["dy"]).sum() / (d["dx"] ** 2).sum())
-    m = d.group_by("rule").agg(pl.col("lnkappa").mean().alias("y"), pl.col("lnA").mean().alias("x"))
+    m = d.group_by("rule").agg(pl.col("lnkappa").mean().alias("y"), pl.col("lnA").mean().alias("x")).sort("rule")
     return float(np.polyfit(m["x"], m["y"], 1)[0]), within
 
 
 between, within = slopes(seeds)
-rules = seeds["rule"].unique().to_list()
+# sorted: polars unique()/group_by() return hash order, which changes per process and would
+# remap the seeded draws to different rules on every run
+rules = sorted(seeds["rule"].unique().to_list())
 by = {r: seeds.filter(pl.col("rule") == r) for r in rules}
 bs = []
 for _ in range(500):
@@ -87,7 +89,7 @@ def pspearman(a, b, c):
 
 for label, filt in (("all seeds", seeds), ("open share <= 0.10", seeds.filter(pl.col("open_share") <= 0.10))):
     for k in (22, 25):
-        s = filt.filter(pl.col("k") == k).group_by("rule").agg(pl.col("ln_ratio").mean(), pl.col("lnkappa").mean(), pl.col("lnA").mean())
+        s = filt.filter(pl.col("k") == k).group_by("rule").agg(pl.col("ln_ratio").mean(), pl.col("lnkappa").mean(), pl.col("lnA").mean()).sort("rule")
         a, b, c = s["ln_ratio"].to_numpy(), s["lnkappa"].to_numpy(), s["lnA"].to_numpy()
         boots = []
         for _ in range(2000):
