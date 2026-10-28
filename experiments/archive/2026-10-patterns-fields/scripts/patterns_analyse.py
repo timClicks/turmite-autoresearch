@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 import polars as pl
 
-ROOT = Path(__file__).resolve().parents[2 if lib else 3]
+ROOT = Path(__file__).resolve().parents[4]
 S = 4096
 PAD = 3
 SHAPES = {"pairs": [(2, 1), (1, 2)], "b2": [(2, 2)], "b3": [(3, 3)]}

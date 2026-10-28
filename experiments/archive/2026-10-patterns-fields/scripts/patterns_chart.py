@@ -8,7 +8,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-ROOT = Path(__file__).resolve().parents[2 if lib else 3]
+ROOT = Path(__file__).resolve().parents[4]
 rows = json.loads((ROOT / "experiments/archive/2026-10-patterns-fields/results/patterns_summary.json").read_text())
 BLUE, ORANGE, AQUA, GREY, INK, MUTED = "#2a78d6", "#eb6834", "#1baf7a", "#8a8980", "#1f1e1c", "#6b6a63"
 plt.rcParams.update({"font.size": 10, "axes.edgecolor": "#d6d5ce", "axes.labelcolor": INK, "xtick.color": MUTED,

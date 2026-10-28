@@ -32,7 +32,7 @@ from pathlib import Path
 
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[2 if lib else 3]
+ROOT = Path(__file__).resolve().parents[4]
 SYN = ROOT / "experiments/archive/2026-10-patterns-fields/synth"
 S = 4096
 STEPS = 1 << 26

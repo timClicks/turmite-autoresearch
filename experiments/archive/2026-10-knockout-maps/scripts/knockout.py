@@ -17,7 +17,7 @@ from pathlib import Path
 
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[2 if lib else 3]
+ROOT = Path(__file__).resolve().parents[4]
 S = 4096
 C = S // 2
 STEPS = 1 << 26

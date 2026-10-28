@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import rankdata, spearmanr
 
-ROOT = Path(__file__).resolve().parents[2 if lib else 3]
+ROOT = Path(__file__).resolve().parents[4]
 K = os.environ.get("KNOCK", str(ROOT / "target/release/examples/knock"))
 
 

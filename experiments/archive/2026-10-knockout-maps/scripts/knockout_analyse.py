@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import spearmanr, rankdata
 
-ROOT = Path(__file__).resolve().parents[2 if lib else 3]
+ROOT = Path(__file__).resolve().parents[4]
 S, C = 4096, 2048
 
 
