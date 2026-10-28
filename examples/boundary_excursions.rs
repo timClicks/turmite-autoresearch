@@ -12,11 +12,19 @@
 //! Specs: RULE, RULE@SEED, rotor:SEED, rw:SEED, mf:SEED (mean-field of
 //! examples/kappa_uniform_baseline.rs / kappa_exposure_classes.rs),
 //! cup:P:SEED (reflecting cup: RW on visited set; birth onto unvisited with
-//! probability P, else stay — Revision 1 D calibrator).
+//! probability P, else stay — Revision 1 D calibrator),
+//! eden:SEED (Revision 2 C1E: RW on visited set; birth onto an unvisited cell
+//! with >=2 visited 4-neighbours always, with exactly 1 at probability 1/64,
+//! else stay), idla:SEED (Revision 2 C1I: internal DLA; each particle walks
+//! from the origin until it steps onto an unvisited cell; zero-time restart),
+//! idlar:SEED (same trajectory as idla; excursions launched by a restart are
+//! dropped — diagnostic only).
 //! `--check` compares every recorded window's (area, perimeter, new_cells,
 //! boundary_steps) with probe::probe_walker and asserts the per-window step
 //! budget boundary_steps + interior_steps = window length. For cup:1.0:SEED,
-//! totals must match rw:SEED (accept-draw skipped at P=1).
+//! totals must match rw:SEED (accept-draw skipped at P=1). For eden/idla/idlar
+//! `--check` also recounts area and perimeter from scratch over the visited
+//! bounding box at every recorded window and checks the birth invariants.
 use rayon::prelude::*;
 use std::io::Write;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -25,6 +33,7 @@ use turmite::walkers::{PatchedAnt, RandomWalk, Rotor, Walker, splitmix_next};
 use turmite::{DIRS, Rule};
 
 static MUTANT: AtomicBool = AtomicBool::new(false);
+static CHECK: AtomicBool = AtomicBool::new(false);
 
 const UNV: u8 = u8::MAX;
 const MAX_BIN: usize = 40; // floor(log2(tau)) in 0..MAX_BIN
@@ -108,6 +117,16 @@ trait Mover {
         size: usize,
         region: &Region,
     ) -> (usize, i64, i64);
+    /// True if the most recent `start_cell` was a zero-time restart (IDLA).
+    fn restarted(&self) -> bool {
+        false
+    }
+    /// Drop excursions launched by a restart (idlar diagnostic).
+    fn drop_restart_excursions(&self) -> bool {
+        false
+    }
+    /// End-of-run invariant hook (check mode only).
+    fn finish(&self, _: &Region) {}
 }
 
 struct WalkerMover<W: Walker> {
@@ -256,6 +275,158 @@ impl Mover for ReflectingCup {
     }
 }
 
+/// Revision 2 C1E: Eden-style compact walker. Simple random walk on the visited
+/// set; a proposed step onto an unvisited cell with >= 2 visited 4-neighbours
+/// is accepted (no draw); with exactly 1 (the walker's own cell) it is accepted
+/// with probability 1/64 (straight-edge stall fallback), else stay.
+struct EdenWalker {
+    st: u64,
+    x: i64,
+    y: i64,
+    births_supported: u64,
+    births_fallback: u64,
+}
+
+const EDEN_Q1_Q32: u64 = 1u64 << 26; // 1/64 of 2^32
+
+impl Mover for EdenWalker {
+    fn start_cell(&mut self, cur: usize, _: &Region) -> usize {
+        cur
+    }
+    fn advance(
+        &mut self,
+        at: usize,
+        _: &mut [u8],
+        size: usize,
+        region: &Region,
+    ) -> (usize, i64, i64) {
+        let dir = (splitmix_next(&mut self.st) & 3) as usize;
+        let (dx, dy) = DIRS[dir];
+        let s = size as isize;
+        let j = (at as isize + dy as isize * s + dx as isize) as usize;
+        if !region.visited(j) {
+            let n = region
+                .nbr
+                .iter()
+                .filter(|&&d| region.visited((j as isize + d) as usize))
+                .count();
+            debug_assert!(n >= 1);
+            if n >= 2 {
+                self.births_supported += 1;
+            } else {
+                let r = splitmix_next(&mut self.st);
+                if (r >> 32) >= EDEN_Q1_Q32 {
+                    return (at, self.x, self.y);
+                }
+                self.births_fallback += 1;
+            }
+        }
+        self.x += dx as i64;
+        self.y += dy as i64;
+        (j, self.x, self.y)
+    }
+    fn finish(&self, region: &Region) {
+        assert_eq!(
+            self.births_supported + self.births_fallback + 1,
+            region.area,
+            "eden births must be supported (n>=2) or fallback draws"
+        );
+    }
+}
+
+/// Revision 2 C1I: internal DLA. Each particle starts at the origin and takes
+/// simple random-walk steps; its first step onto an unvisited cell births that
+/// cell, and the next step starts back at the origin (zero-time teleport).
+struct Idla {
+    st: u64,
+    origin: usize,
+    seen: u64,
+    x: i64,
+    y: i64,
+    restart: bool,
+    drop_restart: bool,
+    births: u64,
+}
+
+impl Idla {
+    fn new(seed: u64, origin: usize, drop_restart: bool) -> Self {
+        Idla {
+            st: seed,
+            origin,
+            seen: 1,
+            x: 0,
+            y: 0,
+            restart: false,
+            drop_restart,
+            births: 0,
+        }
+    }
+}
+
+impl Mover for Idla {
+    fn start_cell(&mut self, cur: usize, region: &Region) -> usize {
+        if region.area > self.seen {
+            debug_assert_eq!(region.area, self.seen + 1);
+            self.seen = region.area;
+            self.restart = true;
+            self.x = 0;
+            self.y = 0;
+            self.origin
+        } else {
+            self.restart = false;
+            cur
+        }
+    }
+    fn advance(
+        &mut self,
+        at: usize,
+        _: &mut [u8],
+        size: usize,
+        region: &Region,
+    ) -> (usize, i64, i64) {
+        let dir = (splitmix_next(&mut self.st) & 3) as usize;
+        let (dx, dy) = DIRS[dir];
+        let s = size as isize;
+        let j = (at as isize + dy as isize * s + dx as isize) as usize;
+        if !region.visited(j) {
+            // Native boundary predicate (independent of the mutant flag).
+            assert!(region.unv[at] > 0, "idla birth must start on a boundary cell");
+            self.births += 1;
+        }
+        self.x += dx as i64;
+        self.y += dy as i64;
+        (j, self.x, self.y)
+    }
+    fn restarted(&self) -> bool {
+        self.restart
+    }
+    fn drop_restart_excursions(&self) -> bool {
+        self.drop_restart
+    }
+    fn finish(&self, region: &Region) {
+        assert_eq!(self.births + 1, region.area, "idla births = area - 1");
+    }
+}
+
+/// Recount area and perimeter from scratch inside the visited bounding box.
+fn scan_region(region: &Region, size: usize, bb: (usize, usize, usize, usize)) -> (u64, u64) {
+    let (x0, x1, y0, y1) = bb;
+    let (mut a, mut p) = (0u64, 0u64);
+    for y in y0..=y1 {
+        for x in x0..=x1 {
+            let i = y * size + x;
+            if region.unv[i] == UNV {
+                continue;
+            }
+            a += 1;
+            if region.nbr.iter().any(|&d| region.unv[(i as isize + d) as usize] == UNV) {
+                p += 1;
+            }
+        }
+    }
+    (a, p)
+}
+
 fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> Out {
     let c = (size / 2) as i64;
     let mut region = Region::new(size);
@@ -268,6 +439,10 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
     // Excursion state carries across windows.
     let mut in_exc = false;
     let mut exc_len: u64 = 0;
+    let mut exc_drop = false;
+    let check = CHECK.load(Ordering::Relaxed);
+    let cu = c as usize;
+    let mut bb = (cu, cu, cu, cu);
 
     for k in 0..max_log2 {
         let t_end = 1u64 << (k + 1);
@@ -304,6 +479,8 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
             if !region.visited(idx) {
                 w.new_cells += 1;
                 region.visit(idx);
+                let (bx, by) = (idx % size, idx / size);
+                bb = (bb.0.min(bx), bb.1.max(bx), bb.2.min(by), bb.3.max(by));
             }
 
             // Episode update from *start-of-step* boundary flag (on_b), matching
@@ -318,9 +495,15 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
                 if !in_exc {
                     in_exc = true;
                     exc_len = 1;
+                    exc_drop = mv.drop_restart_excursions() && mv.restarted();
                 } else {
                     exc_len += 1;
                 }
+            } else if in_exc && exc_drop {
+                // idlar: restart-launched excursion dropped (not completed, not censored).
+                in_exc = false;
+                exc_len = 0;
+                exc_drop = false;
             } else if in_exc {
                 // Completed with length exc_len (does not include this boundary step).
                 let bin = (63 - exc_len.leading_zeros()) as usize; // floor(log2)
@@ -339,7 +522,7 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
             }
         }
 
-        if in_exc {
+        if in_exc && !exc_drop {
             w.n_censored = 1;
             w.unresolved_steps = exc_len; // full open length (may predate window)
             // Keep in_exc/exc_len so a later completion gets the full duration.
@@ -347,6 +530,10 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
 
         w.area = region.area;
         w.perimeter = region.perimeter;
+        if check {
+            let (a, p) = scan_region(&region, size, bb);
+            assert_eq!((a, p), (region.area, region.perimeter), "scan vs incremental k={}", k + 1);
+        }
         // Record from k_end >= 9 (2^8..), matching exposure-classes probe compare band start.
         if k + 1 >= 9 {
             wins.push(w);
@@ -354,6 +541,9 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
         if escaped {
             break;
         }
+    }
+    if check {
+        mv.finish(&region);
     }
     Out { wins, escaped }
 }
@@ -365,6 +555,38 @@ fn run_cup(seed: u64, p: f64, size: usize, max_log2: u32) -> Out {
         size,
         max_log2,
     )
+}
+
+fn run_eden(seed: u64, size: usize, max_log2: u32) -> Out {
+    let mv = EdenWalker {
+        st: seed,
+        x: 0,
+        y: 0,
+        births_supported: 0,
+        births_fallback: 0,
+    };
+    run(mv, vec![0u8; size * size], size, max_log2)
+}
+
+fn run_idla(seed: u64, drop_restart: bool, size: usize, max_log2: u32) -> Out {
+    let c = size / 2;
+    run(
+        Idla::new(seed, c * size + c, drop_restart),
+        vec![0u8; size * size],
+        size,
+        max_log2,
+    )
+}
+
+fn check_budget(out: &Out, what: &str) {
+    for w in &out.wins {
+        assert_eq!(
+            w.boundary_steps + w.interior_steps,
+            1u64 << (w.k - 1),
+            "{what} budget k={}",
+            w.k
+        );
+    }
 }
 
 fn run_mf(seed: u64, size: usize, max_log2: u32) -> Out {
@@ -466,6 +688,33 @@ fn format_block(spec: &str, out: &Out) -> (String, String) {
 }
 
 fn run_spec(s: &str, size: usize, max_log2: u32, check: bool) -> Out {
+    if let Some(seed) = s.strip_prefix("eden:") {
+        let out = run_eden(seed.parse().expect("eden SEED"), size, max_log2);
+        if check {
+            check_budget(&out, "eden");
+        }
+        return out;
+    }
+    for (pre, drop) in [("idla:", false), ("idlar:", true)] {
+        if let Some(seed) = s.strip_prefix(pre) {
+            let seed: u64 = seed.parse().expect("idla SEED");
+            let out = run_idla(seed, drop, size, max_log2);
+            if check {
+                check_budget(&out, pre);
+                let other = run_idla(seed, !drop, size, max_log2);
+                assert_eq!(other.wins.len(), out.wins.len(), "idla/idlar nwindows");
+                for (a, b) in other.wins.iter().zip(&out.wins) {
+                    assert_eq!(
+                        (a.area, a.perimeter, a.new_cells, a.boundary_steps),
+                        (b.area, b.perimeter, b.new_cells, b.boundary_steps),
+                        "idla and idlar must share geometry at k={}",
+                        b.k
+                    );
+                }
+            }
+            return out;
+        }
+    }
     if let Some(rest) = s.strip_prefix("cup:") {
         // cup:P:SEED
         let (p_str, seed_str) = rest
@@ -560,6 +809,9 @@ fn main() {
         .unwrap_or(8192);
     let check = a.iter().any(|s| s == "--check");
     let mutant = a.iter().any(|s| s == "--mutant");
+    if check {
+        CHECK.store(true, Ordering::Relaxed);
+    }
     if mutant {
         // C0: invert the boundary predicate so probe totals must disagree.
         MUTANT.store(true, Ordering::Relaxed);

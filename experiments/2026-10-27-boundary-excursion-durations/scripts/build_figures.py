@@ -86,14 +86,17 @@ def plot_group(title, windows, hist, specs_filter, out_stem):
     plt.close(fig)
 
 
-def plot_compactness(windows, out_stem):
-    """A/P^2 and L vs k for cup specs."""
-    rows = [w for w in windows if w["spec"].startswith("cup:") and w["escaped"] == "false"]
+CUP_GROUPS = [(f"p={p}", f"cup:{p}:") for p in ("0.05", "0.10", "0.25")]
+
+
+def plot_compactness(windows, out_stem, groups=CUP_GROUPS, title="Revision-1 cup compactness diagnostics"):
+    """A/P^2 and L vs k, seed-averaged per group (label, spec prefix)."""
+    rows = [w for w in windows if any(w["spec"].startswith(pre) for _, pre in groups) and w["escaped"] == "false"]
     if not rows:
         return
     fig, axes = plt.subplots(1, 2, figsize=(10, 4))
-    for p in ("0.05", "0.10", "0.25"):
-        sub = [w for w in rows if w["spec"].startswith(f"cup:{p}:")]
+    for label, pre in groups:
+        sub = [w for w in rows if w["spec"].startswith(pre)]
         by_k = {}
         for w in sub:
             k = int(w["k"])
@@ -102,8 +105,8 @@ def plot_compactness(windows, out_stem):
         ks = sorted(by_k)
         ap2 = [sum(x[0] for x in by_k[k]) / len(by_k[k]) for k in ks]
         Ls = [sum(x[1] for x in by_k[k]) / len(by_k[k]) for k in ks]
-        axes[0].plot(ks, ap2, "o-", label=f"p={p}")
-        axes[1].plot(ks, Ls, "o-", label=f"p={p}")
+        axes[0].plot(ks, ap2, "o-", label=label)
+        axes[1].plot(ks, Ls, "o-", label=label)
     axes[0].axhline(0.04, color="k", ls="--", lw=1, label="threshold 0.04")
     axes[0].set_xlabel("k"); axes[0].set_ylabel(r"$A/P^2$")
     axes[0].set_title("isoperimetric proxy")
@@ -111,7 +114,7 @@ def plot_compactness(windows, out_stem):
     axes[1].set_title("linear size")
     for ax in axes:
         ax.grid(True, alpha=0.3); ax.legend(fontsize=8)
-    fig.suptitle("Revision-1 cup compactness diagnostics")
+    fig.suptitle(title)
     fig.tight_layout()
     fig.savefig(FIG / f"{out_stem}.png", dpi=120)
     plt.close(fig)
@@ -140,6 +143,16 @@ def main():
         plot_group("mean-field (rev1)", w, h, lambda s: s.startswith("mf:"), "ccdf_mf_rev1")
         plot_group("rotor (rev1)", w, h, lambda s: s.startswith("rotor:"), "ccdf_rotor_rev1")
         plot_compactness(w, "cup_compactness")
+    elif mode == "rev2":
+        w = load_windows(RES / "rev2_calib_windows.csv")
+        h = load_hist(RES / "rev2_calib_hist.csv")
+        plot_group("Eden-style walker", w, h, lambda s: s.startswith("eden:"), "ccdf_eden")
+        plot_group("internal DLA", w, h, lambda s: s.startswith("idla:"), "ccdf_idla")
+        plot_group("internal DLA, restart excursions dropped", w, h, lambda s: s.startswith("idlar:"), "ccdf_idlar")
+        plot_group("mean-field (rev2)", w, h, lambda s: s.startswith("mf:"), "ccdf_mf_rev2")
+        plot_group("rotor (rev2)", w, h, lambda s: s.startswith("rotor:"), "ccdf_rotor_rev2")
+        plot_compactness(w, "rev2_compactness", groups=[("Eden-style", "eden:"), ("internal DLA", "idla:")],
+                         title="Revision-2 compactness diagnostics (seed means)")
     elif mode == "confirm" and (RES / "confirm_windows.csv").exists():
         w = load_windows(RES / "confirm_windows.csv")
         h = load_hist(RES / "confirm_hist.csv")

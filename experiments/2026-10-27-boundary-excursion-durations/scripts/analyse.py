@@ -74,6 +74,9 @@ def kind_of(spec: str) -> str:
         return "rotor"
     if spec.startswith("rw:"):
         return "rw"
+    for pre in ("eden", "idlar", "idla"):
+        if spec.startswith(pre + ":"):
+            return pre
     if spec.startswith("cup:"):
         # cup:P:SEED → cup:P (pool seeds per P)
         parts = spec.split(":")
@@ -334,7 +337,7 @@ def compactness(windows_retained: list) -> dict:
 def main():
     import sys
     mode = "stage1"
-    if len(sys.argv) > 1 and sys.argv[1] in ("rev1", "confirm"):
+    if len(sys.argv) > 1 and sys.argv[1] in ("rev1", "rev2", "confirm"):
         mode = sys.argv[1]
 
     if mode == "stage1":
@@ -346,6 +349,11 @@ def main():
         win_path, hist_path = RES / "rev1_calib_windows.csv", RES / "rev1_calib_hist.csv"
         out_json, out_txt = RES / "rev1_analysis.json", RES / "rev1_analysis.txt"
         kinds = ("cup:0.05", "cup:0.10", "cup:0.25", "mf", "rotor")
+        pilot = False
+    elif mode == "rev2":
+        win_path, hist_path = RES / "rev2_calib_windows.csv", RES / "rev2_calib_hist.csv"
+        out_json, out_txt = RES / "rev2_analysis.json", RES / "rev2_analysis.txt"
+        kinds = ("eden", "idla", "idlar", "mf", "rotor")
         pilot = False
     else:  # confirm
         win_path, hist_path = RES / "confirm_windows.csv", RES / "confirm_hist.csv"
@@ -366,7 +374,7 @@ def main():
     for kind in kinds:
         a = analyse_kind(kind, calib_w, calib_h)
         # Attach compactness for cup kinds using retained window records
-        if kind.startswith("cup:"):
+        if kind.startswith("cup:") or kind in ("eden", "idla", "idlar"):
             retained = []
             for w in calib_w:
                 if kind_of(w["spec"]) != kind:
@@ -455,6 +463,37 @@ def main():
             f"C1' (cup:0.10→D + compactness): {c1p_label} "
             f"(verdict={cup['verdict']}, compact={compact_ok})"
         )
+        say(f"C2 (mf→S & E[tau]/L in [0.5,2]): {'PASS' if c2_ok else 'FAIL'} (verdict={mf['verdict']}, ratio={mf_ratio})")
+        say(f"Run confirmation cohort: {gates_ok}")
+    elif mode == "rev2":
+        def label(a):
+            compact_ok = bool(a.get("compactness", {}).get("pass"))
+            if a["verdict"] == "D" and compact_ok and not a["censoring_fragile"]:
+                return "PASS"
+            if (not compact_ok) or a["verdict"] in ("uninformative", "censoring-fragile") or a["censoring_fragile"]:
+                return "INADEQUATE"
+            return "INCONCLUSIVE"
+        cal = report["calibration"]
+        c1e, c1i = label(cal["eden"]), label(cal["idla"])
+        mf = cal["mf"]
+        mf_ratio = mf["mean_tau_over_L"]
+        c2_ok = mf["verdict"] == "S" and mf_ratio is not None and 0.5 <= mf_ratio <= 2.0
+        c0_ok = True  # run_rev2.sh aborts before measurement if C0 fails
+        gates_ok = c0_ok and c2_ok and (c1e == "PASS" or c1i == "PASS")
+        report["gates"] = {
+            "C0": c0_ok,
+            "C1E_eden": c1e,
+            "C1I_idla": c1i,
+            "idlar_diagnostic_verdict": cal["idlar"]["verdict"],
+            "C2_mf_prefers_S_and_mean_in_band": c2_ok,
+            "mf_mean_tau_over_L": mf_ratio,
+            "rotor_verdict": cal["rotor"]["verdict"],
+            "run_confirmation": gates_ok,
+        }
+        say()
+        say(f"C1E (eden→D + compactness): {c1e} (verdict={cal['eden']['verdict']})")
+        say(f"C1I (idla→D + compactness): {c1i} (verdict={cal['idla']['verdict']})")
+        say(f"idlar diagnostic (restart excursions dropped): verdict={cal['idlar']['verdict']}")
         say(f"C2 (mf→S & E[tau]/L in [0.5,2]): {'PASS' if c2_ok else 'FAIL'} (verdict={mf['verdict']}, ratio={mf_ratio})")
         say(f"Run confirmation cohort: {gates_ok}")
     else:
