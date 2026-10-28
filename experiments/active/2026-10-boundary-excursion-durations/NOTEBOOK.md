@@ -192,3 +192,19 @@ with the new binary, in a scratch worktree, gave byte-identical `rev2_calib_wind
 2. Deviation: the headings of the 16:30 move entry above and the 16:40 ledger re-pin entry in
 `experiments/archive/2026-10-evidence-ledger/NOTEBOOK.md` are later than the commits that carry them. Git records `581f203` at 16:29:00
 and `e0e657a` at 16:29:38 (+13:00). The commit times are authoritative, and the headings are left unchanged.
+
+### 2026-10-28 16:50 NZDT · 570f207 · plan
+**Post hoc, exploratory. This is not a gate and not a registration of a new statistic.** The question is how much of the
+excursion count and how much of the off-boundary time short excursions contribute in the existing Rev2 calibration data.
+No new runs, and no ant or pilot data.
+- **Data:** `results/rev2_calib_windows.csv` and `results/rev2_calib_hist.csv`. Kinds `eden`, `idla`, `mf`, `rotor`, pooling 4 seeds each.
+  The windows are those that `analyse.py` retains for the Score: k 16..24, not escaped, n_completed ≥ 200,
+  censored_step_share ≤ 0.20, L ≥ 4.
+- **Cutoff, fixed before computing: "short" means τ ≤ 3**, which is log2 bins 0 and 1. That is the smallest cutoff the
+  log2 histogram resolves exactly; it cannot split at τ ≤ 4. τ ≤ 7 (bins 0–2) is reported alongside as a sensitivity line only.
+- **Count share:** short completed excursions ÷ all completed excursions. This is exact.
+- **Time share:** short-excursion steps ÷ the window's `interior_steps`, summed over retained windows. The denominator is exact.
+  The numerator is bracketed by bin edges (bin 0 = 1 step; bin 1 = 2–3 steps). A second bracket uses completed-excursion
+  time from bin edges as the denominator.
+- **Prior guess on record (unverified, told to the user):** "nearly half of excursions, a sliver of time". The numbers will be reported against it as they come out.
+- Script `scripts/short_share.py` writes `results/rev2_short_share.{json,txt}`.
