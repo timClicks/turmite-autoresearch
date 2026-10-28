@@ -1,9 +1,9 @@
-# cmd: uv run experiments/2026-10-20-kappa-prefix-additive/scripts/additive.py  seed 20261020  bootstraps 2000  ridge lambda 1.0  (registered; README commit 32c0f82)
+# cmd: uv run experiments/archive/2026-10-kappa-prefix-additive/scripts/additive.py  seed 20261020  bootstraps 2000  ridge lambda 1.0  (registered; README commit 32c0f82)
 train 2185, test 162, overlap 0; training mean ln kappa -0.134
-A   additive (7 position indicators)   R^2 +0.109  95% CI [+0.003, +0.194]
-A2  additive + 21 pairwise products    R^2 +0.351  95% CI [+0.234, +0.447]
-P8  8-letter lookup                    R^2 +0.624  95% CI [+0.473, +0.729]
-P8 - A = +0.515 [+0.372, +0.634]
+A   additive (7 position indicators)   R^2 +0.109  95% CI [+0.010, +0.196]
+A2  additive + 21 pairwise products    R^2 +0.351  95% CI [+0.239, +0.444]
+P8  8-letter lookup                    R^2 +0.624  95% CI [+0.479, +0.730]
+P8 - A = +0.515 [+0.361, +0.635]
 B1 additive A < 0.40: HELD
 B2 pairwise A2 >= 0.50: FAILED
 B3 P8 - A >= 0.15: HELD
