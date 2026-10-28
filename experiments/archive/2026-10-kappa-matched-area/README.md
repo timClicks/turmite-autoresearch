@@ -164,3 +164,15 @@ known; pairs are matched on noisy mean ln A (selection on A noise can leak into 
 independent information (the bootstrap is by rule, but the k=22 interval is wide); the z > 2 cut is a post-selection on |d ln kappa|, so a high P-b there
 is partly guaranteed to be easier to see, not independent evidence. Open: a rule-level (not pair-level) test, e.g. regress
 ln_ratio on odd-seed kappa residual given A with rule random effects, would use all 44 rules without matching.
+
+## Correction 2026-10-28 (append only): bootstrap intervals were not reproducible
+
+`scripts/matched_area.py` drew its seeded bootstrap (`default_rng(20261014)`) over rules taken from polars
+`unique()` / `group_by()`, whose order is per-process hash order, so every run gave different M2/M3 intervals.
+Fixed at `4fd558b` (rules and per-rule tables sorted); three runs are byte-identical. Regenerated
+`results/matched_area.txt` (`d60e0f4`): M2 between 1.271 [1.090, 1.395] (above: [1.107, 1.403]), within 0.420
+[0.159, 0.645] ([0.152, 0.652]); M3 all seeds -0.560 [-0.742, -0.338] at k=22, -0.695 [-0.827, -0.508] at k=25;
+open share <= 0.10: [-0.752, -0.312], [-0.823, -0.512]. Point estimates and every M1-M3 verdict are unchanged.
+`matched_pairs.py` and `noise_floor.py` were checked the same way and are already deterministic. Run with
+`uv run --frozen python scripts/matched_area.py` (`uv run --frozen` on the PEP 723 script now needs a script lockfile).
+`notebook.ipynb` re-executed against the regenerated file.
