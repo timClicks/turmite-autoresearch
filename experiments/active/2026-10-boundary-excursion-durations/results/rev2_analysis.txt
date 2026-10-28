@@ -1,0 +1,12 @@
+=== rev2 ===
+eden: nwin=36 L_range=7.340943122512396 Score(L)=0.10170270085246559 Score(L^2)=0.1611712483631808 verdict=S mean_tau/L=3.067761294224941 fragile=False compact_pass=True A/P2_med=0.06518304713027334 A_range=62.7375 (ok)
+idla: nwin=36 L_range=4.0128811753896185 Score(L)=0.067294486000828 Score(L^2)=0.07733994488050051 verdict=inconclusive mean_tau/L=26.65262968507359 fragile=False compact_pass=True A/P2_med=0.07140963188884994 A_range=16.517571884984026 (ok)
+idlar: nwin=36 L_range=4.0128811753896185 Score(L)=0.08457994176157198 Score(L^2)=0.1281823857601933 verdict=S mean_tau/L=3.0063964409733934 fragile=False compact_pass=True A/P2_med=0.07140963188884994 A_range=16.517571884984026 (ok)
+mf: nwin=36 L_range=6.6004001120158335 Score(L)=0.05501880025388777 Score(L^2)=0.14944555834606252 verdict=S mean_tau/L=0.9967452488403281 fragile=False
+rotor: nwin=36 L_range=6.210918169862542 Score(L)=0.1134421708833738 Score(L^2)=0.13495920082122642 verdict=inconclusive mean_tau/L=1.9049356152485584 fragile=False
+
+C1E (eden→D + compactness): INCONCLUSIVE (verdict=S)
+C1I (idla→D + compactness): INCONCLUSIVE (verdict=inconclusive)
+idlar diagnostic (restart excursions dropped): verdict=S
+C2 (mf→S & E[tau]/L in [0.5,2]): PASS (verdict=S, ratio=0.9967452488403281)
+Run confirmation cohort: False

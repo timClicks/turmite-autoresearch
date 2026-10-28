@@ -1,0 +1,2221 @@
+{
+  "mode": "stage1",
+  "calibration": {
+    "rw": {
+      "kind": "rw",
+      "n_retained_windows": 0,
+      "L_min": null,
+      "L_max": null,
+      "L_range_ratio": null,
+      "uninformative": true,
+      "Score_L": null,
+      "Score_L2": null,
+      "verdict": "uninformative",
+      "mean_tau_over_L": null,
+      "slopes": [],
+      "Score_L_KM": null,
+      "Score_L2_KM": null,
+      "censoring_fragile": false,
+      "windows": []
+    },
+    "mf": {
+      "kind": "mf",
+      "n_retained_windows": 36,
+      "L_min": 9.982036,
+      "L_max": 68.004787,
+      "L_range_ratio": 6.812717064935449,
+      "uninformative": false,
+      "Score_L": 0.0579846020861797,
+      "Score_L2": 0.16280155220679074,
+      "verdict": "S",
+      "mean_tau_over_L": 1.0101535230605367,
+      "slopes": [],
+      "Score_L_KM": 0.057988530451806304,
+      "Score_L2_KM": 0.16281842093766724,
+      "censoring_fragile": false,
+      "windows": [
+        {
+          "spec": "mf:2026102711",
+          "k": 16,
+          "L": 10.65,
+          "kappa": 1.040039,
+          "n_completed": 2899,
+          "censored_step_share": 0.000169,
+          "mean_tau": 11.45015522593998,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102711",
+          "k": 17,
+          "L": 14.475936,
+          "kappa": 1.169367,
+          "n_completed": 4880,
+          "censored_step_share": 3.3e-05,
+          "mean_tau": 13.937909836065574,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102711",
+          "k": 18,
+          "L": 17.348361,
+          "kappa": 1.080434,
+          "n_completed": 7670,
+          "censored_step_share": 0.000342,
+          "mean_tau": 17.814863102998697,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102711",
+          "k": 19,
+          "L": 20.32838,
+          "kappa": 1.076425,
+          "n_completed": 13129,
+          "censored_step_share": 0.000113,
+          "mean_tau": 20.987813237870363,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102711",
+          "k": 20,
+          "L": 25.555041,
+          "kappa": 1.083982,
+          "n_completed": 21253,
+          "censored_step_share": 2.8e-05,
+          "mean_tau": 26.064226226885616,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102711",
+          "k": 21,
+          "L": 33.773206,
+          "kappa": 1.13616,
+          "n_completed": 34061,
+          "censored_step_share": 5e-06,
+          "mean_tau": 32.67367370306215,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102711",
+          "k": 22,
+          "L": 41.565996,
+          "kappa": 1.091578,
+          "n_completed": 53591,
+          "censored_step_share": 2.8e-05,
+          "mean_tau": 41.818365023977904,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102711",
+          "k": 23,
+          "L": 52.927458,
+          "kappa": 1.091736,
+          "n_completed": 84706,
+          "censored_step_share": 0.0,
+          "mean_tau": 52.95026326352325,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102711",
+          "k": 24,
+          "L": 64.603291,
+          "kappa": 1.084984,
+          "n_completed": 138477,
+          "censored_step_share": 1e-06,
+          "mean_tau": 64.97083992287529,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102712",
+          "k": 16,
+          "L": 10.126154,
+          "kappa": 0.98641,
+          "n_completed": 2886,
+          "censored_step_share": 0.001792,
+          "mean_tau": 11.651767151767151,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102712",
+          "k": 17,
+          "L": 13.363184,
+          "kappa": 1.114754,
+          "n_completed": 5020,
+          "censored_step_share": 3.3e-05,
+          "mean_tau": 13.389641434262948,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102712",
+          "k": 18,
+          "L": 16.12987,
+          "kappa": 1.079985,
+          "n_completed": 8184,
+          "censored_step_share": 7.4e-05,
+          "mean_tau": 16.67265395894428,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102712",
+          "k": 19,
+          "L": 21.25,
+          "kappa": 1.120119,
+          "n_completed": 13109,
+          "censored_step_share": 5.6e-05,
+          "mean_tau": 21.043100160195287,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102712",
+          "k": 20,
+          "L": 27.454094,
+          "kappa": 1.147097,
+          "n_completed": 20990,
+          "censored_step_share": 0.000219,
+          "mean_tau": 26.4010481181515,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102712",
+          "k": 21,
+          "L": 34.304902,
+          "kappa": 1.12807,
+          "n_completed": 33319,
+          "censored_step_share": 7.4e-05,
+          "mean_tau": 33.49980491611393,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102712",
+          "k": 22,
+          "L": 42.337633,
+          "kappa": 1.123531,
+          "n_completed": 54176,
+          "censored_step_share": 4.6e-05,
+          "mean_tau": 41.26504356172475,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102712",
+          "k": 23,
+          "L": 51.309592,
+          "kappa": 1.092079,
+          "n_completed": 87335,
+          "censored_step_share": 1e-06,
+          "mean_tau": 51.393736760748844,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102712",
+          "k": 24,
+          "L": 68.004787,
+          "kappa": 1.133882,
+          "n_completed": 137518,
+          "censored_step_share": 5.8e-05,
+          "mean_tau": 65.38403699879288,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102713",
+          "k": 16,
+          "L": 10.287834,
+          "kappa": 1.076882,
+          "n_completed": 3051,
+          "censored_step_share": 0.000341,
+          "mean_tau": 10.841035725991478,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102713",
+          "k": 17,
+          "L": 13.373786,
+          "kappa": 1.094007,
+          "n_completed": 4921,
+          "censored_step_share": 0.000133,
+          "mean_tau": 13.787035155456207,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102713",
+          "k": 18,
+          "L": 17.096457,
+          "kappa": 1.09592,
+          "n_completed": 7868,
+          "censored_step_share": 9e-05,
+          "mean_tau": 17.388408744280632,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102713",
+          "k": 19,
+          "L": 22.559016,
+          "kappa": 1.15986,
+          "n_completed": 12795,
+          "censored_step_share": 4.4e-05,
+          "mean_tau": 21.58483782727628,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102713",
+          "k": 20,
+          "L": 26.246061,
+          "kappa": 1.058076,
+          "n_completed": 20263,
+          "censored_step_share": 0.0,
+          "mean_tau": 27.49311553077037,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102713",
+          "k": 21,
+          "L": 33.749759,
+          "kappa": 1.140553,
+          "n_completed": 34216,
+          "censored_step_share": 3.5e-05,
+          "mean_tau": 32.62342179097498,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102713",
+          "k": 22,
+          "L": 40.467963,
+          "kappa": 1.090047,
+          "n_completed": 55020,
+          "censored_step_share": 5.4e-05,
+          "mean_tau": 40.63466012359142,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102713",
+          "k": 23,
+          "L": 53.039715,
+          "kappa": 1.113146,
+          "n_completed": 86154,
+          "censored_step_share": 3e-06,
+          "mean_tau": 52.16873273440583,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102713",
+          "k": 24,
+          "L": 65.054403,
+          "kappa": 1.064215,
+          "n_completed": 134935,
+          "censored_step_share": 4e-06,
+          "mean_tau": 66.81379182569385,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102714",
+          "k": 16,
+          "L": 9.982036,
+          "kappa": 1.035124,
+          "n_completed": 3045,
+          "censored_step_share": 6.8e-05,
+          "mean_tau": 10.947126436781609,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102714",
+          "k": 17,
+          "L": 13.162562,
+          "kappa": 1.085566,
+          "n_completed": 4956,
+          "censored_step_share": 0.000366,
+          "mean_tau": 13.615617433414043,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102714",
+          "k": 18,
+          "L": 15.823423,
+          "kappa": 1.0818,
+          "n_completed": 8378,
+          "censored_step_share": 7.4e-05,
+          "mean_tau": 16.189424683695393,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102714",
+          "k": 19,
+          "L": 20.488304,
+          "kappa": 1.093725,
+          "n_completed": 13203,
+          "censored_step_share": 8.5e-05,
+          "mean_tau": 20.76073619631902,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102714",
+          "k": 20,
+          "L": 27.750929,
+          "kappa": 1.168128,
+          "n_completed": 21161,
+          "censored_step_share": 2e-06,
+          "mean_tau": 26.051887906998726,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102714",
+          "k": 21,
+          "L": 32.080909,
+          "kappa": 1.056314,
+          "n_completed": 33382,
+          "censored_step_share": 4.7e-05,
+          "mean_tau": 33.38173267030136,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102714",
+          "k": 22,
+          "L": 40.749458,
+          "kappa": 1.096153,
+          "n_completed": 54881,
+          "censored_step_share": 4e-06,
+          "mean_tau": 40.639711375521586,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102714",
+          "k": 23,
+          "L": 51.683756,
+          "kappa": 1.08793,
+          "n_completed": 86488,
+          "censored_step_share": 2.8e-05,
+          "mean_tau": 51.97295578577375,
+          "slope": null
+        },
+        {
+          "spec": "mf:2026102714",
+          "k": 24,
+          "L": 66.080056,
+          "kappa": 1.114945,
+          "n_completed": 139083,
+          "censored_step_share": 7e-06,
+          "mean_tau": 64.69035755627934,
+          "slope": null
+        }
+      ]
+    },
+    "rotor": {
+      "kind": "rotor",
+      "n_retained_windows": 36,
+      "L_min": 9.183234,
+      "L_max": 58.705008,
+      "L_range_ratio": 6.392629001939839,
+      "uninformative": false,
+      "Score_L": 0.12024012721482383,
+      "Score_L2": 0.14623806353971192,
+      "verdict": "inconclusive",
+      "mean_tau_over_L": 1.8848195548583822,
+      "slopes": [],
+      "Score_L_KM": 0.12030187896364464,
+      "Score_L2_KM": 0.146317279626361,
+      "censoring_fragile": false,
+      "windows": [
+        {
+          "spec": "rotor:2026102711",
+          "k": 16,
+          "L": 9.811518,
+          "kappa": 1.718094,
+          "n_completed": 1535,
+          "censored_step_share": 0.030189,
+          "mean_tau": 18.73224755700326,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102711",
+          "k": 17,
+          "L": 11.231579,
+          "kappa": 1.819887,
+          "n_completed": 2750,
+          "censored_step_share": 0.030027,
+          "mean_tau": 21.55272727272727,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102711",
+          "k": 18,
+          "L": 13.901106,
+          "kappa": 1.813893,
+          "n_completed": 4497,
+          "censored_step_share": 0.009573,
+          "mean_tau": 27.63931509895486,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102711",
+          "k": 19,
+          "L": 19.748588,
+          "kappa": 2.05265,
+          "n_completed": 7244,
+          "censored_step_share": 0.015173,
+          "mean_tau": 35.176007730535616,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102711",
+          "k": 20,
+          "L": 23.982143,
+          "kappa": 1.958823,
+          "n_completed": 11593,
+          "censored_step_share": 0.001203,
+          "mean_tau": 45.394807211248164,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102711",
+          "k": 21,
+          "L": 31.555865,
+          "kappa": 2.071823,
+          "n_completed": 18610,
+          "censored_step_share": 0.014341,
+          "mean_tau": 55.941751746372915,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102711",
+          "k": 22,
+          "L": 37.234835,
+          "kappa": 1.864891,
+          "n_completed": 28223,
+          "censored_step_share": 0.012222,
+          "mean_tau": 76.40977217163307,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102711",
+          "k": 23,
+          "L": 42.563587,
+          "kappa": 1.916664,
+          "n_completed": 50680,
+          "censored_step_share": 0.006925,
+          "mean_tau": 85.90672849250197,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102711",
+          "k": 24,
+          "L": 57.522645,
+          "kappa": 2.014573,
+          "n_completed": 79553,
+          "censored_step_share": 0.000232,
+          "mean_tau": 110.51507799831559,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102712",
+          "k": 16,
+          "L": 9.313167,
+          "kappa": 1.747924,
+          "n_completed": 1625,
+          "censored_step_share": 0.00015,
+          "mean_tau": 18.032615384615383,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102712",
+          "k": 17,
+          "L": 12.428434,
+          "kappa": 1.938909,
+          "n_completed": 2730,
+          "censored_step_share": 0.001519,
+          "mean_tau": 21.186813186813186,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102712",
+          "k": 18,
+          "L": 14.675581,
+          "kappa": 1.776113,
+          "n_completed": 4202,
+          "censored_step_share": 0.001649,
+          "mean_tau": 29.334840552118038,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102712",
+          "k": 19,
+          "L": 19.333703,
+          "kappa": 2.062555,
+          "n_completed": 7483,
+          "censored_step_share": 0.0,
+          "mean_tau": 33.37391420553254,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102712",
+          "k": 20,
+          "L": 21.498137,
+          "kappa": 1.880669,
+          "n_completed": 12129,
+          "censored_step_share": 0.006526,
+          "mean_tau": 42.351554126473744,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102712",
+          "k": 21,
+          "L": 31.94827,
+          "kappa": 2.169979,
+          "n_completed": 19218,
+          "censored_step_share": 0.0,
+          "mean_tau": 56.88141325840358,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102712",
+          "k": 22,
+          "L": 38.895392,
+          "kappa": 1.993944,
+          "n_completed": 28883,
+          "censored_step_share": 0.000527,
+          "mean_tau": 74.75189557871413,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102712",
+          "k": 23,
+          "L": 46.525874,
+          "kappa": 1.920368,
+          "n_completed": 46790,
+          "censored_step_share": 0.000864,
+          "mean_tau": 93.91667022868134,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102712",
+          "k": 24,
+          "L": 58.705008,
+          "kappa": 1.996658,
+          "n_completed": 76984,
+          "censored_step_share": 0.008273,
+          "mean_tau": 109.96409643562299,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102713",
+          "k": 16,
+          "L": 9.183234,
+          "kappa": 1.810976,
+          "n_completed": 1657,
+          "censored_step_share": 3.8e-05,
+          "mean_tau": 17.992154496077248,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102713",
+          "k": 17,
+          "L": 13.205411,
+          "kappa": 2.248724,
+          "n_completed": 2988,
+          "censored_step_share": 0.007356,
+          "mean_tau": 19.52309236947791,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102713",
+          "k": 18,
+          "L": 16.350649,
+          "kappa": 1.756168,
+          "n_completed": 3729,
+          "censored_step_share": 0.011266,
+          "mean_tau": 34.938321265754894,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102713",
+          "k": 19,
+          "L": 19.211484,
+          "kappa": 2.008989,
+          "n_completed": 7277,
+          "censored_step_share": 0.005543,
+          "mean_tau": 34.77270853373643,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102713",
+          "k": 20,
+          "L": 25.599154,
+          "kappa": 2.026544,
+          "n_completed": 11163,
+          "censored_step_share": 0.002858,
+          "mean_tau": 47.896533190002685,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102713",
+          "k": 21,
+          "L": 28.372713,
+          "kappa": 1.845324,
+          "n_completed": 18270,
+          "censored_step_share": 2e-06,
+          "mean_tau": 58.03234811165846,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102713",
+          "k": 22,
+          "L": 40.124614,
+          "kappa": 2.097694,
+          "n_completed": 29583,
+          "censored_step_share": 0.012719,
+          "mean_tau": 73.98854071595173,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102713",
+          "k": 23,
+          "L": 49.93578,
+          "kappa": 2.178418,
+          "n_completed": 49524,
+          "censored_step_share": 0.000727,
+          "mean_tau": 88.0199297310395,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102713",
+          "k": 24,
+          "L": 57.284818,
+          "kappa": 1.925048,
+          "n_completed": 76406,
+          "censored_step_share": 6e-05,
+          "mean_tau": 113.41766353427741,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102714",
+          "k": 16,
+          "L": 9.603316,
+          "kappa": 1.76604,
+          "n_completed": 1619,
+          "censored_step_share": 0.0,
+          "mean_tau": 18.439777640518837,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102714",
+          "k": 17,
+          "L": 11.585432,
+          "kappa": 1.88836,
+          "n_completed": 2788,
+          "censored_step_share": 0.021293,
+          "mean_tau": 20.199426111908178,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102714",
+          "k": 18,
+          "L": 14.113956,
+          "kappa": 1.963993,
+          "n_completed": 4777,
+          "censored_step_share": 0.006346,
+          "mean_tau": 25.7496336612937,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102714",
+          "k": 19,
+          "L": 17.756348,
+          "kappa": 1.942236,
+          "n_completed": 7632,
+          "censored_step_share": 0.001229,
+          "mean_tau": 31.3770964360587,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102714",
+          "k": 20,
+          "L": 25.757162,
+          "kappa": 1.995182,
+          "n_completed": 11023,
+          "censored_step_share": 0.000273,
+          "mean_tau": 47.3121654721945,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102714",
+          "k": 21,
+          "L": 28.631887,
+          "kappa": 1.997807,
+          "n_completed": 19538,
+          "censored_step_share": 0.012738,
+          "mean_tau": 51.764663732214146,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102714",
+          "k": 22,
+          "L": 36.356549,
+          "kappa": 1.943955,
+          "n_completed": 30057,
+          "censored_step_share": 0.016938,
+          "mean_tau": 72.80417207306118,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102714",
+          "k": 23,
+          "L": 48.198279,
+          "kappa": 2.121996,
+          "n_completed": 50004,
+          "censored_step_share": 0.000353,
+          "mean_tau": 86.9150467962563,
+          "slope": null
+        },
+        {
+          "spec": "rotor:2026102714",
+          "k": 24,
+          "L": 55.299841,
+          "kappa": 1.880177,
+          "n_completed": 77221,
+          "censored_step_share": 0.000745,
+          "mean_tau": 114.76694163504746,
+          "slope": null
+        }
+      ]
+    }
+  },
+  "pilot": {
+    "pooled": {
+      "kind": "ant",
+      "n_retained_windows": 67,
+      "L_min": 11.433566,
+      "L_max": 165.606754,
+      "L_range_ratio": 14.484260990840477,
+      "uninformative": false,
+      "Score_L": 0.16293419819399257,
+      "Score_L2": 0.08011884410074871,
+      "verdict": "D",
+      "mean_tau_over_L": 2.3349991186375187,
+      "slopes": [],
+      "Score_L_KM": 0.16301991636169388,
+      "Score_L2_KM": 0.08028488711683855,
+      "censoring_fragile": false,
+      "windows": [
+        {
+          "spec": "RLLR@2026102721",
+          "k": 16,
+          "L": 13.510823,
+          "kappa": 1.107485,
+          "n_completed": 998,
+          "censored_step_share": 0.01825,
+          "mean_tau": 34.50801603206413,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102721",
+          "k": 17,
+          "L": 18.81672,
+          "kappa": 1.390237,
+          "n_completed": 1771,
+          "censored_step_share": 0.054651,
+          "mean_tau": 33.18181818181818,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102721",
+          "k": 18,
+          "L": 24.147783,
+          "kappa": 1.268997,
+          "n_completed": 2494,
+          "censored_step_share": 0.032911,
+          "mean_tau": 51.935445068163595,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102721",
+          "k": 19,
+          "L": 33.516408,
+          "kappa": 2.146173,
+          "n_completed": 6055,
+          "censored_step_share": 0.092591,
+          "mean_tau": 42.93410404624277,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102721",
+          "k": 20,
+          "L": 47.942118,
+          "kappa": 2.980654,
+          "n_completed": 11486,
+          "censored_step_share": 0.007905,
+          "mean_tau": 49.79879853734982,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102721",
+          "k": 21,
+          "L": 66.902504,
+          "kappa": 3.603732,
+          "n_completed": 19299,
+          "censored_step_share": 0.009382,
+          "mean_tau": 55.95103373231774,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102721",
+          "k": 22,
+          "L": 91.48708,
+          "kappa": 4.607308,
+          "n_completed": 36230,
+          "censored_step_share": 0.00346,
+          "mean_tau": 60.603864200938446,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102721",
+          "k": 23,
+          "L": 129.729482,
+          "kappa": 6.784818,
+          "n_completed": 74561,
+          "censored_step_share": 0.026881,
+          "mean_tau": 56.64187712074677,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102721",
+          "k": 24,
+          "L": 160.668836,
+          "kappa": 4.833027,
+          "n_completed": 85850,
+          "censored_step_share": 0.003144,
+          "mean_tau": 108.91927781013395,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102722",
+          "k": 16,
+          "L": 14.775591,
+          "kappa": 1.388819,
+          "n_completed": 1264,
+          "censored_step_share": 0.020042,
+          "mean_tau": 26.463607594936708,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102722",
+          "k": 17,
+          "L": 19.940476,
+          "kappa": 1.669212,
+          "n_completed": 2072,
+          "censored_step_share": 0.029492,
+          "mean_tau": 28.25868725868726,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102722",
+          "k": 18,
+          "L": 26.019824,
+          "kappa": 1.771751,
+          "n_completed": 3224,
+          "censored_step_share": 0.030627,
+          "mean_tau": 40.625,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102722",
+          "k": 19,
+          "L": 34.219472,
+          "kappa": 2.072404,
+          "n_completed": 5806,
+          "censored_step_share": 0.003659,
+          "mean_tau": 46.38873579056149,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102722",
+          "k": 20,
+          "L": 46.258663,
+          "kappa": 2.612267,
+          "n_completed": 10781,
+          "censored_step_share": 0.012944,
+          "mean_tau": 48.5749002875429,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102722",
+          "k": 21,
+          "L": 60.698772,
+          "kappa": 2.445836,
+          "n_completed": 14437,
+          "censored_step_share": 0.017438,
+          "mean_tau": 73.76830366419617,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102722",
+          "k": 22,
+          "L": 83.668508,
+          "kappa": 3.787032,
+          "n_completed": 33379,
+          "censored_step_share": 0.006647,
+          "mean_tau": 64.7761466790497,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102722",
+          "k": 23,
+          "L": 112.130612,
+          "kappa": 4.300274,
+          "n_completed": 56014,
+          "censored_step_share": 0.002292,
+          "mean_tau": 77.9575463277038,
+          "slope": null
+        },
+        {
+          "spec": "RLLR@2026102722",
+          "k": 24,
+          "L": 165.606754,
+          "kappa": 7.23638,
+          "n_completed": 124382,
+          "censored_step_share": 0.017214,
+          "mean_tau": 67.76613175539869,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102721",
+          "k": 16,
+          "L": 18.737931,
+          "kappa": 2.525801,
+          "n_completed": 1507,
+          "censored_step_share": 0.066523,
+          "mean_tau": 28.39681486396815,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102721",
+          "k": 17,
+          "L": 20.239748,
+          "kappa": 0.503708,
+          "n_completed": 573,
+          "censored_step_share": 0.03308,
+          "mean_tau": 125.47993019197207,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102721",
+          "k": 18,
+          "L": 23.391076,
+          "kappa": 0.731507,
+          "n_completed": 1448,
+          "censored_step_share": 0.111276,
+          "mean_tau": 79.87707182320442,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102721",
+          "k": 19,
+          "L": 33.324864,
+          "kappa": 1.968138,
+          "n_completed": 5440,
+          "censored_step_share": 0.002412,
+          "mean_tau": 48.44613970588235,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102721",
+          "k": 22,
+          "L": 69.876207,
+          "kappa": 1.603504,
+          "n_completed": 16357,
+          "censored_step_share": 0.104926,
+          "mean_tau": 126.19129424711133,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102721",
+          "k": 23,
+          "L": 83.056548,
+          "kappa": 0.967121,
+          "n_completed": 16448,
+          "censored_step_share": 0.159191,
+          "mean_tau": 265.5543531128405,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102721",
+          "k": 24,
+          "L": 105.693482,
+          "kappa": 1.305978,
+          "n_completed": 34800,
+          "censored_step_share": 0.157564,
+          "mean_tau": 238.60813218390805,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102722",
+          "k": 16,
+          "L": 14.969432,
+          "kappa": 0.720879,
+          "n_completed": 574,
+          "censored_step_share": 0.036678,
+          "mean_tau": 58.198606271777,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102722",
+          "k": 17,
+          "L": 19.392157,
+          "kappa": 1.183603,
+          "n_completed": 1369,
+          "censored_step_share": 0.109919,
+          "mean_tau": 45.219868517165814,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102722",
+          "k": 18,
+          "L": 25.645161,
+          "kappa": 1.359817,
+          "n_completed": 2400,
+          "censored_step_share": 0.132603,
+          "mean_tau": 55.76958333333334,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102722",
+          "k": 19,
+          "L": 30.149901,
+          "kappa": 0.923322,
+          "n_completed": 2854,
+          "censored_step_share": 0.011318,
+          "mean_tau": 90.8980378416258,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102722",
+          "k": 20,
+          "L": 42.371681,
+          "kappa": 1.776532,
+          "n_completed": 7789,
+          "censored_step_share": 0.013338,
+          "mean_tau": 70.99422262164592,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102722",
+          "k": 23,
+          "L": 74.655602,
+          "kappa": 0.629845,
+          "n_completed": 12083,
+          "censored_step_share": 0.032957,
+          "mean_tau": 426.39592816353553,
+          "slope": null
+        },
+        {
+          "spec": "RLLLLRLL@2026102722",
+          "k": 24,
+          "L": 92.701127,
+          "kappa": 0.868485,
+          "n_completed": 27091,
+          "censored_step_share": 0.097468,
+          "mean_tau": 287.00908050644125,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102721",
+          "k": 16,
+          "L": 15.408907,
+          "kappa": 0.983747,
+          "n_completed": 716,
+          "censored_step_share": 0.091831,
+          "mean_tau": 44.114525139664806,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102721",
+          "k": 18,
+          "L": 25.585859,
+          "kappa": 1.015845,
+          "n_completed": 1764,
+          "censored_step_share": 0.067332,
+          "mean_tau": 100.9563492063492,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102721",
+          "k": 19,
+          "L": 29.678261,
+          "kappa": 0.61124,
+          "n_completed": 1823,
+          "censored_step_share": 0.069629,
+          "mean_tau": 151.34229292375207,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102721",
+          "k": 20,
+          "L": 37.147708,
+          "kappa": 0.88978,
+          "n_completed": 4241,
+          "censored_step_share": 0.138802,
+          "mean_tau": 106.27257722235322,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102721",
+          "k": 21,
+          "L": 47.655541,
+          "kappa": 0.954451,
+          "n_completed": 7056,
+          "censored_step_share": 0.031169,
+          "mean_tau": 159.0249433106576,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102721",
+          "k": 22,
+          "L": 59.301179,
+          "kappa": 0.838639,
+          "n_completed": 9908,
+          "censored_step_share": 0.072277,
+          "mean_tau": 203.96941865159468,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102721",
+          "k": 23,
+          "L": 78.392283,
+          "kappa": 1.191686,
+          "n_completed": 21349,
+          "censored_step_share": 0.052697,
+          "mean_tau": 203.95901447374584,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102721",
+          "k": 24,
+          "L": 102.704294,
+          "kappa": 1.294534,
+          "n_completed": 35429,
+          "censored_step_share": 0.01246,
+          "mean_tau": 266.8068249174405,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102722",
+          "k": 16,
+          "L": 15.721992,
+          "kappa": 1.390932,
+          "n_completed": 990,
+          "censored_step_share": 3.3e-05,
+          "mean_tau": 34.137373737373736,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102722",
+          "k": 17,
+          "L": 21.40634,
+          "kappa": 1.811517,
+          "n_completed": 1856,
+          "censored_step_share": 0.052392,
+          "mean_tau": 33.307112068965516,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102722",
+          "k": 18,
+          "L": 27.0358,
+          "kappa": 1.222749,
+          "n_completed": 1980,
+          "censored_step_share": 0.19245,
+          "mean_tau": 53.71111111111111,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102722",
+          "k": 19,
+          "L": 31.513185,
+          "kappa": 0.779343,
+          "n_completed": 2189,
+          "censored_step_share": 0.079817,
+          "mean_tau": 130.4093193238922,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102722",
+          "k": 20,
+          "L": 35.8669,
+          "kappa": 0.522179,
+          "n_completed": 2584,
+          "censored_step_share": 0.078269,
+          "mean_tau": 190.34481424148606,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102722",
+          "k": 21,
+          "L": 53.295374,
+          "kappa": 1.89242,
+          "n_completed": 12508,
+          "censored_step_share": 0.005646,
+          "mean_tau": 97.5375759513911,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102722",
+          "k": 22,
+          "L": 63.361217,
+          "kappa": 1.00579,
+          "n_completed": 11239,
+          "censored_step_share": 0.05748,
+          "mean_tau": 187.90639736631374,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102722",
+          "k": 23,
+          "L": 79.797864,
+          "kappa": 1.092756,
+          "n_completed": 19221,
+          "censored_step_share": 0.0197,
+          "mean_tau": 228.03100775193798,
+          "slope": null
+        },
+        {
+          "spec": "RLLLRR@2026102722",
+          "k": 24,
+          "L": 102.783242,
+          "kappa": 1.192312,
+          "n_completed": 32526,
+          "censored_step_share": 0.00454,
+          "mean_tau": 307.5295455942938,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102721",
+          "k": 16,
+          "L": 11.985612,
+          "kappa": 0.933815,
+          "n_completed": 1069,
+          "censored_step_share": 0.001225,
+          "mean_tau": 30.291861552853135,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102721",
+          "k": 17,
+          "L": 14.200913,
+          "kappa": 1.396342,
+          "n_completed": 2675,
+          "censored_step_share": 0.001675,
+          "mean_tau": 24.965607476635515,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102721",
+          "k": 18,
+          "L": 18.201887,
+          "kappa": 1.057074,
+          "n_completed": 3212,
+          "censored_step_share": 0.001733,
+          "mean_tau": 40.576276463262765,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102721",
+          "k": 19,
+          "L": 23.604938,
+          "kappa": 1.145741,
+          "n_completed": 5517,
+          "censored_step_share": 0.001548,
+          "mean_tau": 48.20464020300888,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102721",
+          "k": 20,
+          "L": 28.127869,
+          "kappa": 1.250627,
+          "n_completed": 9925,
+          "censored_step_share": 0.000471,
+          "mean_tau": 54.79324937027708,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102721",
+          "k": 21,
+          "L": 36.038321,
+          "kappa": 1.062993,
+          "n_completed": 13148,
+          "censored_step_share": 0.01043,
+          "mean_tau": 81.50768177669607,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102721",
+          "k": 22,
+          "L": 44.029286,
+          "kappa": 1.042308,
+          "n_completed": 21189,
+          "censored_step_share": 0.001606,
+          "mean_tau": 105.84161593279532,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102721",
+          "k": 23,
+          "L": 56.014452,
+          "kappa": 1.164132,
+          "n_completed": 37053,
+          "censored_step_share": 0.000969,
+          "mean_tau": 117.64580465819232,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102721",
+          "k": 24,
+          "L": 62.024816,
+          "kappa": 0.982698,
+          "n_completed": 56722,
+          "censored_step_share": 0.001858,
+          "mean_tau": 154.43896548076583,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102722",
+          "k": 16,
+          "L": 11.433566,
+          "kappa": 1.030375,
+          "n_completed": 1237,
+          "censored_step_share": 0.037163,
+          "mean_tau": 23.300727566693613,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102722",
+          "k": 17,
+          "L": 13.398477,
+          "kappa": 0.909165,
+          "n_completed": 1888,
+          "censored_step_share": 0.052956,
+          "mean_tau": 34.650953389830505,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102722",
+          "k": 18,
+          "L": 17.209446,
+          "kappa": 0.888622,
+          "n_completed": 2868,
+          "censored_step_share": 0.015832,
+          "mean_tau": 45.97942817294282,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102722",
+          "k": 19,
+          "L": 22.527454,
+          "kappa": 1.007507,
+          "n_completed": 5044,
+          "censored_step_share": 0.0,
+          "mean_tau": 53.549563838223634,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102722",
+          "k": 20,
+          "L": 28.188634,
+          "kappa": 1.175853,
+          "n_completed": 9317,
+          "censored_step_share": 4e-06,
+          "mean_tau": 59.160030052592035,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102722",
+          "k": 21,
+          "L": 33.196045,
+          "kappa": 1.079862,
+          "n_completed": 14453,
+          "censored_step_share": 0.000933,
+          "mean_tau": 73.18231509029268,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102722",
+          "k": 22,
+          "L": 41.835003,
+          "kappa": 1.072829,
+          "n_completed": 22932,
+          "censored_step_share": 0.012312,
+          "mean_tau": 96.71389324960754,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102722",
+          "k": 23,
+          "L": 56.853755,
+          "kappa": 1.141913,
+          "n_completed": 35978,
+          "censored_step_share": 0.0,
+          "mean_tau": 123.32230807715827,
+          "slope": null
+        },
+        {
+          "spec": "RLLRL@2026102722",
+          "k": 24,
+          "L": 67.912399,
+          "kappa": 1.093328,
+          "n_completed": 57897,
+          "censored_step_share": 0.000193,
+          "mean_tau": 154.19037255816363,
+          "slope": null
+        }
+      ]
+    },
+    "per_rule": {
+      "RLLLLRLL": {
+        "kind": "ant",
+        "n_retained_windows": 14,
+        "L_min": 14.969432,
+        "L_max": 105.693482,
+        "L_range_ratio": 7.0606207369792,
+        "uninformative": false,
+        "Score_L": 0.17826572335520113,
+        "Score_L2": 0.049242869452473546,
+        "verdict": "D",
+        "mean_tau_over_L": 2.981201165286175,
+        "slopes": [],
+        "Score_L_KM": 0.17856768081649374,
+        "Score_L2_KM": 0.049746562074250045,
+        "censoring_fragile": false,
+        "windows": [
+          {
+            "spec": "RLLLLRLL@2026102721",
+            "k": 16,
+            "L": 18.737931,
+            "kappa": 2.525801,
+            "n_completed": 1507,
+            "censored_step_share": 0.066523,
+            "mean_tau": 28.39681486396815,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102721",
+            "k": 17,
+            "L": 20.239748,
+            "kappa": 0.503708,
+            "n_completed": 573,
+            "censored_step_share": 0.03308,
+            "mean_tau": 125.47993019197207,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102721",
+            "k": 18,
+            "L": 23.391076,
+            "kappa": 0.731507,
+            "n_completed": 1448,
+            "censored_step_share": 0.111276,
+            "mean_tau": 79.87707182320442,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102721",
+            "k": 19,
+            "L": 33.324864,
+            "kappa": 1.968138,
+            "n_completed": 5440,
+            "censored_step_share": 0.002412,
+            "mean_tau": 48.44613970588235,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102721",
+            "k": 22,
+            "L": 69.876207,
+            "kappa": 1.603504,
+            "n_completed": 16357,
+            "censored_step_share": 0.104926,
+            "mean_tau": 126.19129424711133,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102721",
+            "k": 23,
+            "L": 83.056548,
+            "kappa": 0.967121,
+            "n_completed": 16448,
+            "censored_step_share": 0.159191,
+            "mean_tau": 265.5543531128405,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102721",
+            "k": 24,
+            "L": 105.693482,
+            "kappa": 1.305978,
+            "n_completed": 34800,
+            "censored_step_share": 0.157564,
+            "mean_tau": 238.60813218390805,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102722",
+            "k": 16,
+            "L": 14.969432,
+            "kappa": 0.720879,
+            "n_completed": 574,
+            "censored_step_share": 0.036678,
+            "mean_tau": 58.198606271777,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102722",
+            "k": 17,
+            "L": 19.392157,
+            "kappa": 1.183603,
+            "n_completed": 1369,
+            "censored_step_share": 0.109919,
+            "mean_tau": 45.219868517165814,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102722",
+            "k": 18,
+            "L": 25.645161,
+            "kappa": 1.359817,
+            "n_completed": 2400,
+            "censored_step_share": 0.132603,
+            "mean_tau": 55.76958333333334,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102722",
+            "k": 19,
+            "L": 30.149901,
+            "kappa": 0.923322,
+            "n_completed": 2854,
+            "censored_step_share": 0.011318,
+            "mean_tau": 90.8980378416258,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102722",
+            "k": 20,
+            "L": 42.371681,
+            "kappa": 1.776532,
+            "n_completed": 7789,
+            "censored_step_share": 0.013338,
+            "mean_tau": 70.99422262164592,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102722",
+            "k": 23,
+            "L": 74.655602,
+            "kappa": 0.629845,
+            "n_completed": 12083,
+            "censored_step_share": 0.032957,
+            "mean_tau": 426.39592816353553,
+            "slope": null
+          },
+          {
+            "spec": "RLLLLRLL@2026102722",
+            "k": 24,
+            "L": 92.701127,
+            "kappa": 0.868485,
+            "n_completed": 27091,
+            "censored_step_share": 0.097468,
+            "mean_tau": 287.00908050644125,
+            "slope": null
+          }
+        ]
+      },
+      "RLLLRR": {
+        "kind": "ant",
+        "n_retained_windows": 17,
+        "L_min": 15.408907,
+        "L_max": 102.783242,
+        "L_range_ratio": 6.670378502511567,
+        "uninformative": false,
+        "Score_L": 0.1454905409786871,
+        "Score_L2": 0.056524746018756705,
+        "verdict": "D",
+        "mean_tau_over_L": 3.0911534423055307,
+        "slopes": [],
+        "Score_L_KM": 0.14572265991094485,
+        "Score_L2_KM": 0.056833926032490094,
+        "censoring_fragile": false,
+        "windows": [
+          {
+            "spec": "RLLLRR@2026102721",
+            "k": 16,
+            "L": 15.408907,
+            "kappa": 0.983747,
+            "n_completed": 716,
+            "censored_step_share": 0.091831,
+            "mean_tau": 44.114525139664806,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102721",
+            "k": 18,
+            "L": 25.585859,
+            "kappa": 1.015845,
+            "n_completed": 1764,
+            "censored_step_share": 0.067332,
+            "mean_tau": 100.9563492063492,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102721",
+            "k": 19,
+            "L": 29.678261,
+            "kappa": 0.61124,
+            "n_completed": 1823,
+            "censored_step_share": 0.069629,
+            "mean_tau": 151.34229292375207,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102721",
+            "k": 20,
+            "L": 37.147708,
+            "kappa": 0.88978,
+            "n_completed": 4241,
+            "censored_step_share": 0.138802,
+            "mean_tau": 106.27257722235322,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102721",
+            "k": 21,
+            "L": 47.655541,
+            "kappa": 0.954451,
+            "n_completed": 7056,
+            "censored_step_share": 0.031169,
+            "mean_tau": 159.0249433106576,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102721",
+            "k": 22,
+            "L": 59.301179,
+            "kappa": 0.838639,
+            "n_completed": 9908,
+            "censored_step_share": 0.072277,
+            "mean_tau": 203.96941865159468,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102721",
+            "k": 23,
+            "L": 78.392283,
+            "kappa": 1.191686,
+            "n_completed": 21349,
+            "censored_step_share": 0.052697,
+            "mean_tau": 203.95901447374584,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102721",
+            "k": 24,
+            "L": 102.704294,
+            "kappa": 1.294534,
+            "n_completed": 35429,
+            "censored_step_share": 0.01246,
+            "mean_tau": 266.8068249174405,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102722",
+            "k": 16,
+            "L": 15.721992,
+            "kappa": 1.390932,
+            "n_completed": 990,
+            "censored_step_share": 3.3e-05,
+            "mean_tau": 34.137373737373736,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102722",
+            "k": 17,
+            "L": 21.40634,
+            "kappa": 1.811517,
+            "n_completed": 1856,
+            "censored_step_share": 0.052392,
+            "mean_tau": 33.307112068965516,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102722",
+            "k": 18,
+            "L": 27.0358,
+            "kappa": 1.222749,
+            "n_completed": 1980,
+            "censored_step_share": 0.19245,
+            "mean_tau": 53.71111111111111,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102722",
+            "k": 19,
+            "L": 31.513185,
+            "kappa": 0.779343,
+            "n_completed": 2189,
+            "censored_step_share": 0.079817,
+            "mean_tau": 130.4093193238922,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102722",
+            "k": 20,
+            "L": 35.8669,
+            "kappa": 0.522179,
+            "n_completed": 2584,
+            "censored_step_share": 0.078269,
+            "mean_tau": 190.34481424148606,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102722",
+            "k": 21,
+            "L": 53.295374,
+            "kappa": 1.89242,
+            "n_completed": 12508,
+            "censored_step_share": 0.005646,
+            "mean_tau": 97.5375759513911,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102722",
+            "k": 22,
+            "L": 63.361217,
+            "kappa": 1.00579,
+            "n_completed": 11239,
+            "censored_step_share": 0.05748,
+            "mean_tau": 187.90639736631374,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102722",
+            "k": 23,
+            "L": 79.797864,
+            "kappa": 1.092756,
+            "n_completed": 19221,
+            "censored_step_share": 0.0197,
+            "mean_tau": 228.03100775193798,
+            "slope": null
+          },
+          {
+            "spec": "RLLLRR@2026102722",
+            "k": 24,
+            "L": 102.783242,
+            "kappa": 1.192312,
+            "n_completed": 32526,
+            "censored_step_share": 0.00454,
+            "mean_tau": 307.5295455942938,
+            "slope": null
+          }
+        ]
+      },
+      "RLLR": {
+        "kind": "ant",
+        "n_retained_windows": 18,
+        "L_min": 13.510823,
+        "L_max": 165.606754,
+        "L_range_ratio": 12.257340207920716,
+        "uninformative": false,
+        "Score_L": 0.2631700078069697,
+        "Score_L2": 0.0914862434617064,
+        "verdict": "D",
+        "mean_tau_over_L": 1.2039102927248218,
+        "slopes": [],
+        "Score_L_KM": 0.26327387376425465,
+        "Score_L2_KM": 0.09171593437480699,
+        "censoring_fragile": false,
+        "windows": [
+          {
+            "spec": "RLLR@2026102721",
+            "k": 16,
+            "L": 13.510823,
+            "kappa": 1.107485,
+            "n_completed": 998,
+            "censored_step_share": 0.01825,
+            "mean_tau": 34.50801603206413,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102721",
+            "k": 17,
+            "L": 18.81672,
+            "kappa": 1.390237,
+            "n_completed": 1771,
+            "censored_step_share": 0.054651,
+            "mean_tau": 33.18181818181818,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102721",
+            "k": 18,
+            "L": 24.147783,
+            "kappa": 1.268997,
+            "n_completed": 2494,
+            "censored_step_share": 0.032911,
+            "mean_tau": 51.935445068163595,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102721",
+            "k": 19,
+            "L": 33.516408,
+            "kappa": 2.146173,
+            "n_completed": 6055,
+            "censored_step_share": 0.092591,
+            "mean_tau": 42.93410404624277,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102721",
+            "k": 20,
+            "L": 47.942118,
+            "kappa": 2.980654,
+            "n_completed": 11486,
+            "censored_step_share": 0.007905,
+            "mean_tau": 49.79879853734982,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102721",
+            "k": 21,
+            "L": 66.902504,
+            "kappa": 3.603732,
+            "n_completed": 19299,
+            "censored_step_share": 0.009382,
+            "mean_tau": 55.95103373231774,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102721",
+            "k": 22,
+            "L": 91.48708,
+            "kappa": 4.607308,
+            "n_completed": 36230,
+            "censored_step_share": 0.00346,
+            "mean_tau": 60.603864200938446,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102721",
+            "k": 23,
+            "L": 129.729482,
+            "kappa": 6.784818,
+            "n_completed": 74561,
+            "censored_step_share": 0.026881,
+            "mean_tau": 56.64187712074677,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102721",
+            "k": 24,
+            "L": 160.668836,
+            "kappa": 4.833027,
+            "n_completed": 85850,
+            "censored_step_share": 0.003144,
+            "mean_tau": 108.91927781013395,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102722",
+            "k": 16,
+            "L": 14.775591,
+            "kappa": 1.388819,
+            "n_completed": 1264,
+            "censored_step_share": 0.020042,
+            "mean_tau": 26.463607594936708,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102722",
+            "k": 17,
+            "L": 19.940476,
+            "kappa": 1.669212,
+            "n_completed": 2072,
+            "censored_step_share": 0.029492,
+            "mean_tau": 28.25868725868726,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102722",
+            "k": 18,
+            "L": 26.019824,
+            "kappa": 1.771751,
+            "n_completed": 3224,
+            "censored_step_share": 0.030627,
+            "mean_tau": 40.625,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102722",
+            "k": 19,
+            "L": 34.219472,
+            "kappa": 2.072404,
+            "n_completed": 5806,
+            "censored_step_share": 0.003659,
+            "mean_tau": 46.38873579056149,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102722",
+            "k": 20,
+            "L": 46.258663,
+            "kappa": 2.612267,
+            "n_completed": 10781,
+            "censored_step_share": 0.012944,
+            "mean_tau": 48.5749002875429,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102722",
+            "k": 21,
+            "L": 60.698772,
+            "kappa": 2.445836,
+            "n_completed": 14437,
+            "censored_step_share": 0.017438,
+            "mean_tau": 73.76830366419617,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102722",
+            "k": 22,
+            "L": 83.668508,
+            "kappa": 3.787032,
+            "n_completed": 33379,
+            "censored_step_share": 0.006647,
+            "mean_tau": 64.7761466790497,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102722",
+            "k": 23,
+            "L": 112.130612,
+            "kappa": 4.300274,
+            "n_completed": 56014,
+            "censored_step_share": 0.002292,
+            "mean_tau": 77.9575463277038,
+            "slope": null
+          },
+          {
+            "spec": "RLLR@2026102722",
+            "k": 24,
+            "L": 165.606754,
+            "kappa": 7.23638,
+            "n_completed": 124382,
+            "censored_step_share": 0.017214,
+            "mean_tau": 67.76613175539869,
+            "slope": null
+          }
+        ]
+      },
+      "RLLRL": {
+        "kind": "ant",
+        "n_retained_windows": 18,
+        "L_min": 11.433566,
+        "L_max": 67.912399,
+        "L_range_ratio": 5.939739098020686,
+        "uninformative": false,
+        "Score_L": 0.09906960199126852,
+        "Score_L2": 0.11337353608680334,
+        "verdict": "inconclusive",
+        "mean_tau_over_L": 2.2493406025814737,
+        "slopes": [],
+        "Score_L_KM": 0.09919401919735688,
+        "Score_L2_KM": 0.11354995574203224,
+        "censoring_fragile": false,
+        "windows": [
+          {
+            "spec": "RLLRL@2026102721",
+            "k": 16,
+            "L": 11.985612,
+            "kappa": 0.933815,
+            "n_completed": 1069,
+            "censored_step_share": 0.001225,
+            "mean_tau": 30.291861552853135,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102721",
+            "k": 17,
+            "L": 14.200913,
+            "kappa": 1.396342,
+            "n_completed": 2675,
+            "censored_step_share": 0.001675,
+            "mean_tau": 24.965607476635515,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102721",
+            "k": 18,
+            "L": 18.201887,
+            "kappa": 1.057074,
+            "n_completed": 3212,
+            "censored_step_share": 0.001733,
+            "mean_tau": 40.576276463262765,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102721",
+            "k": 19,
+            "L": 23.604938,
+            "kappa": 1.145741,
+            "n_completed": 5517,
+            "censored_step_share": 0.001548,
+            "mean_tau": 48.20464020300888,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102721",
+            "k": 20,
+            "L": 28.127869,
+            "kappa": 1.250627,
+            "n_completed": 9925,
+            "censored_step_share": 0.000471,
+            "mean_tau": 54.79324937027708,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102721",
+            "k": 21,
+            "L": 36.038321,
+            "kappa": 1.062993,
+            "n_completed": 13148,
+            "censored_step_share": 0.01043,
+            "mean_tau": 81.50768177669607,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102721",
+            "k": 22,
+            "L": 44.029286,
+            "kappa": 1.042308,
+            "n_completed": 21189,
+            "censored_step_share": 0.001606,
+            "mean_tau": 105.84161593279532,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102721",
+            "k": 23,
+            "L": 56.014452,
+            "kappa": 1.164132,
+            "n_completed": 37053,
+            "censored_step_share": 0.000969,
+            "mean_tau": 117.64580465819232,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102721",
+            "k": 24,
+            "L": 62.024816,
+            "kappa": 0.982698,
+            "n_completed": 56722,
+            "censored_step_share": 0.001858,
+            "mean_tau": 154.43896548076583,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102722",
+            "k": 16,
+            "L": 11.433566,
+            "kappa": 1.030375,
+            "n_completed": 1237,
+            "censored_step_share": 0.037163,
+            "mean_tau": 23.300727566693613,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102722",
+            "k": 17,
+            "L": 13.398477,
+            "kappa": 0.909165,
+            "n_completed": 1888,
+            "censored_step_share": 0.052956,
+            "mean_tau": 34.650953389830505,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102722",
+            "k": 18,
+            "L": 17.209446,
+            "kappa": 0.888622,
+            "n_completed": 2868,
+            "censored_step_share": 0.015832,
+            "mean_tau": 45.97942817294282,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102722",
+            "k": 19,
+            "L": 22.527454,
+            "kappa": 1.007507,
+            "n_completed": 5044,
+            "censored_step_share": 0.0,
+            "mean_tau": 53.549563838223634,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102722",
+            "k": 20,
+            "L": 28.188634,
+            "kappa": 1.175853,
+            "n_completed": 9317,
+            "censored_step_share": 4e-06,
+            "mean_tau": 59.160030052592035,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102722",
+            "k": 21,
+            "L": 33.196045,
+            "kappa": 1.079862,
+            "n_completed": 14453,
+            "censored_step_share": 0.000933,
+            "mean_tau": 73.18231509029268,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102722",
+            "k": 22,
+            "L": 41.835003,
+            "kappa": 1.072829,
+            "n_completed": 22932,
+            "censored_step_share": 0.012312,
+            "mean_tau": 96.71389324960754,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102722",
+            "k": 23,
+            "L": 56.853755,
+            "kappa": 1.141913,
+            "n_completed": 35978,
+            "censored_step_share": 0.0,
+            "mean_tau": 123.32230807715827,
+            "slope": null
+          },
+          {
+            "spec": "RLLRL@2026102722",
+            "k": 24,
+            "L": 67.912399,
+            "kappa": 1.093328,
+            "n_completed": 57897,
+            "censored_step_share": 0.000193,
+            "mean_tau": 154.19037255816363,
+            "slope": null
+          }
+        ]
+      }
+    }
+  },
+  "gates": {
+    "C1_rw_prefers_D": false,
+    "C2_mf_prefers_S_and_mean_in_band": true,
+    "instrument_adequate": false,
+    "rw_verdict": "uninformative",
+    "mf_verdict": "S",
+    "mf_mean_tau_over_L": 1.0101535230605367
+  },
+  "confirmation": null
+}

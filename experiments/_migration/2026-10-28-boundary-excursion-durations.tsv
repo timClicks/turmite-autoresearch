@@ -1,0 +1,2 @@
+old_path	new_path	bucket	reason
+experiments/2026-10-27-boundary-excursion-durations	experiments/active/2026-10-boundary-excursion-durations	active	open: PR #20 under review; current notes/ACTIVE.md pointer; confirmation cohort reserved and unopened; next statistic to be registered

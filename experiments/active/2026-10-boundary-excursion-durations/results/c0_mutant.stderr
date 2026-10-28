@@ -1,0 +1,7 @@
+1 specs, max_log2 12, grid 256, check true
+
+thread 'main' (167669) panicked at examples/boundary_excursions.rs:303:9:
+assertion `left == right` failed: window k=9
+  left: (206, 152, 83, 187)
+ right: (206, 152, 83, 69)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

@@ -529,3 +529,39 @@ Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per
   times), which the rotor router keeps bounded. Prediction: ant and rotor low, hybrid diffusive-scale. Not registered.
 - Reading for Q1/Q6 (interpretation, not a test): the original "blank cells repel" ingredient is now the one with direct
   causal support; the "well-mixed interior" ingredient, in its memoryless form, is not enough by itself at these horizons.
+
+## Added 2026-10-27: excursion-duration collapse (stage 1) — P-C in PR #18
+
+Stage-1 experiment `experiments/active/2026-10-boundary-excursion-durations/` (registration commit `9bfa496`)
+implements the excursion-duration discrimination idea P-C in `notes/cube-root-routes-2026-10-26.md`
+on branch `survey/cube-root-routes` (PR #18, unmerged at registration; merged 2026-10-28). P-C is **Q36** in the
+2026-10-26 section above, which also holds the related Q34, Q35 and Q37. The open items below are unnumbered; they
+concern the instrument for Q36.
+
+- **Result of stage 1:** instrument **revise**. The nonparametric collapse Score separates planted
+  pure-scale L vs L² laws, and mean-field prefers L as registered. The random-walk calibrator never
+  grows L=A/P into the analysis band, so C1 fails and the excluded ant pilot is not evidence.
+- **Revision 1** (registration `9c2aeea`, before revised measurement): stay-on-reject reflecting
+  cup grew L but failed the frozen compactness pre-check (porous A/P²) and Score preferred S
+  (frontier trapping). C1' **inadequate**; C2 (mean-field) still passed; confirmation **not run**.
+  Cup-as-D design retired (`NR-20261027-reflecting-cup-d-calibrator`).
+- **Open (unnumbered):** which *filled* compact-domain walker (visited-neighbour reflection,
+  Eden growth, or internal DLA) can pass compactness and prefer D under the frozen Score? Until that
+  is newly registered and green, do not run the reserved confirmation specs. Do not P-shop the retired cup.
+- **Revision 2** (registration `900f25f`, results `1da42bd`, 2026-10-28): Eden-style growth and internal
+  DLA both pass compactness, yet the frozen Score prefers S (Eden) or neither (IDLA), not D. Gate fail;
+  confirmation **not run**; both retired for this Score (`NR-20261028-excursion-score-compact-d-calibrators`).
+  Reading: short boundary returns have an L-independent head in compact walkers and dominate the
+  number-weighted Score, so it cannot certify diffusion even where diffusion is built in. This is an
+  instrument limitation; it does not bear on whether ant excursions diffuse or sweep.
+- **Open (unnumbered, supersedes the item above):** can a newly registered tail-restricted or step-weighted
+  collapse statistic prefer D on IDLA (and Eden) while mean-field still prefers L? Calibrate before any ant
+  data; do not retune the retired Score.
+- **Added 2026-10-28 (post hoc, exploratory; proposal, not registered):** in the Rev2 calibration data, short excursions
+  (τ ≤ 3) are a third to three quarters of the completed-excursion count for Eden, IDLA and the rotor. They are a few
+  percent or less of off-boundary time for every walker (`experiments/active/2026-10-boundary-excursion-durations/results/rev2_short_share.txt`).
+  **Open (unnumbered):** does a time-weighted collapse statistic, or the slope of log τ on log (maximum depth)
+  (≈2 diffusive, ≈1 sweep), separate the calibration panel? The panel is Eden, IDLA and a slope-1 ballistic control.
+  The statistic should also pass a synthetic-mixture gate (mostly short returns plus a tail) before any ant data. The square-ring fillers are
+  expected to be a no-deep-excursion control rather than a slope-1 control (unchecked). Proposals are in the experiment README's
+  "Next steps proposal".
