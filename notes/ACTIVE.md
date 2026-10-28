@@ -82,7 +82,8 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
 - **Seeded bootstraps that were not reproducible (found and fixed 2026-10-28):** polars `unique()`/`group_by()` (and
   Python sets of strings) iterate in per-process hash order; where that order decided which unit got which seeded draw, or
   broke ties, outputs changed between runs. All 98 candidate scripts were run twice under different `PYTHONHASHSEED` in a
-  scratch worktree; every one that differed was fixed (sorted groups) and its committed output regenerated. Verdicts are
+  scratch worktree; every one whose numbers, labels or print order differed was fixed (sorted groups) and its committed
+  output regenerated (timing fields and notebook cell ids were left). Verdicts are
   unchanged everywhere; intervals moved by <= 0.02. One interpretation weakened: the A7-next random-sample excess (now
   4/99, consistent with chance). Full list, scripts not testable without gitignored dumps, and residual cosmetic
   differences: `notes/reproducibility-audit-2026-10-28.md`. Lesson for new scripts: sort before any seeded draw.
