@@ -113,13 +113,34 @@
       "alt": "CCDF of mean-field excursion durations under tau/L and tau/L-squared with fresh Revision-1 seeds.",
       "caption": "Revision-1 mean-field L-control: Score still prefers the sweep scaling under the frozen margin.",
       "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+    },
+    "excursion-rev2-compactness": {
+      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/rev2_compactness.png",
+      "alt": "Two panels: isoperimetric proxy A over P squared and linear size L versus window index for the Eden-style and internal-DLA walkers.",
+      "caption": "Revision-2 compactness diagnostics: both the Eden-style and internal-DLA territories grow in L and pass the frozen filled-blob cut that the reflecting cup failed.",
+      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+    },
+    "excursion-idla": {
+      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/ccdf_idla.png",
+      "alt": "CCDF of internal-DLA excursion durations coloured by window-end L, shown under tau/L and tau/L-squared scalings.",
+      "caption": "Revision-2 internal DLA, with origin restarts counted as excursions. The long tail lines up better under tau/L-squared (a post hoc reading), but the number-weighted Score is dominated by the shared short head and stays inconclusive.",
+      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+    },
+    "excursion-eden": {
+      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/ccdf_eden.png",
+      "alt": "CCDF of Eden-style walker excursion durations coloured by window-end L, shown under tau/L and tau/L-squared scalings.",
+      "caption": "Revision-2 Eden-style walker: a compact territory, yet the frozen Score prefers the sweep scaling, because returns launched from the boundary are short at every L.",
+      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
     }
   },
   "experiments": {
     "2026-10-27-boundary-excursion-durations": [
       "excursion-cup-010",
       "excursion-cup-compactness",
-      "excursion-mf-rev1"
+      "excursion-mf-rev1",
+      "excursion-rev2-compactness",
+      "excursion-idla",
+      "excursion-eden"
     ],
     "2026-10-23-hidden-phase-return": ["hidden-phase"],
     "2026-10-12-knockout-maps": ["occupancy-home"],
