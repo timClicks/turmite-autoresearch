@@ -26,7 +26,8 @@
         {"ref": "2026-10-item4-exponent-rotor-calibrated"},
         {"ref": "2026-10-a3-background-cone-control"},
         {"ref": "2026-10-b3-long-rules", "why": "Registered extension: sampled rules much longer than the census keep the width exponent near a third."},
-        {"ref": "2026-10-wall-vs-memory", "why": "Registered interventions: removing the forced turn on fresh ground makes every tested ant porous; forced L, reversal and random bounded turns keep growth compact unless the ant crystallises, while unbounded random turns go porous (registered readings unresolved)."}
+        {"ref": "2026-10-wall-vs-memory", "why": "Registered interventions: removing the forced turn on fresh ground makes every tested ant porous; forced L, reversal and random bounded turns keep growth compact unless the ant crystallises, while unbounded random turns go porous (registered readings unresolved)."},
+        {"ref": "2026-10-leak-titration", "why": "Dose curve for fresh-ground randomness: compactness is lost gradually through an intermediate band rather than at a sharp threshold, though the registered shape reading is unresolved."}
       ],
       "counter": [
         {"ref": "2026-10-memory-walkers", "why": "Mechanism test: adding memory to a simple walker does not recover the ant."},
