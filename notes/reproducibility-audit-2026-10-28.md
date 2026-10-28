@@ -26,10 +26,10 @@ compared byte for byte, and also compared with the committed outputs. Harness: s
 | result | scripts | what |
 |---|---|---|
 | identical in both runs | 51 | no action |
-| **differed, numbers changed, fixed** | 13 (+ `matched_area.py`) | `a4_stats`, `a4c_stats` (bootstrap SE, 3rd decimal); `a7_census` (flag count, see below); `b3_stats` (bootstrap SE); `k1_necklace` (permutation null); `colour_stats` (C3 sampling floor 0.465/0.466); `hull_stats` (rule-bootstrap CIs, endpoints by <= 0.02); kappa-exposure `explore` (median-Q CI); kappa-prefix `ablate`, `additive`, `runs`, spread `features` (CIs, endpoints by <= 0.015) |
+| **differed, numbers changed, fixed** | 12 (+ `matched_area.py`) | `a4_stats`, `a4c_stats` (bootstrap SE, 3rd decimal); `a7_census` (flag count, see below); `b3_stats` (bootstrap SE); `k1_necklace` (permutation null); `colour_stats` (C3 sampling floor 0.465/0.466); `hull_stats` (rule-bootstrap CIs, endpoints by <= 0.02); kappa-exposure `explore` (median-Q CI); kappa-prefix `ablate`, `additive`, `runs`, spread `features` (CIs, endpoints by <= 0.015) |
 | differed, tie label only, fixed | 1 | `a5_home_types`: which of several equal-F1 values is printed; every count and F1 unchanged |
 | differed, print order only, fixed | 2 | crawler `stage2_analyse` (dict order), return-gates `analyse_confirm` (strata list order) |
-| differed, benign, not changed | 5 | wall-clock timing fields (`calibrate_tail`, `calibrate_fit`, `t1_machinery`); random cell ids in three `build_notebook.py` (exposure classes, leadrun-fresh, square-loop; the wall-vs-memory builder now sets fixed ids) |
+| differed, benign, not changed | 6 | wall-clock timing fields (`calibrate_tail`, `calibrate_fit`, `t1_machinery`); random cell ids in three `build_notebook.py` (exposure classes, leadrun-fresh, square-loop; the wall-vs-memory builder now sets fixed ids) |
 | could not run here | 26 | see below |
 
 Fixes sort the groups or lists before any draw (`sorted(df.group_by(k), key=...)`, `.sort(k)` after `agg`,
@@ -59,11 +59,11 @@ script under `research-outputs/` reads the affected results, except `focused-pap
 - Refuses to overwrite a differing committed design (3, a safety guard working as intended): c-law-renewal `prepare`,
   `analyse_native`; kappa-growth-clock `sample`.
 - Hard-coded machine path (1): `cube-root-growth-paper/textbook_figs.py` reads `/root/gal/...`.
-- **Broken by the 2026-10-14 migration (1 here, 7 in total)**: `experiments/_migration/fixups.py` wrote the literal text
+- **Broken by the 2026-10-14 migration (1 here, 7 in the repository)**: `experiments/_migration/fixups.py` wrote the literal text
   `parents[2 if lib else 3]` into seven knockout-maps and patterns-fields scripts, which then raised `NameError` on start.
   Repaired at `cc75e51` (`parents[4]`, checked to resolve the repository root; `followup_stats.py` also needed
   `experiments/_lib` on `sys.path`). They now run until they need their gitignored dumps, so their outputs were not
-  regenerated. Two of the seven (`followup_stats`, `patterns_analyse`) are in the audit count.
+  regenerated. Two of the seven were in the audit: `patterns_analyse` (counted here) and `followup_stats` (counted under dumps, which it needs once repaired).
 
 Static reading of these 26 (no execution): one **possible hazard**, `boundary-return-map/scripts/analyze.py`. It
 iterates `rep.group_by(["rule", "band"], maintain_order=True)` over a frame built by polars joins, whose row order is not
