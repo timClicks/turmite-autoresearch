@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-25T22:25:00+13:00",
-  "source_revision": "2bacfc924204df411019fec9b4b1a4b1d79de616",
+  "reviewed_at": "2026-10-28T15:50:00+13:00",
+  "source_revision": "ea4252454ec008b500377eecfacbf1f6a68873d2",
   "sources": {
     "accounting": "notes/accounting-identity-response-2026-10-16.md",
     "calibration": "notes/calibration.md",
@@ -26,7 +26,10 @@
     "pruning": "notes/pruning-index/entries/NR-20261022-additive-laws-order-blind.md",
     "exposure": "experiments/2026-10-20-kappa-exposure-classes/README.md",
     "exposure_review": "experiments/2026-10-20-kappa-exposure-classes/results/review.txt",
-    "exposure_review_script": "experiments/2026-10-20-kappa-exposure-classes/scripts/posthoc_review.py"
+    "exposure_review_script": "experiments/2026-10-20-kappa-exposure-classes/scripts/posthoc_review.py",
+    "excursion": "experiments/2026-10-27-boundary-excursion-durations/README.md",
+    "excursion_data": "experiments/2026-10-27-boundary-excursion-durations/results/rev2_analysis.json",
+    "excursion_pruning": "notes/pruning-index/entries/NR-20261028-excursion-score-compact-d-calibrators.md"
   },
   "claims": [
     {
@@ -118,6 +121,16 @@
       "scope": "Three rules x four seeds 202610208001..004; 213 ant departures, 617 matched pairs; sampled T>=512, two area bands 32768,131072; cap 1048576. Hierarchical rule/seed bootstrap 10000 draws, seed 2026102201.",
       "limitations": "Only three rule clusters. Baseline undo-log overflow silently skipped: full eligibility unknown. Intervention censoring 15/1234 (1.22%) limits claims to capped time/path reach. Traffic ranking does not define all possible gates.",
       "sources": ["gate_design", "gates", "gate_data"]
+    },
+    {
+      "id": "RD-06", "topic": "return-dynamics", "kind": "instrument", "verdict": "failed",
+      "observation": "The frozen number-weighted excursion-duration collapse Score never preferred tau/L^2 on a compact diffusive calibrator. Eden-style growth (median A/P^2 0.065) gave S (Score L 0.102 vs L^2 0.161); internal DLA (0.071) gave inconclusive (0.067 vs 0.077). Mean-field still preferred L. The gate failed and the ant cohort was not run.",
+      "failed_explanation": "A number-weighted survival-collapse Score with margin 0.75 can certify diffusive (tau/L^2) boundary excursions, so its S or inconclusive readout on ants would show the absence of diffusion.",
+      "question": "Can a separately registered tail-restricted or step-weighted collapse statistic prefer L^2 on IDLA while mean-field still prefers L?",
+      "next_decision": "Register and calibrate a different observable on these walkers before any ant data; do not retune q1, margin, u-grid or mask, and do not run the reserved cohort under this Score.",
+      "scope": "Revision 2 calibration only: eden (q1 = 1/64) and idla, seeds 2026102841..44, board 8192, k=16..24, 36 windows each; same Score, mask and compactness rule as stage 1 and Revision 1. Earlier failures: free RW (L never grew) and reflecting cup (porous).",
+      "limitations": "Four seeds; IDLA L range only four-fold. Walker code was committed with the results rather than before measuring (definitions frozen in registration 900f25f). Post hoc plots suggest the IDLA tail collapses in tau/L^2; untested. Says nothing about ant excursions.",
+      "sources": ["excursion", "excursion_data", "excursion_pruning"]
     },
     {
       "id": "RG-01", "topic": "regime-changes", "kind": "observation", "verdict": "unresolved",

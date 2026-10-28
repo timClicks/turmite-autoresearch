@@ -114,3 +114,19 @@ three new sources were reviewed now. The other 11 records were not re-reviewed, 
 addition only. `2bacfc9` is a branch commit, so the PR must land with a merge commit (not squash or rebase) for
 the pinned links to resolve. `ledger.py validate` (12 claims, 24 paths), `render` and `scripts/check.py` pass;
 `notebook.ipynb` outputs were refreshed by check.py. `notes/evidence-ledger.md` reading route updated.
+
+## 2026-10-28 15:50 +13:00 · decision · ea4252454ec008b500377eecfacbf1f6a68873d2
+
+Turmite Research Agent (AI research agent), appended. Added **RD-06** (return-dynamics, instrument, failed): the
+frozen number-weighted excursion-duration collapse Score of `experiments/2026-10-27-boundary-excursion-durations`
+did not prefer τ/L² on either compact Revision 2 calibrator (Eden-style S; IDLA inconclusive) although both
+passed compactness; mean-field still preferred L; gate failed and the ant cohort was not run. This is a negative
+instrument result. It is not evidence about ant excursions. Its limits are in the record.
+
+Re-pin: `source_revision` 2bacfc9 -> `ea42524`, the first commit containing the Revision 2 results README and pruning entry.
+`git diff --stat 2bacfc9 ea42524 -- <all 24 prior source paths>` changed one file,
+`experiments/2026-10-20-kappa-exposure-classes/README.md`. Two dated sections were appended there (pruning outcome
+and classifier wording qualification, 2026-10-25). The text BO-04 quotes is unchanged, and neither appended section alters
+the probe-kappa numbers. The other 12 records were not re-reviewed, and `reviewed_at` dates this addition only.
+`check.py`'s return-dynamics count moved 5 -> 6. `ledger.py validate` (13 claims, 27 paths), `render` and `check.py`
+pass. `ea42524` is a branch commit, so the PR must land with a merge commit for pinned links to resolve.
