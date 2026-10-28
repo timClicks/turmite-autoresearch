@@ -18,15 +18,15 @@ Files created (all untracked):
 
 | File | Role |
 |---|---|
-| `experiments/2026-10-13-g1-ribbon-breakout/scripts/g1_wake_extract.py` | Only reader of the gitignored dumps; writes the small committed extract |
-| `experiments/2026-10-13-g1-ribbon-breakout/results/g1_wake_extract.json` | L, x, colour shares, lag agreement, dump sha256, crop coordinates |
+| `experiments/archive/2026-10-g1-ribbon-breakout/scripts/g1_wake_extract.py` | Only reader of the gitignored dumps; writes the small committed extract |
+| `experiments/archive/2026-10-g1-ribbon-breakout/results/g1_wake_extract.json` | L, x, colour shares, lag agreement, dump sha256, crop coordinates |
 | `.../results/g1_wake_shape_<T0>.csv`, `g1_wake_crop_<T0>.csv`, `g1_sweep_trace_<T0>.csv` | T0 = 12800000000 and 12900000000 (about 250 KB total) |
 | `research-outputs/cube-root-growth-paper/late_switch_figure.py` | Figure script; reads only committed `results/` |
 | `.../fig/late_switch_numbers.json` | Predicted and measured d\|x\|^2/dt, onset, as plotted |
 
 Run (from the worktree root, PowerShell tool; the Bash tool refuses `wsl` here):
 ```
-wsl -e bash -lc 'export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy; cd /mnt/f/Code/turmite/.claude/worktrees/paper-figure-proposals; uv run experiments/2026-10-13-g1-ribbon-breakout/scripts/g1_wake_extract.py /mnt/f/Code/turmite/.claude/worktrees/g1-builder-structure/dumps'
+wsl -e bash -lc 'export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy; cd /mnt/f/Code/turmite/.claude/worktrees/paper-figure-proposals; uv run experiments/archive/2026-10-g1-ribbon-breakout/scripts/g1_wake_extract.py /mnt/f/Code/turmite/.claude/worktrees/g1-builder-structure/dumps'
 wsl -e bash -lc '... uv run research-outputs/cube-root-growth-paper/late_switch_figure.py'
 ```
 Quirks: WSL calls fail if the cwd is a subdirectory or the command has heredocs or `&&` chains inside `bash -lc "..."`;
@@ -62,7 +62,7 @@ sha256s in `g1_wake_extract.json`. Treat the committed extract as the durable re
    `git show 18b49fc:notes/g1-builder-structure-2026-10-14.md > notes/g1-builder-structure-2026-10-14.md`; check the example still builds
    (`cargo build --release --example builder_dump` via WSL; it was written against an older tree, `DIRS`/`Rule` API may have changed).
    The original `data/g1_builder_*.py` scripts were not ported; `g1_wake_extract.py` supersedes the analysis parts used here.
-4. **Notebook entries**: append dated `NOTEBOOK.md` entries to `experiments/2026-10-13-g1-ribbon-breakout/` (intent, observation of the
+4. **Notebook entries**: append dated `NOTEBOOK.md` entries to `experiments/archive/2026-10-g1-ribbon-breakout/` (intent, observation of the
    reproduced numbers, decision to commit a small extract instead of reading dumps, deviation: new extract script) with git hash; add a
    short section to its `README.md` listing the new script/results. Update `notebook.ipynb` only if you add a cell for the figure (must read committed results only).
 5. **Polish (optional)**: panel c bracket label "one period (3 columns)" sits close to the title; the crop's ragged top is the wake's low-y

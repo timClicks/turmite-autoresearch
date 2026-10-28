@@ -2,7 +2,7 @@
 
 Run: uv run research-outputs/cube-root-growth-paper/layers_figure.py
 Recomputes rho(d) from the committed layer counts with the same formula and window (k >= 22) as
-experiments/2026-10-13-layers-colours/scripts/layers_stats.py; the crust label is read from results/layers_classes.txt.
+experiments/archive/2026-10-layers-colours/scripts/layers_stats.py; the crust label is read from results/layers_classes.txt.
 d = Manhattan distance to never-visited ground minus one; rho(d) = visits per cell relative to the territory mean; rho(0) = kappa.
 The last layer (index 5) pools all depths >= 5. No fits. Numbers go to fig/layers_numbers.json.
 """
@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 import style as st
 
 ROOT = Path(__file__).resolve().parents[2]
-R = ROOT / "experiments/2026-10-13-layers-colours/results"
+R = ROOT / "experiments/archive/2026-10-layers-colours/results"
 OUT = Path(__file__).resolve().parent / "fig"
 NL = 6
 

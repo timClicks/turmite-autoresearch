@@ -10,8 +10,8 @@ from pathlib import Path
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = "experiments/2026-10-19-kappa-walker-reference/results/probe_nrotor.csv"
-ANALYSIS = "experiments/2026-10-19-kappa-walker-reference/results/analysis_nrotor.txt"
+SOURCE = "experiments/archive/2026-10-kappa-walker-reference/results/probe_nrotor.csv"
+ANALYSIS = "experiments/archive/2026-10-kappa-walker-reference/results/analysis_nrotor.txt"
 
 
 def export():

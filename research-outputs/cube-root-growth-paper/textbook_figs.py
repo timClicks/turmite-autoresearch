@@ -121,8 +121,8 @@ fig.subplots_adjust(left=0.005, right=0.995, top=0.88, bottom=0.12, wspace=0.04)
 st.save(fig, OUT / "timelapse.pdf"); plt.close(fig)
 
 # ---- 5. census overview ----------------------------------------------------
-sw = pl.read_csv(R / "experiments/2026-10-13-census-sweeps/results/sweep_v2.csv", infer_schema_length=0).select("rule", pl.col("n").cast(int), "stop")
-ce = pl.read_csv(R / "experiments/2026-10-13-census-sweeps/results/census.csv").select("rule", "cls")
+sw = pl.read_csv(R / "experiments/archive/2026-10-census-sweeps/results/sweep_v2.csv", infer_schema_length=0).select("rule", pl.col("n").cast(int), "stop")
+ce = pl.read_csv(R / "experiments/archive/2026-10-census-sweeps/results/census.csv").select("rule", "cls")
 d = sw.join(ce, on="rule", how="left").with_columns(
     pl.when(pl.col("cls").is_not_null()).then(pl.col("cls")).when(pl.col("stop") == "escaped").then(pl.lit("highway")).otherwise(pl.lit("other")).alias("k"))
 order = [("highway", st.HIGHWAY, "builds a highway"), ("builder", st.BUILDER, "fills a frame slowly"), ("log", st.LOG, "grows only logarithmically"), ("blob", st.ANT, "grows as a blob")]

@@ -31,17 +31,17 @@ Two threads from a conversation with the maintainer on 2026-10-26 are recorded h
 - Boundary dwell is flat over L = A/P, so constant kappa is *equivalent* to the mean interior excursion E[T] tracking L
   (renewal identity `f = E[D]/(E[D] + E[T])`, `kappa = L f`). Why E[T] tracks L is open. The tail fit meant to answer it
   failed calibration (C6), so its theta and z are not findings
-  ([first-passage README](../experiments/2026-10-20-kappa-first-passage/README.md), "Correction after review").
+  ([first-passage README](../experiments/archive/2026-10-kappa-first-passage/README.md), "Correction after review").
 - The typical boundary excursion is local (median `r*/L` 0.096 and 0.053), but time-weighted reach is about 1.16 L
-  ([boundary-return map](../experiments/2026-10-21-boundary-return-map/README.md), "Confirmation results"). The typical
+  ([boundary-return map](../experiments/archive/2026-10-boundary-return-map/README.md), "Confirmation results"). The typical
   excursion in the earlier tomography is a one-step return
   ([excursion tomography](excursion-tomography-2026-10-13.md)).
 - Known failure modes of the cube root in this repo: log-growers with kappa near 0 and falling, including tethered rules
   held by exact home cells ([summary-2026-10-13.md](summary-2026-10-13.md), "Tethered ("hard") rules"); the sqrt(t)
   turmite cluster, which builds 1D structures (area/extent^2 0.001 against 0.54 for compact blobs;
   [frontier-2026-10-13-results.md](frontier-2026-10-13-results.md), D1); highways; and the square-ring board fillers,
-  whose edge is a crawler with a *proved* c ([square-ring fillers](../experiments/2026-10-25-square-ring-fillers/README.md),
-  [crawler cost](../experiments/2026-10-25-crawler-cost-chaotic-edge/README.md)).
+  whose edge is a crawler with a *proved* c ([square-ring fillers](../experiments/archive/2026-10-square-ring-fillers/README.md),
+  [crawler cost](../experiments/archive/2026-10-crawler-cost-chaotic-edge/README.md)).
 
 ## 3. Thread 1: what the cube root reduces to
 
@@ -51,7 +51,7 @@ Kac's lemma: for a stationary ergodic process, the mean return time to a set S, 
 territory uniformly, the boundary would carry probability P/A and the mean return time would be A/P = L. The repo's
 finding "constant kappa iff E[T] tracks L" therefore says: **the ant returns to its own edge on Kac's schedule for a
 uniform occupant, up to a rule-specific constant** (the census median is about 0.81 of each rule's uniform reference;
-[uniform baseline](../experiments/2026-10-16-kappa-uniform-baseline/README.md)). The ant is neither stationary nor
+[uniform baseline](../experiments/archive/2026-10-kappa-uniform-baseline/README.md)). The ant is neither stationary nor
 Markov and its territory grows, so this is an analogy that names the target, not a theorem that applies.
 
 This is **not new**. Meng and Cohen (1994) already used a boundary-return argument with a return time of order area over
@@ -163,7 +163,7 @@ cluster must fail (M).
 **Idea.** The KPZ lesson: classes are told apart by fluctuation distributions, not exponents. The repo already finds
 the ants' boundary-width exponent at 0.22-0.25 against about 0.12 for the rotor through 2^34, and says "the universality
 class isn't decided" ([summary-2026-10-13.md](summary-2026-10-13.md), "Edge width"). The atlas's edge-roughness topic
-now records that at the longest windows (to 2^36, `experiments/2026-10-13-w4-edge-exponent-2e36/`) both registered
+now records that at the longest windows (to 2^36, `experiments/archive/2026-10-w4-edge-exponent-2e36/`) both registered
 decision rules are inconclusive, so exponents may not separate the classes; distributions might.
 
 **Prediction (conjecture).** After centring and scaling each rule's edge fluctuations by its own spread, chaotic blob
@@ -173,7 +173,7 @@ rules share one distribution that differs from the rotor's.
 judged against the rotor's seed-to-seed spread. Then the ants share an exponent but no fluctuation class, which would
 weaken any single-mechanism story.
 
-**Data.** `experiments/2026-10-13-a4-boundary-width/results/a4_shape_{ants,rotor}.csv` hold moments only (rbar, rsd,
+**Data.** `experiments/archive/2026-10-a4-boundary-width/results/a4_shape_{ants,rotor}.csv` hold moments only (rbar, rsd,
 harmonics h2/h4/h8, Wsurf). A first look at standardised moment ratios could use them. A distribution test needs saved
 radial profiles, which means a new (small) run.
 
@@ -272,7 +272,7 @@ about the current status of a rigorous proof of the 2D self-avoiding-walk expone
 **STATUS: still proposals.** Nothing here is registered or has run. It records review feedback on PR 18, received
 2026-10-27 and checked against the pinned note. The original sections above are kept as written. Evidence cited by the
 reviewer: the first-passage closure lost to persistence (mean absolute error 0.0372 against 0.0277, P2 FAIL in
-`experiments/2026-10-20-kappa-first-passage/README.md`, line 272) and the tail estimator failed calibration (C6). The
+`experiments/archive/2026-10-kappa-first-passage/README.md`, line 272) and the tail estimator failed calibration (C6). The
 reviewer's tail-budget figures (median relative error 0.123 against persistence 0.072) were not re-checked against the
 tail-budget records for this revision.
 

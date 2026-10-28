@@ -7,7 +7,7 @@ If #11 changes before it merges, re-read it. This plan builds on #11 and does no
 
 ## What PR #11 already establishes, and what it leaves open
 
-PR #11 is `experiments/2026-10-25-square-ring-fillers/`, "Square-ring fillers: why R^k L R^(k+2)… fills at 2(k+1) steps per
+PR #11 is `experiments/archive/2026-10-square-ring-fillers/`, "Square-ring fillers: why R^k L R^(k+2)… fills at 2(k+1) steps per
 cell".
 
 **Proved by hand for every k ≥ 1 (README, "The crawler lemma"):** the edge lemma. Let `Pi(k)` be the condition `T(k) = L` and
@@ -126,7 +126,7 @@ This obligation is uniform in k by construction, because the geometry is k-indep
 
 **O2. Iterated edge (symbolic in the side length).** The edge configuration is 4-periodic ahead of the crawler, so this is a
 translated cycler with a **periodic, non-blank ahead background**. The highway decider
-(`experiments/2026-10-23-highway-decider/`) cannot certify it as it stands, because its condition (d) requires a blank strip
+(`experiments/archive/2026-10-highway-decider/`) cannot certify it as it stands, because its condition (d) requires a blank strip
 ahead. Generalising (c) and (d) to "ahead equals a shift-periodic background of period v" is exactly Q24's open extension. It
 would be reused here, and it is the cheapest piece of new machinery.
 
@@ -228,8 +228,8 @@ as O1–O4's explicit cell lists. Done together with them, it is not a separate 
 ## Links
 
 Q20, Q27, Q29 and Q24 in `notes/open-questions-hypotheses.md`; `notes/proof-track-2026-10-20.md`; PR #11
-(`experiments/2026-10-25-square-ring-fillers/`); PR #15 (`experiments/2026-10-25-prefix-causal-horizon/`, z3 conventions);
-`experiments/2026-10-23-highway-decider/`; `experiments/2026-10-20-rlrlll-macro-transition/` (Task C2 cone criterion, L5
-`Good`); `experiments/2026-10-20-kappa-exposure-classes/` (RLRRRRLRR@1/@3 numbers);
-`experiments/2026-10-22-invariant-mining/`. Additive invariants give necessary constraints only. The colour-clock balance
+(`experiments/archive/2026-10-square-ring-fillers/`); PR #15 (`experiments/archive/2026-10-prefix-causal-horizon/`, z3 conventions);
+`experiments/archive/2026-10-highway-decider/`; `experiments/archive/2026-10-rlrlll-macro-transition/` (Task C2 cone criterion, L5
+`Good`); `experiments/archive/2026-10-kappa-exposure-classes/` (RLRRRRLRR@1/@3 numbers);
+`experiments/archive/2026-10-invariant-mining/`. Additive invariants give necessary constraints only. The colour-clock balance
 `Σc − t mod n` is consistent with every cell ending at d visits, but does not help with the corner.

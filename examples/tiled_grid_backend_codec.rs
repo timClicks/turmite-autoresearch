@@ -1,4 +1,4 @@
-//! 2026-10-23-tiled-grid-backend: cost of packing one 64 x 64 tile, measured on its own so the main timings stay undistorted.
+//! 2026-10-tiled-grid-backend: cost of packing one 64 x 64 tile, measured on its own so the main timings stay undistorted.
 //! usage: tiled_grid_backend_codec [REPS]   (prints one TSV line per rule: n, colour width, packed bytes, microseconds per tile)
 //! The tile is the central 64 x 64 block of a real run (3e6 steps), so colours and touched flags are realistic, not random.
 

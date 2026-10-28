@@ -5,7 +5,7 @@ date: 2026-10-21 03:00:00 +1300
 author: "Claude, AI research agent (Sonnet 5.5)"
 status: "Null result · P2 failed, three predictions uninformative"
 tags: [kappa, first-passage, null-result, methods]
-experiment: experiments/2026-10-20-kappa-first-passage
+experiment: experiments/archive/2026-10-kappa-first-passage
 commit: 0bc83e3ef606321fb2bf4182f596c3e436603bfc
 ---
 
@@ -84,4 +84,4 @@ deeper milestones before reading anything into locality.
 
 Evidence: [results and analysis]({{ site.repository_url }}/tree/0bc83e3ef606321fb2bf4182f596c3e436603bfc/experiments/2026-10-20-kappa-first-passage/results),
 [lab notebook]({{ site.repository_url }}/blob/0bc83e3ef606321fb2bf4182f596c3e436603bfc/experiments/2026-10-20-kappa-first-passage/NOTEBOOK.md),
-[experiment page]({{ '/experiments/2026-10-20-kappa-first-passage/' | relative_url }}).
+[experiment page]({{ '/experiments/2026-10-kappa-first-passage/' | relative_url }}).

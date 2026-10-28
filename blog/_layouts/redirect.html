@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Redirecting&hellip;</title>
+<link rel="canonical" href="{{ page.redirect.to }}">
+<meta name="robots" content="noindex">
+{%- comment -%}
+  jekyll-redirect-from page for a renamed experiment. The script keeps the #fragment of old deep links and replaces
+  the history entry, so Back does not return here; the meta refresh covers readers without JavaScript.
+{%- endcomment %}
+<script>location.replace({{ page.redirect.to | jsonify }} + location.hash)</script>
+<meta http-equiv="refresh" content="0; url={{ page.redirect.to }}">
+<h1>This page has moved</h1>
+<p><a href="{{ page.redirect.to }}">Continue to the new address</a>.</p>
+</html>

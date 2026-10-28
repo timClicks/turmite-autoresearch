@@ -31,24 +31,24 @@ motion, crystal growth and column builders make that distinction important.
 
 Some useful entry points into the current evidence:
 
-- **Growth and classification.** The [census](experiments/2026-10-13-census-sweeps/)
+- **Growth and classification.** The [census](experiments/archive/2026-10-census-sweeps/)
   and [draft synthesis](research-outputs/cube-root-growth-paper/README.md)
   bring together growth measurements and the diversity of behaviours. A
   finite run without a highway does not establish that one will never appear.
 - **The cost of fresh ground.** The opening run of identical turns predicts
   how many boundary steps an ant spends per new cell. The
-  [mechanism tests](experiments/2026-10-19-c-law-mechanism/README.md) support
+  [mechanism tests](experiments/archive/2026-10-c-law-mechanism/README.md) support
   part of this picture, but broader validation misses its accuracy target
   and the fitted constants remain unexplained.
 - **Returning to the boundary.** Rule prefixes predict boundary occupation
-  within familiar families, but [fail to transfer to held-out families](experiments/2026-10-20-kappa-prefix-family-holdout/README.md).
-  A [first-passage model](experiments/2026-10-20-kappa-first-passage/README.md)
+  within familiar families, but [fail to transfer to held-out families](experiments/archive/2026-10-kappa-prefix-family-holdout/README.md).
+  A [first-passage model](experiments/archive/2026-10-kappa-first-passage/README.md)
   also fails to predict larger territories from smaller ones. Explaining
   return times, rather than redescribing their scaling, remains an open problem.
-- **Memory in the field.** [Local colour interventions](experiments/2026-10-12-knockout-maps/)
+- **Memory in the field.** [Local colour interventions](experiments/archive/2026-10-knockout-maps/)
   identify patches that help hold tethered ants near home. The proposed
   explanation in terms of excursion routes did not survive an occupancy control.
-- **From simulation to proof.** The [RLRLLL column sweeper](experiments/2026-10-20-rlrlll-macro-transition/README.md)
+- **From simulation to proof.** The [RLRLLL column sweeper](experiments/archive/2026-10-rlrlll-macro-transition/README.md)
   has a checked repeating construction and independently reproduced constants;
   two shift lemmas are machine-checked in Lean. This is not yet an end-to-end
   formal proof of the trajectory from a blank grid: the bridge to the observed
@@ -164,7 +164,8 @@ Use release builds for simulations and `uv run --frozen` for Python analyses.
 output checks, simulator checks and separate GPU validation commands.
 
 For new experiments, copy [`experiments/_template/`](experiments/_template/) to
-`experiments/YYYY-MM-DD-slug/`. Include the registered predictions, append-only
+`experiments/proposed/YYYY-MM-slug/` (or `active/` once work starts; see
+[`experiments/README.md`](experiments/README.md) for the buckets). Include the registered predictions, append-only
 lab notebook, shareable notebook, scripts and small reproducible results.
 Record seeds and source revisions, quantify uncertainty between seeds, and
 keep large raw dumps in the experiment's ignored directories. See
@@ -186,10 +187,10 @@ retries, and the existing CPU highway detector and onset replay. Its CSV schema
 matches `gpu_sweep`; its result contract is `fast::run`. Run
 `wgpu_sweep --help` for memory and scheduling controls. The CUDA probe and browser
 simulator remain separate instruments. No macOS speedup factor has been measured.
-See [design, checks and limits](experiments/2026-10-23-macos-gpu/README.md).
+See [design, checks and limits](experiments/active/2026-10-macos-gpu/README.md).
 
 ## License
 
-Code is MIT OR Apache-2.0, data (`experiments/*/results/` and Zenodo deposits)
+Code is MIT OR Apache-2.0, data (`experiments/*/*/results/` and Zenodo deposits)
 is CC0 1.0, and writing and figures are CC BY 4.0. See
 [`LICENSE.md`](LICENSE.md) for exactly what falls under which.

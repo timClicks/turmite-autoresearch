@@ -111,8 +111,8 @@ all surface cells versus outer hull, radius convention, global shape modes,
 spatial height differences, correlation length, temporal growth and size
 dependence.
 
-The current [hull-width investigation](../experiments/2026-10-14-hull-width/README.md)
-and [width-radius refit](../experiments/2026-10-13-w-width-radius-refit/README.md)
+The current [hull-width investigation](../experiments/archive/2026-10-hull-width/README.md)
+and [width-radius refit](../experiments/archive/2026-10-w-width-radius-refit/README.md)
 set the observational constraints. An exponent from width versus time, or
 width versus a growing radius, is not automatically a spatial roughness
 exponent. Record which additional observables would distinguish persistent
@@ -170,6 +170,6 @@ uncertain, and whether it changes the priority of the proposed experiments.
 
 ## Execution status appended 2026-10-15
 
-The focused review deliverables are in [the experiment report](../experiments/2026-10-15-literature-review/reports/Cube%20root%20growth%20literature.md) and [cross-cutting synthesis](literature-review-2026-10-15.md). Prior plan and hypotheses above are unchanged. The user supplied Meng–Cohen1994 after initial web access failures; full-text verification establishes direct visited-area/boundary growth measurements and a pocket/return scaling argument anticipating boundary-access reasoning. The broad negative novelty assertion has been removed from the manuscript; calibrated multicolour coverage, explicit factors and held-out predictions are the supported distinctions.
+The focused review deliverables are in [the experiment report](../experiments/archive/2026-10-literature-review/reports/Cube%20root%20growth%20literature.md) and [cross-cutting synthesis](literature-review-2026-10-15.md). Prior plan and hypotheses above are unchanged. The user supplied Meng–Cohen1994 after initial web access failures; full-text verification establishes direct visited-area/boundary growth measurements and a pocket/return scaling argument anticipating boundary-access reasoning. The broad negative novelty assertion has been removed from the manuscript; calibrated multicolour coverage, explicit factors and held-out predictions are the supported distinctions.
 
 All four deliverables are supplied and manuscript corrections propagated. The nearest full-text gate is now met for Meng; the known flipping-rotator omission and rotor assumptions are resolved. Citation coverage remains selective: the first round did find materially closer work, and a further targeted round on its verified mechanism remains open. Mishra Eq.5 and several inaccessible historical originals remain limitations. Thus this is a useful completed first-pass synthesis with partial coverage stopping status, not an exhaustive priority audit. No new numerical experiments or Rust release tests were run for this documentary/editorial change. Typst compiled without diagnostics and the shareable notebook executed cleanly; commands/hashes and the uncommitted-input exception are documented in the experiment README.

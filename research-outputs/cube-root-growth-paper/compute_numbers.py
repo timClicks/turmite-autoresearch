@@ -12,7 +12,7 @@ import numpy as np
 import polars as pl
 
 R = Path(__file__).resolve().parents[2]
-D = R  # inputs are addressed by repo-relative path (they live in experiments/*/results)
+D = R  # inputs are addressed by repo-relative path (they live in experiments/*/*/results)
 
 # Fail loudly (before computing anything) if an input file named in this script is missing or empty.
 _missing = [
@@ -39,8 +39,8 @@ def q(x):
     return [float(v) for v in np.percentile(np.asarray(x, float), [25, 50, 75])]
 
 
-census = pl.read_csv(D / "experiments/2026-10-13-census-sweeps/results/census.csv")
-summ = pl.read_csv(D / "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv")
+census = pl.read_csv(D / "experiments/archive/2026-10-census-sweeps/results/census.csv")
+summ = pl.read_csv(D / "experiments/archive/2026-10-probe-growth-census/results/probe_summary.csv")
 steady = summ  # bursty rules are kept (flag retained as a column; see sensitivity in main.typ)
 blob = steady.filter(pl.col("cls") == "blob")
 logs = steady.filter(pl.col("cls") == "log")
@@ -93,24 +93,24 @@ N["identity"] = {
     "frac_blob_gc_small": float((blob["g_c"].abs() < 0.05).mean()),
     "frac_core_gc_small": float((core["g_c"].abs() < 0.05).mean()),
 }
-N["cube"] = jl("experiments/2026-10-13-probe-growth-census/results/cube_stats.json")
+N["cube"] = jl("experiments/archive/2026-10-probe-growth-census/results/cube_stats.json")
 N["cube"].pop("scatter", None)
 for v in N["cube"].get("long", {}).values():
     pass
-fu = jl("experiments/2026-10-12-knockout-maps/results/followup_stats.json")
+fu = jl("experiments/archive/2026-10-knockout-maps/results/followup_stats.json")
 fu["c_model"].pop("points", None)
 N["followup"] = {k: fu[k] for k in ["letters", "r2_letters", "chiral", "c_model"]}
-mx = jl("experiments/2026-10-13-mixing/results/mixing_stats.json")
+mx = jl("experiments/archive/2026-10-mixing/results/mixing_stats.json")
 mx.pop("points", None)
 N["mixing"] = mx
 
 # Calibration.
-pa = jl("experiments/2026-10-13-calib-instrument-calibration/results/calib_partA.json")
+pa = jl("experiments/archive/2026-10-calib-instrument-calibration/results/calib_partA.json")
 N["calib_A"] = {k: pa[k] for k in ["rotor", "random_walk", "ants_core", "ants_blob", "sd_ratio_alpha_w", "sd_ratio_alpha_rg"]}
 N["calib_A_keys"] = list(pa["rotor"].keys())
-N["calib_B"] = jl("experiments/2026-10-13-calib-instrument-calibration/results/calib_partB.json")
+N["calib_B"] = jl("experiments/archive/2026-10-calib-instrument-calibration/results/calib_partB.json")
 N["calib_B"].pop("contour_all", None)
-N["calib_C"] = jl("experiments/2026-10-13-calib-instrument-calibration/results/calib_patched.json")
+N["calib_C"] = jl("experiments/archive/2026-10-calib-instrument-calibration/results/calib_patched.json")
 
 # Rotor c and kappa per seed from the raw probe windows (k in 20..26).
 def ck(path):
@@ -119,8 +119,8 @@ def ck(path):
         c=pl.col("new_cells") / pl.col("boundary_steps"),
         kappa=(pl.col("boundary_steps") / (pl.col("t") // 2)) / (pl.col("perimeter") / pl.col("area")))
     return {"c": med_ci(df["c"], 1000), "kappa": med_ci(df["kappa"], 1000), "seeds": df["rule"].n_unique()}
-N["rotor_ck"] = ck(D / "experiments/2026-10-13-calib-instrument-calibration/results/calib_rotor.csv")
-N["rw_ck"] = ck(D / "experiments/2026-10-13-calib-instrument-calibration/results/calib_rw.csv")
+N["rotor_ck"] = ck(D / "experiments/archive/2026-10-calib-instrument-calibration/results/calib_rotor.csv")
+N["rw_ck"] = ck(D / "experiments/archive/2026-10-calib-instrument-calibration/results/calib_rw.csv")
 
 (R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N, indent=1, default=float))
 print("wrote research-outputs/cube-root-growth-paper/numbers.json")
@@ -148,7 +148,7 @@ N2["bias"] = {
         "ant_corrected": ant[k]["median"] - (rot[k]["median"] - truth[k])}
     for k in truth
 }
-N2["mix_sample"] = {"listed": sum(1 for l in open(D / "experiments/2026-10-13-mixing/results/mix_rules.txt") if l.strip())}
+N2["mix_sample"] = {"listed": sum(1 for l in open(D / "experiments/archive/2026-10-mixing/results/mix_rules.txt") if l.strip())}
 (R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N2, indent=1, default=float))
 print("added review fields")
 
@@ -161,7 +161,7 @@ N3["bursty_rule"] = {"flagged_min_jump": float(bu["max_jump"].min()), "unflagged
 
 # random-sample mixing replication (notes/mixing-random-sample.md)
 N4 = json.loads((R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").read_text())
-mr = pl.read_csv(D / "experiments/2026-10-13-mixing/results/mixing_random.csv").with_columns(ratio=pl.col("msd_slope") / pl.col("pred_slope"))
+mr = pl.read_csv(D / "experiments/archive/2026-10-mixing/results/mixing_random.csv").with_columns(ratio=pl.col("msd_slope") / pl.col("pred_slope"))
 ur, nr = mr.filter(pl.col("colour_tv") < 0.05), mr.filter(pl.col("colour_tv") >= 0.05)
 N4["mixing_random"] = {
     "n": mr.height, "uni_n": ur.height, "non_n": nr.height,
@@ -196,7 +196,7 @@ def shape(path):
             "dW": dW, "aniso": float(last["aniso"].median()), "h4": float(last["h4"].median()), "fill": float(last["fill"].median())}
 
 
-sr, sa = shape(D / "experiments/2026-10-13-shape-limit/results/shape_rotor.csv"), shape(D / "experiments/2026-10-13-shape-limit/results/shape_ants.csv")
+sr, sa = shape(D / "experiments/archive/2026-10-shape-limit/results/shape_rotor.csv"), shape(D / "experiments/archive/2026-10-shape-limit/results/shape_ants.csv")
 x = np.arange(15) * 0.075 + 0.0375
 cone = 3 * (1 - x)  # mean-visit density of a cone, units t/A; mean over the disc is 1
 N5["shape"] = {
@@ -204,8 +204,8 @@ N5["shape"] = {
     "max_rel_diff_ants_rotor_shells0_9": float(max(abs(a - r) / r for a, r in zip(sa["profile"][:10], sr["profile"][:10]))),
     "max_rel_diff_ants_cone_shells0_9": float(max(abs(a - c) / c for a, c in zip(sa["profile"][:10], cone[:10]))),
 }
-t4 = (D / "experiments/2026-10-13-item4-exponent-rotor-calibrated/results/item4_stats.txt").read_text()
-t4r = (D / "experiments/2026-10-13-item4-exponent-rotor-calibrated/results/item4_rotor_stats.txt").read_text()
+t4 = (D / "experiments/archive/2026-10-item4-exponent-rotor-calibrated/results/item4_stats.txt").read_text()
+t4r = (D / "experiments/archive/2026-10-item4-exponent-rotor-calibrated/results/item4_rotor_stats.txt").read_text()
 m = re.search(r"mean of last-6 a\(k\): across-rule mean ([\d.]+) sd ([\d.]+); range ([\d.]+)\.\.([\d.]+)", t4)
 rows = re.findall(r"^(\w+)\s+[\d.+\-()]+\s+[\d.+\-()]+\s+[\d.+\-()]+\s+\|\s+([\d.]+)\+-", t4, re.M)
 rot6 = float(re.search(r"mean of last-6 a\(k\): across-rule mean ([\d.]+)", t4r).group(1))
@@ -216,7 +216,7 @@ N5["item4"] = {
     "within_0006_of_rotor": sum(abs(v - rot6) <= 0.0065 for v in last6.values()),
     "runs_kept": int(re.search(r"runs (\d+)", t4).group(1)),
 }
-t21 = (D / "experiments/2026-10-13-item21-slow-outliers/results/item21_stats.txt").read_text()
+t21 = (D / "experiments/archive/2026-10-item21-slow-outliers/results/item21_stats.txt").read_text()
 hi = re.search(r"== high: (\d+) rules.*?regress below 0.37: ([\d.]+) of rules; persistent.*?: (\d+) rules", t21, re.S)
 lo = re.search(r"== low: (\d+) rules.*?rise above 0.30: ([\d.]+) of rules; persistent.*?: (\d+) rules", t21, re.S)
 N5["item21"] = {"high_n": int(hi.group(1)), "high_regress": float(hi.group(2)), "high_persist": int(hi.group(3)),
@@ -226,10 +226,10 @@ N5["item21"] = {"high_n": int(hi.group(1)), "high_regress": float(hi.group(2)), 
 (R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N5, indent=1, default=float))
 
 # --- 2026-10-13 PM follow-ups: H1 (filling fraction), H3 (c*kappa prefactor), G1 (RLRLLL switch). Parsed from the text outputs of
-# experiments/2026-10-13-h1-lacunarity-decomposition/scripts/h1_lacunarity.py, experiments/2026-10-13-h3-scaling-collapse/scripts/h3_collapse.py, experiments/2026-10-13-g1-ribbon-breakout/scripts/g1_stats.py (+ the examples/ribbon_trace.rs log); notes/research-frontier-2026-10-13-pm.md.
+# experiments/archive/2026-10-h1-lacunarity-decomposition/scripts/h1_lacunarity.py, experiments/archive/2026-10-h3-scaling-collapse/scripts/h3_collapse.py, experiments/archive/2026-10-g1-ribbon-breakout/scripts/g1_stats.py (+ the examples/ribbon_trace.rs log); notes/research-frontier-2026-10-13-pm.md.
 N6 = json.loads((R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").read_text())
-h1t = (D / "experiments/2026-10-13-h1-lacunarity-decomposition/results/h1_lacunarity.txt").read_text().split("== core band")[1]  # core-band section, the same filter as b2_anova.py / h3_collapse.py
-h3t = (D / "experiments/2026-10-13-h3-scaling-collapse/results/h3_collapse.txt").read_text()
+h1t = (D / "experiments/archive/2026-10-h1-lacunarity-decomposition/results/h1_lacunarity.txt").read_text().split("== core band")[1]  # core-band section, the same filter as b2_anova.py / h3_collapse.py
+h3t = (D / "experiments/archive/2026-10-h3-scaling-collapse/results/h3_collapse.txt").read_text()
 icc = lambda txt, name: float(re.search(rf"(?:ICC )?\b{name}\s+rules \d+\s+sd_within [\d.]+\s+sd_between [\d.]+\s+ICC ([\d.]+)", txt).group(1))
 cov = [float(v) for v in re.search(r"Cov\(term, a\): ax ([\d.]+)\s+ay ([\d.]+)\s+geta ([\d.]+)\s+\(sum ([\d.]+)\)", h3t).groups()]
 cm = [[float(v) for v in row.split()] for row in re.findall(r"^\s*\[?\[\s*([-\d.e+ ]+?)\s*\]", h3t.split("rule-mean covariance")[1], re.M)]
@@ -247,18 +247,18 @@ N6["h3"] = {
     "fit_power": float(re.search(r"log K = [\d.]+ \+ ([\d.]+) log\(c kappa\)", h3t).group(1)),
     "fit_r2": float(re.search(r"log\(c kappa\); R\^2 = ([\d.]+)", h3t).group(1)),
 }
-g1t = (D / "experiments/2026-10-13-g1-ribbon-breakout/results/g1_stats.txt").read_text()
+g1t = (D / "experiments/archive/2026-10-g1-ribbon-breakout/results/g1_stats.txt").read_text()
 g1m = re.search(r"ONSET of the steady phase: window ending t = (\d+) \((\d+) windows", g1t)
 N6["g1"] = {
     "onset_t": int(g1m.group(1)), "steady_windows": int(g1m.group(2)),
     "steady_steps_per_new": float(re.search(r"steady phase: steps/new median ([\d.]+)", g1t).group(1)),
-    "exit_step": int(re.search(r"left the board at step (\d+)", (D / "experiments/2026-10-13-g1-ribbon-breakout/results/g1_ribbon.log").read_text()).group(1)),
+    "exit_step": int(re.search(r"left the board at step (\d+)", (D / "experiments/archive/2026-10-g1-ribbon-breakout/results/g1_ribbon.log").read_text()).group(1)),
 }
 (R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N6, indent=1, default=float))
 
-# log/blob cut robustness (experiments/2026-10-15-alpha-gap)
+# log/blob cut robustness (experiments/archive/2026-10-alpha-gap)
 N7 = json.loads((R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").read_text())
-_g = jl("experiments/2026-10-15-alpha-gap/results/gap_robustness.json")
+_g = jl("experiments/archive/2026-10-alpha-gap/results/gap_robustness.json")
 N7["alpha_gap"] = {
     "dip": _g["dip_nonbuilder"]["dip"], "dip_n": _g["dip_nonbuilder"]["n"],
     "gmm_means": _g["gmm2_nonbuilder"]["means"], "gmm_weights": _g["gmm2_nonbuilder"]["weights"],

@@ -140,7 +140,7 @@ fn attack(c: &Claim) -> (Baseline, Report, Vec<TrialResult>) {
 }
 
 // Known answers. RL is Langton's ant (period-104 highway drifting (2,2) from a blank board, onset
-// 9976: `experiments/2026-10-13-census-sweeps/results/confirmed_v2.csv`); RRL builds a 18-step
+// 9976: `experiments/archive/2026-10-census-sweeps/results/confirmed_v2.csv`); RRL builds a 18-step
 // highway almost at once; RLL never has one in the census (`non_highway.txt`).
 
 #[test]

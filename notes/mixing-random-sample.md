@@ -1,13 +1,13 @@
 # Mixing test on a random sample of rules
 
 Written 2026-10-12, before running. Reason: the earlier mixing sample
-(experiments/2026-10-13-mixing/results/mix_rules.txt, 49 rules) has no recorded selection procedure.
+(experiments/archive/2026-10-mixing/results/mix_rules.txt, 49 rules) has no recorded selection procedure.
 
 Protocol: draw 40 rules uniformly at random (numpy default_rng seed 20261012)
 from the core class (blob, 0.30 < alpha_w < 0.37, not bursty, in
-experiments/2026-10-13-probe-growth-census/results/probe_summary.csv); dump each at 2^24 steps (examples/dump.rs, as before);
-run experiments/_lib/mixing.py unchanged; summarise as in experiments/2026-10-13-mixing/scripts/mixing_stats.py.
-Driver: research-outputs/cube-root-growth-paper/mixing_random.py. Output: experiments/2026-10-13-mixing/results/mixing_random.csv.
+experiments/archive/2026-10-probe-growth-census/results/probe_summary.csv); dump each at 2^24 steps (examples/dump.rs, as before);
+run experiments/_lib/mixing.py unchanged; summarise as in experiments/archive/2026-10-mixing/scripts/mixing_stats.py.
+Driver: research-outputs/cube-root-growth-paper/mixing_random.py. Output: experiments/archive/2026-10-mixing/results/mixing_random.csv.
 
 Predictions (from the earlier sample, so a replication test):
 - P1. 60-85% of rules have colour_tv < 0.05 (earlier: 24/33 = 73%).
@@ -19,7 +19,7 @@ the earlier convenience sample.
 
 ## Result (2026-10-12)
 
-40 random core rules (experiments/2026-10-13-mixing/results/mixing_random_rules.txt, experiments/2026-10-13-mixing/results/mixing_random.csv).
+40 random core rules (experiments/archive/2026-10-mixing/results/mixing_random_rules.txt, experiments/archive/2026-10-mixing/results/mixing_random.csv).
 35/40 (87.5%) near-uniform: P1 missed on the high side (predicted 60-85%).
 Uniform rules: measured/predicted MSD slope min 0.845, median 1.005, max 1.575:
 P2 holds. Other 5: median ratio 1.30: P3 holds. Falsifier not triggered.

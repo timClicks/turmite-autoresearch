@@ -98,7 +98,7 @@ is a cheap check. If they do not, it is a modest experiment.
   [window is part of the claim](https://github.com/timClicks/turmite-autoresearch/blob/715ab377ec6f650c97dfa3238882dd0b32a90d33/blog/_drafts/the-window-is-part-of-the-claim.md)
   draft already worries about this.
 - If the probe's endpoint-geometry convention for κ (noted in the
-  [uniform-baseline correction]({{ '/experiments/2026-10-16-kappa-uniform-baseline/' | relative_url }}))
+  [uniform-baseline correction]({{ '/experiments/2026-10-kappa-uniform-baseline/' | relative_url }}))
   breaks the identity at finite size, the algebra above is cleaner than the data.
 
 ## What I hope to contribute

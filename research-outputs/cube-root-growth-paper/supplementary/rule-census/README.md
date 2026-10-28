@@ -33,7 +33,7 @@ Identity and class
 - `rule`, `n` (length), `n_L`, `n_R` (letter counts).
 - `opening_run`: number of consecutive copies of the first letter at the start.
   `c_lead_pred` = 1 / (a + b min(opening_run, 8)), using the full-precision
-  census coefficients in `2026-10-19-kappa-chiral-edge/results/c_law.json`.
+  census coefficients in `2026-10-kappa-chiral-edge/results/c_law.json`.
   This is a fitted prediction, not a measurement or a per-rule held-out score.
   Values are supplied for all rows for reproducibility; the fit used only 2185
   stationary blobs, so values for other classes are extrapolations.
@@ -91,7 +91,7 @@ Per-rule uniform reference (derived columns, added 2026-10-19; computed in the b
 `probe_*` columns, no new measurement). `probe_kappa_unif` = `2(1 - 2^-(1-e))/(1-e)` with
 `e = probe_a * (1 - probe_beta)`: the probe `kappa` of a walker uniform on its territory at every instant,
 from this rule's own fitted `a` and `beta` (about 1.10 for blobs; derivation and mean-field check in
-`experiments/2026-10-16-kappa-uniform-baseline`). `probe_kappa_ratio` = `probe_kappa / probe_kappa_unif`.
+`experiments/archive/2026-10-kappa-uniform-baseline`). `probe_kappa_ratio` = `probe_kappa / probe_kappa_unif`.
 `kappa_stationary` = `|probe_g_k| < 0.05` (kappa not drifting; the cut the baseline note uses).
 Among blob rules with `kappa_stationary` (n = 2185) the ratio has median 0.814, IQR 0.664-0.957 and 5-95%
 0.443-1.332; the builder asserts this equals `census_spread.txt`. The ratio is a single run per rule

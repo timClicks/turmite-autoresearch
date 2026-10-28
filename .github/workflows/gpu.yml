@@ -31,7 +31,7 @@ jobs:
           set -euo pipefail
           export CARGO_TARGET_DIR
           CARGO_TARGET_DIR=$(mktemp -d "$RUNNER_TEMP/gpu-target.XXXXXX")
-          source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh
+          source experiments/active/2026-10-gpu-ant-sweep/scripts/env.sh
           mkdir -p "$RUNNER_TEMP/gpu-evidence"
           exec > >(tee "$RUNNER_TEMP/gpu-evidence/check.log") 2>&1
           git rev-parse HEAD

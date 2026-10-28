@@ -1,4 +1,4 @@
-//! Ordered boundary events for experiments/2026-10-20-c-law-renewal.
+//! Ordered boundary events for experiments/active/2026-10-c-law-renewal.
 //!
 //! A callback keeps full paths optional. Features are sampled before the source
 //! read; births belong to that read. No outcome enters a source state.

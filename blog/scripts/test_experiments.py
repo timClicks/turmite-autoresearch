@@ -20,23 +20,23 @@ class PublishingTest(unittest.TestCase):
             root = Path(scratch)
             blog = root / "blog"
             blog.mkdir()
-            first = root / "experiments/2026-10-19-first"
-            second = root / "experiments/2026-10-19-second"
+            first = root / "experiments/active/2026-10-first"
+            second = root / "experiments/archive/2026-10-second"
             first.mkdir(parents=True)
-            second.mkdir()
+            second.mkdir(parents=True)
             (first / "README.md").write_text(
-                "# First experiment\n\n[Jump](#first-experiment)\n\n[Other](../2026-10-19-second/README.md)\n\n"
+                "# First experiment\n\n[Jump](#first-experiment)\n\n[Other](../../archive/2026-10-second/README.md)\n\n"
                 "[Code](script.py)\n\n![Figure](plot.svg)\n\n[Missing](gone.csv)\n")
             (first / "script.py").write_text("print('source')\n")
             (first / "plot.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg"/>')
             (second / "README.md").write_text("# No notebook yet\n")
             (blog / "experiment-guides.tsv").write_text(
                 "slug\ttitle\tquestion\thypothesis\tfinding\tcaveat\tevidence\n"
-                + f"{first.name}\tA readable title\tWhy explore?\tA testable idea\tThe test failed.\tFinite windows.\texperiments/{first.name}/README.md\n"
-                + f"{second.name}\tA planned test\tWhat might happen?\tAn unrun prediction\tNot run.\tNo evidence yet.\texperiments/{second.name}/README.md\n")
+                + f"{first.name}\tA readable title\tWhy explore?\tA testable idea\tThe test failed.\tFinite windows.\texperiments/active/{first.name}/README.md\n"
+                + f"{second.name}\tA planned test\tWhat might happen?\tAn unrun prediction\tNot run.\tNo evidence yet.\texperiments/archive/{second.name}/README.md\n")
             (blog / "experiment-figures.json").write_text(json.dumps({
-                "library": {"plot": {"path": f"experiments/{first.name}/plot.svg",
-                                     "recipe": f"experiments/{first.name}/script.py",
+                "library": {"plot": {"path": f"experiments/active/{first.name}/plot.svg",
+                                     "recipe": f"experiments/active/{first.name}/script.py",
                                      "alt": "Measured comparison", "caption": "A saved observation, not a mechanism."}},
                 "experiments": {first.name: ["plot"]},
             }))
@@ -59,6 +59,16 @@ class PublishingTest(unittest.TestCase):
             internal = root / "experiments/_template"
             internal.mkdir()
             (internal / "README.md").write_text("# Not an experiment")
+            migration = root / "experiments/_migration"
+            migration.mkdir()
+            # Two maps, applied in name order: a day-dated slug is renamed, then the folder changes bucket only.
+            (migration / "2026-10-28-buckets.tsv").write_text(
+                "old_path\tnew_path\tbucket\treason\n"
+                "experiments/2026-10-19-first\texperiments/archive/2026-10-first\tarchive\tdone\n")
+            (migration / "2026-11-01-reopen.tsv").write_text(
+                "old_path\tnew_path\tbucket\treason\n"
+                "experiments/archive/2026-10-first\texperiments/active/2026-10-first\tactive\treopened\n")
+            (migration / "map.tsv").write_text("data/x.csv\texperiments/2026-10-19-first/results/x.csv\tlegacy\n")
             for args in (["init", "-q"], ["add", "."],
                          ["-c", "user.name=Fixture", "-c", "user.email=fixture@example.test", "commit", "-qm", "Fixture"]):
                 subprocess.run(["git", *args], cwd=root, check=True)
@@ -78,6 +88,9 @@ class PublishingTest(unittest.TestCase):
                 self.assertEqual(len(catalog), 2)
                 first_page = (blog / "experiments" / first.name / "index.html").read_text()
                 second_page = (blog / "experiments" / second.name / "index.html").read_text()
+                front = lambda page: json.loads(page.split("\n")[1])
+                self.assertEqual(front(first_page)["redirect_from"], ["/experiments/2026-10-19-first/"])
+                self.assertNotIn("redirect_from", front(second_page))
                 self.assertIn("SAVED_OUTPUT_42", first_page)
                 self.assertIn("A readable title", first_page)
                 self.assertIn('id="reader-hypothesis"', first_page)
@@ -91,8 +104,8 @@ class PublishingTest(unittest.TestCase):
                 self.assertIn('href="#first-experiment"', first_page)
                 self.assertIn("saved traceback", first_page)
                 self.assertIn('<details class="notebook-code">', first_page)
-                self.assertIn("/project/experiments/2026-10-19-second/", first_page)
-                self.assertIn("/assets/experiments/2026-10-19-first/plot.svg", first_page)
+                self.assertIn("/project/experiments/2026-10-second/", first_page)
+                self.assertIn("/assets/experiments/active/2026-10-first/plot.svg", first_page)
                 self.assertIn("https://github.com/example/project/blob/", first_page)
                 self.assertIn("No committed Jupyter notebook", second_page)
                 manifest = json.loads((blog / "experiments/manifest.json").read_text())
@@ -101,8 +114,8 @@ class PublishingTest(unittest.TestCase):
                 self.assertTrue(catalog[1]["reader_guide"])
                 self.assertTrue(catalog[1]["has_figures"])
                 self.assertIn("blog/experiment-guides.tsv", manifest["inputs"])
-                self.assertIn(f"experiments/{first.name}/script.py", manifest["inputs"])
-                self.assertIn(f"experiments/{first.name}/plot.svg", manifest["inputs"])
+                self.assertIn(f"experiments/active/{first.name}/script.py", manifest["inputs"])
+                self.assertIn(f"experiments/active/{first.name}/plot.svg", manifest["inputs"])
 
     def test_unmarked_directory_is_preserved(self):
         with tempfile.TemporaryDirectory() as scratch:

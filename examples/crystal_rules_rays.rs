@@ -1,4 +1,4 @@
-//! Diagonal-ray segmentation of a trajectory (crystal-rules S1; spec in experiments/2026-10-crystal-rules/README.md, "Ray segmentation").
+//! Diagonal-ray segmentation of a trajectory (crystal-rules S1; spec in experiments/archive/2026-10-crystal-rules/README.md, "Ray segmentation").
 //!
 //! A step t is *ray-like* if over the previous L steps the displacement (dx, dy) has |dx| >= L/8 (i.e. <= 8 steps per cell) and
 //! ||dx| - |dy|| <= 2 (straight diagonal within one cell at each end). A ray is a maximal run of ray-like steps with the same

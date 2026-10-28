@@ -1,7 +1,7 @@
 //! late_highway_board_check_trace RULE GRID T1 T2 ...
 //! Plain flat-board loop (same update as `reference::Ant`); prints t, x, y, heading and the visited bounding box at
 //! each requested step, or where the ant left the board. Used to compare one rule on two board sizes
-//! (experiment `2026-10-21-late-highway-board-check`).
+//! (experiment `2026-10-late-highway-board-check`).
 use turmite::{DIRS, Rule};
 
 fn main() {

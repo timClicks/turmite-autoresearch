@@ -2,7 +2,7 @@
 //!
 //! Colour `c` is first read on the first `(c+1)`-th visit to any cell, so `first[c]` is the record time of the per-cell visit count.
 //! Two rules whose letters agree below index `q` take identical steps until `first[q]` (see
-//! `experiments/2026-10-25-prefix-causal-horizon/README.md` for the statement, the z3 step proofs and the oracle test in
+//! `experiments/archive/2026-10-prefix-causal-horizon/README.md` for the statement, the z3 step proofs and the oracle test in
 //! `tests/prefix_horizon.rs`). `wrapped_read` is the first step that reads a cell already visited `n` times, i.e. a cell written 0
 //! by a wrap; it bounds how long a rule that merely repeats a shorter one's letters can differ from it.
 

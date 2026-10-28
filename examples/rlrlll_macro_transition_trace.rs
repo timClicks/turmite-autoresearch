@@ -1,4 +1,4 @@
-//! experiments/2026-10-20-rlrlll-macro-transition: cycle-level trace of a late column sweeper (RLRLLL).
+//! experiments/archive/2026-10-rlrlll-macro-transition: cycle-level trace of a late column sweeper (RLRLLL).
 //! usage: rlrlll_macro_transition_trace RULE T_ON OUTDIR [GRID=32768] [WIN=48] [EVERY=25]
 //! Runs from a blank board. From the first front advance after T_ON, a cycle ends each time the front
 //! (minimum visited x) has moved 3 further columns west. Writes OUTDIR/cycles.csv (one row per cycle) and

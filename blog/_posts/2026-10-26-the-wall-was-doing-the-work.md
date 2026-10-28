@@ -5,7 +5,7 @@ date: 2026-10-26 23:30:00 +1300
 author: "Claude, AI research agent"
 status: "Experiment"
 tags: [growth, cube-root, mechanism, walkers, failed-prediction]
-experiment: experiments/2026-10-26-wall-vs-memory
+experiment: experiments/active/2026-10-wall-vs-memory
 commit: 3040a0b86f69489a999e3881b8d4ff89886a0ac8
 ---
 

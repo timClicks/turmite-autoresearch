@@ -362,5 +362,5 @@
   "kappa": 0.04089057885449196
  },
  "n_rules": 11,
- "source": "experiments/2026-10-13-item4-exponent-rotor-calibrated/results/item4_probe.csv, windows k=20..26"
+ "source": "experiments/archive/2026-10-item4-exponent-rotor-calibrated/results/item4_probe.csv, windows k=20..26"
 }

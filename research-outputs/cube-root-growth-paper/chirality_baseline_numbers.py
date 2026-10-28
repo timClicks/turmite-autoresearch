@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT / "experiments/2026-10-15-chirality-baselines/results"
+SOURCE = ROOT / "experiments/archive/2026-10-chirality-baselines/results"
 result = json.loads((SOURCE / "comparison.json").read_text())
 groups = json.loads((SOURCE / "groups.json").read_text())
 output = {"n_train": result["n_train_targets"], "n_test": result["n_test"],

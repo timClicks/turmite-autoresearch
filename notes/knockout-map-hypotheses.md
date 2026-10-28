@@ -15,7 +15,7 @@ the routes of the intact ant's excursions?
 
 ## Protocol (fixed now)
 
-- Rules: RRRRRLLLLLL and RLLLLRRRRLR. Field: experiments/2026-10-12-knockout-maps/dumps/RULE.grid. Run as
+- Rules: RRRRRLLLLLL and RLLLLRRRRLR. Field: experiments/archive/2026-10-knockout-maps/dumps/RULE.grid. Run as
   published: fresh ant at home, heading north, 2^26 steps, outcomes over the
   last quarter (last 16 of 64 blocks) via examples/transplant.
 - Knockout: permute the colours of the visited cells inside one 5x5 patch

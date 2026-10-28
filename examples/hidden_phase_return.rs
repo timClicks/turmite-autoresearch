@@ -1,4 +1,4 @@
-//! Registered pilot: experiments/2026-10-23-hidden-phase-return/README.md.
+//! Registered pilot: experiments/archive/2026-10-hidden-phase-return/README.md.
 //! Usage: hidden_phase_return OUT THREADS [BUDGET]. No input files are required.
 
 use rayon::prelude::*;

@@ -1,6 +1,6 @@
 //! kappa_exposure_classes MAX_LOG2 [GRID] [--check] < specs.txt > out.csv
 //!
-//! Boundary occupation split by exposure class (experiment 2026-10-20-kappa-exposure-classes).
+//! Boundary occupation split by exposure class (experiment 2026-10-kappa-exposure-classes).
 //! A boundary cell's class u (1..4) is its number of unvisited 4-neighbours. Per octave window of
 //! S = 2^j steps, t in (2^j, 2^(j+1)] (output column `k` = j + 1, the window-end exponent, as in
 //! the probe census; `steps` = S), it records for each u:

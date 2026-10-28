@@ -28,7 +28,7 @@ territory. If c and κ stay constant and the edge is a smooth curve
 [an identity that cannot fail]({{ identity_url }}). It moves the
 question to *why κ stays constant*, and we do not know.
 
-The [first-passage experiment]({{ '/experiments/2026-10-20-kappa-first-passage/' | relative_url }})
+The [first-passage experiment]({{ '/experiments/2026-10-kappa-first-passage/' | relative_url }})
 turned that into a sharper statement. Constant κ is the same thing as this: the
 average time the ant spends away from its edge grows in proportion to the
 territory's linear size L = A/P. Why it does is open. The fit meant to answer it
@@ -123,9 +123,9 @@ fillers ride their own edge with a proved cost (the
 2. **Fluctuation shape (Q35).** Do chaotic rules share one rescaled distribution
    of edge fluctuations, distinct from the rotor's? Edge-width exponents first
    looked about twice the rotor's
-   ([boundary width]({{ '/experiments/2026-10-13-a4-boundary-width/' | relative_url }})),
+   ([boundary width]({{ '/experiments/2026-10-a4-boundary-width/' | relative_url }})),
    but at the longest windows the comparison became inconclusive
-   ([longest windows]({{ '/experiments/2026-10-13-w4-edge-exponent-2e36/' | relative_url }})).
+   ([longest windows]({{ '/experiments/2026-10-w4-edge-exponent-2e36/' | relative_url }})).
    Exponents may not decide it, and distributions might.
    *Kill:* rules differ from each other as much as from the rotor.
 3. **Diffusion or sweep (Q36).** Test which rescaling collapses the excursion

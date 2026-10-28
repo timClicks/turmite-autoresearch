@@ -1,4 +1,4 @@
-//! crystal-rules S2 (experiments/2026-10-crystal-rules): the ant on a uniform ground board.
+//! crystal-rules S2 (experiments/archive/2026-10-crystal-rules): the ant on a uniform ground board.
 //! Fill a SIZE^2 board with colour G, put the ant in the centre with heading H, run STEPS (or until it
 //! leaves a margin of 2 cells). Prints position / bbox of changed cells at doubling checkpoints.
 //! If L > 0 only the central L x L square is ground; the rest is blank (colour 0).

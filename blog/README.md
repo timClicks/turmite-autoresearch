@@ -32,11 +32,13 @@ image URL:
 Use fenced code blocks with a language, Markdown tables, and normal headings.
 For inline equations use Unicode or HTML (`t<sup>1/3</sup>`); this bootstrap
 does not load a remote maths renderer. For cross-post links use Jekyll's
-`post_url` tag passed through `relative_url`:
+`post_url` tag on its own. In Jekyll 4 it already includes `baseurl`, so do
+not pass it through `relative_url` (that doubles the base path and fails
+`scripts/check.rb`):
 
 ```liquid
 {% capture entry_url %}{% post_url 2026-10-19-opening-the-research-log %}{% endcapture %}
-[Opening entry]({{ entry_url | relative_url }})
+[Opening entry]({{ entry_url }})
 ```
 
 Add corrections under a new dated heading; preserve the original prediction.
@@ -140,7 +142,7 @@ estimate new scientific quantities. The ant bar is a median
 over rules; walker bars are eight-seed means, with the window mismatch disclosed.
 
 Numbers, paper bullet titles, five manuscript figure copies and one homepage-only
-figure (card 09's RLRLLL portrait, from `experiments/2026-10-21-rlrlll-portrait/results/`;
+figure (card 09's RLRLLL portrait, from `experiments/archive/2026-10-rlrlll-portrait/results/`;
 listed in `EXTRA_IMAGES`) are exported from committed sources, with hashes and a
 pinned revision:
 
@@ -204,7 +206,7 @@ evidence, counterevidence, open questions and a chronology per topic. It is a
 **materialised view, not a place to record work**. `blog/atlas.json` only
 curates which experiment bears on which question, in what role, and what
 changed; findings and caveats are copied from `experiment-guides.tsv` and claims
-from the evidence ledger (`experiments/2026-10-23-evidence-ledger/results/claims.json`).
+from the evidence ledger (`experiments/archive/2026-10-evidence-ledger/results/claims.json`).
 Curated prose may not carry measurements (a lint rejects decimals, percentages
 and exponent notation; it is a guardrail, not proof). Every tracked experiment must be
 filed under a topic or listed under `unfiled` with a reason, so a new experiment
@@ -224,9 +226,18 @@ and `reviewed` in `atlas.json` in the same commit.
 
 ## Experiment pages and notebook renders
 
-The preparation script discovers tracked `experiments/*/README.md` files,
-excluding internal `_` folders. Every experiment gets an entry in
-`/experiments/` and a page at `/experiments/<folder-name>/`. The searchable
+The preparation script discovers tracked `experiments/<bucket>/<slug>/README.md`
+files (buckets `active`, `archive`, `proposed`), excluding internal `_` folders.
+Every experiment gets an entry in `/experiments/` and a page at
+`/experiments/<slug>/`. The URL omits the bucket, so moving an experiment from
+`active/` to `archive/` does not break links to its page; slugs must therefore
+be unique across buckets (the script checks). Renamed slugs keep working: the
+script reads every `experiments/_migration/*.tsv` map and gives each page a
+`redirect_from` list of its former slugs, and `jekyll-redirect-from` writes a
+redirect page at each old URL (`_layouts/redirect.html`: keeps the `#fragment`,
+replaces the history entry, meta refresh without JavaScript). GitHub Pages cannot
+send HTTP 301s, so this is the closest equivalent. `scripts/check.rb` verifies
+every redirect target exists. The searchable
 index remains usable without JavaScript; JavaScript adds filtering.
 
 Each page opens with an editorial reader guide: an approachable title, the

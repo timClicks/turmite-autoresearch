@@ -1,4 +1,4 @@
-//! W4 of experiments/2026-10-kappa-rule-space: colour-resolved boundary occupancy.
+//! W4 of experiments/archive/2026-10-kappa-rule-space: colour-resolved boundary occupancy.
 //!
 //! usage: kappa_rs_colourflux MIN_LOG2 MAX_LOG2 [GRID] < specs.txt > colourflux.csv
 //! Specs as `bin/probe`: RULE, RULE@SEED (random 5x5 patch), rotor:SEED, pw:Q:SEED.

@@ -1,4 +1,4 @@
-// Depth-crossing sampler for experiments/2026-10-20-kappa-first-passage (schema: its SCHEMA.md).
+// Depth-crossing sampler for experiments/archive/2026-10-kappa-first-passage (schema: its SCHEMA.md).
 // stdin: one spec per line (RULE@SEED, rotor:SEED, rw:SEED).
 // args: OUT PAIRS CAP BOARD LO-HI,... HASH THREADS
 // OUT gets compact summaries; PAIRS (scratch, ignored by git) gets the start->next state tables.

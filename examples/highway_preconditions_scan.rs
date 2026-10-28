@@ -1,7 +1,7 @@
 //! highway_preconditions_scan highway SPECFILE OUTDIR
 //! highway_preconditions_scan control SPECFILE OUTDIR
 //!
-//! Experiment `2026-10-21-highway-preconditions` (see its README for definitions).
+//! Experiment `2026-10-highway-preconditions` (see its README for definitions).
 //! `highway`: SPECFILE lines `RULE PERIOD DX DY ONSET` (census values). Per rule: the dependency
 //! curve |D(tau)| around onset, the seed D(tau*) with turn words in the ant's frame, and a
 //! transplant check of the seed. Writes events.csv, seeds.tsv, curves.csv.

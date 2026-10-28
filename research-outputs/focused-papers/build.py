@@ -32,8 +32,8 @@ def main():
         source = (folder/'main.typ').read_text(encoding='utf-8-sig')
         paths = {folder/'main.typ', HERE/'editorial.typ', HERE/'provenance/synthesis-source.typ.txt'}
         if slug == 'boundary-transport':
-            paths.add(ROOT/'experiments/2026-10-20-kappa-prefix-family-holdout/README.md')
-            paths.add(ROOT/'experiments/2026-10-20-kappa-prefix-family-holdout/results/holdout.json')
+            paths.add(ROOT/'experiments/archive/2026-10-kappa-prefix-family-holdout/README.md')
+            paths.add(ROOT/'experiments/archive/2026-10-kappa-prefix-family-holdout/results/holdout.json')
         for value in re.findall(r'(?:json|image|bibliography)\("([^"]+)"', source):
             paths.add((folder/value).resolve())
         # The hero path is relative to Typst's project root.

@@ -2,7 +2,7 @@
 
 ## Instrument addition — 2026-10-22
 
-[Additive modular mining](../experiments/2026-10-22-invariant-mining/README.md)
+[Additive modular mining](../experiments/archive/2026-10-invariant-mining/README.md)
 provides exhaustive candidates in a declared ansatz and checks every local
 transition. Use `cargo run --release --locked --bin invariants -- RULE ...`
 before interpreting growth metrics; the experiment wrapper records provenance.
@@ -23,7 +23,7 @@ The two tracks feed each other:
 - Simulation supplies the conjectures: a period-3 wake, a cycle time proportional to height, a bounded reach behind the
   front. Without those observations there is nothing to prove.
 - A proof turns a fitted law into an exact one, and can say which part of a fit is finite-size. For example, if the
-  RLRLLL sweeper is the macro-transition proposed in `experiments/2026-10-20-rlrlll-macro-transition/`, the fitted
+  RLRLLL sweeper is the macro-transition proposed in `experiments/archive/2026-10-rlrlll-macro-transition/`, the fitted
   `|x|^2 = 0.8634 t - 1.09e10` should have true asymptotic slope 0.75, not 0.86.
 - A *failed* abstraction is informative too: if no bounded-reach macrostate exists, the behaviour needs its wake as
   state, which is a precise statement of why it resists simple description.
@@ -46,10 +46,10 @@ sweeps. It should not start heavy jobs while the 10^11 census holds the cores (`
 |---|---|---|
 | Highway | translation-periodic orbit (finite check) | `src/detect.rs`, census |
 | Column sweeper | parameterised inductive invariant `C(L, q) -> C(L+g, q')` | `notes/g1-builder-structure-2026-10-14.md` |
-| Crystal ray | finite-state transducer / regular language of ray words | `experiments/2026-10-crystal-rules/` |
-| Tethered ant | trapping certificate: invariant region the ant cannot leave | `experiments/2026-10-13-tether-rules/` |
-| Boundary excursion | return map on boundary states (must be shown well defined) | `experiments/2026-10-14-t1-excursion-tomography/`, kappa work |
-| Long transient | transition between metastable macrostates (entry problem) | `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/` |
+| Crystal ray | finite-state transducer / regular language of ray words | `experiments/archive/2026-10-crystal-rules/` |
+| Tethered ant | trapping certificate: invariant region the ant cannot leave | `experiments/archive/2026-10-tether-rules/` |
+| Boundary excursion | return map on boundary states (must be shown well defined) | `experiments/archive/2026-10-t1-excursion-tomography/`, kappa work |
+| Long transient | transition between metastable macrostates (entry problem) | `experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/` |
 
 ## Architecture rule
 
@@ -76,17 +76,17 @@ records the checker's version and input hashes, like any other result.
   growth for some generalised ants. Bunimovich and Troubetzkoy (1992): the unbounded-trajectory theorem for Langton's ant.
 - Gajardo, Moreira and Goles (2002): Langton's ant is computationally universal (limits on what can be decided).
 
-These must go through the literature-review process (`experiments/2026-10-15-literature-review/`) before being cited
+These must go through the literature-review process (`experiments/archive/2026-10-literature-review/`) before being cited
 in the paper.
 
 ## Experiments in this track
 
-- `experiments/2026-10-20-rlrlll-macro-transition/`: is the RLRLLL sweeper a macro-transition (Stage 1 measurement,
+- `experiments/archive/2026-10-rlrlll-macro-transition/`: is the RLRLLL sweeper a macro-transition (Stage 1 measurement,
   predictions P1-P5 registered at `4bc029a`), and if so, can it be checked for all heights (Stage 2)?
   **Result (2026-10-20):** P1-P5 held; the three-phase family is closed for all even m >= 2 (checker plus brute-force
   cross-checks and negative controls). First level-3 result of the track; see that README for what it rests on.
   **Entry (2026-10-21):** the cell-level family holds from step 12,676,237,591 (C(4,1) at x = -1552; base case moved 769,586 steps earlier, 184,176 before the edge crossing); the clock formula extends exactly to m = -24 (x = -1510, height-19 first column), so the wedge does not start at zero height; registered E1, A2, B2 failed. The 3-row light-cone margin is observed, not derived from the checker.
-  **Task C (2026-10-21):** (C1) an independent second checker (stdlib Python, own ant, own pipeline S1 . descent^n . S3 . return^n . S5; `c1b.py`) reproduces 12m + 934/1058/898, lemma periods 2 (20 and 4 steps), m0 = 2, and 150 brute-force cycles; its ant agrees with `reference::Ant` on 1e6 steps and 12 windows; controls: broken ants and a mutated bulk cell rejected as registered, `RLRLLR` rejected at a different place than the first checker (scored split). (C2) cycles visit at most 2 rows above and 1 below their rectangle and up to 18 columns east of the front; the exact criterion (real configuration = ideal initial configuration on every cell the ideal ant visits, 97 cycles) passes in 50 of 50 windows including the base case C(4,1), but Task A's cone (3 + s//3) was too small (excess up to 7 rows); registered C2a failed. (C3) Lean 4: frame lemma and the two shift lemmas as iteration theorems for all n, six kernel-decided certificates (`experiments/2026-10-20-rlrlll-macro-transition/lean/`); the end runs, composition and cycle-to-cycle padding are still paper steps.
+  **Task C (2026-10-21):** (C1) an independent second checker (stdlib Python, own ant, own pipeline S1 . descent^n . S3 . return^n . S5; `c1b.py`) reproduces 12m + 934/1058/898, lemma periods 2 (20 and 4 steps), m0 = 2, and 150 brute-force cycles; its ant agrees with `reference::Ant` on 1e6 steps and 12 windows; controls: broken ants and a mutated bulk cell rejected as registered, `RLRLLR` rejected at a different place than the first checker (scored split). (C2) cycles visit at most 2 rows above and 1 below their rectangle and up to 18 columns east of the front; the exact criterion (real configuration = ideal initial configuration on every cell the ideal ant visits, 97 cycles) passes in 50 of 50 windows including the base case C(4,1), but Task A's cone (3 + s//3) was too small (excess up to 7 rows); registered C2a failed. (C3) Lean 4: frame lemma and the two shift lemmas as iteration theorems for all n, six kernel-decided certificates (`experiments/archive/2026-10-rlrlll-macro-transition/lean/`); the end runs, composition and cycle-to-cycle padding are still paper steps.
 
 ## Next steps (proposed, none started)
 
@@ -106,11 +106,11 @@ in the paper.
 - **Item 2, generalise the checker:** (i) the other three "escapes" are not column sweepers: two are spiral builders (filled octagon-like territory, band rewritten once per revolution; see the experiment README correction 4; unattacked by the falsification harness) with exact affine clocks (RLLLRLRLLL from 2.635e10, phase period 2;
   RLLLLRRL from about 1.47e10, phase period 19, post hoc), one is a still-growing blob; the 3-stage sweeper checker does not transfer (the spiral has eight segments and a band of depth >= 77).
   Stage 2 for the spirals is *not done*; the cell-level steady-state test (99.2-99.7% equal after 5 revolutions) says a family exists. (ii) The `m`-free case is done as a **rectangle translated-cycler decider**:
-  571/571 census highways certified (`experiments/2026-10-23-highway-decider/`), controls and an independent-ant oracle pass. The decider is the first census-wide level-3 object of the track; its theorem is checked by
+  571/571 census highways certified (`experiments/archive/2026-10-highway-decider/`), controls and an independent-ant oracle pass. The decider is the first census-wide level-3 object of the track; its theorem is checked by
   a program and a proof sketch, not yet in Lean.
 - **Item 4, explain:** the wake's colour period 3 is the three-column advance: one visit profile (1,4,4,2,1) on offsets -2..2 for every interior bulk row, visits per cell 3, 5, 4, below 6, so colour = visit count
   (parent Task E, 1836/1836 cells). The profile itself (the descent lemma's footprint) is not explained.
 - **Item 3, entry:** untouched this session.
 - **Addendum 2026-10-23 (later):** `Sweeper.cycler` (`lean/Cycler.lean`) proves the rectangle translated-cycler theorem for a generic rule and every number of periods, so the highway decider is a sound checker of instances of a
-  machine-checked theorem (instance clauses are still computed by `decide.py`; the Lean ant is not proved equal to the Rust ant). `experiments/2026-10-23-highway-decider/README.md`, "Lean soundness".
-- **Addendum 2026-10-25:** instrument/ledger: the kappa exposure classifier (`kappa_exposure_classes`) passed an independent z3 check written from the docs (`experiments/2026-10-25-exposure-classifier-check/`, 65/65, six negative controls; level 3 for the classifier only, not for any ant claim). Q20 (square-ring fillers): a PLAN for the inductive step, uniformity in k, RLRRRRLRR membership and patched-start entry, building on PR #11, is at `notes/q20-filler-proof-plan-2026-10-25.md` (nothing run).
+  machine-checked theorem (instance clauses are still computed by `decide.py`; the Lean ant is not proved equal to the Rust ant). `experiments/archive/2026-10-highway-decider/README.md`, "Lean soundness".
+- **Addendum 2026-10-25:** instrument/ledger: the kappa exposure classifier (`kappa_exposure_classes`) passed an independent z3 check written from the docs (`experiments/archive/2026-10-exposure-classifier-check/`, 65/65, six negative controls; level 3 for the classifier only, not for any ant claim). Q20 (square-ring fillers): a PLAN for the inductive step, uniformity in k, RLRRRRLRR membership and patched-start entry, building on PR #11, is at `notes/q20-filler-proof-plan-2026-10-25.md` (nothing run).

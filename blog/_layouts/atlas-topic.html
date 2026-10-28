@@ -26,7 +26,7 @@ layout: default
   {% if t.claims.size > 0 %}
   <section id="licensed" class="atlas-section">
     <h2>What the record licenses</h2>
-    <p class="render-note">Claims copied from the <a href="{{ site.repository_url }}/blob/{{ atlas.revision }}/experiments/2026-10-23-evidence-ledger/results/claims.json">evidence ledger</a>; edit them there.</p>
+    <p class="render-note">Claims copied from the <a href="{{ site.repository_url }}/blob/{{ atlas.revision }}/experiments/2026-10-evidence-ledger/results/claims.json">evidence ledger</a>; edit them there.</p>
     {% for c in t.claims %}
     <div class="atlas-claim">
       <p><code>{{ c.id }}</code> <span class="verdict verdict-{{ c.verdict }}">{{ c.verdict | escape }}</span> {{ c.observation | escape }}</p>

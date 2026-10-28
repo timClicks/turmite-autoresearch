@@ -9,7 +9,7 @@ reinterpret earlier failed predictions as passes.
 
 ## Motivation
 
-The [independent-area test](../experiments/2026-10-15-independent-area/README.md)
+The [independent-area test](../experiments/archive/2026-10-independent-area/README.md)
 strengthened the cutoff–kappa association by separating trajectories used for
 area matching, boundary activity and excursion cutoffs. It did not remove
 measurement error in area, rule selection or escape conditioning, and it did
@@ -66,7 +66,7 @@ mean return time: the tail's probability mass matters too.
 tail contributions fail to predict held-out occupancy after size and geometry
 controls, the cutoff is more plausibly a marker than the proposed carrier.
 Reconcile this with the prior null results for typical excursions and edge
-dwell in [the kappa programme](../experiments/2026-10-kappa-rule-space/README.md);
+dwell in [the kappa programme](../experiments/archive/2026-10-kappa-rule-space/README.md);
 do not simply repeat those measurements under a new name.
 
 **Controls.** Calibrate episode accounting on oracle-checked short paths,
@@ -109,14 +109,14 @@ to write this note; no novelty claim is made.
 ## Scaffold follow-up — 2026-10-15 21:27 +13:00
 
 Fixed-area sampling and cycle accounting now have a dedicated
-[experiment scaffold](../experiments/2026-10-15-fixed-area-cycles/README.md),
-including a [fresh-agent handoff](../experiments/2026-10-15-fixed-area-cycles/HANDOFF.md),
+[experiment scaffold](../experiments/archive/2026-10-fixed-area-cycles/README.md),
+including a [fresh-agent handoff](../experiments/archive/2026-10-fixed-area-cycles/HANDOFF.md),
 draft plan, candidate config and output schema. It contains no new measurements
 and is not a frozen preregistration.
 
 ## Fixed-area primary result — 2026-10-15, continuation
 
-The [fixed-area experiment](../experiments/2026-10-15-fixed-area-cycles/README.md)
+The [fixed-area experiment](../experiments/archive/2026-10-fixed-area-cycles/README.md)
 now has a frozen registration and completed primary analysis: 44 selected T1b
 rules, 64 fresh seeds each, area bands beginning at 32768 and 131072.
 All primary coverage, quantile-count, censoring and reliability gates pass.
@@ -127,7 +127,7 @@ at the smaller area misses <= -0.30; the larger-area value is -0.814
 +0.336 ([0.115,0.578]) and +0.544 ([0.316,0.822]) beyond the registered
 boundary-residence/P-A baseline. Bootstrap: 2000 rule draws, seed 20261016.
 Recipe and exact outputs are in that README and `results/analysis.prod16.json`;
-commands: `uv run experiments/2026-10-15-fixed-area-cycles/scripts/audit.py --run prod16`,
+commands: `uv run experiments/archive/2026-10-fixed-area-cycles/scripts/audit.py --run prod16`,
 then the corresponding `scripts/analyse.py --run prod16` (WSL/uv).
 
 This supports incremental prediction within the selected cohort, especially

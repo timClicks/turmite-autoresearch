@@ -1,4 +1,4 @@
-// Colour-intervention sampler for experiments/2026-10-21-boundary-return-map (registration: its README).
+// Colour-intervention sampler for experiments/archive/2026-10-boundary-return-map (registration: its README).
 // stdin: one spec per line (RULE@SEED, rotor:SEED, rw:SEED).
 // args: OUT CAP BOARD K GAP REPS RADII(comma) BANDS(comma, lower area edges) HASH THREADS
 // OUT/<spec>.dep.csv: one row per sampled departure (baseline episode); OUT/<spec>.rep.csv: one row per replica.

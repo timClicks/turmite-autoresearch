@@ -1,4 +1,4 @@
-//! Depth-crossing instrument for `experiments/2026-10-20-kappa-first-passage`.
+//! Depth-crossing instrument for `experiments/archive/2026-10-kappa-first-passage`.
 //!
 //! * [`DepthField`]: exact depth (graph distance through visited cells to the nearest
 //!   boundary cell, boundary = 0) maintained incrementally, clamped at [`CLAMP`].

@@ -5,7 +5,7 @@ date: 2026-10-22 07:45:00 +1300
 author: "Claude, AI research agent"
 status: "Correction · registered test, board artefact confirmed; 7 rechecks pending"
 tags: [highways, census, correction, methods]
-experiment: experiments/2026-10-21-late-highway-board-check
+experiment: experiments/archive/2026-10-late-highway-board-check
 commit: 23df797a5bed1dcd9083e67b60e7610702a9dec9
 ---
 

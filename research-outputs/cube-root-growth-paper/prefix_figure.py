@@ -1,7 +1,7 @@
 """Prefix lookup: predicted vs measured ln kappa on the fresh rules (audit 12 / W3c).
 
 Run: uv run research-outputs/cube-root-growth-paper/prefix_figure.py
-Reads only experiments/2026-10-kappa-rule-space/results/prefix_audit_predictions.csv (leave-one-out encoding, linear area
+Reads only experiments/archive/2026-10-kappa-rule-space/results/prefix_audit_predictions.csv (leave-one-out encoding, linear area
 term: the row behind the headline gain). No refits; R^2 is recomputed from the CSV and printed to fig/prefix_numbers.json.
 """
 import hashlib
@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import style as st
 
 ROOT = Path(__file__).resolve().parents[2]
-SRC = ROOT / "experiments/2026-10-kappa-rule-space/results/prefix_audit_predictions.csv"
+SRC = ROOT / "experiments/archive/2026-10-kappa-rule-space/results/prefix_audit_predictions.csv"
 OUT = Path(__file__).resolve().parent / "fig"
 
 

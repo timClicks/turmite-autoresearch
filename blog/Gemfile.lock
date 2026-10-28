@@ -75,6 +75,8 @@ GEM
       webrick (~> 1.7)
     jekyll-feed (0.18.0)
       jekyll (>= 3.7, < 5.0)
+    jekyll-redirect-from (0.17.0)
+      jekyll (>= 3.3, < 5.0)
     jekyll-sass-converter (3.1.0)
       sass-embedded (~> 1.75)
     jekyll-watch (2.2.1)
@@ -161,6 +163,7 @@ PLATFORMS
 DEPENDENCIES
   jekyll (~> 4.4.1)
   jekyll-feed (~> 0.17)
+  jekyll-redirect-from (~> 0.17)
   webrick (~> 1.9)
 
 BUNDLED WITH

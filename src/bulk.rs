@@ -1,4 +1,4 @@
-//! Bulk fingerprint of a walker on an area-matched mature field (W5 of experiments/2026-10-kappa-rule-space).
+//! Bulk fingerprint of a walker on an area-matched mature field (W5 of experiments/archive/2026-10-kappa-rule-space).
 //!
 //! `run_bulk` runs a walker from the start until the visited area first reaches `a0`, freezes a depth
 //! mask, then records `t_rec` further steps. A cell's depth is its 4-neighbour distance to the nearest

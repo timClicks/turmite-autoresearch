@@ -105,7 +105,7 @@ def main(long_dir, short_dir):
         b = -k0 / m / N13
         out[name]["a"], out[name]["b"], out[name]["ab2"] = round(float(a), 3), round(float(b), 3), round(float(a * b * b), 3)
         np.save(f"{long_dir}/../nbar_{name}.npy", nbar)
-    json.dump(out, open("experiments/2026-10-13-calib-instrument-calibration/results/calib_partB.json", "w"), indent=1)
+    json.dump(out, open("experiments/archive/2026-10-calib-instrument-calibration/results/calib_partB.json", "w"), indent=1)
     print(json.dumps(out, indent=1))
 
 
