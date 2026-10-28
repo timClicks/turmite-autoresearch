@@ -1,4 +1,4 @@
-//! boundary_excursions MAX_LOG2 [GRID] [--check] [--hist PATH] < specs.txt > windows.csv
+//! boundary_excursions MAX_LOG2 [GRID] [--check] [--hist PATH] [--fhist PATH] < specs.txt > windows.csv
 //!
 //! Interior excursion durations for the stage-1 collapse test
 //! (experiments/active/2026-10-boundary-excursion-durations).
@@ -25,6 +25,12 @@
 //! totals must match rw:SEED (accept-draw skipped at P=1). For eden/idla/idlar
 //! `--check` also recounts area and perimeter from scratch over the visited
 //! bounding box at every recorded window and checks the birth invariants.
+//! Revision 3: `--fhist PATH` writes a fine histogram (8 sub-bins per octave;
+//! columns spec,k,fine,lo,hi,count,sum_tau). Under `--check` the fine bins are
+//! verified exhaustively against their ranges (tau 1..2^16 and around every
+//! power of two up to 2^39), and per window: sum counts = n_completed, sum of
+//! sum_tau = completed time, fine->coarse rederive = the log2 hist.
+//! `--fine-mutant` files each tau into fine bin f^1; `--check` must panic.
 use rayon::prelude::*;
 use std::io::Write;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -33,10 +39,34 @@ use turmite::walkers::{PatchedAnt, RandomWalk, Rotor, Walker, splitmix_next};
 use turmite::{DIRS, Rule};
 
 static MUTANT: AtomicBool = AtomicBool::new(false);
+/// Rev3 C0 mutant: mis-file completed taus into the neighbouring fine bin (f ^ 1).
+static FINE_MUTANT: AtomicBool = AtomicBool::new(false);
 static CHECK: AtomicBool = AtomicBool::new(false);
 
 const UNV: u8 = u8::MAX;
 const MAX_BIN: usize = 40; // floor(log2(tau)) in 0..MAX_BIN
+/// Fine histogram (Rev3): 8 sub-bins per octave, index f = 8*floor(log2 tau) + sub.
+const FINE_PER_OCT: usize = 8;
+const MAX_FINE: usize = MAX_BIN * FINE_PER_OCT;
+
+/// Fine-bin index for tau >= 1: b = floor(log2 tau), sub = ((tau << 3) >> b) - 8.
+#[inline(always)]
+fn fine_index(tau: u64) -> usize {
+    let b = 63 - tau.leading_zeros() as u64;
+    let sub = ((tau << 3) >> b) - 8;
+    (b as usize) * FINE_PER_OCT + sub as usize
+}
+
+/// Inclusive integer tau range of fine bin f, computed independently of
+/// `fine_index`: lo = ceil((8+sub) 2^b / 8), hi = ceil((9+sub) 2^b / 8) - 1.
+fn fine_range(f: usize) -> (u64, u64) {
+    let b = (f / FINE_PER_OCT) as u32;
+    let sub = (f % FINE_PER_OCT) as u64;
+    let ceil8 = |x: u64| x.div_ceil(8);
+    let lo = ceil8((8 + sub) << b);
+    let hi = ceil8((9 + sub) << b) - 1;
+    (lo, hi)
+}
 
 struct Region {
     unv: Vec<u8>,
@@ -101,6 +131,8 @@ struct Win {
     unresolved_steps: u64,
     sum_tau: u64,
     bins: [u64; MAX_BIN],
+    fine_n: Vec<u64>,
+    fine_sum: Vec<u64>,
 }
 
 struct Out {
@@ -458,6 +490,8 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
             unresolved_steps: 0,
             sum_tau: 0,
             bins: [0; MAX_BIN],
+            fine_n: vec![0; MAX_FINE],
+            fine_sum: vec![0; MAX_FINE],
         };
         // Steps of an excursion that began before this window and are still open
         // contribute to unresolved_steps if still open at window end; completed
@@ -509,6 +543,24 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
                 let bin = (63 - exc_len.leading_zeros()) as usize; // floor(log2)
                 if bin < MAX_BIN {
                     w.bins[bin] += 1;
+                    let mut f = fine_index(exc_len);
+                    if FINE_MUTANT.load(Ordering::Relaxed) {
+                        f ^= 1;
+                    }
+                    w.fine_n[f] += 1;
+                    w.fine_sum[f] += exc_len;
+                    if check {
+                        let (lo, hi) = fine_range(f);
+                        assert!(
+                            lo <= exc_len && exc_len <= hi,
+                            "fine bin {f} range [{lo},{hi}] vs tau {exc_len}"
+                        );
+                        assert_eq!(
+                            f / FINE_PER_OCT,
+                            bin,
+                            "fine/coarse octave mismatch tau {exc_len}"
+                        );
+                    }
                 }
                 w.n_completed += 1;
                 w.sum_tau += exc_len;
@@ -530,6 +582,33 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
 
         w.area = region.area;
         w.perimeter = region.perimeter;
+        if check {
+            // Rev3 fine-histogram consistency.
+            let fn_tot: u64 = w.fine_n.iter().sum();
+            let fs_tot: u64 = w.fine_sum.iter().sum();
+            assert_eq!(
+                fn_tot,
+                w.n_completed,
+                "fine counts vs n_completed k={}",
+                k + 1
+            );
+            assert_eq!(fs_tot, w.sum_tau, "fine sum_tau vs sum_tau k={}", k + 1);
+            for b in 0..MAX_BIN {
+                let c: u64 = w.fine_n[b * FINE_PER_OCT..(b + 1) * FINE_PER_OCT]
+                    .iter()
+                    .sum();
+                assert_eq!(c, w.bins[b], "fine->coarse rederive bin {b} k={}", k + 1);
+            }
+            for f in 0..MAX_FINE {
+                if w.fine_n[f] > 0 {
+                    let (lo, hi) = fine_range(f);
+                    assert!(
+                        w.fine_sum[f] >= lo * w.fine_n[f] && w.fine_sum[f] <= hi * w.fine_n[f],
+                        "fine sum bounds f={f}"
+                    );
+                }
+            }
+        }
         if check {
             let (a, p) = scan_region(&region, size, bb);
             assert_eq!((a, p), (region.area, region.perimeter), "scan vs incremental k={}", k + 1);
@@ -637,9 +716,10 @@ fn check_against_probe<W: Walker>(w: W, out: &Out, size: usize, max_log2: u32) {
     }
 }
 
-fn format_block(spec: &str, out: &Out) -> (String, String) {
+fn format_block(spec: &str, out: &Out) -> (String, String, String) {
     let mut win = String::new();
     let mut hist = String::new();
+    let mut fhist = String::new();
     for w in &out.wins {
         let l = if w.perimeter > 0 {
             w.area as f64 / w.perimeter as f64
@@ -683,8 +763,17 @@ fn format_block(spec: &str, out: &Out) -> (String, String) {
         if w.n_censored > 0 {
             hist += &format!("{spec},{},-1,{}\n", w.k, w.n_censored);
         }
+        for f in 0..MAX_FINE {
+            if w.fine_n[f] > 0 {
+                let (lo, hi) = fine_range(f);
+                fhist += &format!(
+                    "{spec},{},{f},{lo},{hi},{},{}\n",
+                    w.k, w.fine_n[f], w.fine_sum[f]
+                );
+            }
+        }
     }
-    (win, hist)
+    (win, hist, fhist)
 }
 
 fn run_spec(s: &str, size: usize, max_log2: u32, check: bool) -> Out {
@@ -795,11 +884,44 @@ fn run_spec(s: &str, size: usize, max_log2: u32, check: bool) -> Out {
     }
 }
 
+/// Exhaustive self-check of `fine_index` against the independent `fine_range`.
+fn check_fine_bins() {
+    let mut taus: Vec<u64> = (1..=1u64 << 16).collect();
+    for b in 17..MAX_BIN as u32 {
+        let p = 1u64 << b;
+        for d in 0..64u64 {
+            taus.push(p + d);
+            taus.push(p - 1 - d);
+            taus.push(p + (p >> 1) + d);
+        }
+    }
+    for &t in &taus {
+        let f = fine_index(t);
+        let (lo, hi) = fine_range(f);
+        assert!(
+            lo <= t && t <= hi,
+            "fine self-check tau {t} f {f} [{lo},{hi}]"
+        );
+        assert_eq!(f / FINE_PER_OCT, (63 - t.leading_zeros()) as usize);
+    }
+    // Contiguity of non-empty ranges.
+    let mut next = 1u64;
+    for f in 0..MAX_FINE {
+        let (lo, hi) = fine_range(f);
+        if lo > hi {
+            continue;
+        }
+        assert_eq!(lo, next, "fine ranges not contiguous at f {f}");
+        next = hi + 1;
+    }
+    assert_eq!(next, 1u64 << MAX_BIN);
+}
+
 fn main() {
     let a: Vec<String> = std::env::args().collect();
     let max_log2: u32 = a
         .get(1)
-        .expect("usage: boundary_excursions MAX_LOG2 [GRID] [--check] [--hist PATH]")
+        .expect("usage: boundary_excursions MAX_LOG2 [GRID] [--check] [--hist PATH] [--fhist PATH]")
         .parse()
         .unwrap();
     let size: usize = a
@@ -811,6 +933,10 @@ fn main() {
     let mutant = a.iter().any(|s| s == "--mutant");
     if check {
         CHECK.store(true, Ordering::Relaxed);
+        check_fine_bins();
+    }
+    if a.iter().any(|s| s == "--fine-mutant") {
+        FINE_MUTANT.store(true, Ordering::Relaxed);
     }
     if mutant {
         // C0: invert the boundary predicate so probe totals must disagree.
@@ -819,6 +945,11 @@ fn main() {
     let hist_path = a
         .iter()
         .position(|s| s == "--hist")
+        .and_then(|i| a.get(i + 1))
+        .cloned();
+    let fhist_path = a
+        .iter()
+        .position(|s| s == "--fhist")
         .and_then(|i| a.get(i + 1))
         .cloned();
     let specs: Vec<String> = std::io::stdin()
@@ -830,7 +961,7 @@ fn main() {
         "{} specs, max_log2 {max_log2}, grid {size}, check {check}",
         specs.len()
     );
-    let blocks: Vec<(String, String)> = specs
+    let blocks: Vec<(String, String, String)> = specs
         .par_iter()
         .map(|s| {
             let out = run_spec(s, size, max_log2, check);
@@ -845,9 +976,15 @@ fn main() {
     )
     .unwrap();
     let mut hist_buf = String::from("spec,k,log2_tau,count\n");
-    for (w, h) in &blocks {
+    let mut fhist_buf = String::from("spec,k,fine,lo,hi,count,sum_tau\n");
+    for (w, h, fh) in &blocks {
         out.write_all(w.as_bytes()).unwrap();
         hist_buf.push_str(h);
+        fhist_buf.push_str(fh);
+    }
+    if let Some(path) = fhist_path {
+        std::fs::write(&path, &fhist_buf).unwrap();
+        eprintln!("wrote fhist {}", path);
     }
     if let Some(path) = hist_path {
         std::fs::write(&path, &hist_buf).unwrap();

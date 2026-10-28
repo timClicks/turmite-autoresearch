@@ -265,3 +265,15 @@ used the code's grid, so no result changes. Rev3 freezes the grid explicitly as 
 ### 2026-10-29 09:17 NZDT · 9701882 · assumption
 Eden's quasi-static domain and boundary regularity at L ≈ 7–50 are close enough to asymptotics for SRW hitting
 times to give D under Score_tw. False if C1E-tw is S/inconclusive while G1 passes. Status: untested.
+
+### 2026-10-29 09:21 NZDT · 3d87d8b · observation
+G0 instrument (no calibration data yet). `examples/boundary_excursions.rs` gains `--fhist` (8 sub-bins/octave,
+count + sum_tau), `--check` fine self-check and per-window consistency, and a new `--fine-mutant` (files τ into f^1).
+Smoke (7 specs seed 7, max_log2 14, grid 512): windows and `--hist` output **byte-identical** to the binary
+built from `9701882`; `--check` exit 0; `--mutant` and `--fine-mutant` both panic (exit 101). Python `tw_score.fine_range`
+matches the Rust lo/hi on every fhist row. Detail: `results/rev3_g0.txt`. rustfmt was applied to the new code
+only (the file was not rustfmt-clean before; unrelated hunks were reverted).
+`cargo test --release --locked`: 227 passed, 0 failed.
+Scripts: `tw_score.py` (shared Score_tw), `synth_rev3.py` (G1), `analyse_rev3.py` (walkers), `run_rev3.sh`.
+`tw_score.number_weighted_score` reproduces the frozen `analyse.py` number-weighted Score exactly on a toy input.
+The registration heading says 09:17; the commit `3d87d8b` is stamped 09:16:57 +13:00 (heading 3 s ahead of the clock; order unaffected).
