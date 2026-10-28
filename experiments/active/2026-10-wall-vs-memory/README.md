@@ -671,3 +671,47 @@ growth in every non-highway run here, and need neither chirality nor a match wit
 boundedness does not prevent highways**, which compete as they do for ordinary rules. This
 narrows Stage 1's "the fresh turn matters": what F1 destroys is plausibly the bound on fresh
 runs, not the R. It is six rules, one class, finite windows; Stage 3b tests it on new rules.
+
+## Stage 3b: fresh-turn policies on a new cohort (registered 2026-10-28 19:05 NZDT, before any run)
+
+Base commit `ad29f506`. **Informed by Stage 3 and says so**: the predictions below were written
+after seeing six rules. This stage asks whether Stage 3's surviving statement holds with power on
+rules that played no part in forming it.
+
+Cohort: 100 rules drawn uniformly without replacement (numpy `default_rng(20261028)`, from the
+core class sorted by rule string, with the six Stage 1 rules removed first; core class as Stage 1:
+cls blob, 0.30 < alpha_w < 0.37, not bursty, 2404 rules, all turning R on colour 0). Arms R, L, U
+of `ft:RULE:T`, one deterministic run each: 300 specs in `results/stage3b_specs.txt`, made by
+`scripts/select_stage3b.py`. Instrument, windows and fits as Stage 1 and 3 (`probe 27 16384`).
+
+Classes per run (named before running):
+- **escape**: the run leaves the board before completing the early window (`k = 12..22`);
+- **stalled**: as Stage 3;
+- otherwise Stage 1's `classify()` on the early window: compact / intermediate / porous.
+
+Gate T2 (instrument and selection, not a hypothesis): no R-arm run escapes, and >= 90 of 100 R
+runs are compact. If it fails, the arms are reported but not scored.
+
+Primary measure per arm (L and U): f = compact / (runs that are not escapes), with a Wilson 95%
+interval; escape rates reported separately with Wilson intervals.
+
+Reading:
+- f_L >= 0.90 and f_U >= 0.90: **bounded fresh runs suffice whenever no highway forms** (the
+  weak H-bound of Stage 3) survives on a new cohort.
+- f_L >= 0.90 and f_U <= 0.50: H-chiral.
+- f_L <= 0.50 and f_U <= 0.50: H-match.
+- anything else: unresolved or rule-dependent, reported as such.
+
+Predictions (mine, after Stage 3): weak H-bound, about 70%. Escape rate per arm between 2% and 20%
+(census base rate of highway onsets before 4096 steps is 7%; this horizon is longer). Second,
+from the Stage 3 post hoc observation (registered now, so this is its first test): among rules
+where both the R and U runs complete the late window, the between-rule sd of late a is smaller
+under U than under R, with a rule-bootstrap (10,000 resamples, seed 20261028, rules sorted
+before resampling) 95% interval of sd_U / sd_R entirely below 1; about 60%. And mean late a under
+U in [0.67, 0.72].
+
+Scorer `scripts/analyse_stage3b.py` and runner `scripts/run_stage3b.sh`, committed before the run.
+Pruning preflight: same index revision content as Stage 3 (no entries added since `4fd558b`);
+the new rules are not members of any entry (`NR-20261026` covers only `hy:RULE:0:1:SEED`
+specs); decision **run**. Budget: 300 runs of 2^27 steps, a few minutes on 4 cores. No
+extension without a new registration.

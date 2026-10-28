@@ -170,3 +170,9 @@ colour-0 match. Six rules only.
 ### 2026-10-28 18:50 (+1300) · 3164e1a · decision
 Register Stage 3b: all three arms on a new cohort of core-class rules, with escapes named as a class and scored
 separately from the compact/non-compact question, so the reading can be applied with power. Cheap (seconds per run).
+
+### 2026-10-28 19:10 (+1300) · ad29f50 · decision
+Registered Stage 3b in the README (100 new core-class rules, arms R/L/U, escape class named, gate T2, reading on
+f = compact / non-escape, sd-ratio prediction from the Stage 3 post hoc observation). Cohort draw is byte-identical
+across two processes (rules sorted before and after the draw). Scorer tested only on synthetic input (Stage 3 rows
+relabelled onto the new names), not on any Stage 3b output. Committing, then running.
