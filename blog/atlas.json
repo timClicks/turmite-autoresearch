@@ -43,11 +43,13 @@
         "2026-10-occupancy-pages", "2026-10-mixing", "2026-10-layers-colours",
         "2026-10-c2-arrow-bias", "2026-10-literature-review", "2026-10-kappa-uniform-baseline"
       ],
-      "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-26-the-wall-was-doing-the-work.md"],
+      "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-26-the-wall-was-doing-the-work.md", "2026-10-26-four-constants-that-came-before-their-theories.md"],
       "open": [
         {"text": "Is the shared exponent exact asymptotically, or only within the windows we can reach?", "source": "notes/cube-root-hypothesis.md"},
         {"text": "Which factor of the growth identity carries the amplitude, and why does the area exponent move when the width exponent does not?", "source": "notes/open-questions-hypotheses.md"},
         {"text": "Why does rule identity matter much more for the area exponent than for the width exponent?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Proposal, not registered: can a one-sided excursion argument like the rotor lower bound be adapted to ants, with tethered rules failing it?", "source": "notes/cube-root-routes-2026-10-26.md"},
+        {"text": "Proposal, not registered: is there a class-independent reason for stationary edge access, or does every definition of tether and edge lock reduce to kappa?", "source": "notes/cube-root-routes-2026-10-26.md"},
         {"text": "Does the repelling fresh ground alone give a cube root in the long run, and what does the interior memory add on top of it?", "source": "notes/open-questions-hypotheses.md"}
       ],
       "turns": [
@@ -99,12 +101,13 @@
         "2026-10-kappa-prefix-decode", "2026-10-kappa-spread-features", "2026-10-kappa-prefix-runs", "2026-10-kappa-prefix-ablation",
         "2026-10-kappa-prefix-additive", "2026-10-kappa-rule-space"
       ],
-      "posts": ["2026-10-20-making-kappa-a-consequence.md", "2026-10-20-where-kappa-is-not.md", "2026-10-20-the-wrong-waits-survive-a-change-of-clock.md", "2026-10-23-what-the-evidence-can-carry.md", "2026-10-23-the-turn-map-hides-a-clock.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-flat-edge-is-where-the-ant-goes-missing.md", "2026-10-20-joining-the-hunt-for-mechanisms.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-20-what-the-new-experiments-change-in-the-paper.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-23-learning-to-ask-the-ant.md", "2026-10-25-the-crawler-is-a-ceiling-not-a-blueprint.md"],
+      "posts": ["2026-10-20-making-kappa-a-consequence.md", "2026-10-20-where-kappa-is-not.md", "2026-10-20-the-wrong-waits-survive-a-change-of-clock.md", "2026-10-23-what-the-evidence-can-carry.md", "2026-10-23-the-turn-map-hides-a-clock.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-flat-edge-is-where-the-ant-goes-missing.md", "2026-10-20-joining-the-hunt-for-mechanisms.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-20-what-the-new-experiments-change-in-the-paper.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-23-learning-to-ask-the-ant.md", "2026-10-25-the-crawler-is-a-ceiling-not-a-blueprint.md", "2026-10-26-four-constants-that-came-before-their-theories.md"],
       "open": [
         {"text": "Gate baseline eligibility is unknown, so the single-cell null does not reject gate mechanisms in general.", "source": "notes/evidence-ledger.md"},
         {"text": "What is the next test that has two explanations disagreeing on a time-weighted outcome, an excluded pilot, and a persistence comparator frozen in advance?", "source": "notes/ACTIVE.md"},
         {"text": "Why does the interior return time track the territory's size, and why does the typical ant sit below every walker's own reference?", "source": "notes/ACTIVE.md"},
-        {"text": "Exposure classes are counts of unvisited neighbours, not shapes; does a shape-resolved classifier change where the deficit lives?", "source": "experiments/archive/2026-10-exposure-classifier-check/README.md"}
+        {"text": "Exposure classes are counts of unvisited neighbours, not shapes; does a shape-resolved classifier change where the deficit lives?", "source": "experiments/archive/2026-10-exposure-classifier-check/README.md"},
+        {"text": "Proposal, not registered: are long excursions from the edge diffusive or sweeps? Both give a mean that tracks size; only the shape of the duration law can tell.", "source": "notes/cube-root-routes-2026-10-26.md"}
       ],
       "turns": [
         {"ref": "2026-10-kappa-uniform-baseline", "change": "The uniform reference is corrected away from one."},
@@ -281,9 +284,10 @@
         {"ref": "2026-10-hull-checks", "why": "Only a calibration pilot ran; the roughness comparison is pending."}
       ],
       "also": ["2026-10-a2-edge-exponent", "2026-10-w-width-radius-refit"],
-      "posts": [],
+      "posts": ["2026-10-26-four-constants-that-came-before-their-theories.md"],
       "open": [
-        {"text": "Is the extra width a persistent shape or genuinely rough coastline?", "source": "experiments/archive/2026-10-hull-checks/README.md"}
+        {"text": "Is the extra width a persistent shape or genuinely rough coastline?", "source": "experiments/archive/2026-10-hull-checks/README.md"},
+        {"text": "Proposal, not registered: do chaotic rules share one rescaled edge-fluctuation distribution, distinct from the rotor's?", "source": "notes/cube-root-routes-2026-10-26.md"}
       ],
       "turns": [
         {"ref": "2026-10-a4-boundary-width", "change": "A broader ant edge than the rotor's is measured."},
