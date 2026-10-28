@@ -553,6 +553,19 @@ Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per
   `RLRLLRRRRRRR` are one byte-identical trajectory, so these structures form before long colours are read.
 - Q39. Why is the bounded regime's early a about 0.69-0.74 rather than 2/3 at these windows, and does bounded randomness
   (+0.05) share V1's finite-window offset (Stage 2)? Unresolved; needs the longer horizons of F-c.
+- Q40. (Leak titration, `experiments/active/2026-10-leak-titration/`, 2026-10-28.) Does the fresh-ground leak EF have a threshold?
+  Six core rules, 8 seeds, EF 0..1 step 0.1: early a rises mostly between EF 0.1 and 0.5 through a wide intermediate band, no
+  run-level coexistence, steepest 0.1 step carries at most 43% of the rise; registered shape verdict **unresolved** (M = 0.289 vs
+  smooth cut 0.28). A transition narrower than ~0.05 inside one grid step is not excluded. Stage B (0.025 grid, 16 new seeds)
+  was not triggered (needs M >= 0.34 or sharp). Not a universality-class statement; finite window k = 12..22.
+- Q41. Is the fresh-run length scale what the leak tunes (Stage C of the leak titration)? Record the distribution of consecutive
+  fresh-step runs versus EF in the ant itself (needs a probe addition plus an oracle test against the sparse reference) and test
+  whether the a(EF) curves collapse on run-length scale over territory radius (Q33). Prediction to be derived and registered first.
+- Q42. Why does a 10% leak on a forced-L base send the two forced-L highway rules (`RLRLLRRLRLR`, `RLRLLRRRRRRR`) straight to
+  porous growth (a 0.88-0.90, 16 of 48 arm-L runs at EF 0.1), and do forced-L-base rules need more leak than forced-R to lose
+  compactness (P4 failed on 3 rules)? Test: arm L on non-highway rules (78 of the 100 Stage 3b rules are non-escape under forced L)
+  to replace the 3-rule comparison; register first. Also open: EF_50 rose with window length in 2 of 6 rules (P5 unresolved);
+  needs more rules and a longer horizon (tiled probe port, wall-vs-memory F-c).
 
 ## Added 2026-10-27: excursion-duration collapse (stage 1) — P-C in PR #18
 

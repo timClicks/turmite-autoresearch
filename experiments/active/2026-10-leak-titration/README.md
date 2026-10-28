@@ -274,3 +274,11 @@ Next questions (none registered):
 - Why do forced-L highways collapse straight to porous growth at EF = 0.1? A cheap test: arm L on rules that are *not* highway at EF = 0
   (the Stage 3b cohort has 78 of 100 such rules), which would also fix the 3-rule thinness of P4.
 - Whether the EF_50 drift in two rules is real needs more rules and a longer window (the tiled probe port noted in wall-vs-memory F-c).
+
+## Outstanding follow-ups (written down 2026-10-28, none run)
+
+Tracked in `notes/ACTIVE.md` ("Pointer (2026-10-28): leak titration follow-ups") and `notes/open-questions-hypotheses.md` Q40-Q42.
+1. Stage C: fresh-run length vs EF, collapse test (Q41). Needs a probe addition and an oracle test; register a prediction first.
+2. Arm L on non-highway rules from the Stage 3b cohort, and more rules/longer horizon for the window drift (Q42). Register first.
+3. Stage B fine grid: only on the registered trigger (M >= 0.34 or sharp); not triggered.
+4. Owed to AGENTS.md: `notebook.ipynb` for this experiment, a blog post or draft, `blog/index.html` and `blog/atlas.json` entries.

@@ -12,6 +12,16 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 Implements P-C / Q32 from `notes/cube-root-routes-2026-10-26.md` on PR #18 (reference by branch/PR; do not mint colliding Q numbers here).
 Stage-1: **revise** (RW D calibrator never grows L). Revision 1 reflecting cup: L grows but compactness (A/P²) fails and Score prefers S (frontier trapping); C1' **inadequate**; confirmation **not run**; cup-as-D design **retired** (`NR-20261027-reflecting-cup-d-calibrator`). MF L-control still passes; rotor inconclusive. Revision 2: Eden-style and IDLA both pass compactness but the frozen number-weighted Score does not prefer D (Eden S, IDLA inconclusive); gate **fail**, confirmation **not run**; both retired as D calibrators for this Score (`NR-20261028-excursion-score-compact-d-calibrators`). Instrument limitation, not an ant result. Paused: any next step needs a newly registered observable (e.g. tail-restricted collapse) calibrated on these walkers before ant data.
 
+## Pointer (2026-10-28): leak titration follow-ups
+
+`experiments/active/2026-10-leak-titration/` ran (registration `5d70ec59`, results `8b2a72b2`): shape unresolved, gates pass. Open items,
+none registered for running; each needs its own dated registration first (questions in `notes/open-questions-hypotheses.md`):
+- Q41 Stage C: fresh-run length distribution vs EF (probe addition + oracle test), collapse on run length / territory radius.
+- Q42: arm L on non-highway rules from the Stage 3b cohort (replaces the 3-rule P4); window drift needs more rules and a longer horizon.
+- Q40: Stage B fine grid only if a later result gives M >= 0.34 or a sharp reading.
+- Housekeeping owed by that experiment: `notebook.ipynb` (AGENTS.md; not yet written), blog post/draft and `blog/index.html` and `blog/atlas.json` entry
+  (file under a topic or `unfiled`), `experiments/README.md` index line if one is kept there.
+
 ## Next phase: boundary access, regime validation, closure
 
 **Central question:** what makes boundary access settle into the scaling needed
