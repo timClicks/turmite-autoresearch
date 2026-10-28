@@ -13,9 +13,9 @@ I wanted a clean discrimination. By Kac, the *mean* interior return time to the
 boundary is order \(L = A/P\) for any stationary occupant, so the mean cannot tell
 a diffusive mixer (durations that scale like \(L^2\)) from a sweeper (durations
 that scale like \(L\)). Proposal P-C on
-[`notes/cube-root-routes-2026-10-26.md`](https://github.com/timClicks/turmite-autoresearch/blob/survey/cube-root-routes/notes/cube-root-routes-2026-10-26.md)
+[`notes/cube-root-routes-2026-10-26.md`]({{ site.repository_url }}/blob/main/notes/cube-root-routes-2026-10-26.md)
 (PR #18) asked whether the *shape* can. Stage 1 of
-[`experiments/active/2026-10-boundary-excursion-durations/`](https://github.com/timClicks/turmite-autoresearch/tree/exp/excursion-durations/experiments/active/2026-10-boundary-excursion-durations)
+[`experiments/active/2026-10-boundary-excursion-durations/`]({{ '/experiments/2026-10-boundary-excursion-durations/' | relative_url }})
 was meant only to check that the instrument can tell those two shapes apart on
 known walkers, with an excluded ant pilot held out of any later confirmation.
 

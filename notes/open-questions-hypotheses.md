@@ -480,6 +480,28 @@ way. The square-ring questions are renumbered: ring onset from a blank board is 
 corner proof is now **Q29**. The crawler-support question is Q28. Older append-only records keep the numbers they were
 written with; read "Q25/Q26" in `experiments/archive/2026-10-square-ring-fillers/NOTEBOOK.md` as Q27/Q29.
 
+## Added 2026-10-26: routes to explaining the cube root (proposals, not results)
+
+Survey note `notes/cube-root-routes-2026-10-26.md` (written 2026-10-26 23:05 NZDT; nothing run, nothing registered). It
+reframes the target and records four candidate questions with predictions and kill criteria. Priorities in
+`notes/ACTIVE.md` are unchanged.
+- **Reframing (prior art credited).** Constant kappa is equivalent to E[T] tracking L, i.e. the ant returns to its edge
+  on Kac's schedule for a uniform occupant, up to a rule constant. Meng and Cohen (1994) used the same boundary-return
+  argument. A diffusive excursion law (tail `s^(-1/2)`, cutoff `L^2`) and a sweep law (scale L) both give
+  `z(1 - theta) = 1`, so the mean cannot separate them.
+- Q34. Does an adapted Florescu-Levine-Peres excursion lemma hold for blob rules: bounded visits per cell per origin
+  excursion (M), and each long excursion covering a fixed fraction of the boundary (B)? Together they would give a
+  lower bound `A >~ t^(2/3)`. Prediction: tethered log-growers fail (B). Kill: per-excursion multiplicity or coverage
+  drifts with L in blob rules. Credits frontier-results items 29/28, item 6 and kappa-mechanisms (no Eulerian identity).
+- Q35. Do chaotic blob rules share one standardised edge-fluctuation distribution, distinct from the rotor's (the KPZ
+  and Tracy-Widom lesson)? Kill: between-rule spread as large as the ant-rotor gap, against rotor seed spread.
+- Q36. Is the ant's excursion-duration law diffusive (collapse in `s/L^2`) or a sweep (collapse in `s/L`)? It must be
+  gated on random-walk and rotor calibrators being distinguishable; otherwise it is uninformative, as C6 was.
+- Q37. Universality conjecture: stationary boundary access holds for any compact walker with no tether and no edge
+  lock, whatever its class. Known failures each break one condition (tethered rules, crawler fillers, sqrt(t) cluster,
+  highways; rotor examples from Bou-Rabee and Peres 2026). Kill: a compact, untethered, unlocked walker (frozen
+  operational definitions) whose kappa drifts. P5 agreement is not evidence.
+
 ## Added 2026-10-26: wall or memory (`experiments/active/2026-10-wall-vs-memory/`)
 
 A 2x2 factorial splits the ant's turn noise by cell type (fresh vs revisited; `hy:RULE:EV:EF:SEED`, oracle-tested).
@@ -512,8 +534,9 @@ Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per
 
 Stage-1 experiment `experiments/active/2026-10-boundary-excursion-durations/` (registration commit `9bfa496`)
 implements the excursion-duration discrimination idea P-C in `notes/cube-root-routes-2026-10-26.md`
-on branch `survey/cube-root-routes` (PR #18, unmerged at registration). The source note's draft question
-numbers are not imported here because they overlap with the numbering now used on main.
+on branch `survey/cube-root-routes` (PR #18, unmerged at registration; merged 2026-10-28). P-C is **Q36** in the
+2026-10-26 section above, which also holds the related Q34, Q35 and Q37. The open items below are unnumbered; they
+concern the instrument for Q36.
 
 - **Result of stage 1:** instrument **revise**. The nonparametric collapse Score separates planted
   pure-scale L vs L² laws, and mean-field prefers L as registered. The random-walk calibrator never
