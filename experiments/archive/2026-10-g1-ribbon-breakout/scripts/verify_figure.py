@@ -14,7 +14,7 @@ import pypdfium2 as pdfium
 
 ROOT = Path(__file__).resolve().parents[4]
 EXP = ROOT / "experiments/archive/2026-10-g1-ribbon-breakout"
-PAPER = ROOT / "research-outputs/cube-root-growth-paper"
+PAPER = ROOT / "research-outputs/working-papers/cube-root-growth"
 SCRATCH = EXP / "scratch/figure-review"
 SCRATCH.mkdir(parents=True, exist_ok=True)
 

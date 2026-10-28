@@ -7,58 +7,58 @@
       "recipe": "experiments/archive/2026-10-hidden-phase-return/scripts/analyze.py"
     },
     "mechanics": {
-      "path": "research-outputs/cube-root-growth-paper/fig/mechanics.png",
+      "path": "research-outputs/working-papers/cube-root-growth/fig/mechanics.png",
       "alt": "Successive grid diagrams showing an ant turning, changing the cell colour and stepping forward.",
       "caption": "Read the rule one colour at a time: turn left or right, advance the cell’s colour, then move. These small deterministic examples explain the instructions behind every experiment.",
-      "recipe": "research-outputs/cube-root-growth-paper/textbook_figs.py"
+      "recipe": "research-outputs/working-papers/cube-root-growth/textbook_figs.py"
     },
     "gallery": {
-      "path": "research-outputs/cube-root-growth-paper/fig/gallery.png",
+      "path": "research-outputs/working-papers/cube-root-growth/fig/gallery.png",
       "alt": "A gallery comparing the colour patterns and territory shapes produced by different ant rules.",
       "caption": "A few instructions can produce very different worlds. This is a selected gallery, not a measure of how often each kind of behaviour occurs; rule labels identify the examples.",
-      "recipe": "research-outputs/cube-root-growth-paper/gallery.py"
+      "recipe": "research-outputs/working-papers/cube-root-growth/gallery.py"
     },
     "exponents": {
-      "path": "research-outputs/cube-root-growth-paper/fig/exponents.png",
+      "path": "research-outputs/working-papers/cube-root-growth/fig/exponents.png",
       "alt": "Distributions of fitted width and gyration-radius exponents for compact ant rules and rotor controls, with a one-third reference line.",
       "caption": "The crowded peak near one third is the puzzle. Each histogram summarizes finite-window fits; the rotor control shows why a fitted peak is evidence to investigate, rather than a proof of an exact exponent. Census ants are single runs per rule, while rotor samples vary the initial arrows.",
-      "recipe": "research-outputs/cube-root-growth-paper/figures.py"
+      "recipe": "research-outputs/working-papers/cube-root-growth/figures.py"
     },
     "edge": {
-      "path": "research-outputs/cube-root-growth-paper/fig/edge.png",
+      "path": "research-outputs/working-papers/cube-root-growth/fig/edge.png",
       "alt": "An ant territory and an enlarged patch with visited boundary cells outlined in black.",
       "caption": "The boundary is the set of visited cells next to unvisited ground, including hole rims. The zoom makes the measurement concrete: time spent on those cells and the chance of discovering a neighbour are different parts of growth.",
-      "recipe": "research-outputs/cube-root-growth-paper/textbook_figs.py"
+      "recipe": "research-outputs/working-papers/cube-root-growth/textbook_figs.py"
     },
     "rotor": {
-      "path": "research-outputs/cube-root-growth-paper/fig/rotor.png",
+      "path": "research-outputs/working-papers/cube-root-growth/fig/rotor.png",
       "alt": "Visit-density maps for a rotor and ant RLL, followed by their radial profiles scaled by territory radius and visits per cell.",
       "caption": "Both walkers revisit the older centre more heavily. The scaled radial profiles compare accumulated visits, not instantaneous occupation. A cone can follow from occupation and growth assumptions without explaining why that growth law holds.",
-      "recipe": "research-outputs/cube-root-growth-paper/textbook_figs.py"
+      "recipe": "research-outputs/working-papers/cube-root-growth/textbook_figs.py"
     },
     "boundary-factors": {
-      "path": "research-outputs/cube-root-growth-paper/fig/ck_time.png",
+      "path": "research-outputs/working-papers/cube-root-growth/fig/ck_time.png",
       "alt": "Fresh-ground entry probability c and normalized boundary occupation kappa against log2 time for six long ant trajectories.",
       "caption": "Two ways to grow slowly: rarely reach the edge, or rarely discover fresh ground when there. The lines track those factors in six long trajectories. Their decomposition is a diagnostic; reconstructing the same run’s growth does not establish a mechanism.",
-      "recipe": "research-outputs/cube-root-growth-paper/figures.py"
+      "recipe": "research-outputs/working-papers/cube-root-growth/figures.py"
     },
     "late-switch": {
-      "path": "research-outputs/cube-root-growth-paper/fig/late_switch.png",
+      "path": "research-outputs/working-papers/cube-root-growth/fig/late_switch.png",
       "alt": "RLRLLL switches from expensive blob growth to column sweeping; the lower panels show a period-three wake, back-and-forth motion and two sweep predictions.",
       "caption": "Read the upper panel as the cost of a new cell: after the late switch it drops sharply. Below, the colour wake and sawtooth motion reveal the column sweep. The two prediction checks describe this phase of one deterministic trajectory; they do not identify what triggers it.",
-      "recipe": "research-outputs/cube-root-growth-paper/late_switch_figure.py"
+      "recipe": "research-outputs/working-papers/cube-root-growth/late_switch_figure.py"
     },
     "memory-paths": {
-      "path": "research-outputs/cube-root-growth-paper/fig/memory_paths.png",
+      "path": "research-outputs/working-papers/cube-root-growth/fig/memory_paths.png",
       "alt": "Selected paths of walkers with different local memory rules.",
       "caption": "Memory is not one mechanism. These selected trajectories show how changing the way a walker remembers visited ground changes its exploration. The accompanying growth measurements, rather than appearance alone, determine the comparison.",
-      "recipe": "research-outputs/cube-root-growth-paper/memory_figures.py"
+      "recipe": "research-outputs/working-papers/cube-root-growth/memory_figures.py"
     },
     "memory-growth": {
-      "path": "research-outputs/cube-root-growth-paper/fig/memory_growth.png",
+      "path": "research-outputs/working-papers/cube-root-growth/fig/memory_growth.png",
       "alt": "Growth comparisons among ants and several simpler walkers with local memory.",
       "caption": "The toy walkers test whether a simpler form of local memory reproduces the observed growth. These finite runs compare particular implementations, not every possible self-interacting walk.",
-      "recipe": "research-outputs/cube-root-growth-paper/memory_figures.py"
+      "recipe": "research-outputs/working-papers/cube-root-growth/memory_figures.py"
     },
     "fixed-area": {
       "path": "experiments/archive/2026-10-fixed-area-cycles/results/association.png",

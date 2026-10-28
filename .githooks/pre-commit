@@ -3,9 +3,9 @@
 # Enable once per clone:  git config core.hooksPath .githooks
 # Only runs when a staged file is one of the dataset's inputs (or the dataset itself).
 # Bypass for a genuine WIP commit: git commit --no-verify
-S=research-outputs/cube-root-growth-paper/supplementary/rule-census/build_rule_census.py
-D=research-outputs/cube-root-growth-paper/supplementary/rule-census/
-N=research-outputs/cube-root-growth-paper/numbers.json
+S=research-outputs/data-papers/rule-census/build_rule_census.py
+D=research-outputs/data-papers/rule-census/
+N=research-outputs/working-papers/cube-root-growth/numbers.json
 staged=$(git diff --cached --name-only)
 trigger=$( { uv run "$S" --list-inputs; echo "$N"; } | while read -r f; do
     echo "$staged" | grep -qxF "$f" && echo "$f"; done)

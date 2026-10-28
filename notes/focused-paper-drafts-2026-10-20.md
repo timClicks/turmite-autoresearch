@@ -2,7 +2,7 @@
 
 Editorial decision at 21:52 NZDT, base revision 715ab37. Requested by the user; this is manuscript work, not a new experiment. The original synthesis is retained. Concurrent edits to it were not overwritten.
 
-Drafts live in `research-outputs/focused-papers/`:
+Drafts live in `research-outputs/articles/`:
 
 - `growth-census/`: calibrated prevalence, finite-time uncertainty, replication and late transitions.
 - `boundary-transport/`: accounting, rule prediction, uniform reference, forecasts and mechanism controls.
@@ -16,7 +16,7 @@ Rebuild from the repository root:
 
 ```bash
 export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
-uv run research-outputs/focused-papers/build.py
+uv run research-outputs/articles/build.py
 ```
 
 Publication gates remain: author review, target-venue framing, final availability/disclosure statements and scientific reconciliation against the current research frontier. The third paper is deliberately provisional. Shared datasets are not independent replications. Full provenance audits remain shared with the synthesis.

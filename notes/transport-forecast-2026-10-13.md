@@ -91,8 +91,8 @@ changes or dependencies were introduced, and nothing was committed.
 
 Paper integration: added the discrete estimator, prospective design, results,
 controls, extreme-error caveat and exploratory cross-seed check to the growth
-decomposition section of research-outputs/cube-root-growth-paper/main.typ. Numbers load directly from the JSON.
-Built with `typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf`; visually
+decomposition section of research-outputs/working-papers/cube-root-growth/main.typ. Numbers load directly from the JSON.
+Built with `typst compile --root . research-outputs/working-papers/cube-root-growth/main.typ research-outputs/working-papers/cube-root-growth/main.pdf`; visually
 checked the forecast section on pages 9–10. The missing pre-existing memory
-figure was regenerated with `uv run research-outputs/cube-root-growth-paper/memory_figures.py` to complete the
-build. Updated research-outputs/cube-root-growth-paper/README.md with the forecast recipe and build root.
+figure was regenerated with `uv run research-outputs/working-papers/cube-root-growth/memory_figures.py` to complete the
+build. Updated research-outputs/working-papers/cube-root-growth/README.md with the forecast recipe and build root.

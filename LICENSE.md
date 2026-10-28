@@ -5,7 +5,7 @@ The rule is by kind of content, not by directory alone.
 
 | Content | License | File |
 |---|---|---|
-| **Code**: `src/`, `tests/`, `examples/`, `web/`, and every script under `experiments/*/*/scripts/`, `research-outputs/*/` (figure/number scripts), `blog/scripts/` and `experiments/_lib/` | MIT OR Apache-2.0 (your choice) | [`LICENSE-MIT`](LICENSE-MIT), [`LICENSE-APACHE`](LICENSE-APACHE) |
+| **Code**: `src/`, `tests/`, `examples/`, `web/`, and every script under `experiments/*/*/scripts/`, `research-outputs/*/*/` (figure/number/dataset scripts), `blog/scripts/` and `experiments/_lib/` | MIT OR Apache-2.0 (your choice) | [`LICENSE-MIT`](LICENSE-MIT), [`LICENSE-APACHE`](LICENSE-APACHE) |
 | **Data**: generated result files under `experiments/*/*/results/` (CSV, TSV, JSON, run logs, rule lists) and any dataset deposited on Zenodo or a similar archive | CC0 1.0 (public domain dedication) | [`LICENSE-CC0-1.0`](LICENSE-CC0-1.0) |
 | **Writing and figures**: `notes/`, `blog/` posts and pages, `experiments/*/*/README.md`, `NOTEBOOK.md`, `notebook.ipynb` prose, the manuscript in `research-outputs/` (Typst source, `main.pdf`, `fig/`), `AGENTS.md` and other documentation | CC BY 4.0 | [`LICENSE-CC-BY-4.0`](LICENSE-CC-BY-4.0) |
 

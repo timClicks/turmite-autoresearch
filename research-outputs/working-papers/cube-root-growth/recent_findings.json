@@ -1,0 +1,239 @@
+{
+  "c_law": {
+    "n_census": 2185,
+    "n_fresh": 176,
+    "C1": {
+      "a": 1.3634822200790424,
+      "b": 0.6959395841100399,
+      "r2": 0.876760905992503,
+      "median_rel_err": 0.041165226759370274
+    },
+    "C2": {
+      "fresh_a": 1.3351205804919075,
+      "fresh_b": 0.6830754887042159,
+      "ci_b": [
+        0.6578061775127197,
+        0.707491993541081
+      ]
+    },
+    "C3": {
+      "b_census": 0.6959395841100399,
+      "naive_range": [
+        0.85,
+        1.15
+      ]
+    },
+    "C4": {
+      "lead_only": 0.842367244473075,
+      "prefix2": {
+        "r2": 0.5701917776363388,
+        "coverage": 1.0
+      },
+      "prefix3": {
+        "r2": 0.7676613010854141,
+        "coverage": 1.0
+      },
+      "prefix4": {
+        "r2": 0.8451492405115041,
+        "coverage": 0.9990850869167429
+      },
+      "prefix5": {
+        "r2": 0.8865634462058659,
+        "coverage": 0.9972552607502287
+      },
+      "prefix6": {
+        "r2": 0.9237453931287121,
+        "coverage": 0.9917657822506862
+      },
+      "prefix8": {
+        "r2": 0.9499013431416957,
+        "coverage": 0.9752973467520586
+      }
+    }
+  },
+  "edge": {
+    "L1": {
+      "frac_lag4": 0.7843676330276002,
+      "n_reads": 1901222,
+      "n_rules": 47,
+      "passed": true
+    },
+    "V": {
+      "n": 378,
+      "lead": {
+        "r2": 0.7114221822929732,
+        "median_rel": 0.06621789255923982
+      },
+      "K3": {
+        "r2": 0.7847905995983366,
+        "median_rel": 0.04243976749673992
+      },
+      "K4": {
+        "r2": 0.7998808792426124,
+        "median_rel": 0.04908426986454652
+      }
+    },
+    "S": {
+      "n": 60,
+      "band_slope": 0.6782127757788923,
+      "band_intercept": 1.3987853769292007,
+      "census_slope_same_rules": 0.6777802295542076,
+      "census_intercept_same_rules": 1.3947520745703317,
+      "corr2": 0.9985946014277608,
+      "p0_median": 0.5216690151094145,
+      "ratio_median": 0.9982753510904099,
+      "S1": true,
+      "S2": true,
+      "S3": true,
+      "S4": true,
+      "S5": false
+    },
+    "K4_census": {
+      "params_A": [
+        0.6002033091339769,
+        0.9150988746135509,
+        1.1999999999999997,
+        0.09756683795523015,
+        0.057622196073829714
+      ],
+      "r2_lnc_B": 0.8628410413130004,
+      "passed": false
+    }
+  },
+  "interior": {
+    "n_U": 60,
+    "Z": {
+      "n": 59,
+      "dropped": 1,
+      "median_rel": 0.0028579550607605864,
+      "median_ratio": 1.0005838553528152,
+      "slope": 0.6755099107383645,
+      "intercept": 1.4087051164604916,
+      "corr2": 0.9940255856880819,
+      "median_consumption": 0.6982574462890625,
+      "passed": true
+    },
+    "Y": {
+      "n": 58,
+      "dropped": 2,
+      "median_rel": 0.0030823096806693595,
+      "median_ratio": 0.9998672922844105,
+      "slope": 0.6741979274550873,
+      "intercept": 1.4124815831105633,
+      "corr2": 0.9989198423567819,
+      "median_consumption": 0.7195243835449219,
+      "passed": true
+    },
+    "H": {
+      "n": 58,
+      "dropped": 2,
+      "median_rel": 0.0027812343040872767,
+      "median_ratio": 1.0008099241624175,
+      "slope": 0.6823614728488483,
+      "intercept": 1.3815404692382696,
+      "corr2": 0.998361451327937,
+      "median_consumption": 0.7016983032226562,
+      "passed": true
+    },
+    "A4": true
+  },
+  "conditioning": {
+    "4a": {
+      "n": 176,
+      "marginal_lead_on_lnk": -0.02209338748299613,
+      "marginal_lead_on_lnc": -0.20107616093863026,
+      "growth_fit": [
+        11.446774397697142,
+        0.6865988404925633,
+        0.8069414006906293
+      ],
+      "obs_lead": 0.1476862162902805,
+      "obs_lnA": 1.0731073144206815,
+      "null_lead_mean": 0.14530059776784895,
+      "null_lead_ci": [
+        0.13736384327670315,
+        0.15296562165062208
+      ],
+      "null_lnA_mean": 1.0351756994354275,
+      "with_c": {
+        "lead": 0.014164996819848423,
+        "ci": [
+          -0.04478052836751924,
+          0.06200702675114781
+        ],
+        "lnA": 1.086303151589532,
+        "lnc": -0.6744159663725118
+      },
+      "Q1": true,
+      "Q2": true,
+      "Q3": true
+    },
+    "4b": {
+      "n": 257,
+      "g": 0.8049802338118296,
+      "arms": {
+        "E": {
+          "n": 81,
+          "mean_dc": -0.33302392444363416,
+          "mean_d": -0.06184468581067363,
+          "mean_dA_obs": -0.29230756801411134,
+          "mean_dA_pred": -0.3178614262074649
+        },
+        "S": {
+          "n": 73,
+          "mean_dc": 0.2607682008651741,
+          "mean_d": -0.19835709630740414,
+          "mean_dA_obs": 0.012672948135651788,
+          "mean_dA_pred": 0.05023970553936824
+        },
+        "C": {
+          "n": 103,
+          "mean_dc": 0.000689235622793581,
+          "mean_d": -0.005672679042768257,
+          "mean_dA_obs": -0.0001852989070499275,
+          "mean_dA_pred": -0.004011573449399231
+        }
+      },
+      "Q4": true
+    },
+    "4c": {
+      "n_mutants": 274,
+      "n_pairs": 177,
+      "retention": 0.6459854014598541,
+      "mean_d": -0.007384759680628281,
+      "ci": [
+        -0.07760410227994109,
+        0.05995330093585727
+      ],
+      "mean_dA": -0.014766711664253302,
+      "beta": 1.123316426961793,
+      "resid_mean": 0.0065854186338651696,
+      "resid_ci": [
+        -0.022140718091514366,
+        0.033766495431924136
+      ],
+      "g": 0.8093014489132434,
+      "r2": 0.8745857260825618,
+      "P1": true,
+      "P2": false,
+      "P3": true,
+      "P4": true
+    }
+  },
+  "provenance": {
+    "command": "uv run research-outputs/working-papers/cube-root-growth/recent_findings_numbers.py",
+    "git_commit": "1b14a1e7df1ba0ed1bce2fbe7f9e904e2cf4a047",
+    "sha256": {
+      "experiments/archive/2026-10-kappa-chiral-edge/results/c_law.json": "bc64aaab294e2ab3d3ad3096a92f3f0fda3e60e54ab01406817f3bc46917fa81",
+      "experiments/archive/2026-10-c-law-mechanism/results/stage2_analysis.json": "c3737dfe00c82ebb7c78c011d910e471d606a7292b53b219d44fe1788b0b1567",
+      "experiments/archive/2026-10-c-law-mechanism/results/stage2c_analysis.json": "477b2bee88362cb18bbdcf1314e9685d38587d41779fff3b214b0341001f031f",
+      "experiments/archive/2026-10-c-law-mechanism/results/stage4_analysis.json": "09cff85b6d4be3d98de2c9dc3a545148a87aa1a34917ee3d970d7a615f5d9775",
+      "experiments/archive/2026-10-kappa-uniform-baseline/results/analysis.txt": "194a2f639e3c6e7a6a510eb10eceb45c0f659082834b633a7bc607bfa5622a94",
+      "experiments/archive/2026-10-kappa-uniform-baseline/results/census_spread.txt": "ad7a062d72dd9390f936e40aaefa53ff3d69e58c1acb79aa44c499082a7b6913",
+      "experiments/archive/2026-10-kappa-walker-reference/results/analysis.txt": "bbd47850f2593c7a0f4d13676bdc19e52263b73cbc504eb0fcd34f54709f0648",
+      "experiments/archive/2026-10-kappa-walker-reference/results/analysis_nrotor.txt": "a61fdfac8779a07b0939e7724e4e16bc2e014ec7d07970f3d08531f2eed74063",
+      "research-outputs/working-papers/cube-root-growth/recent_findings_numbers.py": "400442cf9e563d18b1dfd78f8534be8efb10082bb20afa2bd654674f7f903f9e"
+    },
+    "scope": "Extraction only. Text-source values are cited in Audits 44 and 48; no new measurements."
+  }
+}

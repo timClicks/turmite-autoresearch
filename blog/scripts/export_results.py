@@ -14,7 +14,7 @@ import struct
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
-PAPER = ROOT / "research-outputs/cube-root-growth-paper"
+PAPER = ROOT / "research-outputs/working-papers/cube-root-growth"
 OUT = ROOT / "blog/_data/preliminary_results.json"
 IMAGES = ("exponents", "hero", "ck_time", "memory_paths", "late_switch")
 SOURCES = ["main.typ", "numbers.json", "recent_findings.json", "kappa_prediction.json",

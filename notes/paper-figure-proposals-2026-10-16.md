@@ -2,7 +2,7 @@
 
 Status: proposal only. Nothing here has been built. Data availability for each
 item has **not** been checked; that is step one before building. Based on a read of
-`research-outputs/cube-root-growth-paper/main.typ` and `fig/`.
+`research-outputs/working-papers/cube-root-growth/main.typ` and `fig/`.
 
 ## Existing coverage
 

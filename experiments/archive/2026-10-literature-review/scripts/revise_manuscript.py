@@ -1,5 +1,5 @@
 from pathlib import Path
-p=Path('research-outputs/cube-root-growth-paper/main.typ')
+p=Path('research-outputs/working-papers/cube-root-growth/main.typ')
 s=p.read_text()
 def rep(a,b):
  global s

@@ -1,0 +1,740 @@
+// Census numbers come from numbers.json; forecasts load their reproducible analysis output.
+#let N = json("numbers.json")
+#let KP = json("kappa_prediction.json")
+#let TB = json("tail_budget.json")
+#let CB = json("chirality_baselines.json")
+#let RF = json("recent_findings.json")
+#let TF = json("../../../experiments/archive/2026-10-transport-forecast/results/transport_forecast.json").cohorts
+#let f(x, d: 3) = str(calc.round(x, digits: d))
+#let pct(x) = str(calc.round(100 * x, digits: 0)) + "%"
+#let iqr(v, d: 2) = "[" + f(v.at(0), d: d) + ", " + f(v.at(2), d: d) + "]"
+
+#set document(title: "Cube-root growth of most non-highway generalised Langton's ants of length up to 12")
+#let ink = rgb("#20201e")
+#let accent = ink
+#let muted = rgb("#696963")
+#let sans = "Lato"
+#let panel = rgb("#f7f8f6")
+#let hairline = rgb("#d9dedb")
+#set page(
+  paper: "a4",
+  margin: (left: 24mm, right: 24mm, top: 23mm, bottom: 23mm),
+  header: context if counter(page).get().first() > 1 [
+    #set text(font: sans, size: 8pt, fill: muted)
+    #grid(columns: (1fr, auto), [GENERALISED LANGTON’S ANTS], [T.S. McNamara])
+  ],
+  footer: context [
+    #set text(font: sans, size: 8pt, fill: muted)
+    #align(right, counter(page).display("1"))
+  ],
+)
+#set text(font: "Libertinus Serif", size: 11.25pt, fill: ink)
+// Paragraph spacing must exceed leading: Typst combines these gaps by maximum.
+#set par(justify: true, leading: 0.68em, spacing: 1.3em, first-line-indent: 0pt)
+// Use @label for numbered references and link(<label>)[text] for named paragraphs.
+#set heading(numbering: "1.1")
+#show heading.where(level: 1): it => block(above: 24pt, below: 12pt)[
+  #set text(font: sans, size: 17pt, weight: "bold", fill: ink)
+  #it
+]
+#show heading.where(level: 2): it => block(above: 18pt, below: 9pt)[
+  #set text(font: sans, size: 11.5pt, weight: "bold", fill: ink)
+  #it
+]
+#show heading.where(level: 3): set text(font: sans, size: 10.5pt, fill: accent)
+#set figure(gap: 10pt)
+// One panel keeps the illustration and its explanation visually associated.
+#show figure: it => block(
+  width: 100%, breakable: false, above: 18pt, below: 18pt,
+  fill: panel, stroke: 0.45pt + hairline, radius: 3pt, inset: 11pt,
+)[#it]
+#show figure.caption: it => block[
+  #set text(font: sans, size: 9pt, fill: ink)
+  #set par(justify: false, leading: 0.55em, spacing: 6pt)
+  #align(left, it)
+]
+#set list(spacing: 5pt)
+#set enum(spacing: 5pt)
+#set table(stroke: 0.4pt + rgb("#d4dfe3"), inset: 7pt)
+#set table.cell(breakable: false)
+#show table: set text(font: sans, size: 9pt)
+#show raw: set text(font: "DejaVu Sans Mono", size: 0.85em)
+#set math.equation(numbering: "(1)")
+
+
+
+#block[
+  #set par(justify: false, leading: 0.4em, spacing: 0pt)
+  #text(font: sans, size: 8pt, fill: muted, tracking: 1.5pt)[DISCRETE DYNAMICS]
+  #v(23pt)
+  #text(font: "Libertinus Serif", size: 38pt, weight: "regular", fill: ink)[Cube-root growth\ of most non-highway\ generalised Langton’s ants]
+  #v(18pt)
+  #text(font: "Libertinus Serif", size: 14pt, style: "italic", fill: muted)[Rules of length $<= 12$: calibrated growth and boundary transport]
+  #v(17pt)
+  #text(font: sans, size: 10pt, weight: "bold")[T.S. McNamara]
+  #v(3pt)
+  #text(font: sans, size: 9pt, fill: muted)[Accelerant Ltd, Wellington, New Zealand · tim\@accelerant.dev]
+  #v(14pt)
+  #line(length: 24mm, stroke: 0.6pt + ink)
+]
+#v(0.8em)
+#block(inset: (top: 8pt, bottom: 8pt))[
+  #set text(size: 10.5pt)
+  #set par(leading: 0.55em, spacing: 0pt)
+  *Abstract.* Generalised Langton's ants can spend billions of steps expanding an irregular territory without forming a detected highway. Across #N.probe.analysed measured rules of length #N.census.n_min–#N.census.n_max, most belong to a blob class whose width grows approximately as $t^(1/3)$: doubling the width takes about eight times as many steps. The blob median exponent is #f(N.alpha_w_blob.at(0)), consistent with $1/3$ at roughly $plus.minus 0.01$ after calibration against a rotor walker with a proved growth exponent @bourabee2026. The census runs to $2^27$ steps, with longer follow-ups on selected rules. Ant and rotor accumulated visit profiles agree, but surface width grows faster in the examined ant cohorts. A growth-rate identity locates departures from the cube root in drifting boundary occupation without deriving its cause. The opening same-letter run predicts edge-entry cost through $1/c approx 1.36+0.70m$: fresh stationary-rule $R^2=#f(RF.c_law.C1.r2)$, falling to #f(RF.edge.V.lead.r2) on a broader validation. Flat-band interior-colour ablations preserve this law, but its constants remain unexplained. An eight-letter prefix lookup predicts occupation on fresh stationary rules ($R^2=#f(KP.prefix_r2)$); a later control reproduces the area-conditioned opening-run association without a direct occupation effect. Correcting for window averaging puts median stationary ant occupation at 0.814 times its uniform reference. These predictive and control results leave the transport mechanism unresolved. Logarithmic growers, faster growers and a rule that switches after billions of steps limit universal or asymptotic claims.
+
+  #v(0.4em)
+ ]
+#block(breakable: false, above: 8pt, fill: panel,
+  stroke: 0.45pt + hairline, radius: 3pt, inset: 10pt)[
+  #align(center, image("fig/hero.pdf", width: 80%, height: 40mm, fit: "contain"))
+  #align(center)[
+  #set text(font: sans, size: 8pt, fill: muted)
+  #set par(leading: 0.45em, spacing: 0pt)
+  Same bulk growth. Different measured edge growth.\
+  Occupation fields at $2^22$ steps; darkness shows visits per cell in units of $t/A$, on a shared scale from 0 to 4 (values above 4 clipped). Each territory is fitted to its panel.
+  ]
+]
+#pagebreak()
+#block[
+  #text(font: "Libertinus Serif", size: 18pt, weight: "regular", fill: ink)[Key results]
+  #v(0.5em)
+  - *Doubling the width takes about eight times the steps.* The #N.probe.blob blob rules have median width exponent #f(N.alpha_w_blob.at(0)); rotor calibration supports $1/3$ to about $plus.minus 0.01$, rather than to three decimal places (@sec:census-results).
+  - *Similar interiors hide different edges.* Ant and rotor accumulated visit profiles agree within #pct(N.shape.max_rel_diff_ants_rotor_shells0_9) in the compared radial shells. Yet surface-width growth exponents are about 0.22–0.25 for the examined ants and 0.10–0.13 for the rotor. The profile is a conditional consistency check; the edge gap is measured at matched step counts, not matched sizes (@sec:ens).
+  - *Departures from the cube root appear in boundary occupation.* The #N.probe.log logarithmic growers visit the edge increasingly rarely; the #N.probe.fast fast blob rules typically have rising relative edge occupation. The growth-rate identity locates these deviations in $kappa$, but does not explain why it drifts (@sec:factors).
+  - *Opening turns predict edge-entry cost.* The empirical law $1/c approx 1.36+0.70m$ transfers to fresh stationary rules ($R^2=#f(RF.c_law.C1.r2)$), but scores #f(RF.edge.V.lead.r2) on broader validation, missing its registered threshold. Flat-band interior-colour ablations preserve the law; the constants and residual letter effects remain unexplained (@sec:c-law).
+  - *Predicting occupation does not establish a direct opening-run effect.* The prefix lookup predicts $ln kappa$ in fresh stationary rules ($R^2=#f(KP.prefix_r2)$). The area-conditioned opening-run association is reproduced by conditioning on an outcome shared by $c$ and $kappa$, without a direct effect. The lookup remains predictive within its selected cohort (@sec:prefix).
+  - *Uniform occupation has a growth-adjusted reference.* Octave averaging gives a reference near 1.11 in the cube-root regime. The stationary ant ratio has median 0.814, below the tested random and rotor controls; window and regime differences limit the comparison (@sec:uniform-reference).
+  - *Early growth budgets predict later growth.* A constant budget estimated from early area history reduces typical future-window error by #f(100 * TF.ants.reduction, d: 1)% against an other-rule baseline. Rare near-stalls produce very large errors, and escaped or incomplete runs are excluded (@sec:forecast).
+  - *The tested memory models do not reproduce the joint regime.* Independent turns, site cookies and edge reinforcement fail to reproduce both ant-like growth and boundary occupation in the tested settings. These controls constrain particular mechanisms; they do not exclude every stochastic explanation (@sec:mechanisms).
+  - *Billions of blob-like steps need not be permanent.* `RLRLLL` changes into a column sweeper after about #f(N.g1.onset_t / 1e9, d: 1) billion steps in one blank-board trajectory. Its trigger is unknown, and a board escape is not by itself a highway detection (@sec:late-switch).
+]
+
+= The cube-root growth question <sec:introduction>
+
+Langton's ant @langton1986 is a two-colour automaton whose behaviour is striking: after a chaotic transient of about 10 000 steps it builds a periodic "highway" and escapes. Generalising the turn rule to a string over {L, R} of length $n$ @gale1995 gives a family whose long-time behaviour is, for most rules, unknown. For any rule containing both letters the track is known to be unbounded @gale1995 @bunimovich1992, and the dynamics is computationally hard in general @gajardo2002, but these results do not determine its growth rate.
+
+*How fast does a territory expand when no highway is detected?* Our census finds a common answer across thousands of multicolour rules: approximately the cube root of time in width, or $t^(2/3)$ in area. This is slow growth. Under that scaling, eight times as many steps are needed to double the width. The more revealing comparison is with the rotor walker: the bulk growth and accumulated visit profiles agree, while the measured edge dynamics differ. The paper asks which transport measurements account for that agreement and where the explanation stops.
+
+#figure(
+  image("fig/timeline.pdf", width: 100%),
+  caption: [Langton's ant (`RL`) at six moments, all drawn at the same scale. For about 10 000 steps it wanders and builds an apparently random patch; then it falls into a repeating 104-step cycle that moves it two cells diagonally each time @langton1986 (our sweep reproduces period 104 and onset 9976 for `RL`: #link("supplementary/reproducibility-audit.pdf")[Audit 1]), laying a straight "highway" that continues indefinitely. The rules studied here formed no detected highway within the census horizon.],
+) <fig:timeline>
+
+#figure(
+  image("fig/gallery.pdf", width: 100%),
+  caption: [What the ants draw. Each colour is one of the $n$ states a cell can be in; blank is never visited. Top left: classic Langton's ant (`RL`) after 17 000 steps, a tangle followed by a straight "highway" that runs off forever. The other panels show rules with no detected highway within the census horizon, after $2^25$ (33 million) steps: most grow into a roughly round blob whose texture looks random up close (bottom right), but the shapes differ (notched, ragged, or, for `RLLR`, a square frame) and one (`RRLRLR`#sym.dots.h`LLL`) barely grows at all, staying near its starting point. Rule letters give the turn on each colour.],
+) <fig:gallery>
+
+The rotor walker supplies a calibrated comparison. Every site holds an arrow that turns by 90° each visit, and the walker follows it. Rotor radius $tilde t^(1/3)$ was conjectured by Priezzhev et al. @priezzhev1996 and supported numerically by Kapri and Dhar @kapri2009. Bou-Rabee and Peres @bourabee2026 prove that, for independent uniform initial arrows and clockwise square-lattice exits, the range divided by $t^(2/3)$ converges almost surely to a positive finite deterministic constant, with a deterministic convex limit shape. The checked record lists arXiv v1 (24 August 2026) and no journal reference as of 15 October 2026; this does not determine refereeing status. The ant is not an Eulerian walker, so that theorem supplies no ant growth law.
+
+*Boundary occupation is the unresolved transport quantity.* We measure the window's boundary-step fraction divided by the endpoint boundary fraction and call this ratio $kappa$. Its uniform-occupation reference depends on growth during the window (@sec:uniform-reference). Its value differs moderately reproducibly between rules. A longer-prefix lookup predicts it in a restricted stationary cohort; an opening-run association conditional on early area is reproduced without a direct occupation effect. Predicting occupation is possible in that cohort, while explaining the transport that produces it remains open.
+
+Growth in related two-state media predates this study. Flipping rotators implement the two-state alternating-turn rule; earlier work examined expanding randomized regions @meng1994 and subdiffusive displacement and visited-area statistics @mishra2016 in random and spatially periodic media, rather than our uniform multicolour starts. Meng and Cohen measured $A tilde t^(0.75)$ and boundary cardinality $B tilde t^(0.50)$ for three periodic $3 times 3$ initial media without observed propagation through $10^9$ steps (least-squares fits after about 5000 steps, their Eq. 1) @meng1994. Their boundary-return and pocket-growth argument directly precedes our boundary-access analysis; neither their medium nor their measured area exponent equals ours.
+
+These comparisons require distinct observables. Mishra et al.'s ensemble displacement, origin-time averages and visited area are different quantities; a displacement-squared exponent of $2/3$ does not establish a territory-area exponent of $2/3$. Likewise, planar rotor widths @kapri2009 and finite-size cylinder studies @papoyan2016 motivate spatial correlation and clock comparisons, but our trajectory slopes alone identify no interface universality class. Our contribution is the calibrated multicolour growth census and its transport comparisons, with explicit finite simulation horizons, rather than a first measurement of territory growth.
+
+*Contributions.*
++ A census of #N.census.rules rules with growth exponents for #N.probe.analysed of them, reporting the whole distribution, its dependence on rule length, and the rules that fall outside it.
++ A calibration: the same pipeline applied to the rotor walker (known exponent) and a random walk (negative control), giving the estimator's bias and between-seed noise.
++ An exact accounting of the area growth rate by edge entry, occupation and geometry, with measured factor levels and drift, building on the earlier boundary-access growth picture @meng1994. This supplies diagnostics, not a dynamical closure.
++ A future-window forecast from early transport measurements, tested across replicated starts and against rotor and random-walk controls.
++ Held-out predictions of edge-entry probability and, within a selected stationary cohort, occupation; tests of interior colour and short-lag transport approximations.
+
+@sec:factors and @sec:tested separate what is an identity from what is a test, and list what we could not explain. A hypothesis about "homes" that tether some rules to their origin was investigated and is mentioned only in @sec:limitations; we make no claim about it.
+
+= Rules, measurements and growth-rate decomposition <sec:methods>
+
+== Rule census and finite-horizon classification <sec:rules>
+
+#figure(
+  image("fig/mechanics.pdf", width: 100%),
+  caption: [The first steps of two ants. The ant (black triangle) looks at the colour of the cell it stands on, turns left or right as the rule's letter for that colour says, changes the cell to the next colour (cyclically), and steps forward. `RL` has two colours, so a cell flips between blank and green; `RLL` has three (blank, green, orange).],
+) <fig:mech>
+
+A rule is a string $r in {L,R}^n$. The ant has a position, a heading and a grid of colours in $ZZ_n$, all initially 0. At each step it reads the colour $c$ under it, turns left or right by `r[c]`, increments the colour to $(c+1) mod n$, and moves one cell. Swapping every L and R gives the mirror-image ant, so we keep only rules starting with R, and drop the trivial rules in which every colour turns the same way.
+
+A sweep of all such rules of length 2–12 (4083 rules) ran each on a blank $8192^2$ grid for up to $10^8$ steps with a highway detector (#link("supplementary/reproducibility-audit.pdf")[Audit 1]); 578 escaped or were detected as highway builders (including classic `RL`). The census studied here is the remaining #N.census.rules rules of length #N.census.n_min–#N.census.n_max (3505 that ran the full budget plus 7 that escaped late).
+
+Each census rule was then run to $2^27$ steps (#link("supplementary/reproducibility-audit.pdf")[Audit 2], #link("supplementary/reproducibility-audit.pdf")[Audit 1]). A rule is called a _builder_ (#N.census.builders rules) if it did not complete $2^27$ steps inside the grid or its steps per bounding-box cell at $10^8$ steps were below 20; builders are excluded.
+
+Most are not highway builders: the recognised highways were already removed above, only 5 of the 304 have a recorded candidate highway period (#link("supplementary/reproducibility-audit.pdf")[Audit 1]) (none confirmed), 289 stay in the grid and fill it slowly (about 2--6 steps per box cell, frame-like structures) and 10 left the grid (#link("supplementary/reproducibility-audit.pdf")[Audit 3]). We did not check that the 289 form one class.
+
+The census therefore partitions every rule of length 2--12 into four empirical phases, defined operationally by the $10^8$-step detector, the builder criterion above and the width-exponent cut below.
+
+#figure(
+  table(
+    columns: 3,
+    align: (left, right, right),
+    [*Phase*], [*Rules*], [*% of census (#N.census.rules)*],
+    [Highway / ballistic (detected, removed before the census)], [578], [n/a],
+    [Frame builders], [#N.census.builders], [#pct(N.census.builders / N.census.rules)],
+    [Log-growing (localised)], [#N.census.log], [#pct(N.census.log / N.census.rules)],
+    [Compact blobs], [#N.census.blob], [#pct(N.census.blob / N.census.rules)],
+  ),
+  caption: [Complete partition of the sweep. The highway rules were removed by the sweep; the other three phases partition the #N.census.rules census rules, .],
+) <tab:phases>
+
+That about three quarters of the non-highway rules fall into a single macroscopic phase is itself a result. The question of the paper is how growth varies within that phase, so the headline statistics below are for the whole blob class, not for a subset selected on its exponent.
+
+A rule is _log-growing_ (#N.census.log rules) if the fitted width exponent from $t=2^21$ to $2^27$ is below 0.15, and otherwise _blob_ (#N.census.blob rules). The exponent distribution is bimodal (Hartigan dip #f(N.alpha_gap.dip, d: 3) on #N.alpha_gap.dip_n non-builder rules, $p < 0.001$; a two-component Gaussian mixture has means #f(N.alpha_gap.gmm_means.at(0), d: 2) and #f(N.alpha_gap.gmm_means.at(1), d: 2) with weights #pct(N.alpha_gap.gmm_weights.at(0)) and #pct(N.alpha_gap.gmm_weights.at(1)); @fig:alphagap). The dip test only rejects unimodality. The cut at 0.15 was set by eye and is _not_ in an empty gap: the log-growers' density tails off across 0.10--0.17 (#N.alpha_gap.n_per_bin_015 rules within 0.005 of the cut) and the trough is at 0.17--0.26, where bins hold at most four rules. The cut was fixed before the sensitivity analysis, which was registered afterwards (experiment `2026-10-alpha-gap`), and it matters little: the blob median width exponent is #f(N.alpha_gap.cuts.at("0.1"), d: 4), #f(N.alpha_gap.cuts.at("0.15"), d: 4), #f(N.alpha_gap.cuts.at("0.2"), d: 4) and #f(N.alpha_gap.cuts.at("0.25"), d: 4) for cuts at 0.10, 0.15, 0.20 and 0.25 (spread #f(N.alpha_gap.at("spread_0.15_0.25"), d: 4) for cuts from 0.15 to 0.25; #f(N.alpha_gap.at("spread_0.10_0.25"), d: 4) when 0.10 is included, which exceeds the 0.001 we predicted in advance; a cut at 0.05 gives #f(N.alpha_gap.cuts.at("0.05"), d: 4)).
+
+#figure(
+  image("fig/alpha_gap.pdf", width: 90%),
+  caption: [Census width exponent for the non-builder rules; the line marks the log/blob cut at 0.15. There is a density trough, but at 0.17--0.26 rather than at the cut.],
+) <fig:alphagap>
+
+#figure(
+  image("fig/census.pdf", width: 80%),
+  caption: [Outcome of every rule in the sweep (4083 rules of length 2–12; the single length-2 rule is `RL` and is not shown), by rule length. Highway builders are a third to two fifths of the length-3 and length-4 rules and about one in seven from length 6 on. "Frame" builders (mostly rules that fill a frame slowly, a few that leave the grid) are a small slice. The two top classes, blob and log-growing, are the subject of this paper.],
+) <fig:census>
+
+== Growth observables, fitting windows and exclusions <sec:runs>
+
+The probe (`src/probe.rs`) tracks the _visited_ set (every cell the ant has ever stood on), its area $A$, its _boundary_ $P$ (visited cells with at least one unvisited 4-neighbour), and, in octave windows $[2^k, 2^(k+1))$, the number of steps that start on a boundary cell and the number of steps that enter a never-visited cell. It also gives the bounding box, the radius of gyration $R_g$ of the visited set, and the ant's own spread. For each rule we fit log–log slopes over windows $k = 20 ... 26$:
+
+- width exponent $alpha$ (bounding-box side against $t$) and $R_g$ exponent $alpha_g$;
+- area exponent $a$ ($A tilde t^a$; $a$ is always the area exponent and $alpha$ always the width exponent, with $a approx 2 alpha$);
+- boundary exponent $beta$ ($P tilde A^beta$).
+
+#N.probe.analysed rules were analysed; #N.probe.unanalysed of the #(N.census.blob + N.census.log) growing rules had no usable window set (a window contained no new cells) and were not fitted. All analysed rules are kept in the statistics below. #N.probe.bursty of them have a single-window area jump `max_jump` $>=$ #f(N.bursty_rule.flagged_min_jump, d: 2) (no unflagged rule exceeds #f(N.bursty_rule.unflagged_max_jump, d: 2)); they are flagged in the data but not removed, and are all blob-class rules with a median width exponent of 0.42. Dropping them instead would move the blob median from #f(N.alpha_w_blob.at(0), d: 4) by less than 0.0001.
+
+The unfitted rules are #pct(N.probe.unanalysed / (N.census.blob + N.census.log)) of growing rules, and they are not fast growers: rerun on a $32768^2$ grid, none left the grid, all reached $2^26$ steps, and their median area there is 1936 against 316162 for the fitted blob rules, so they are stalled or tethered (#link("supplementary/reproducibility-audit.pdf")[Audit 3]). If fast growers are missing from the census it is for another reason; the only candidates are the 10 grid-escapers among the builders (0.3% of the census).
+
+The census contains #N.repeats.n rules that are exact repeats of a shorter rule ($u^k$, which behave identically to $u$); we keep them, since removing them moves the blob median width exponent only from #f(N.repeats.blob_median_alpha_w_all, d: 4) to #f(N.repeats.blob_median_alpha_w_primitive, d: 4).
+
+== Splitting growth into edge entry, occupation and geometry <sec:decomposition>
+
+*Growth requires both reaching the edge and stepping beyond it.* The probability of entering fresh ground from an edge cell is $c$. The ratio $kappa$ measures the fraction of steps spent on edge cells divided by the edge's fraction of the territory at the window endpoint. Its uniform reference during growth is derived in @sec:uniform-reference. A walker can have a high entry probability but grow slowly if it rarely reaches the edge.
+
+Per window of $S$ steps (the window's step count; $d A slash d t$ below means $Delta A slash S$ over octave windows) let $B$ be the number of steps that start on a boundary cell and $Delta A$ the number that enter new ground. Boundary membership is evaluated at each step; $P$ and $A$ in the normalization are measured at the window endpoint. For $B>0$, define
+
+$ c = (Delta A) / B, quad kappa = (B slash S) / (P slash A), quad (d A) / (d t) = c dot kappa dot P / A. $ <eq:rate>
+
+The last equality is an _identity_ given these definitions. Measuring its agreement cannot validate a physical mechanism. In particular, $kappa$ is an observed occupation ratio, not a closure that predicts how the walker reaches its boundary. Its endpoint normalization also need not equal an average of instantaneous occupation ratios.
+
+Conditionally, if $A tilde t^a$ with $a>0$, $c$ and $kappa$ scale as $t^(gamma_c)$ and $t^(gamma_kappa)$, and $P tilde A^beta$, matching powers gives
+
+$ a = (1 + gamma_c + gamma_kappa) / (2 - beta), quad alpha approx a / 2. $ <eq:a>
+
+@eq:a is also algebra under these scaling assumptions, so agreement between the measured $a$ and @eq:a (median error #f(N.identity.median_abs_err_blob) over blob rules) checks the fits for consistency only. Fixed-ratio octave increments have the same time power as a derivative for a positive power law, but independently fitted slopes need not satisfy this relation exactly; logarithmic growth is outside this power-law derivation. The approximation $alpha approx a/2$ additionally requires area to scale as the square of the measured linear size.
+
+*The physical hypothesis is stationarity, not factorization.* If $gamma_c = gamma_kappa = 0$ and $beta = 1/2$, @eq:a gives $a = 2/3$. These conditions can fail, but measuring them on the same trajectory describes a growth regime rather than explaining why it occurs. Uniform occupation would supply the stronger closure $kappa=1$ for a fixed territory; approximate interior colour uniformity does not supply that closure. We do not derive either the stationary regime or its rule-specific occupation from the microscopic rule.
+
+Geometry contributes to the growth prefactor too. In a continuous stationary approximation, writing $P=G sqrt(A)$ gives $A(t) approx [A(t_0)^(3/2)+(3/2)c kappa G(t-t_0)]^(2/3)$. Thus a prefactor prediction needs independent values for $c$, $kappa$ and the geometric amplitude $G$, as well as their persistence. Same-window collapse using measured factors supplies none of these independently; finite octave budgets require the discrete expression in @sec:forecast.
+
+#figure(
+  image("fig/edge.pdf", width: 100%),
+  caption: [The quantities in @eq:rate on a real territory (`RLL`, $2^16$ steps). Grey: cells visited so far, area $A$. Black: the _edge_, visited cells with at least one never-visited neighbour, size $P$. Only a step taken from an edge cell can enter new ground; $c$ is the fraction of edge steps that do, and $kappa$ compares the share of time the ant spends on the edge with the share of the territory that is edge. The right panel zooms on the boxed stretch of coastline.],
+) <fig:edge>
+
+== Deterministic simulation and reproducibility records <sec:reproducibility>
+
+All simulation is deterministic and seeded: rules start from a blank board, so a rule has one trajectory; seeds enter in stochastic walkers and patched-start controls. The fast simulator is tested step for step against a reference implementation. Census summaries, prefix-prediction summaries and forecast errors are read from saved analysis outputs; some follow-up values are transcribed from their recorded summaries. Bootstrap intervals use fixed seeds. Exact producers, recipes and registration records are collected in the #link("supplementary/reproducibility-audit.pdf")[supplementary reproducibility audit].
+
+= Calibrating finite-window bias on the rotor walker <sec:calibration>
+
+An exponent fitted over seven octaves from $2^20$ to $2^26$ is not the asymptotic exponent. We therefore ran the identical pipeline on #N.calib_A.rotor.alpha_w.n rotor-walker seeds (random initial arrows, $2^27$ steps), whose width exponent is $1/3$ and area exponent $2/3$ @bourabee2026, and on 16 random walks as a negative control.
+
+#figure(
+  table(
+    columns: (auto, auto, auto, auto, auto),
+    align: (left, right, right, right, right),
+    stroke: (x: none), inset: 4pt,
+    [], [width exp. $alpha$], [$R_g$ exp. $alpha_g$], [area exp. $a$], [edge exp. $beta$],
+    [truth (rotor)], [1/3], [1/3], [2/3], [--],
+    [rotor, median], [#f(N.calib_A.rotor.alpha_w.median)], [#f(N.calib_A.rotor.alpha_rg.median)], [#f(N.calib_A.rotor.a.median)], [#f(N.calib_A.rotor.beta.median)],
+    [rotor, between-seed sd], [#f(N.calib_A.rotor.alpha_w.sd)], [#f(N.calib_A.rotor.alpha_rg.sd)], [#f(N.calib_A.rotor.a.sd)], [#f(N.calib_A.rotor.beta.sd)],
+    [ants (core), median], [#f(N.calib_A.ants_core.alpha_w.median)], [#f(N.calib_A.ants_core.alpha_rg.median)], [#f(N.calib_A.ants_core.a.median)], [#f(N.calib_A.ants_core.beta.median)],
+    [ants (core), between-rule sd], [#f(N.calib_A.ants_core.alpha_w.sd)], [#f(N.calib_A.ants_core.alpha_rg.sd)], [#f(N.calib_A.ants_core.a.sd)], [#f(N.calib_A.ants_core.beta.sd)],
+    [random walk, median], [#f(N.calib_A.random_walk.alpha_w.median)], [#f(N.calib_A.random_walk.alpha_rg.median)], [#f(N.calib_A.random_walk.a.median)], [#f(N.calib_A.random_walk.beta.median)],
+  ),
+  caption: [Same pipeline on three systems. The rotor has known exponents; the random walk is a negative control (area exponent near 1, boundary exponent near 1). The "ants (core)" rows are selected on $0.30 < alpha < 0.37$, which truncates their sd: it understates the between-rule spread and flatters the comparison with the rotor's sd. @fig:exp, over all blob rules, is the fair comparison.],
+) <tab:calib>
+
+Findings.
+
+- (i) The pipeline recovers the rotor: the radius-of-gyration exponent is #f(N.calib_A.rotor.alpha_rg.median) (sd #f(N.calib_A.rotor.alpha_rg.sd)) against the true 0.333, the width exponent is slightly low (#f(N.calib_A.rotor.alpha_w.median)) and noisier, and the area exponent overshoots by #f(N.calib_A.rotor.a.median - 2/3, d: 2). We therefore treat the finite-window bias of $a$ as $+0.02$ and prefer the $R_g$ estimator, which is the least noisy.
+- (ii) The random walk is clearly separated (area exponent #f(N.calib_A.random_walk.a.median, d: 2)).
+- (iii) The ants' $R_g$ exponent #f(N.calib_A.ants_core.alpha_rg.median) and area exponent #f(N.calib_A.ants_core.a.median, d: 2) sit within the rotor's bias and sd.
+- (iv) The boundary exponent of both is about #f(N.calib_A.rotor.beta.median, d: 3) (rotor) and #f(N.calib_A.ants_core.beta.median, d: 3) (ants), not 1/2; it is a finite-window effect shared with the rotor and not evidence of a rough edge.
+
+To check the pipeline further we reproduced the published rotor measurements of Kapri and Dhar @kapri2009 from #N.calib_B.seeds_long seeds (radius exponent local slopes #N.calib_B.nu_local.map(x => str(x)).join(", "), tending to $1/3$; boundary-width exponent local slopes falling from #N.calib_B.delta_local.first() to #N.calib_B.delta_local.last(), against their reported value $alpha slash 3 approx 0.13$).
+
+A reservation: for the rotor, the true limit exponent is known, but only by proof for the radius; our statements about its $beta$ and $c$ are measurements, not theorems.
+
+= Census evidence for cube-root growth <sec:census-results>
+
+#figure(
+  image("fig/growth_curves.pdf", width: 100%),
+  caption: [How the territory grows with the number of steps $t$ (log scales, so a power law is a straight line). Three ant rules (blue and purple) and the rotor walker (red) climb parallel to the dashed guide lines, slope $1/3$ for the width and $2/3$ for the visited area; doubling the width takes about eight times as many steps. The log-growing rule `RRLRLR`#sym.dots.h`LLL` (teal) falls away, and the random walk (grey), the negative control, grows much faster, with width $tilde t^(1/2)$.],
+) <fig:growth>
+
+#figure(
+  image("fig/timelapse.pdf", width: 100%),
+  caption: [One rule (`RLL`) at four times, each panel rescaled to the same size. Eight times as many steps buys a territory only twice as wide ($8^(1/3) = 2$), and the shape stays the same round blob: it looks self-similar, and the roundness statistics of @sec:ens (anisotropy 0.05--0.07) agree, but we did not test scaling beyond that.],
+) <fig:timelapse>
+
+#figure(
+  image("fig/exponents.pdf", width: 100%),
+  caption: [Fitted exponents of #N.probe.blob blob-class ant rules and #N.calib_A.rotor.alpha_w.n rotor seeds. Dashed line: $1/3$. The ants' distribution is wider than the rotor's: sd ratio #f(N.calib_A.sd_ratio_alpha_w, d: 1) (width), #f(N.calib_A.sd_ratio_alpha_rg, d: 1) ($R_g$).],
+) <fig:exp>
+
+== Growth exponents and calibration uncertainty
+
+Over the #N.probe.blob blob rules the median width exponent is #f(N.alpha_w_blob.at(0)) (rule bootstrap 95% interval #f(N.alpha_w_blob.at(1)) to #f(N.alpha_w_blob.at(2))), the $R_g$ exponent #f(N.alpha_rg_core.at(0)), and the area exponent #f(N.a_core.at(0)) in the core.
+
+The interquartile range of the width exponent is #iqr(N.iqr_alpha_w_blob). The bootstrap resamples _rules_; it does not include the finite-window bias, which @tab:calib puts at about $+0.02$ for $a$ and negative for $alpha$.
+
+Against the rotor in the same window the differences (ants minus rotor, medians over all blob rules) are #f(N.bias.alpha_w.ant_minus_rotor, d: 3) for the width exponent, #f(N.bias.alpha_rg.ant_minus_rotor, d: 3) for the $R_g$ exponent and #f(N.bias.a.ant_minus_rotor, d: 3) for the area exponent.
+
+Subtracting the rotor's own bias from the ants' medians gives #f(N.bias.alpha_w.ant_corrected, d: 3) (width), #f(N.bias.alpha_rg.ant_corrected, d: 3) ($R_g$) and #f(N.bias.a.ant_corrected, d: 3) (area), against $1/3$, $1/3$ and $2/3$. The corrections point in different directions, so the data are consistent with $1/3$ at roughly the $plus.minus 0.01$ level, not "equal to $1/3$ to three digits"; the correction assumes the ants share the rotor's finite-window bias, which we cannot check.
+
+== Variation with rule length and longer run times
+
+The median is flat in $n$: Spearman $rho$ between $alpha$ and $n$ is #f(N.spearman_alpha_n) over blob rules, and per-length medians for $n = 7 ... 12$ lie within about 0.01 of one another (table in #link("supplementary/reproducibility-audit.pdf")[Audit 6], `by_n`). The spread between rules does not shrink with $n$ in our sample, so we do not claim a rule-length trend or its absence at larger $n$.
+
+*Long runs.* Six typical rules were run to $2^32$ steps; their width exponents fitted from $2^17$ are between #f(N.cube.long_alpha.at(0)) and #f(N.cube.long_alpha.at(1)), and neither factor in the decomposition drifts (@fig:ck).
+
+== Seed variability and reproducible rule differences <par:noise>
+
+The between-rule scatter is mostly run-to-run: re-running #N.calib_C.rules rules from #N.calib_C.runs random $5 times 5$ starting patches gives within-rule sd #f(N.calib_C.alpha_w.sd_within) for $alpha$ and a between-rule true sd of only #f(N.calib_C.alpha_w.sd_between_true) (intraclass correlation #f(N.calib_C.alpha_w.icc, d: 2)).
+
+Genuine rule-to-rule differences in $alpha$ are small; for $R_g$ and $a$ they are detectable (ICC #f(N.calib_C.alpha_rg.icc, d: 2), #f(N.calib_C.a.icc, d: 2)). We cannot say whether they reflect different exponents or different rates of convergence.
+
+Where the rule-specific part of $a$ sits can be partly located (#link("supplementary/reproducibility-audit.pdf")[Audit 7], #link("supplementary/reproducibility-audit.pdf")[Audit 8]; the 99 random rules of the ICC above, window $k = 20$–$26$). The area is the product of the two box sides and a filling fraction, so $a = alpha_x + alpha_y + gamma_eta$ exactly, with $gamma_eta$ the log-slope of $A slash (W_x W_y)$. The rule-to-rule variance of $a$ is carried #pct(N.h1.share_ax) by $alpha_x$, #pct(N.h1.share_ay) by $alpha_y$ and #pct(N.h1.share_geta) by $gamma_eta$ (covariances of rule means, which include run noise); the two sides rise or fall together (correlation #f(N.h1.corr_axay, d: 1)), while $gamma_eta$ has ICC #f(N.h1.icc_geta, d: 2), like the sides taken singly (#f(N.h1.icc_ay, d: 2) and #f(N.h1.icc_ax, d: 2); $a$ itself #f(N.h1.icc_a, d: 2)). The territories consolidate slowly ($gamma_eta = +$#f(N.h1.mean_geta, d: 3), positive for #pct(N.h1.frac_geta_pos) of rules), but rules do not differ in $a$ mainly because they consolidate at different rates. We have not explained why the sides co-vary by rule.
+
+= Edge transport: predictions and mechanism tests <sec:factors>
+
+== Stationary factors and the rotor comparison
+
+Over all #N.probe.blob blob rules, the medians (and quartile ranges) of the factors are $c = #f(N.mf_blob.c.at(1), d: 2)$ #iqr(N.mf_blob.c), $kappa = #f(N.mf_blob.kappa.at(1), d: 2)$ #iqr(N.mf_blob.kappa) and $beta = #f(N.mf_blob.beta.at(1), d: 3)$ #iqr(N.mf_blob.beta, d: 3), with territory fill (area over bounding box) #f(N.mf_blob.fill.at(1), d: 2) #iqr(N.mf_blob.fill). Restricting to the #N.probe.core rules in the band $0.30 < alpha < 0.37$ (the "core", used in earlier drafts for comparison with the rotor) moves these medians by at most 0.01: $c$ #f(N.mf_core.c.at(1), d: 2), $kappa$ #f(N.mf_core.kappa.at(1), d: 2), $beta$ #f(N.mf_core.beta.at(1), d: 3).
+
+The drift exponents are small, but the 0.05 threshold is loose: through @eq:a a drift of 0.05 shifts $a$ by about 0.033 and $alpha$ by about 0.017, as much as the rule-to-rule differences we are trying to explain. These fractions therefore say that $c$ and $kappa$ drift by less than the effect size of interest, not that they are exactly constant, and only the six $2^32$ runs probe much smaller drifts. $|gamma_c| < 0.05$ for #pct(N.identity.frac_blob_gc_small) and $|gamma_kappa| < 0.05$ for #pct(N.identity.frac_blob_gk_small) of all #N.probe.blob blob rules (the fractions are computed on the whole class, because "core" is itself defined by a width exponent near 1/3 and would make small drifts nearly automatic).
+
+@fig:ck shows the long runs: both factors plateau from $2^17$ to $2^32$ for six rules. These observations characterize the measured cube-root regime; the predictions P1–P4 were written down before the analysis (#link("supplementary/reproducibility-audit.pdf")[Audit 9]) and specify its proposed stationary factors. P4 predicted $beta$ close to $1/2$, and the measured $beta$ is #f(N.mf_core.beta.at(1), d: 3) (core median), equal to the rotor's #f(N.calib_A.rotor.beta.median, d: 3) in the same window (@tab:calib). The original registration's P5 treated reconstruction of the exponent as a mechanism test; that criterion was not independent and is not used as evidence here. Calibration assesses estimator bias, not the validity of a transport closure.
+
+The headline medians are for the whole blob class; the core band is selected on the outcome and appears only as a sensitivity check.
+
+#figure(
+  image("fig/ck_time.pdf", width: 100%),
+  caption: [Edge-entry probability $c$ and edge-occupancy ratio $kappa$ against $log_2 t$ for six rules run to $2^32$. Both are flat after $2^20$; $kappa$ fluctuates by roughly ten percent from octave to octave.],
+) <fig:ck>
+
+For the rotor the same decomposition gives $c = #f(N.rotor_ck.c.at(0), d: 2)$ and $kappa = #f(N.rotor_ck.kappa.at(0), d: 1)$; a random walk gives $c = #f(N.rw_ck.c.at(0), d: 2)$. So $c$ alone does not discriminate (the random walk's $c$ is close to the ants'), and the ants' $kappa$ (about #f(N.mf_blob.kappa.at(1), d: 1)) is about half the rotor's.
+
+The cube root does not require the same $c$ and $kappa$ as the rotor; it requires that they be constant and that the edge scale as $A^(1/2)$. The typical ant's edge occupation is below the growth-adjusted uniform reference (@sec:uniform-reference); we have no explanation of its level.
+
+== Uniform occupation on a growing territory <sec:uniform-reference>
+
+The endpoint normalization in @eq:rate matters when interpreting occupation. For an instantaneously uniform walker, the expected boundary share is $P(t)/A(t)$. If $A tilde t^a$ and $P tilde A^beta$ throughout an octave, its measured reference is
+
+$ kappa_("unif")(a,beta) = 2 integral_(1/2)^1 x^(-a(1-beta)) d x. $ <eq:uniform-reference>
+
+At $a=2/3$, $beta=1/2$, this is $3(1-2^(-2/3)) approx 1.110$, rather than 1. A control that resamples uniformly from visited cells before each move gives $kappa=1.118 plus.minus 0.009$ over eight seeds, against 1.107 using its measured $a=0.677 plus.minus 0.005$ and $beta=0.520 plus.minus 0.007$ (between-seed sd; #link("supplementary/reproducibility-audit.pdf")[Audit 44]). This calibrates the reference, not the ants' transport mechanism. The continuous prefactor formula above uses instantaneous coefficients; a window-normalized $kappa$ cannot be substituted as an instantaneous value without this averaging correction.
+
+Across 2,185 stationary census blobs ($|gamma_kappa|<0.05$), $kappa/kappa_("unif")$ has median 0.814, interquartile range 0.664--0.957 and 5th--95th percentiles 0.443--1.332. About 20% are at least 1. The ratio uses each rule's own fitted $a,beta$ and its final measured occupation window, $k=26$, ending at $2^26$ steps; the exponent fits use $k=20 ... 26$. The #link("../../data-papers/rule-census/README.md")[supplementary census table] includes these per-rule references. This is a distribution of single blank-board runs, not replicated rule means.
+
+Matched-instrument walker controls (#link("supplementary/reproducibility-audit.pdf")[Audit 48]) give ratios 1.24--1.32 for random and persistent walks, and $1.799 plus.minus 0.033$ for the rotor over $k=20 ... 26$ (eight seeds per setting; between-seed sd). Memoryless walkers have $beta approx 0.9$, so their uniform reference is about 1.02--1.03, not the 1.16 obtained by assuming a smooth boundary. Their fits use earlier windows $k=12 ... 22$; the rotor ratio is $1.686 plus.minus 0.035$ over that earlier range. These comparisons establish a finite-window contrast, not a matched-growth or asymptotic separation: the memoryless ratios lie inside the upper part of the ant distribution, and walker seed means differ from single-run ant values.
+
+A further nine-level noisy-rotor scan (eight seeds per level) rejects monotone interpolation: the window-mean ratio rises to $2.59 plus.minus 0.09$ at noise 0.01 before falling to $1.26 plus.minus 0.03$ at noise 1. Small-noise rows drift, and escapes prevent the registered late-window comparison at most noise levels; the reported comparison uses $k=12 ... 22$, with two levels retaining seven of eight runs. The reference comparison does not explain the transient or the ant deficit. It does not apply to every memory model: the earlier reinforced-walk pilot has low, declining occupation in a different regime (@tab:memory).
+
+== Reproducible differences in edge occupation
+
+The relative time spent on the edge varies between rules more reproducibly than the width exponent does. We quantify that reproducibility with intraclass correlations, as in the #link(<par:noise>)[seed-variability subsection].
+
+*Occupation is more rule-specific than the width exponent.* Replicated starts show _moderately reproducible_ differences (#link("supplementary/reproducibility-audit.pdf")[Audit 10]; the within-rule sd is nearly as large as the between-rule sd): 99 random rules, each run from 12 random $5 times 5$ patches, have a between-rule sd of $kappa$ of 0.44 against a within-rule sd of 0.37 in the core band (ICC 0.58; 0.63 for $log kappa$; 58 further core rules give 0.50 and 0.63). The width exponent on this design (#link("supplementary/reproducibility-audit.pdf")[Audit 11]) has ICC 0.12 (0.065 in the #link(<par:noise>)[seed-variability subsection], a different set of rules and starts), so $kappa$ is much more rule-specific than the measured width exponent.
+== Longer prefixes predict occupation in fresh stationary rules <sec:prefix>
+
+*The first eight letters carry information that simple letter summaries miss.* The test transfers a prefix lookup from census rules to fresh, longer rules. Its predictive success is restricted to rules selected for a measured stationary regime; it is not a mechanism for $kappa$.
+
+A follow-up registered an eight-letter prefix lookup before sampling 300 primitive rules of lengths 13 and 14, excluding the earlier exploratory sample (W3c; #link("supplementary/reproducibility-audit.pdf")[Audit 12]). Each rule had eight patched starts, seeds 501–508, run to $2^27$ on an $8192^2$ board. Of 2400 runs, 414 escaped; 176 rules retained at least six core-band runs ($0.25 < alpha < 0.42$, $kappa > 0$), and #KP.n also met the stationary criterion $|"median" gamma_kappa| < 0.05$. Training used stationary census rules of length $<=12$ only; fresh rules and their outcomes were not added to the lookup.
+
+The lookup predicts mean $ln kappa$ from census rules sharing the first eight letters, falling back to shorter prefixes with at least three training rules, or to the training mean. Prefix alone gives strict held-out $R^2 = #f(KP.prefix_r2)$, where the reference prediction is the training mean.
+
+Adding the lookup to a regression on $ln A(2^22)$ raises $R^2$ from #f(KP.area_r2) to #f(KP.combined_r2): gain #f(KP.gain), rule-bootstrap 95% interval [#f(KP.ci.at(0)), #f(KP.ci.at(1))] (2000 resamples, seed 20261045). This passes the registered gain threshold of 0.15 with a positive lower bound. The six-letter gain, #f(KP.gain6), is below the same threshold, limiting transfer at that prefix length.
+
+The size-controlled model uses measured early area, so its score is not prediction from the rule string alone; the prefix-only score is, conditional on the measured regime filter.
+
+#figure(
+  image("fig/prefix_lookup.pdf", width: 100%),
+  caption: [Measured against predicted $ln kappa$ on the fresh rules (leave-one-out prefix lookup, linear $ln A(2^22)$ term; scores recomputed from the audit-12 prediction file, not refitted). (a) Stationary cohort, area term only. (b) Stationary cohort, area plus eight-letter prefix lookup. (c) All retained rules, the same model: the gain largely disappears when the stationarity restriction is removed, so the lookup is a conditional predictor (dashed line: identity). Training-set and cohort definitions are in the text.],
+) <fig:prefix>
+
+@fig:prefix shows the cohort restriction directly: the improvement from (a) to (b) is visible as a tighter band about the identity, and (c) shows it largely absent for all retained rules.
+
+The predictive gain is specific to the stationary cohort. An exploratory crossed comparison (#link("supplementary/reproducibility-audit.pdf")[Audit 12], not registered) gives a prefix-8 gain of #f(KP.cross.all_stationary) when training on all retained census rules and testing on the same stationary fresh rules, against #f(KP.cross.stationary_stationary) with stationary training. Training and testing on all retained rules gives #f(KP.cross.all_all) (interval includes zero). Stationary training with all retained test rules gives #f(KP.cross.stationary_all), with an interval including zero. The prefix lookup is therefore a *conditional transport predictor*: among rules meeting the finite-window stationarity criterion ($|gamma_kappa| < 0.05$), the leading letter sequence carries predictive information about $kappa$ ($R^2 = #f(KP.prefix_r2)$). It does not predict whether a rule will be stationary; that requires simulation. This score measures prediction error relative to the training-mean baseline in the selected cohort; it does not identify a causal fraction of occupation variance attributable to the early instructions.
+
+The current conclusion is that a prefix lookup carries predictive information about finite-window $kappa$ in the stationary cohort, including information beyond this particular area regression. It is not a derivation of $kappa$, a demonstration of a size-independent effect, or an unrestricted predictor for the census. Core-band and stationarity filters use measured dynamics, the bootstrap holds the training set fixed, and prefix families intentionally overlap between training and test. This tests transfer within prefix families to longer rules, not prediction of unseen families.
+
+=== Conditioning on area can induce an opening-run association
+
+Later decoding identified the opening same-letter run as a compact predictor of area-residualised occupation. This association requires a further control: early area depends on both edge entry $c$ and occupation $kappa$, while the opening run strongly predicts $c$ (@sec:c-law). Conditioning on their shared outcome can induce an opening-run association with $kappa$ even without a direct effect. Such a shared outcome is often called a collider.
+
+A registered check on #RF.conditioning.at("4a").n fresh stationary rules (#link("supplementary/reproducibility-audit.pdf")[Audit 46]) finds a conditional coefficient of #f(RF.conditioning.at("4a").obs_lead) per added opening turn in $ln kappa$ given $ln A(2^22)$. A permutation model with no direct lead effect reproduces it: mean #f(RF.conditioning.at("4a").null_lead_mean), central 95% interval [#f(RF.conditioning.at("4a").null_lead_ci.at(0)), #f(RF.conditioning.at("4a").null_lead_ci.at(1))]. Adding $ln c$ leaves coefficient #f(RF.conditioning.at("4a").with_c.lead), rule-bootstrap 95% interval [#f(RF.conditioning.at("4a").with_c.ci.at(0)), #f(RF.conditioning.at("4a").with_c.ci.at(1))]. The no-direct-effect model fits $ln A(2^22)$ using $ln c$, $ln kappa$ and a retained residual; it is a diagnostic construction, not an independently established causal graph.
+
+Lead-preserving early-letter flips give mean change in $ln kappa$ of #f(RF.conditioning.at("4c").mean_d), interval [#f(RF.conditioning.at("4c").ci.at(0)), #f(RF.conditioning.at("4c").ci.at(1))], over #RF.conditioning.at("4c").n_pairs retained pairs (bootstrap clustered by base rule; retention #pct(RF.conditioning.at("4c").retention)). The earlier shortening mutation still has a total occupation change of about $-0.198$; this is not explained away by area conditioning. A post-hoc split by flip direction is confounded with the mutation arms. No direct opening-run effect on $kappa$ is established, and neither is its absence: the interval is from one selected cohort and one occupation window. All resampling here uses seed 20261019 and 2,000 draws.
+
+The tested same-turn square-loop explanation also fails its registered prevalence and mediation criteria (#link("supplementary/reproducibility-audit.pdf")[Audit 47]); its decisive interior-loop adjustment retains about 96% of the area-conditioned lead coefficient. This excludes the tested loop summary, not loops of other shapes or earlier transients. Gated loop surgery was closed unrun. A separate growth-clock audit retained only 7 of the required 12 complete families, so it fitted no primary effects. These outcomes do not strengthen the prefix score into a causal result. Direction-balanced interventions, a second cohort and prospective regime selection remain needed.
+
+== Early transport budgets forecast later growth <sec:forecast>
+
+A same-window identity cannot test persistence. We therefore specified a forecast on existing replicated runs before computing its errors (#link("supplementary/reproducibility-audit.pdf")[Audit 17]). Write $g=P/sqrt(A)$; formally @eq:rate gives $(d (A^(3/2)))/(d t)=(3/2)c kappa g$. For an octave ending at $t$, with duration $S=t/2$, the exact discrete budget is
+
+$ Q = (A^(3/2) - (A-Delta A)^(3/2)) / S. $ <eq:budget>
+
+The endpoint product $(3/2)c kappa g=(3/2)(Delta A/S)sqrt(A)$ is a right-end approximation, typically #f(TF.ants.rule_medians.endpoint_over_exact, d: 3) times the exact budget in this cohort. We forecast with @eq:budget. Each trajectory's mean budget over windows ending at $2^20$, $2^21$ and $2^22$ predicts its increments in $A^(3/2)$ over the next four octaves, ending at $2^23$–$2^26$, without updating from those outcomes.
+
+A competing model extrapolates a log–log drift fitted to the same three early budgets. The rule-independent baseline is the median early rule-mean budget after excluding the target rule and all its seeds.
+
+There are #TF.ants.runs complete trajectories across #TF.ants.rules rules, with approximately 12 patched starts per rule; #TF.ants.excluded.len() trajectories are excluded by the completeness, nonescape or positive-growth criteria. We apply no outcome exponent filter. For each trajectory, error is the median absolute relative increment error over four forecast windows; the summary is the median of equal-weight rule means.
+
+*Early budgets improve the typical forecast.* Constant budgets give #f(100 * TF.ants.rule_medians.constant, d: 1)% error against #f(100 * TF.ants.rule_medians.baseline, d: 1)% for the baseline and #f(100 * TF.ants.rule_medians.drift, d: 1)% for the drift fit. The reduction is #f(100 * TF.ants.reduction, d: 1)% (rule-bootstrap 95% interval #f(100 * TF.ants.reduction_ci.at(0), d: 1)–#f(100 * TF.ants.reduction_ci.at(1), d: 1)%; 2000 resamples, seed 20261013), passing the stated 30% prediction. Integrating all four forecast increments from the observed area at $2^22$ gives final-area error #f(100 * TF.ants.rule_medians.constant_final, d: 1)% against #f(100 * TF.ants.rule_medians.baseline_final, d: 1)% for the baseline.
+
+Calibration separates persistence from a universal forecasting advantage. The same estimator on #TF.rotor.runs rotor seeds, with matched windows, gives #f(100 * TF.rotor.rule_medians.constant, d: 1)% error against #f(100 * TF.rotor.rule_medians.baseline, d: 1)% for the other-seed baseline.
+
+On #TF.random_walk.runs random-walk seeds (training $k=17$–$19$, forecast $k=20$–$23$), errors are #f(100 * TF.random_walk.rule_medians.constant, d: 1)% and #f(100 * TF.random_walk.rule_medians.baseline, d: 1)%; drift extrapolation still misses by #f(100 * TF.random_walk.rule_medians.drift, d: 1)%. Synthetic $A=C t^(2/3)$ and $A=C t$ recover their known constant and square-root budgets respectively.
+
+Near-stalls bound the forecast's reliability despite its typical accuracy. RMS within-rule seed sd of relative increment errors is #f(TF.ants.rms_seed_sd.constant, d: 2) for constant budgets, #f(TF.ants.rms_seed_sd.drift, d: 2) for drift and #f(TF.ants.rms_seed_sd.baseline, d: 2) for the baseline; these are ratios, not percentages. One retained trajectory (`RLLRRRLLRLRR@108`) has constant-budget error about 6506 times the observed increment. Near-stalls make relative errors enormous, so the robust improvement does not imply uniformly reliable predictions. Escaped or incomplete trajectories are excluded, and this test cannot forecast their breakouts.
+
+An exploratory check, specified after the primary result, uses the median early budget of the other seeds of the same rule and gives #f(100 * TF.ants.rule_medians.other_seeds, d: 1)% error, slightly better than each trajectory's own early budget. This supports persistent rule-level growth budgets in the measured windows; it neither identifies the spatial-memory mechanism nor proves asymptotic scaling. Exact recipes, input hashes and all trajectory errors are recorded in the appendix (#link("supplementary/reproducibility-audit.pdf")[Audit 18]).
+
+*This forecast tests persistence of growth, not the separate transport factors.* @eq:budget uses only area endpoints. Its success therefore cannot show that measuring $c$ and $kappa$ adds predictive information beyond early area history, or validate their physical interpretation. An independent factor model would have to predict boundary access on held-out trajectories without using their measured boundary occupation or future growth, then improve growth forecasts against an area-history baseline. No such mechanistic closure is established here.
+
+== Mechanism tests: local transport, board memory and boundary trapping <sec:mechanisms>
+
+The tests bound what can set boundary occupation by separating three proposed sources: local transport statistics, stochastic spatial memory, and near-boundary geometry. @tab:exclusion collects the resulting constraints. Local summaries leave substantial rule dependence unresolved; the tested forms of stochastic memory do not reproduce growth and occupation together; and similar edge dwell times coexist with widely differing occupation. These constraints apply to the specified models and finite windows. They do not exhaust all stochastic models or establish that deterministic arrow updates are mathematically necessary. A successful mechanism must explain the joint growth and occupation regime, as well as its rule dependence.
+
+#figure(
+  table(columns: (1.05fr, 1.15fr, 1.25fr, 1.4fr, 1.35fr), inset: 5pt,
+    table.header([Candidate class], [Hypothesis], [Operational test], [Finding], [Constraint]),
+    [1. Local / Markovian], [Local turn bias or short strings determine $kappa$.], [Held-out linear/ridge fits; edge-colour predictors.], [$R^2=0.003$ for simple strings; edge predictors $R^2=-0.05$.], [These local summaries do not predict occupation; longer prefixes can.],
+    [1. Memoryless transport], [Independent persistent turns reproduce the ant regime.], [Matched probe; five turn rates, six seeds each.], [$a=0.94$–$0.96$; $kappa=1.3$–$1.45$.], [Rejects this independent-turn closure of board dynamics.],
+    [2. Stochastic board memory], [Site cookies or edge reinforcement suffice.], [Eight seeds per setting; growth and occupation measured together.], [Directional cookies escape; random cookies are diffusive; reinforcement has falling $kappa$.], [Memory alone is insufficient in these settings.],
+    [2. Arrow randomisation], [Noise smoothly interpolates rotor occupation to a memoryless limit.], [Six noise levels, eight seeds each; 38 fitted runs.], [$a$ rises; $kappa$ first rises to 3.6–6.7 while $c$ stays 0.498.], [Phase disruption changes transport without changing edge-entry bias.],
+    [3. Boundary trapping], [Edge dwell or crust depth determines $kappa$.], [Layer profiles on 24 rules; 26 matched pairs.], [Similar dwell with widely varying $kappa$; depth ordering 13/26.], [Local trapping summaries do not determine occupation.],
+    [3. Excursion geometry], [Return angles and scaled displacement explain $kappa$.], [Size controls; held-out forecasts; disjoint-seed matching.], [Simple associations are size-confounded; a cutoff association remains.], [No established geometric mechanism; cutoff dynamics remain open.],
+    [3. Excursion duration budget], [A tail of long interior returns sets the boundary share $B slash S$ beyond boundary residence and geometry.], [Registered 44-rule, 1408-trajectory test; rule-held-out PRESS gain, three area bands.], [T1 fails (band 0 gain #f(TB.t1_band0.gain, d: 2), lower bound #f(TB.t1_band0.lo95, d: 2)); T2 passes (#f(TB.t2.identity.median_rel_err, d: 2)) but persistence is better (#f(TB.t2.persistence.median_rel_err, d: 2)).], [Not supported at these scales; selected cohort only.],
+  ),
+  caption: [Exclusion matrix for candidate mechanisms. Findings constrain the tested closures rather than entire mathematical classes. Designs, windows, uncertainty and qualifications are given below and in the linked audits.],
+) <tab:exclusion>
+
+=== Local features and independent turns leave occupation unexplained
+
+*Simple letter features.* (#link("supplementary/reproducibility-audit.pdf")[Audit 10]): a linear regression on string features (turn probability $q$, $n$, run count, letters 1--6), fitted on a random half of the #N.probe.blob non-bursty blob rules and scored on the other half, has held-out $R^2$ = 0.003 for $kappa$ and 0.002 for its drift $gamma_kappa$, against 0.78 for $c$ with the same features and split (a different, simpler model than the chirality model in @sec:mixing, which reaches #f(N.followup.c_model.r2, d: 2) on a larger held-out set); Spearman($kappa$, $q$) = 0.08. On 192 rules with at least six core-band runs, leave-one-rule-out $R^2$ for the rule-mean $log kappa$ is $-0.06$ to $-0.04$ for ridge on letter-by-position, about 0 for ridge on 2- and 3-letter substring counts, and 0.04 for a prefix-5 neighbour mean. These scores constrain the tested low-order summaries, while leaving nonlinear information in longer prefixes available.
+*Edge-colour statistics.* (#link("supplementary/reproducibility-audit.pdf")[Audit 10]): on 40 random core rules the edge-weighted turn probability correlates with $c$ at Spearman $-0.84$ (a positive control that the instrument can see rule dependence) but with $kappa$ at only $-0.27$, and leave-one-out $R^2$ of $kappa$ on it and the edge-colour distance from uniform is $-0.05$.
+
+*Independent-turn control.* The transport closure is tested directly by a memoryless walker that turns right with probability $Q$ and left otherwise, independent of the board, driven through the same probe (#link("supplementary/reproducibility-audit.pdf")[Audit 10]; $Q in {0.25, 0.4, 0.5, 0.6, 0.75}$, six seeds each, $2^26$ steps on a $32768^2$ board; predictions written beforehand in #link("supplementary/reproducibility-audit.pdf")[Audit 19], A1d). Its $kappa$ is roughly constant at 1.3 to 1.45 (within $plus.minus 5%$ across $Q$ from 0.25 to 0.6), but its area exponent is 0.94 to 0.96, not $2/3$.
+
+So independent persistent turns reproduce roughly uniform occupancy but neither the cube root nor the ants' $kappa$ (about 0.9) nor the rotor's (about 2.0). This rejects the independent-turn mechanism; it motivates testing board memory without establishing that memory alone is sufficient, or excluding every memoryless mechanism.
+
+=== Tested stochastic memories do not reproduce the joint ant regime
+
+Spatial memory is a candidate ingredient, but its presence alone need not preserve the ant regime. A once-excited walk follows a directional cookie on its first departure and moves uniformly on revisits @benjamini2003; random-arrow cookies remove the ensemble drift. A linearly edge-reinforced walk chooses neighbours with weights initially 1 and incremented by $I$ per crossing @merkl2006. These isolate one-use site memory and persistent edge memory.
+
+#figure(
+  image("fig/memory_paths.pdf", width: 100%),
+  caption: [Nine walkers after the same 65,536 steps. $B$ labels the once-excited (cookie) walks and $I$ the linearly edge-reinforced walks described in the text above. Stochastic walkers use the preselected seed 301; the ant starts blank. Colour records position samples per site (including the origin); orange traces the final 1,024 steps and + marks the origin. Panels have equal x/y scaling except the directional-cookie panels, whose y-axis is expanded to show transverse motion. Spatial scales differ: read the cell coordinates. Directional cookies spread east, random cookies resemble the random walk, and strong reinforcement repeatedly uses a small territory. These single trajectories illustrate behaviour, not the ensemble exponents. $B$ is the first-departure probability of following the cookie instead of choosing a uniform neighbour; $I$ is the edge-weight increment.],
+) <fig:memory-paths>
+
+The registered pilot used eight seeds (301–308) per setting, up to $2^20$ steps on an $8192^2$ board. @tab:memory reports per-seed fits over $k=14$–$18$ and $kappa$ at $2^18$; uncertainties are between-seed sd. All 16 directional-cookie runs escaped before completing that window, so we report no fitted exponent for them. Random-arrow cookies stayed close to the random-walk control. Weak edge reinforcement had a mean area exponent near $2/3$, but its large scatter and falling $kappa$ do not establish the ant regime. Strong reinforcement greatly reduced exploration.
+
+#figure(
+  table(columns: (2.5fr, 1fr, 1fr), align: (left, center, center),
+    table.header([Walker], [Area slope $a$], [$kappa$ at $2^18$]),
+    [Random walk], [0.924 ± 0.043], [1.350 ± 0.082],
+    [Rotor], [0.740 ± 0.027], [1.845 ± 0.118],
+    [Random cookie, $B=0.25$], [0.942 ± 0.047], [1.327 ± 0.075],
+    [Random cookie, $B=0.75$], [0.920 ± 0.044], [1.293 ± 0.094],
+    [Edge reinforcement, $I=1$], [0.698 ± 0.303], [0.312 ± 0.132],
+    [Edge reinforcement, $I=4$], [0.187 ± 0.092], [0.328 ± 0.447],
+  ),
+  caption: [Stochastic memory pilot, eight complete seeds per row. The early rotor area slope overshoots $2/3$ by 0.074, so this window cannot identify an asymptotic exponent. In the later $k=16$–$20$ window, the rotor gives 0.715 ± 0.019, weak edge reinforcement 0.701 ± 0.277, and strong reinforcement 0.216 ± 0.096. Weak reinforcement's mean $kappa$ falls to 0.155 ± 0.084 at $2^20$.],
+) <tab:memory>
+
+#figure(
+  image("fig/walker_map.pdf", width: 100%),
+  caption: [Walker map in the $(a, kappa)$ plane. Small blue points: blob-class census rules; the log-growth class (425 rules) lies mostly below and to the left of this view, and 451 of the 3055 fitted rules fall outside it; fits over $k = 20$–$26$. Large markers: means of the eight-seed memory pilot (small markers: single seeds; fits over $k = 16$–$20$, $kappa$ at $2^20$; directional cookies escaped and are absent; strong edge reinforcement, $a approx 0.22$, lies off the left edge). Red line: the rotor with arrow noise $epsilon = 0$ to $0.1$ (median over seeds, $k = 20$–$26$; $epsilon = 0.1$ has one fitted seed): $kappa$ rises to 6.7 as $a$ climbs to 0.91 and then falls. Dashed lines: $a = 2 slash 3$ and $kappa = 1$. No tested memory or noise variant lands in the ant cluster near $(2 slash 3, 0.9)$. Windows differ between sources, so positions are comparable to about 0.05 in $a$, not exactly.],
+) <fig:walker-map>
+
+#figure(
+  image("fig/memory_growth.pdf", width: 100%),
+  caption: [Growth and boundary occupancy across the same pilot. Thin lines are individual seeds; thick lines show the geometric mean area and arithmetic mean $kappa$. All solid curves have eight seeds. Dashed directional-cookie curves end when runs escape; terminal labels give the number still contributing, and later points describe survivors only. The grey guides show area proportional to $t^(2/3)$ and $kappa=1$. Persistent memory can suppress exploration without producing stable ant-like boundary occupancy.],
+) <fig:memory-growth>
+
+These controls separate suppression of exploration from stationary boundary occupation. Random cookies at $B=0.75$ remain near diffusive area growth, above the registered $a=0.60$–$0.75$ band. Weak reinforcement enters that area band but gives $kappa$ below the registered 0.5–3 band and declining with time. Thus neither the presence of spatial memory nor an area slope near $2/3$ suffices to reproduce the joint ant regime in these settings. Directional-cookie escapes further bound the one-use directional-memory comparison. The pilot windows, seed variability and early rotor bias in @tab:memory prevent an asymptotic exclusion. Recipes and per-seed fits are in #link("supplementary/reproducibility-audit.pdf")[Audit 20] and #link("supplementary/reproducibility-audit.pdf")[Audit 21].
+
+Randomising rotor arrows tests the preservation of deterministic phase more directly (#link("supplementary/reproducibility-audit.pdf")[Audit 25]; $epsilon=0$–$0.1$, eight seeds per setting, 38 of 48 runs fitted over $k=20 ... 26$). The noiseless rotor gives $a=0.69$, $kappa=2.0$; at $epsilon=0.001$, $a=0.76$, and at 0.03 it reaches 0.94. Boundary occupation responds non-monotonically: $kappa$ rises to 3.6, 5.8 and 6.7 at $epsilon=0.001, 0.003, 0.01$, with positive temporal drift, before falling at larger noise.
+
+These crossover values exclude the registered smooth interpolation towards the memoryless value 1.4 over the measured windows. Meanwhile $c$ remains 0.498. The intervention therefore separates occupation from local edge-entry bias: arrow randomisation strongly changes the former while preserving the latter. This supports phase-preserving updates as a structural ingredient in the rotor comparison, without establishing their necessity for every ant-like process.
+
+=== Shallow trapping does not account for occupation differences
+
+Layer profiles bound explanations based on shallow trapping (#link("supplementary/reproducibility-audit.pdf")[Audit 22]; prior predictions in #link("supplementary/reproducibility-audit.pdf")[Audit 23]). Layer $d$ is Manhattan distance to never-visited ground minus one; $rho(d)$ is visits per cell relative to the territory mean, with $rho(0)=kappa$. In 24 selected blank-board ant rules (12 extreme and 12 near $kappa=0.9$; #link("supplementary/reproducibility-audit.pdf")[Audit 24]), 15 have depleted layers 2–4 ($rho=0.01$–$0.6$). In 13 of those, $c=0.61$–$0.66$ and edge-phase dwell is 1.5–1.6 visits per cell, despite a crust-class $kappa$ range of 0.13–18. Boundary occupation thus varies widely among rules with similar local edge kinetics.
+
+The other nine have deeper occupation within 30% of uniform and $kappa=0.82$–$0.96$, a range narrowed by selection.
+
+#figure(
+  image("fig/layers.pdf", width: 60%),
+  caption: [Layer profiles $rho(d)$ for the 24 selected blank-board ant rules (15 with a crust, 9 without; thin lines), the rotor (mean of 12 seeds) and a persistent walk (mean of 5 runs), windows $k >= 22$, recomputed from the committed layer counts. Layer 0 is the edge, so $rho(0) = kappa$; the right-hand point pools all depths $>= 5$. Crust rules are depleted at depths 2–4 and span $kappa$ from 0.13 to 18 (the text above; the plotted values are window means); the non-crust rules, the rotor and the persistent walk stay close to 1 beyond the edge layer. The crust label comes from the exploratory split described in the text.],
+) <fig:layers>
+
+The class split is exploratory. Depletion extends beyond layers 0–1, and dwell–occupation correlations are negative (Spearman $rho=-0.26$ in the extreme cohort, $-0.59$ in the typical cohort), constraining both the registered first-two-layer explanation and the proposed positive dwell association.
+
+The matched comparison further limits crust depth as an ordering variable (#link("supplementary/reproducibility-audit.pdf")[Audit 25]): among 26 pairs matched on length, R count and edge-entry probability within 0.02, with rule-mean $kappa$ differing by at least 0.5, the lower-$kappa$ rule has the deeper crust in only 13 pairs, below the registered 18. Blank-board occupation preserves 25 of the 26 patched-start pair orderings. The reproducible occupation differences therefore require information beyond these local dwell and shallow-depletion summaries. Interior return dynamics are a candidate source of that information; the local tests alone do not establish their role.
+
+=== Interior-return associations and their size confounds
+
+Excursion tomography bounds which measured return summaries can account for $kappa$ beyond territory size (#link("supplementary/reproducibility-audit.pdf")[Audit 13]; analysis and provenance in #link("supplementary/reproducibility-audit.pdf")[Audit 14]). Apparent associations involving return displacement divided by territory radius and return angle were largely attributable to territory size. Early excursion features supplied no held-out predictive gain for later $log kappa$ beyond an area baseline, limiting these summaries as independent transport predictors. Extreme completed-excursion duration relative to territory radius remains associated with $kappa$, but the ratio retains a size confound, its binned quantile has coarse resolution, and window-crossing excursions are censored. The rotor control was outside its registered tolerance and final-window random-walk controls were unavailable, limiting the strength of the exclusion. These measurements narrow the candidate explanations without establishing a mechanism; matched-area comparisons or interventions are needed.
+
+A subsequent registered analysis assigned area matching, $kappa$ and the excursion cutoff to three disjoint seed groups, rotating their roles (#link("supplementary/reproducibility-audit.pdf")[Audit 15]). Across 44 previously selected rules, the rule-bootstrap intervals for pairwise concordance excluded chance at both measured windows. This weakens shared-trajectory area selection as a sufficient explanation.
+
+A registered tail-budget test then asked whether the mean duration of interior returns predicts the boundary share beyond boundary residence and edge geometry (#link("supplementary/reproducibility-audit.pdf")[Audit 43]; #TB.n_rules selected rules, 32 fresh starts each, three area bands). With the empirical binned mean duration as the estimator, the leave-one-rule-out gain was #f(TB.t1_band0.gain, d: 2) at the smallest band but its rule-bootstrap lower bound was #f(TB.t1_band0.lo95, d: 2), so the registered criterion failed; at the second band the gain was #f(TB.t1_band1.gain, d: 2) with lower bound #f(TB.t1_band1.lo95, d: 2). Extrapolating to the largest band met the registered error threshold (median relative error #f(TB.t2.identity.median_rel_err, d: 2) against 0.20), but a model-free log-linear extrapolation of the outcome seeds did better (#f(TB.t2.persistence.median_rel_err, d: 2)) and a 99.9th-percentile summary did worse (#f(TB.t2.q999.median_rel_err, d: 2)). The pass therefore does not support the tail. A Shapley decomposition of the model change between bands attributes #pct(TB.decomp_tail_share) of the change to the tail terms, but this follows largely from the identity (the mean duration far exceeds boundary residence) and is a model counterfactual, not causal evidence. The analysis scripts were written after the run with their choices fixed beforehand, the prediction without a perimeter-to-area rescaling is our choice, and the survival-family fit was not frozen. This is one selected cohort and no census-wide claim follows.
+
+It is an association on existing simulations, not fresh-rule prediction: matching noisy area still leaves size uncertainty, escapes are excluded, and the two windows reuse trajectories. The earlier matched-area comparison did not meet its registered noise-floor gate (#link("supplementary/reproducibility-audit.pdf")[Audit 16]), so it remains insufficiently resolved for the deferred transplant. The later concordance neither changes that gate outcome nor establishes a causal cutoff mechanism.
+
+Together these constraints require an explanation beyond the tested local reflection, generic-memory and shallow-trapping closures. They focus attention on the evolving board state and interior returns, while leaving both the longer-prefix prediction and the residual cutoff association to be explained.
+
+
+== Growth outliers accompany drifting edge occupation
+
+*Slower and faster growth track how often the ant reaches the edge.* The entry probability is comparatively stable; the relative time spent at the boundary changes.
+
+#N.probe.log rules grow logarithmically ($alpha$ median #f(N.cube.log.alpha.at(1))), with $kappa$ median #f(N.cube.log.kappa.at(1), d: 4) and $gamma_kappa = #f(N.cube.log.g_k.at(1), d: 2)$: the ant rarely visits the edge and the occupancy of the edge decays, consistent with an ant confined near its origin.
+
+#N.probe.fast blob rules have $alpha > 0.37$ with $gamma_kappa$ median #f(N.cube.fast.g_k.at(1), d: 2) (edge occupation rises). Across blob rules the correlation of $alpha$ with $gamma_kappa$ is #f(N.identity.corr_alpha_gk, d: 2), with $gamma_c$ #f(N.identity.corr_alpha_gc, d: 2) and with $beta$ #f(N.identity.corr_alpha_beta, d: 2) (@fig:dev).
+
+These deviations locate the limit of the stationary-factor description: the outlying growth exponents accompany drifting edge occupation, the departure specified in advance ("$kappa$ drifting strongly with $t$"). Through @eq:a this identifies which measured factor carries the deviation; the physical origin of its drift remains open.
+
+#figure(
+  image("fig/deviations.pdf", width: 100%),
+  caption: [Left: width exponent against the drift exponent of $kappa$; shared observables enter both axes. Right: area exponent against its reconstruction from @eq:a; the agreement is by construction up to fit error (see text). Neither panel tests a mechanism.],
+) <fig:dev>
+
+= Predicting edge entry and testing interior mixing <sec:mixing>
+
+== Rule letters predict edge-entry probability
+
+=== The opening same-letter run predicts edge-entry cost <sec:c-law>
+
+Let $m$ be the length of the opening run of equal letters (1 for `RLL`, 2 for `RRLL`). On #RF.c_law.n_census stationary census blobs, the empirical fit is
+
+$ 1/c approx #f(RF.c_law.C1.a) + #f(RF.c_law.C1.b) min(m,8). $ <eq:c-lead>
+
+This is a fitted law, not a microscopic derivation. With the census coefficients frozen, it predicts $c$ on #RF.c_law.n_fresh fresh stationary primitive rules of lengths 13--14 with $R^2=#f(RF.c_law.C1.r2)$ and median absolute relative error #pct(RF.c_law.C1.median_rel_err). The fresh refit has slope #f(RF.c_law.C2.fresh_b), rule-bootstrap 95% interval [#f(RF.c_law.C2.ci_b.at(0)), #f(RF.c_law.C2.ci_b.at(1))] (2,000 resamples, seed 20261019; #link("supplementary/reproducibility-audit.pdf")[Audit 45]). The fresh sample has eight patched starts per rule, seeds 601--608, with core-band and stationarity selection. On a separate blank-board tracer validation, #RF.edge.V.n of 600 candidates of lengths 11--16 survive a frozen growth filter; $R^2=#f(RF.edge.V.lead.r2)$ and median relative error #pct(RF.edge.V.lead.median_rel). This misses the registered $R^2 >= 0.80$ threshold. The cohorts differ in background, window and selection; both scores bound transfer of the law.
+
+The tracer validation measures the last octave through $2^24$ steps on a $4096^2$ board, retaining unescaped runs with at least 200 births and area ratio 1.3--1.9 across that octave. Its instrument agrees with the census to median relative error 0.0026 on 207 stationary sample rules; rotor and random-walk calibration pass, with the latter requiring a shorter run because of board escapes (#link("supplementary/reproducibility-audit.pdf")[Audit 46]).
+
+A flat-band test preserves the relation under substantial changes to the initial interior. For #RF.edge.S.n selected rules, fresh rows occupy half a $256 times 1024$ torus beside previsited uniform-colour ground: the fitted slope is #f(RF.edge.S.band_slope), intercept #f(RF.edge.S.band_intercept), and squared correlation of $c$ with the blank-board census is #f(RF.edge.S.corr2). Replacing the interior with all-zero, young-only or old-only colours gives median absolute relative changes #f(100 * RF.interior.Z.median_rel, d: 1)%, #f(100 * RF.interior.Y.median_rel, d: 1)% and #f(100 * RF.interior.H.median_rel, d: 1)% (respectively #RF.interior.Z.n, #RF.interior.Y.n and #RF.interior.H.n retained rules). The initially registered $2^30$-step band run exhausted the fresh rows before measurement. The replacement selects the first tested endpoint with at least half the band consumed, rejects over 90% consumption or fewer than 5,000 births, and was frozen before comparing $c$. These are tests of robustness to initial interior colours within a selected finite-time regime, not proof that the evolved bulk is irrelevant.
+
+Among circulating-colour boundary reads with a prior read, #f(100 * RF.edge.L1.frac_lag4, d: 1)% return after exactly four steps (#RF.edge.L1.n_rules rules with $m>=3$, about 1.90 million reads). This supports a local recirculation contribution. The proposed flat read-cost plateau and high birth probability at the first opposite turn fail, however. Three- and five-parameter return kernels give broader-validation $R^2=#f(RF.edge.V.K3.r2)$ and #f(RF.edge.V.K4.r2); the latter misses its registered 0.90 target. Sparse-background tests also reduce the lead slope as fresh cells become less common, but high-density escapes void the originally registered full-density comparison. The evidence narrows the explanation towards fresh-ground dynamics while leaving the constants and residual letter dependence unresolved.
+
+=== Chirality and letter-group baselines
+
+*Young edge colours encounter fresh ground more often on the left.* For edge steps on colours 1 to 3, the share with fresh ground on the left exceeds that on the right in #N.followup.chiral.left_more of #N.followup.chiral.rules calibration rules (medians #f(N.followup.chiral.left_med, d: 2) against #f(N.followup.chiral.right_med, d: 2)). This handedness, or chirality, means that a rule turning L on a young colour enters new ground more often.
+
+Across rules $c$ ranges from about 0.1 to 0.67. A chirality model uses the rule letters and this measured asymmetry to predict $c$. It is retained as a historical baseline alongside the opening-run law. The 0.78 quoted in @sec:factors comes from a plain linear regression on string features, with different features, sample and split; these $R^2$ values are not directly comparable.
+
+Constants (the share of edge steps by colour and the left/right fresh-ground rates) are fitted on a 300-rule sample and applied to the others without refitting.
+
+On #N.followup.c_model.n held-out rules the model attains $R^2 = #f(N.followup.c_model.r2, d: 2)$ (correlation #f(N.followup.c_model.corr, d: 2); median absolute error #f(N.followup.c_model.mae_med, d: 2)); grouping rules by their first letter after the leading R explains #f(N.followup.r2_letters.r1, d: 2) of the variance of $c$, by the next three letters jointly #f(N.followup.r2_letters.r123, d: 2), and by the sixth letter alone (rules of length at least 8) #f(N.followup.r2_letters.r6, d: 3).
+
+The model was a post-hoc fit to these data, though evaluated on rules outside its calibration sample; we have not tested it on rules of length above 12.
+
+*Comparison with letter-group baselines.* A critique-driven reanalysis retains all #CB.n_test held-out rules and fits group means only on the same #CB.n_train calibration rules. The primary baseline groups by the letter after the leading R; the secondary baseline groups by the next three letters jointly, with a training-only fallback for absent groups. The groups and scoring procedure were fixed before this comparison, after the original scatter plot had been inspected.
+
+#figure(
+  table(
+    columns: (2fr, 1fr, 1fr),
+    table.header([Prediction], [Held-out $R^2$], [RMSE]),
+    [One-letter group mean], [#f(CB.overall.letter1.r2)], [#f(CB.overall.letter1.rmse)],
+    [Three-letter group mean], [#f(CB.overall.letters123.r2)], [#f(CB.overall.letters123.rmse)],
+    [Chirality model], [#f(CB.overall.chirality.r2)], [#f(CB.overall.chirality.rmse)],
+  ),
+  caption: [Predictions of $c$ on exactly the original held-out rules. Group means use calibration targets only. $R^2$ uses the held-out-mean denominator, matching the original model score; using the training-mean predictor as reference gives #f(CB.overall.letter1.strict_r2), #f(CB.overall.letters123.strict_r2) and #f(CB.overall.chirality.strict_r2), respectively.],
+) <tab:c-baselines>
+
+Chirality reduces squared error by #f(100 * CB.comparisons.letter1.sse_reduction, d: 1)% against the one-letter baseline (95% interval #f(100 * CB.comparisons.letter1.sse_reduction_ci.at(0), d: 1)--#f(100 * CB.comparisons.letter1.sse_reduction_ci.at(1), d: 1)%). It has #f(-100 * CB.comparisons.letters123.sse_reduction, d: 1)% _more_ squared error than the three-letter baseline (interval #f(-100 * CB.comparisons.letters123.sse_reduction_ci.at(1), d: 1)--#f(-100 * CB.comparisons.letters123.sse_reduction_ci.at(0), d: 1)%). These are paired rule-bootstrap intervals with #CB.bootstrap_resamples draws, seed #CB.seed, stratified by the primary groups and conditional on the fitted models; related rules and initial-seed variability limit their interpretation.
+
+Within the broad L and R groups, chirality still has $R^2 = #f(CB.primary_groups.L.r2)$ and #f(CB.primary_groups.R.r2), with #CB.primary_groups.L.n and #CB.primary_groups.R.n held-out rules. It therefore has some discrimination beyond one-letter grouping. After subtracting each three-letter group's held-out mean from both observations and predictions, however, its pooled within-group $R^2$ is approximately zero (#f(CB.grouping.letters123.centered_within_r2.chirality, d: 5)); the corresponding raw within-group score, which also penalises group-mean errors, is #f(CB.grouping.letters123.raw_within_r2.chirality). Thus the three-letter lookup is the stronger predictor, and the chirality model supplies essentially no additional residual discrimination within those groups. This observational comparison does not explain the growth exponent. Reproduction and per-group scores are recorded in #link("supplementary/reproducibility-audit.pdf")[Audit 42].
+
+#figure(
+  image("fig/cmodel.pdf", width: 55%),
+  caption: [Held-out edge-entry probability: model against measurement. Predictions concentrate near 0.33 and 0.53 (rules with predicted $c approx 0.53$ have measured $c$ from about 0.25 to 0.67). The letter-group comparison in @tab:c-baselines quantifies the limitation: modest skill remains within one-letter groups, but essentially none after centering within three-letter groups.],
+) <fig:cm>
+
+== Interior colour uniformity and transport tests <par:mixing>
+
+A candidate interior approximation treats the ant's turns as those of a persistent random walk with turning probability $q = \#R slash n$. This does not specify occupation of the evolving territory or its boundary. The sample is the #N.mix_sample.listed rules in #link("supplementary/reproducibility-audit.pdf")[Audit 26], of which #N.mixing.typ_n are blob rules with $0.30 < alpha < 0.37$; the procedure used to choose the list was not recorded, so it should be read as a convenience sample.
+
+We therefore repeated the test on #N.mixing_random.n rules drawn uniformly at random (fixed seed) from the core class, with predictions written beforehand (#link("supplementary/reproducibility-audit.pdf")[Audit 27]): #N.mixing_random.uni_n of #N.mixing_random.n have near-uniform interior colours (our prediction of 60–85% was exceeded), their MSD-slope ratio has median #f(N.mixing_random.uni_ratio.at(1), d: 2) (range #f(N.mixing_random.uni_ratio.at(0), d: 2) to #f(N.mixing_random.uni_ratio.at(2), d: 2)), and the remaining #N.mixing_random.non_n have median ratio #f(N.mixing_random.non_ratio_med, d: 2).
+
+The convenience-sample numbers follow. For the #N.mixing.typ_n typical rules we tested (a) colour uniformity (total-variation distance of interior colours from uniform), (b) turn correlations, and (c) the slope of mean-square displacement against lag, which for independent turns is $(1 - a')/(1 + a')$ with $a' = (2q-1)^2$.
+
+For #N.mixing.uni_n rules with near-uniform interior colours (TV $<$ 0.05) the measured slope is within [#f(N.mixing.uni_ratio.at(0), d: 2), #f(N.mixing.uni_ratio.at(2), d: 2)] of the prediction (median #f(N.mixing.uni_ratio.at(1), d: 2)), the displacement exponent is #f(N.mixing.uni_expo.at(1), d: 2), and the lag-1 turn correlation is #f(N.mixing.uni_corr1.at(1), d: 3) at the median.
+
+For the other #N.mixing.non_n rules, whose interior colours are far from uniform, the MSD slope is off by a factor of #f(N.mixing.non_ratio.at(1), d: 2) at the median (correlation between the ratio and the colour deviation across the sample: #f(N.mixing.corr_ratio_tv, d: 2)).
+
+Time to mix across the territory is a fraction #f(N.mixing.mix.at(1), d: 3) (median) of the growth time.
+
+For #pct(N.mixing.uni_n / N.mixing.typ_n) of the sampled rules, these particular interior statistics are compatible with the persistent-walk approximation. They do not establish a random-environment description of the full dynamics, uniform spatial occupation, or stationarity of $kappa$. Boundary occupation and its drift must be measured separately; @fig:ck reports those measurements for six rules.
+
+= Longer runs: exponents, visit profiles and surface width <sec:ens>
+
+Three further measurements (#link("supplementary/reproducibility-audit.pdf")[Audit 28], #link("supplementary/reproducibility-audit.pdf")[Audit 29], #link("supplementary/reproducibility-audit.pdf")[Audit 30]; hypotheses and predictions are in #link("supplementary/reproducibility-audit.pdf")[Audit 31], written before each run), bear on the weakest points above.
+
+== Longer ensembles do not resolve a universal exponent <par:universality>
+
+Eleven rules (stratified by length 3–12) were run from #(N.item4.runs_kept) random $5 times 5$ starting patches, 24 seeds each, to $2^30$ steps. The local area exponent, averaged over seeds and over the last six three-octave windows, has mean #f(N.item4.ant_last6_mean, d: 3) across rules (sd #f(N.item4.ant_last6_sd, d: 3), range #f(N.item4.ant_range.at(0), d: 3) to #f(N.item4.ant_range.at(1), d: 3)).
+
+The same estimator applied to 24 rotor seeds, whose exponent is proved to be $2/3$, gives #f(N.item4.rotor_last6, d: 3): even the rotor sits $0.01$ above $2/3$ at $2^30$ by this estimator. #N.item4.within_0006_of_rotor of the #N.item4.rules rules are within 0.006 of the rotor; the others are up to 0.02 above it or 0.017 below it by amounts many standard errors wide.
+
+One rule (`RRLLLLLLR`) does not self-average: its seed-to-seed spread rises with time. So the data are compatible with a common exponent $2/3$ with slow, rule-dependent convergence, but they cannot distinguish that from rule-dependent exponents within about 0.02.
+
+== Ant and rotor visits accumulate in the same cone
+
+The time-averaged visit density, as a function of distance from the centroid in units of the territory radius $R_("eq") = sqrt(A slash pi)$ and of $t slash A$, is a cone, $n(r) = 3 (1 - r slash R_("eq")) t slash A$, for ants and rotor alike. Over the first ten of fifteen radial shells the ants' profile (#N.shape.ants.runs runs of 11 rules, $2^#N.shape.ants.kmax$ steps) and the rotor's (#N.shape.rotor.runs seeds, $2^#N.shape.rotor.kmax$ steps) differ by at most #pct(N.shape.max_rel_diff_ants_rotor_shells0_9), and the ant profile differs from the cone by at most #pct(N.shape.max_rel_diff_ants_cone_shells0_9)\; the across-rule relative sd at mid-radius is #pct(N.shape.ants.profile_rel_sd_shell6). This agreement bounds the bulk-profile differences despite the distinct microscopic updates, contrary to the registered prediction of differing profiles. It is not independent evidence for the cube root, because the cone is conditionally implied by the exponent together with approximately uniform instantaneous occupancy and compact circular growth with coherent discovery radii.
+
+Suppose the walker is spread uniformly over the current territory, $n(r, t') = 1 slash A(t')$ for $r < R(t')$, and $A(t) prop t^a$. A cell at radius $r$ is inside from the time $t_r$ at which $R(t_r) = r$, so its accumulated visits are $rho(r) = integral_(t_r)^t d t' slash A(t') = (t slash ((1-a) A)) (1 - (r slash R)^(2(1-a) slash a))$. For $a = 2/3$ this is exactly $(3 t slash A)(1 - r slash R)$, and it integrates to $t$ over the disc. The cone is therefore the footprint of a uniformly mixing walker inside a disc growing as $t^(2/3)$; nothing specific to rotors or ants enters beyond these occupancy, geometry and discovery-time assumptions (#link("supplementary/reproducibility-audit.pdf")[Audit 19], A3). It also explains why ants and rotor agree although their $kappa$ differ (about 0.9 against 2.0): $kappa$ changes only a thin edge layer, not the bulk integral. The profile checks consistency with these joint assumptions; accumulated visits alone do not establish instantaneous uniform occupancy. Kapri and Dhar instead motivate the rotor cone by approximately equal subsequent local-time increments @kapri2009, so matching the cone does not distinguish the mechanisms.
+
+With the measured rotor exponent $a = 0.687$ the formula gives a centre prefactor $1 slash (1-a) = 3.19$ rather than 3, against a measured 2.87 (#link("supplementary/reproducibility-audit.pdf")[Audit 29]) that the 0.075 $R_("eq")$ shell width lowers by roughly 3--4%, so the data do not separate $a = 2/3$ from 0.687 at better than about 5%.
+
+*Controls limit the profile derivation.* The formula's predictions for other exponents were tested on walkers with $a != 2/3$ (#link("supplementary/reproducibility-audit.pdf")[Audit 19], W2, W3 and the checks after them; #link("supplementary/reproducibility-audit.pdf")[Audit 32], #link("supplementary/reproducibility-audit.pdf")[Audit 33]), with results that do not support the derivation beyond $a = 2/3$.
+
+Rotors whose arrow is randomised with probability $epsilon = 0.001$ ($a = 0.75$–$0.78$, four seeds, territories round enough for a radial profile: anisotropy $<= 0.31$, fill 0.96) have a centre density of 1.9–2.1 against 3.5–3.8 from the formula, so the formula fails and the cone, at 3, is also off. For $epsilon >= 0.003$ and for a memoryless persistent walker the territories are elongated or holey (anisotropy up to 0.9, fill down to 0.3), so the premise fails first and the profile cannot test the formula.
+
+Two chaotic 2-state turmites with a stable $a approx 0.74$ over six octaves (`tm:2:2:46382`, `7982`; single trajectories) keep a cone-like centre (2.8 and 3.1) below the formula's 3.5 and 3.2.
+
+So the cone is not simply a consequence of "uniform occupancy and an exponent", and we cannot say that uniform occupancy needs $a = 2/3$; every walker we tried has $a >= 2/3$, and the exponents are finite-window values.
+
+We had also meant to test the formula on the $a approx 1/2$ turmite cluster, but those tables grow as one-dimensional lines (anisotropy 1.00), and eight of the ten sampled are the same trajectory, so the cluster does not bear on the question.
+
+The territories are round (median anisotropy #f(N.shape.ants.aniso, d: 3) at $2^28$, the rotor's #f(N.shape.rotor.aniso, d: 3) at $2^26$; fill #f(N.shape.ants.fill, d: 2)).
+
+== Surface width grows faster in the examined ant cohorts
+
+The surface width does _not_ match: its local exponent fitted over $k >= 18$ is #f(N.shape.ants.dW, d: 2) for ants and #f(N.shape.rotor.dW, d: 2) for the rotor (Kapri and Dhar: about 0.13), so these fits show a finite-window temporal-exponent gap, without matching physical radii. These single fits use a different window ($k >= 18$) from the matched-$k$ follow-up below, which is why the absolute values differ; the comparison that matters is the ratio.
+
+A longer follow-up (#link("supplementary/reproducibility-audit.pdf")[Audit 34]; 36 ant runs and 14 rotor seeds to $2^34$) finds both exponents flat rather than falling, about 0.22–0.25 for ants and 0.10–0.13 for the rotor at every matched $k$ from 22 to 32, so the gap of roughly a factor two does not close in the accessible range; whether it closes asymptotically is undecided.
+
+The gap is not an artefact of the extreme-$kappa$ rules with a "crust" (an almost unvisited shell between the active edge and the bulk, found in 15 of 24 rules examined; see @sec:factors): to $2^30$ the 9 ordinary-$kappa$ rules without a crust have local exponents 0.21–0.35 (median 0.27), all above 0.18, against 0.17–0.45 (mean 0.32) for the 15 crust rules (difference +0.04, Mann–Whitney $p = 0.054$; Spearman with $log kappa$ +0.40, $p = 0.056$; one trajectory per rule, W1). The wider edge occurs in both examined ant cohorts, with at most a mild additional effect in this high-$kappa$ sample; census-wide generality is not established.
+
+#figure(
+  image("fig/rotor.pdf", width: 100%),
+  caption: [Left and middle: how often each cell was visited (log scale) in a single run of $2^22$ steps, for the rotor walker (one seed) and the ant `RLL`. Right: visits per cell, averaged in rings around the centre, against the cone $3(1 - r slash R)$. Both curves follow the cone; this figure is one run each and is an illustration, not the ensemble measurement quoted in the text.],
+) <fig:rotor>
+
+== The width gap survives radius and outer-hull checks
+
+Refitting the same A4/A4c trajectories directly against $R=sqrt(A slash pi)$ gives $W_("surf") prop R^zeta$ with rotor $zeta=0.401$ (14 seeds, sd 0.073; bootstrap mean interval 0.366–0.437) and ant $zeta=0.714$ (36 runs across six rules, RMS within-rule seed sd 0.134; rule-bootstrap interval 0.664–0.761), over $k=22$–$32$. The rotor estimate lies above the registered $zeta in [0.30,0.37]$ band and is closer to $3/8$, implied by $W prop t^(1/8)$ and $R prop t^(1/3)$, than to $1/3$. Restricting to $k=26$–$32$ gives 0.389 and 0.685; the later A4c cohort alone over $k=26$–$34$ gives 0.395 and 0.637. The ant/rotor slope ratio therefore changes from 1.78 to 1.61.
+
+Replacing $R$ with $R_g$ or the mean outer radius changes these means by less than 0.005. This confirms a finite-window gap but does not support an exact factor-two law.
+
+#figure(
+  image("fig/edge_gap.pdf", width: 100%),
+  caption: [Surface width of ants and the rotor walker out to $t = 2^34$ (pooled A4 and A4c runs: 36 ant runs across six rules, 14 rotor seeds; checkpoints at $t = 2^k$). (a) $W_("surf")$ against $t$; line is the mean of $ln W$ over runs, band the 16–84% range over runs. (b) Local exponent between $k$ and $k+2$, mean $plus.minus$ standard error over runs (dashed: the Kapri–Dhar value of about 0.13, see text). The ants' exponent stays near 0.20–0.27 while the rotor's falls towards 0.10–0.13; the mean widths cross near $t approx 2^26$, below which the rotor is wider, so the figure shows a difference of exponent over this window, not of prefactor. Ant runs mix six rules, so the band is between-run, not between-seed.],
+) <fig:edge-gap>
+
+The surface cells here, as in the edge $P$ of @eq:rate, are all visited cells with a never-visited 4-neighbour, so they include the rims of interior holes and detached unvisited pockets, not only the outer hull; $W_("surf")$ is the standard deviation of their radius about the centroid (the same surface-site criterion as Kapri and Dhar, but they use origin-centred radii and the square root of an ensemble mean of per-cluster variances; we summarize per-run fitted slopes). Their v2 body gives $0.136 plus.minus 0.02$, while Fig. 8 gives $plus.minus 0.002$; we therefore quote only about 0.13 @kapri2009.
+
+*Interior holes do not explain the gap.* A follow-up separates hole rims from the outer coastline (24 ant runs of the six rules above and 8 rotor seeds, to $2^30$; #link("supplementary/reproducibility-audit.pdf")[Audit 35], predictions registered before the run). Porosity does not explain the gap: the local exponent over $k >= 22$ is 0.239 for the ants' outer-hull width and 0.239 for all surface cells, against 0.135 and 0.130 for the rotor, and hole rims are 4% of the ants' surface cells but 25% of the rotor's.
+
+The ants have a lower finite-resolution box-count slope (1.07 against 1.16) and steeper measured spectral decay than the rotor; these are not established asymptotic fractal dimensions.
+
+The wavelength follow-up finds relatively greater low-mode excess, but its registered band decision is mixed and the high-band result is outside the predicted range. The temporal fall in normalized power includes $(W/R)^2$ and supplies no independent corroboration. Persistence of large-scale shape versus local fluctuating width remains unresolved (#link("supplementary/reproducibility-audit.pdf")[Audit 35]).
+
+These are growth-trajectory slopes, not spatial roughness exponents; physical-distance height correlations, local widths, spectral scaling and phase persistence beyond the already removed modes 0–2 are needed, together with a justified growth clock, to test a KPZ or other interface universality class @kpz1986 @ramasco2000 (#link("supplementary/reproducibility-audit.pdf")[Audit 33]).
+
+== Replicated starts preserve extreme growth exponents
+
+We re-ran the #N.item21.high_n fastest and #N.item21.low_n slowest blob rules from 12 random patches each. If their exponents had been run-to-run noise they would regress to the middle. They mostly do not: only #pct(N.item21.high_regress) of the fast rules fall below 0.37 and #pct(N.item21.low_regress) of the slow rules rise above 0.30; the Spearman correlation between census and re-measured exponent is #f(N.item21.spearman_census, d: 2), and the re-measured exponent correlates with $gamma_kappa$ at #f(N.item21.spearman_gk, d: 2). So the outliers are real properties of the rules over $2^20$–$2^27$ steps, with edge occupation drifting; whether they are different asymptotes or very slow transients is untestable at this length (the #link(<par:universality>)[exponent comparison] shows even typical rules differ by about 0.02 at $2^30$).
+
+The replication bounds the noise interpretation to typical rules, narrowing our earlier statement about between-rule scatter: there it is (within-rule sd 0.016 against a between-rule sd of 0.004), but the tails are not.
+
+== A blob becomes a column sweeper after billions of steps <sec:late-switch>
+
+*A long blob-like transient can end in a different growth regime.* In one blank-board trajectory, `RLRLLL` ran as a blob until step $#f(N.g1.onset_t / 1e10, d: 4) times 10^10$ and then switched within a few $10^6$-step windows to a steady builder at #f(N.g1.steady_steps_per_new, d: 2) steps per newly visited cell (all #N.g1.steady_windows later windows), and left a $32768^2$ board at $#f(N.g1.exit_step / 1e10, d: 4) times 10^10$ (#link("supplementary/reproducibility-audit.pdf")[Audit 38], #link("supplementary/reproducibility-audit.pdf")[Audit 39]; one blank-board trajectory, trigger unknown).
+
+*The new regime sweeps columns back and forth.* Two $4 times 10^5$-step trajectory dumps at $1.28 times 10^10$ and $1.29 times 10^10$ (#link("supplementary/reproducibility-audit.pdf")[Audit 40], #link("supplementary/reproducibility-audit.pdf")[Audit 39]; #link("supplementary/reproducibility-audit.pdf")[Audit 41]) show that this builder is a boustrophedon column sweeper rather than a perimeter crawl: it makes a slow traverse of the full height $L$ (6,400 rows at the first dump and 8,610 at the second) at about 10 steps per row, a fast return at about 2 steps per row, and adds three columns per round trip, and the wake is strongly periodic in $x$ with period 3 (column agreement 0.99, dominated by colours 3, 4, 5).
+
+Three columns of $L$ cells per $approx 12 L$ steps is 4 steps per new cell, and $d x slash d t = -1 slash (4 L)$ with the measured $L approx 0.67 |x| - 960$ predicts $d|x|^2 slash d t = 0.86$ and 0.84 at the two dumps against 0.86 and 0.83 measured, so $|x|$ grows as $t^(1 slash 2)$ in this phase.
+
+The two values of $L$ come from the same single trajectory, so this is a consistency check on the sweep picture, not a test of the $L tilde |x|$ law; why the pattern has period 3 and what triggers the switch are unexplained. Three further board escapes without a recognised highway in the $10^11$ sample may be of this kind but were not traced.
+
+#figure(
+  image("fig/late_switch.pdf", width: 100%),
+  caption: [*A late switch to a period-3 column sweeper (`RLRLLL`).* (a) Steps per newly visited cell fall abruptly near $t=1.2677 times 10^10$ to about 4. Each dot is one window: $10^8$ steps through $1.2 times 10^10$, then $10^6$ steps (the final window is partial); upper ticks mark windows with no discoveries. (b) An actual $36 times 48$-cell crop of the wake at $t=1.28004 times 10^10$, with square cells and unvisited ground white. Lag-3 column agreement over the full extracted wake is 0.994. The adjacent trajectory covers $4 times 10^5$ steps starting at $1.28 times 10^10$, sampled every 100 steps, and shows slow traverses and fast returns. (c) The sweep model predicts $d |x|^2 slash d t = |x| slash (2 L)$: 0.86 and 0.84 against 0.86 and 0.83 measured. Measurement uses the local slope of $|x|$ in strict $plus.minus 2 times 10^7$-step windows (39 samples each), multiplied by $2|x|$ at the dump time. These are two checks on one deterministic blank-board trajectory; no between-seed uncertainty is available, and this post-hoc agreement does not explain the switch.],
+) <fig:late-switch>
+
+= Evidence summary: tested claims and open mechanisms <sec:tested>
+
+#[
+#set par(justify: false)
+#table(
+  columns: (0.9fr, 2.1fr, 1fr),
+  align: (left, left, left),
+  stroke: (x: none), inset: 4pt,
+  table.header([*Claim*], [*Status*], [*Evidence*]),
+  [Width $tilde t^(1/3)$, area $tilde t^(2/3)$ for non-highway rules], [Measured; consistent after the rotor-calibrated bias], [@tab:calib, @fig:exp],
+  [$c$ constant in time], [Measured drift is small over the tested windows], [@fig:ck, $gamma_c$],
+  [$kappa$ constant for typical rules], [Drift below 0.05 for #pct(N.identity.frac_blob_gk_small) of blob rules; systematic drift in log and fast classes], [@fig:ck, @fig:dev],
+  [$P tilde A^(1/2)$], [Finite-window constraint: measured $beta =#f(N.mf_core.beta.at(1), d: 3)$, equal to the rotor's under the same window], [@tab:calib],
+  [@eq:a reconstructs $a$ for outliers], [Conditional scaling algebra; fit consistency only, not a test of mechanism], [@fig:dev (right)],
+  [Edge-entry probability $c$ from rule letters],[Opening-run law: fresh stationary $R^2=#f(RF.c_law.C1.r2)$; broader-validation $R^2=#f(RF.edge.V.lead.r2)$ misses its target. Initial-interior ablations preserve the flat-band law; constants unexplained. Historical three-letter and chirality baselines remain], [@sec:c-law; @tab:c-baselines],
+  [Occupation relative to uniform],[Growth-adjusted uniform reference about 1.11, calibrated by uniform resampling. Stationary ant median ratio 0.814, IQR 0.664--0.957; walker comparisons have window and regime limits], [@sec:uniform-reference],
+  [Interior persistent-walk approximation], [Compatible colour and short-lag statistics for #N.mixing.uni_n of #N.mixing.typ_n convenience-sampled rules and #N.mixing_random.uni_n of #N.mixing_random.n random core rules; spatial occupation and boundary access are not established by these tests], [#link(<par:mixing>)[Mixing paragraph]],
+  [Occupation profile is the rotor's cone], [Measured within #pct(N.shape.max_rel_diff_ants_rotor_shells0_9) of the rotor, excluding the registered profile separation at that scale. Derived conditionally from uniform instantaneous occupancy, compact circular growth with coherent discovery radii and $A tilde t^(2/3)$, so not independent of the cube root. *Unexplained*: why the profile is the cone. The derivation from uniform occupancy plus the exponent fails for walkers with $a eq.not 2/3$ (noisy rotor, random-background ants), while two turmites with $a approx 0.74$ keep a cone-like centre], [@sec:ens],
+  [One exponent for all rules], [Neither confirmed nor refuted: rules differ by up to 0.02 at $2^30$, as does the rotor from its proved value], [@sec:ens],
+  [Outliers are noise], [Replication preserves most extreme exponents: only #pct(N.item21.high_regress) / #pct(N.item21.low_regress) regress], [@sec:ens],
+  [Surface width matches the rotor], [Not supported: ants' exponent is about twice the rotor's (#f(N.shape.ants.dW, d: 2) against #f(N.shape.rotor.dW, d: 2) for a fit over $k >= 18$; 0.22–0.25 against 0.10–0.13 at matched $k$ = 22–32)], [@sec:ens],
+  [$kappa$ is rule-specific and partly predictable], [Moderately reproducible (ICC 0.58). Prefix-8 lookup: $R^2 = #f(KP.prefix_r2)$ and gain #f(KP.gain) [#f(KP.ci.at(0)), #f(KP.ci.at(1))] beyond early area, *on stationary test rules with stationary training*. All-rule gain #f(KP.cross.all_all) (interval includes zero). The area-conditioned opening-run association is reproduced with no direct effect; neither score establishes a transport mechanism], [@sec:prefix],
+  [Why $kappa$ takes its value, why it drifts in some rules], [*Unexplained*; a memoryless persistent walker (A1d) gives $kappa approx 1.4$ and area exponent 0.95, rejecting that memoryless control; edge-layer anatomy (A1-typical) separates a crust class from a uniform class but constrains shallow trapping: similar dwell times coexist with widely differing $kappa$; $kappa$ is not shared between cyclic rotations of a rule (ICC 0.20, K1); a stochastic true self-avoiding walk gets $kappa$ up to 1.97 with area exponent 0.98 (E1), so $kappa approx 2$ is not specific to the rotor], [@sec:factors],
+  [Same-run prefactor collapse using $c kappa$], [Descriptive: dividing by $c kappa$ cuts the between-rule variance of $ln(A slash t^(2/3))$ at $2^26$ by #pct(N.h3.reduction) (pre-registered level 75%); a free fit gives power #f(N.h3.fit_power, d: 2), $R^2 = $ #f(N.h3.fit_r2, d: 2). Factors share the growth data, so this is not independent validation. Geometry amplitude $P/sqrt(A)$ also enters the stationary prefactor], [#link("supplementary/reproducibility-audit.pdf")[Audit 8]],
+  [Rule-specific area exponent is filling-fraction drift], [Filling drift is insufficient: $gamma_eta$ explains $R^2 = $ #f(N.h1.r2_geta_vs_excess, d: 2) of $a - 2 alpha_w$ and has ICC #f(N.h1.icc_geta, d: 2) (predictions $>= 0.80$, $>= 0.35$); the two box sides co-vary instead], [#link("supplementary/reproducibility-audit.pdf")[Audit 7]],
+  [Whether the edge exponent is 1/2 asymptotically], [*Unexplained*; the finite-window $beta$ is #f(N.mf_core.beta.at(1), d: 3) for ants and #f(N.calib_A.rotor.beta.median, d: 3) for the rotor; to $2^36$ the ants (six rules, two starts each) read $0.509 plus.minus 0.003$ against the rotor's $0.501 plus.minus 0.003$, both close to 1/2, but the decision rules we set in advance are inconclusive (W4)], [],
+)
+]
+
+= Limits of finite-time scaling and regime classification <sec:limitations>
+
+- *One trajectory per rule.* The ant is deterministic from a blank board; the only noise estimate is the patched-start control (#N.calib_C.rules rules, #N.calib_C.runs runs). Rules are not independent samples of anything; the bootstrap interval is a statement about this set of rules.
+- *Finite windows.* All exponents come from seven octaves; the rotor calibration quantifies but does not remove the bias, and the rotor's bias need not equal the ants'. Long runs to $2^32$ cover only six rules.
+- *Rule length $<= 12$.* Both the census and the $c$ model stop there; the prefix-$kappa$ test extends to sampled lengths 13–14 under core-band and stationarity filters, not to an exhaustive growth census. Rules with large $n$ are the majority of all rules; if the cube-root regime is a property of short rules, we cannot tell.
+- *Edge exponent at finite time.* A separate check on the six long runs (#link("supplementary/reproducibility-audit.pdf")[Audit 36]) gives local boundary exponents of $P$ against $A$ (slope over five octaves from $k$; a different estimator from the census $beta$, hence 0.51–0.53 rather than #f(N.mf_core.beta.at(1), d: 3)), averaged over the six rules, of 0.53 at $k = 20$, 0.51 at $k = 26$ and 0.52 at $k = 28$, with single rules between 0.48 and 0.55 and no clear fall; the rotor's local slope is 0.52 at $k = 22$. A pure $A^(1/2)$ law fits worse than $P = c_1 sqrt(A) + c_0$ (rms log-residual 0.045--0.16 against 0.018--0.073 over the six rules), so the data are consistent with a square-root edge plus an offset shared by both walkers, but do not establish the asymptotic value. Extending the six ant rules (blank and one patched start each) to $2^36$ gives a mean local slope of $0.509 plus.minus 0.003$ (twelve runs; the rotor at $2^36$: $0.501 plus.minus 0.003$), with a fall of $0.009 plus.minus 0.004$ over the last two octaves against the rotor's $0.012 plus.minus 0.004$; our pre-set rules for "consistent with 1/2" and "plateau above 1/2" both return inconclusive, and the fall again rests on the last octave.
+- *Class boundaries.* #N.probe.unanalysed rules were not fitted. The builder and log classes are operational definitions with thresholds (20 steps per box cell, $alpha < 0.15$); the log cut is checked against the exponent distribution in @sec:rules.
+- *Highway builders.* Classification is by finite simulation. A rule counted as chaotic may build a highway after $2^27$ steps (Langton's ant itself takes about $10^4$). Several hundred rules of length $<= 10$ were left unresolved in an earlier highway census (#link("supplementary/reproducibility-audit.pdf")[Audit 1]). Of 807 such rules run to $10^10$ steps, 16 (2.0%) became highways in $(10^9, 10^10]$, and of the 732 still unresolved, 12 (1.6%) did in $(10^10, 10^11]$, against 1.4% in $(10^8, 10^9]$: the per-decade yield is consistent with a flat rate of about 2%, so a fixed small fraction of the rules counted as chaotic may still be transients at any finite time (#link("supplementary/reproducibility-audit.pdf")[Audit 37]). These counts exclude 26 escapes on the $32768^2$ board that are not highways: 25 board fillers whose escape time scales with the board area, and one ray that the board edge cut off (experiment `2026-10-late-highway-board-check`); every other late highway reproduces its onset exactly on a $65536^2$ board. The late column-sweeper transition in @sec:late-switch shows that even a long blob-like transient need not persist.
+- *No dynamical closure.* The factorization is exact accounting. Stationary $c$, stationary $kappa$ and $P tilde sqrt(A)$ conditionally imply the cube root, but we do not derive these conditions from the rule. In particular, the rule-specific level and drift of occupation remain unexplained. The area-budget forecast tests temporal persistence without identifying the separate factors.
+- *Related but untested ideas.* Experiments in which the ant's territory was replaced by statistically matched fields (pair, $2 times 2$, $3 times 3$) suggest that the log-growing "tethered" rules depend on the exact configuration of the territory rather than on local statistics. That work was run on two rules at one age with one trajectory each, and a follow-up knockout map has not been run. We draw no conclusion from it in this paper.
+
+= Conclusion: calibrated growth, unresolved transport <sec:conclusion>
+
+Most measured blob rules of length 3–12 with no detected highway within the simulated horizon grow, to within the bias our calibration measures, as $t^(1/3)$ in linear size and $t^(2/3)$ in area. The growth rate splits into an edge-entry probability and an edge-occupation ratio with small measured drifts for the large majority of rules, together with an edge that scales close to $A^(1/2)$; departures from the cube root accompany drifting edge occupation (correlation of $alpha$ with $gamma_kappa$ #f(N.identity.corr_alpha_gk, d: 2) over blob rules). This is bookkeeping through @eq:a, not a cause or independent validation. Rule-letter models predict part of the variation in $c$ and, conditionally, $kappa$; they do not derive the stationary transport regime, its occupation level, or its geometry. The contribution is a calibrated growth census, predictive regularities and constraints on tested mechanisms; the mechanism of cube-root growth in these ants remains unresolved.
+
+We did measure the factors for the rotor with arrows initialised with a northward bias (#link("supplementary/reproducibility-audit.pdf")[Audit 19], C2b): $kappa$ rose from 2.01 to 2.20 at bias 0.15 while the width exponent stayed at 0.32–0.33, until the cube root broke between bias 0.25 and 0.30; randomising the arrow with probability $epsilon$ raised $kappa$ up to about 3-fold and destroyed the cube root (Arm B). Together these interventions separate occupation level from the growth exponent and local entry bias, constraining any proposed explanation of the ants' rule-specific $kappa$.
+
+A broader candidate remains to treat $kappa$ as a hitting problem, although the excursion summaries tested above did not explain its rule dependence beyond territory size: uniform marginal interior colours alone do not specify the joint heading/colour transport law (#link(<par:mixing>)[Mixing]), so $kappa$ may reflect its return time to the bulk or its hitting distribution on the boundary given the shape of the outer envelope, or a combinatorial invariant of the permutation the rule induces on a periodic lattice. We make no prediction from this here.
+
+Meng and Cohen's earlier pocket/return argument assumes $A tilde R^2$, $B tilde R^d$, scale-independent mean pocket gain and a bulk-return-dominated collision interval $tau tilde A/B$, giving $d A/d t tilde B/A$ and $A tilde t^(2/(4-d))$ @meng1994. Their $d=4/3$ gives $3/4$; our measured near-$sqrt(A)$ boundary and stationary $c kappa$ instead give $2/3$. The shared scaling picture does not derive either the return law or our rule-specific occupation ratio.
+
+The literature comparison prioritizes complete boundary/interior time budgets at fixed area and the registered hull-correlation checks before another broad census extension. Approximately balanced exploration cycles, motivated by exact rotor excursion properties @florescu2016, offer a separate test of spatial local-time increments, not an established ant mechanism.
+
+The opening run now supplies a compact empirical law for $c$ with fresh-rule validation and flat-band robustness, while its constants remain unexplained. The associated fixed-area occupation signal is reproduced by conditioning on the shared area outcome without a direct lead effect. This explains why prediction beyond early area cannot alone identify a transport mechanism; it does not erase the prefix score or settle the asymmetric mutation result. The corrected uniform reference sharpens the occupation deficit without explaining it. Direction-balanced mutations and independent cohorts are needed. Why some rules settle to a stationary regime while others drift remains a separate open question.
+
+Earlier flipping-rotator growth studies @meng1994 @mishra2016 mean that the contribution is this calibrated multicolour census and its transport comparisons, rather than a claim that territory growth was previously unmeasured. The accumulated cone requires assumptions beyond the exponent, and the measured boundary gap in selected cohorts establishes no interface class.
+
+The future-window forecast adds evidence beyond same-window reconstruction: early area-derived budgets predict later increments substantially better than an other-rule baseline in the typical replicated run. This tests persistence of the total growth budget and supplies no independent validation of the factorization. Rare near-stalls mark the limit of that forecast. The local, memory and geometric controls further restrict candidate transport mechanisms, while leaving the physical origin of persistent rule-level transport open.
+
+#block(breakable: false)[
+= Data, code and author statements <sec:availability>
+
+*Data and code availability.* [PLACEHOLDER: repository URL and archived DOI (e.g. Zenodo) to be added once the working tree is committed.] The repository contains the simulator, analysis code, numerical summaries and figure recipes. Two datasets used here are published separately in the repository's data-papers folder: the per-rule #link("../../data-papers/rule-census/README.md")[rule census] (`research-outputs/data-papers/rule-census/`) and the #link("../../data-papers/walker-reference/README.md")[walker-reference table] (`research-outputs/data-papers/walker-reference/`). The #link("supplementary/reproducibility-audit.pdf")[supplementary reproducibility audit] gives exact locations, seed records, hypothesis titles and available commit timestamps, and identifies limitations in the provenance record.
+
+*Use of AI tools.* The code, analyses, and draft of this paper were produced with substantial assistance from Claude (Anthropic) via Claude Code and Google Gemini via Antigravity, under the author's direction. Codex (OpenAI) also assisted with research planning, hypothesis development, and critical review of proposed experimental designs. The author is responsible for the content and has reviewed the results. [Check wording against the target venue's policy.]
+
+*Competing interests and funding.* [PLACEHOLDER]
+]
+
+#pagebreak(weak: true)
+#bibliography("refs.bib", style: "ieee")
+
+

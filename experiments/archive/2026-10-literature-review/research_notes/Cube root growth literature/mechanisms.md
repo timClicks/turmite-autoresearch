@@ -47,7 +47,7 @@ Keep two candidates, both conditional and unproved for ants. Prioritise complete
 The exponent, cone and exact rate identity are logically different observations; none explains kappa. A stationary cone is compatible with multiple transport mechanisms.
 
 ### Cited Findings
-- The current manuscript's occupation paragraph explicitly derives the cone by integrating uniform instantaneous occupation over an expanding disk, then reports failures for noisy rotors and other exponents. Those failures constrain the assumptions, not the algebra. — [Manuscript source](../../../../../research-outputs/cube-root-growth-paper/main.typ).
+- The current manuscript's occupation paragraph explicitly derives the cone by integrating uniform instantaneous occupation over an expanding disk, then reports failures for noisy rotors and other exponents. Those failures constrain the assumptions, not the algebra. — [Manuscript source](../../../../../research-outputs/working-papers/cube-root-growth/main.typ).
 - Internal DLA's original paper is Lawler–Bramson–Griffeath (1992), DOI 10.1214/aop/1176989542. The original publisher endpoint was inaccessible as substantive text in this review; therefore the original theorem is not full-text-verified here. The comparison of particle count versus individual-step time is also described explicitly in the verified Bou-Rabee–Peres Section 1.3. — [Original publisher endpoint](https://projecteuclid.org/journals/annals-of-probability/volume-20/issue-4/Internal-Diffusion-Limited-Aggregation/10.1214/aop/1176989542.full).
 
 ### Inferences
