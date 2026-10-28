@@ -1,10 +1,10 @@
 {% assign r = site.data.preliminary_results %}
 <section class="preliminary-results" id="preliminary-results" aria-labelledby="preliminary-heading">
-  <div class="section-heading"><h2 id="preliminary-heading">Preliminary results</h2><span>From the working manuscript · 9 findings</span></div>
+  <div class="section-heading"><h2 id="preliminary-heading">What we have found so far</h2><span>From the working manuscript · 9 findings</span></div>
   <div class="results-intro"><p>What thousands of ants have taught us so far.</p><p>Measured patterns, useful predictions, and explanations that failed. Open a card’s caveats or follow the experiment to judge the evidence.</p></div>
   <div class="results-board">
     <article class="result-card result-growth" data-paper-result="1">
-      <div class="result-body"><p class="result-kicker"><span>01 / Growth</span><span class="result-tag">Measured</span></p>
+      <div class="result-body"><p class="result-kicker"><span>01 / How fast territory grows</span><span class="result-tag">Measured</span></p>
       <h3>{{ r.titles[0] }}</h3>
       <p class="result-number">×<output id="width-time" aria-live="polite">8</output><span>as many steps</span></p>
       <p>{{ r.blob_count | number_with_delimiter }} blob rules have a median width exponent of {{ r.exponent }}. Rotor calibration supports about ⅓, to roughly ±0.01.</p>
@@ -15,19 +15,19 @@
 
     <article class="result-card" data-paper-result="2">
       <a class="result-image result-image-hero" href="{{ '/assets/results/hero.png' | relative_url }}"><img src="{{ '/assets/results/hero.png' | relative_url }}" alt="Ant RLL and rotor accumulated occupation fields at 2²² steps, shown with shared greyscale and separately fitted spatial sizes." width="{{ r.images.hero.width }}" height="{{ r.images.hero.height }}" loading="lazy"><span>Ant / RLL &amp; rotor · accumulated visits</span></a>
-      <div class="result-body"><p class="result-kicker"><span>02 / Bulk &amp; boundary</span><span class="result-tag">Comparison</span></p><h3>{{ r.titles[1] }}</h3><p>The accumulated visit profiles agree within {{ r.profile_difference_pct }}% in the compared radial shells. The measured surface-width growth slopes differ:</p>
+      <div class="result-body"><p class="result-kicker"><span>02 / Inside versus edge</span><span class="result-tag">Comparison</span></p><h3>{{ r.titles[1] }}</h3><p>The accumulated visit profiles agree within {{ r.profile_difference_pct }}% in the compared radial shells. The measured surface-width growth slopes differ:</p>
       <div class="result-pair"><div><strong>0.22–0.25</strong><span>examined ants</span></div><div><strong>0.10–0.13</strong><span>rotor</span></div></div>
       <details><summary>What the shared profile does not prove</summary><p>The cone-shaped profile is a conditional consistency check. The edge comparison uses matched step counts, not matched territory sizes. These temporal slopes do not identify a spatial roughness class. In the image, each territory is fitted separately; physical sizes differ.</p></details><a class="text-link" href="{{ '/experiments/2026-10-a4-boundary-width/' | relative_url }}">Profiles and shape measurements ↗</a></div>
     </article>
 
     <article class="result-card" data-paper-result="3">
-      <div class="result-body"><p class="result-kicker"><span>03 / Access to the edge</span><span class="result-tag">Diagnostic</span></p><h3>{{ r.titles[2] }}</h3><p>The {{ r.log_count }} analysed logarithmic growers visit the edge increasingly rarely. The {{ r.fast_count }} faster blob rules typically show rising relative edge occupation, κ.</p></div>
+      <div class="result-body"><p class="result-kicker"><span>03 / How often the ant reaches its edge</span><span class="result-tag">Diagnostic</span></p><h3>{{ r.titles[2] }}</h3><p>The {{ r.log_count }} analysed logarithmic growers visit the edge increasingly rarely. The {{ r.fast_count }} faster blob rules typically show rising relative edge occupation, κ.</p></div>
       <a class="result-image" href="{{ '/assets/results/ck_time.png' | relative_url }}"><img src="{{ '/assets/results/ck_time.png' | relative_url }}" alt="Six selected ant rules: edge-entry probability is comparatively steady while relative boundary occupation varies across time." width="{{ r.images.ck_time.width }}" height="{{ r.images.ck_time.height }}" loading="lazy"><span>Six selected rules through 2³² steps</span></a>
       <div class="result-body result-bottom"><details><summary>Accounting or explanation?</summary><p>The growth-rate identity tells us which measured factor carries a deviation. It does not explain why boundary occupation changes. These six trajectories illustrate the distinction; the counts come from the wider census.</p></details><a class="text-link" href="{{ '/experiments/2026-10-a1-kappa/' | relative_url }}">Boundary occupation ↗</a></div>
     </article>
 
     <article class="result-card result-entry" data-paper-result="4">
-      <div class="result-body"><p class="result-kicker"><span>04 / Opening turns</span><span class="result-tag">Empirical law</span></p><h3>{{ r.titles[3] }}</h3>
+      <div class="result-body"><p class="result-kicker"><span>04 / A rule’s first letters</span><span class="result-tag">Empirical law</span></p><h3>{{ r.titles[3] }}</h3>
       <div class="result-rule" id="lead-rule" aria-label="Example rule with an opening run of two right turns">RR<span>L…</span></div>
       <p class="result-formula">1/c ≈ 1.36 + 0.70m</p><p>The opening run of m equal turns predicts how many boundary steps a new cell costs.</p>
       <div class="result-controls" hidden><label for="lead-length">Opening run <output id="lead-label">2 turns</output></label><input id="lead-length" type="range" min="1" max="6" step="1" value="2"></div>
@@ -37,13 +37,13 @@
     </article>
 
     <article class="result-card" data-paper-result="5">
-      <div class="result-body"><p class="result-kicker"><span>05 / A conditioning trap</span><span class="result-tag">Control</span></p><h3>{{ r.titles[4] }}</h3>
+      <div class="result-body"><p class="result-kicker"><span>05 / A statistical trap</span><span class="result-tag">Control</span></p><h3>{{ r.titles[4] }}</h3>
       <svg class="result-diagram" viewBox="0 0 300 140" role="img" aria-label="Schematic: edge entry and occupation both contribute to area. Selecting on their shared outcome can induce an association."><defs><marker id="result-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="currentColor"/></marker></defs><text x="38" y="30" text-anchor="middle">Entry c</text><text x="253" y="30" text-anchor="middle">Occupation κ</text><path d="M45 45 130 93 M250 45 170 93" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#result-arrow)"/><rect x="110" y="100" width="80" height="30" rx="15"/><text x="150" y="120" text-anchor="middle" class="result-diagram-area">Area</text></svg>
       <p>A prefix lookup predicts occupation in fresh stationary rules (R² = {{ r.prefix_r2 }}). But controlling for early area can itself create an apparent opening-run effect.</p><details><summary>What happened in the control?</summary><p>The observed conditional coefficient was {{ r.conditioning.obs_lead | round: 3 }}. A model with no direct opening-run effect reproduced {{ r.conditioning.null_lead_mean | round: 3 }}. This does not invalidate the prediction or prove the direct effect is zero. The shortening mutation’s occupation drop remains unexplained.</p></details><a class="text-link" href="{{ '/experiments/2026-10-c-law-mechanism/' | relative_url }}">Conditioning and mutation tests ↗</a></div>
     </article>
 
     <article class="result-card result-uniform" data-paper-result="6">
-      <div class="result-body"><p class="result-kicker"><span>06 / A moving reference</span><span class="result-tag">Calibrated</span></p><h3>{{ r.titles[5] }}</h3><p>A growing territory’s uniform reference is about 1.11 in the cube-root regime. The stationary ant median is <strong>{{ r.ant_ratio }}× its own reference</strong>.</p>
+      <div class="result-body"><p class="result-kicker"><span>06 / A fair baseline for a growing region</span><span class="result-tag">Calibrated</span></p><h3>{{ r.titles[5] }}</h3><p>A growing territory’s uniform reference is about 1.11 in the cube-root regime. The stationary ant median is <strong>{{ r.ant_ratio }}× its own reference</strong>.</p>
       <button class="result-toggle" id="occupation-toggle" type="button" aria-pressed="true" hidden>Adjust for growth: on</button>
       <div class="result-bars" aria-live="polite"><p class="result-small" id="occupation-mode">Occupation / each walker’s uniform reference</p>
         <div class="result-bar-row"><span>Ant median</span><div><i data-occupation="ant" style="width: 40.7%"></i></div><output id="occupation-ant">0.81×</output></div>
@@ -53,16 +53,16 @@
     </article>
 
     <article class="result-card result-forecast" data-paper-result="7">
-      <div class="result-body"><p class="result-kicker"><span>07 / Looking ahead</span><span class="result-tag">Forecast</span></p><h3>{{ r.titles[6] }}</h3><p class="result-number">{{ r.forecast_reduction_pct }}<span class="result-percent">%</span><span>lower typical forecast error</span></p><p>Early area history estimates a growth budget that improves future-window predictions across {{ r.forecast_rules }} replicated rules, against a baseline from other rules.</p><details><summary>Where forecasts fail</summary><p>Rare near-stalls produce enormous relative errors. Escaped or incomplete runs are excluded. This tests persistence of a total growth budget, not independent predictive value of its separate transport factors.</p></details><a class="text-link" href="{{ '/experiments/2026-10-transport-forecast/' | relative_url }}">Forecast design and errors ↗</a></div>
+      <div class="result-body"><p class="result-kicker"><span>07 / Predicting future growth</span><span class="result-tag">Forecast</span></p><h3>{{ r.titles[6] }}</h3><p class="result-number">{{ r.forecast_reduction_pct }}<span class="result-percent">%</span><span>lower typical forecast error</span></p><p>Early area history estimates a growth budget that improves future-window predictions across {{ r.forecast_rules }} replicated rules, against a baseline from other rules.</p><details><summary>Where forecasts fail</summary><p>Rare near-stalls produce enormous relative errors. Escaped or incomplete runs are excluded. This tests persistence of a total growth budget, not independent predictive value of its separate transport factors.</p></details><a class="text-link" href="{{ '/experiments/2026-10-transport-forecast/' | relative_url }}">Forecast design and errors ↗</a></div>
     </article>
 
     <article class="result-card" data-paper-result="8">
       <a class="result-image" href="{{ '/assets/results/memory_paths.png' | relative_url }}"><img src="{{ '/assets/results/memory_paths.png' | relative_url }}" alt="Nine walkers after 65,536 steps, including ants, rotor, random walks, cookies and reinforced walks; panel spatial scales differ." width="{{ r.images.memory_paths.width }}" height="{{ r.images.memory_paths.height }}" loading="lazy"><span>Same step count · different spatial scales</span></a>
-      <div class="result-body"><p class="result-kicker"><span>08 / Failed explanations</span><span class="result-tag">Negative results</span></p><h3>{{ r.titles[7] }}</h3><p>Independent turns, site cookies and edge reinforcement fail to reproduce both ant-like growth and boundary occupation in the tested settings.</p><details><summary>How far does the exclusion go?</summary><p>Only these tested settings are constrained. Memory can suppress exploration without yielding stable ant-like occupation. Short windows, escapes and seed variability prevent ruling out every stochastic explanation. The image shows illustrative trajectories, not ensemble exponents.</p></details><a class="text-link" href="{{ '/experiments/2026-10-memory-walkers/' | relative_url }}">Memory-walker controls ↗</a></div>
+      <div class="result-body"><p class="result-kicker"><span>08 / Explanations that failed</span><span class="result-tag">Negative results</span></p><h3>{{ r.titles[7] }}</h3><p>Independent turns, site cookies and edge reinforcement fail to reproduce both ant-like growth and boundary occupation in the tested settings.</p><details><summary>How far does the exclusion go?</summary><p>Only these tested settings are constrained. Memory can suppress exploration without yielding stable ant-like occupation. Short windows, escapes and seed variability prevent ruling out every stochastic explanation. The image shows illustrative trajectories, not ensemble exponents.</p></details><a class="text-link" href="{{ '/experiments/2026-10-memory-walkers/' | relative_url }}">Memory-walker controls ↗</a></div>
     </article>
 
     <article class="result-card" data-paper-result="9">
-      <div class="result-body"><p class="result-kicker"><span>09 / A late surprise</span><span class="result-tag">One trajectory</span></p><h3>{{ r.titles[8] }}</h3><p class="result-number">{{ r.onset_billions }}<span>billion steps, then a switch</span></p><p><code>RLRLLL</code> wanders as an ordinary blob, then starts sweeping up and down, moving three columns west on every pass. In the next 0.3 billion steps it reaches about eight times as many new cells as in all the steps before.</p></div>
+      <div class="result-body"><p class="result-kicker"><span>09 / A rule that changes after billions of steps</span><span class="result-tag">One trajectory</span></p><h3>{{ r.titles[8] }}</h3><p class="result-number">{{ r.onset_billions }}<span>billion steps, then a switch</span></p><p><code>RLRLLL</code> wanders as an ordinary blob, then starts sweeping up and down, moving three columns west on every pass. In the next 0.3 billion steps it reaches about eight times as many new cells as in all the steps before.</p></div>
       {% assign sw = r.sweeper %}{% assign sw_last = sw.t.size | minus: 1 %}
       <figure class="sweeper-map" id="sweeper-map" data-arrival="{{ '/assets/results/rlrlll_arrival.png' | relative_url }}">
         <div class="sweeper-stage">
