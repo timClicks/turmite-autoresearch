@@ -53,11 +53,11 @@
   "decomp_corr": 0.6630128493719528,
   "provenance": {
     "command": "uv run research-outputs/cube-root-growth-paper/tail_budget_numbers.py",
-    "commit": "44ed81f71f4bb1fdccdcdc1cbd586bc1b2eb5613",
+    "commit": "3df1af03f5fd87248ad90335b5400deea8b6db7b",
     "input_sha256": {
       "experiments/archive/2026-10-kappa-tail-budget/results/confirm-v1.analysis.json": "c33dc978e89c4495073646d6db43945e90576a6676bfbad64aaeb2a16c34fcdb",
       "experiments/archive/2026-10-kappa-tail-budget/results/confirm-v1.decomposition.json": "d9b46b3b7bafcc6073a2709aa303783e8384d11a05c0fd6aa5be81d20ac78096",
-      "research-outputs/cube-root-growth-paper/tail_budget_numbers.py": "c14bf3c73c6b2a926d32f67be38e80eb969bf09d2e22c70a47e1d5f7363a9136"
+      "research-outputs/cube-root-growth-paper/tail_budget_numbers.py": "5de4b3b11c18a8faefc10ac59fa183b80bfa81f2992ed7588b395694da8115dc"
     }
   }
 }

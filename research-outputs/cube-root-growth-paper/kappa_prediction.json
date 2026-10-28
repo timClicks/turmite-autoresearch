@@ -17,11 +17,11 @@
   },
   "provenance": {
     "command": "uv run research-outputs/cube-root-growth-paper/kappa_prediction_numbers.py",
-    "commit": "44ed81f71f4bb1fdccdcdc1cbd586bc1b2eb5613",
+    "commit": "3df1af03f5fd87248ad90335b5400deea8b6db7b",
     "input_sha256": {
       "experiments/archive/2026-10-kappa-rule-space/results/w3c_stats.txt": "c2dc0e8cf016a69a21331af391c8a312094d7d92bda7c5a62c13c6e08eaccf99",
       "experiments/archive/2026-10-kappa-rule-space/results/w3c_cross.txt": "e2edc0dcbd00847bb8fba56e41e823153c7f292ca0acabca8e7acda9e394a606",
-      "research-outputs/cube-root-growth-paper/kappa_prediction_numbers.py": "d461386143b28ce215f3d27641d0ece73b1a7843eb6f69de052d9e7322720f4f"
+      "research-outputs/cube-root-growth-paper/kappa_prediction_numbers.py": "5ff76e75b1e02cdc0140053a9a3524284810e9e2129e47c9f6757b9f70804ea8"
     }
   }
 }
