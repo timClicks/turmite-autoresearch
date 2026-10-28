@@ -129,3 +129,18 @@ class unchanged but shifted a. Independent units: six rules (seeds shared).
 ### 2026-10-27 21:35 (+1300) · 15d41a9 · decision
 Follow-ups F-a..F-d registered in the README addendum (item 9) with predictions, not run. Notes (Q32), pruning-entry
 amendment 1, blog post/homepage/atlas/guide wording and `notebook.ipynb` updated to match.
+
+### 2026-10-28 18:20 (+1300) · 4fd558b · intent
+Session start. Owner asked for the next priority to be pursued. Plan: (1) fix and audit the hash-order bootstrap
+bug (other experiment); (2) the boundary-access discriminating test, starting from this experiment's registered
+follow-ups F-a..F-d.
+
+### 2026-10-28 18:30 (+1300) · 4fd558b · surprise
+While designing F-b: under any deterministic quarter-turn fresh policy a fresh run is at most 4 cells (four equal
+turns close a 2x2 block onto the run's first, now departed, cell). So F-b's excursion length cannot vary among the
+deterministic arms; it only separates F1 again. F-a's eight seeds are also moot: forced L is deterministic.
+
+### 2026-10-28 18:35 (+1300) · 4fd558b · decision
+Registered Stage 3 in the README before any code: `ft:RULE:T` for T in {R, L, U}, 6 rules, one run each, three
+explanations (H-bound / H-chiral / H-match) with a reading table, a "stalled" class added before running, gates T0/T1.
+F-b deferred with reason. Pruning preflight: no member entry; run. Priors H-bound 40%, H-chiral 30%, H-match 20%.

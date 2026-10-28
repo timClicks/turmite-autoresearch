@@ -502,3 +502,111 @@ following corrections and limits are appended. Review-time numbers come from
      repel" is not the same intervention as "fresh ground repels".
    A denser EF dose curve follows these controls; a steep finite-time curve alone would not
    separate a transition from a noise-dependent crossover.
+
+## Stage 3: what about the fresh-ground turn matters? (registered 2026-10-28 18:35 NZDT, before any code or run)
+
+Base commit `4fd558bf93177bfeb5461e2a2ae7e3206450fdf9`. Supersedes nothing above; it runs
+F-a from item 9 of the review addendum unchanged in substance, adds one arm, and defers F-b
+for a reason found while designing it.
+
+### An exact fact that reshapes F-b
+
+Call a *fresh run* a maximal sequence of consecutive steps taken from fresh (never departed)
+cells. Under any deterministic quarter-turn policy on fresh cells (forced R, as in the ant and
+V1, or forced L), the fresh cells of one run are visited around a 2x2 block: after four equal
+quarter turns the walker re-enters the first cell of the run, which is now departed. So **a
+fresh run has at most 4 cells** under forced R or forced L, whatever the interior does, and
+under a forced U-turn (below) at most 2 (2 only at the start cell). Under F1's fair R/L the
+run is an unbounded random path into fresh ground. This is a property of the construction,
+not a measurement; the oracle test below checks it on simulated trajectories.
+
+Consequence: F-b's "fresh excursion length" and "new cells deposited before the first return"
+are bounded by 4 for every deterministic arm and can only separate F1 from the rest, which
+Stage 1 already did. Its registered Spearman criterion (>= 0.8 over 24 conditions) would be
+met or missed mainly by that one split. **F-b is deferred**, not run; a mediator worth
+measuring has to vary among bounded policies.
+
+### Explanations and arms
+
+Three explanations of why the fresh-ground turn matters (Stage 1: randomising it makes all six
+rules porous):
+
+- **H-bound.** What matters is that excursions into fresh ground are *bounded*: the walker
+  deposits O(1) cells and returns to departed territory. Any bounded policy keeps growth compact.
+- **H-chiral.** What matters is *coherent chirality* on fresh ground: a consistent loop sense
+  (R or L), not boundedness alone. (This is the reading behind the registered F-a prediction.)
+- **H-match.** What matters is that the fresh turn *matches the rule's colour-0 turn* (every
+  canonical rule turns R on colour 0), so fresh ground behaves like the interior's colour-0 cells.
+
+New walker `ft:RULE:T` (deterministic, no seed): the ant `RULE`, except that on a cell it stands
+on for the first time it turns by `T` instead of `rule[0]`: `R` (+1 quarter turn), `L` (-1) or
+`U` (half turn, a reversal: the walker steps straight back to the cell it came from). The colour
+advances as in the ant; freshness is the never-departed flag, as in `hy:` (a revisited cell at
+colour 0 is not fresh).
+
+| arm | H-bound | H-chiral | H-match |
+|---|---|---|---|
+| `ft:RULE:L` (F-a, forced L) | compact | compact | not compact |
+| `ft:RULE:U` (new, reversal) | compact | not compact | not compact |
+
+`ft:RULE:R` is the ant itself for these rules (all six turn R on colour 0) and is the identity
+gate. A straight-ahead policy is not run: from the start cell it walks a ray of fresh cells
+and never returns, which is trivially non-compact and tells us nothing.
+
+### Instrument, classes, cohort (frozen)
+
+The Stage 1 instrument unchanged: `probe 27 16384`, early `k = 12..22`, late `k = 20..26`,
+fits as `scripts/analyse.py`. Classes as Stage 1 (compact / porous / intermediate), plus one
+added before any run because a reflecting policy might trap the walker in a cycle that never
+touches fresh ground again, which the compact thresholds would mislabel: **stalled** if early
+a < 0.45 or if the final window's area equals the previous window's. Stalled is not compact.
+"Not compact" in the table means porous, intermediate or stalled.
+
+Cohort: the six Stage 1 rules (`results/rules.txt`). The walker is deterministic, so the eight
+seeds of F-a's wording would give eight identical runs; there is **one run per (rule, arm)**,
+18 runs in all (3 arms x 6 rules), and the independent units are the six rules. There is no
+between-seed sd; the spread over rules is reported instead.
+
+Gates (if one fails, nothing is scored):
+- T0. `cargo test --release --locked --test fresh_turn` passes: `ft:RULE:R` equals
+  `reference::Ant` step for step (cells, heading, position) for rules starting with R; `ft:`
+  equals an independent sparse reference for all three policies; the fresh-run bound (<= 4 for
+  R/L, <= 2 for U) holds on every simulated step.
+- T1. Each `ft:RULE:R` probe row equals the committed deterministic `hy:RULE:0:0:0` row in
+  `results/probe.csv` field for field except the label.
+
+Reading (per arm, an arm is "compact" or "not compact" when at least 5 of 6 rules agree; else
+"split, rule-dependent"):
+- L compact and U compact: **H-bound** favoured.
+- L compact, U not compact: **H-chiral** favoured.
+- L not compact, U not compact: **H-match** favoured.
+- L not compact, U compact: none of the three; reported as unexplained.
+- Any split arm: no reading for that arm.
+
+Quantitative side predictions (scored, not part of the reading): F-a as registered, forced L
+early a within 0.05 of the ant in >= 5 of 6 rules. For U, if compact, early a within 0.05 of
+the ant in >= 4 of 6 rules.
+
+**My priors, stated before running:** H-bound 40%, H-chiral 30%, H-match 20%, other 10%. On
+F-a I keep the registered ~60% for "forced L compact". The reason for leaning towards H-bound:
+V1 (bounded fresh runs, no interior colour memory) was already much more compact than `pw:0.5`,
+which suggests the bound does most of the work. Against it: reversal deposits one cell per
+contact, which is Eden-like deposition and could be compact for a different reason, or
+could let the ant's interior sweep along the edge without growing.
+
+What this cannot show: a finite-window class, six rules of one class, and nothing about why
+the bound gives a cube root. A reading favours an explanation among these three; it does not
+establish it.
+
+### Pruning-index preflight (Stage 3)
+
+- Index revision `4fd558bf93177bfeb5461e2a2ae7e3206450fdf9`; `rg --files notes/pruning-index/entries`
+  (4 entries); `rg -n -i -c -e forced -e u-turn -e uturn -e reverse -e first.departure -e fresh
+  -e chiral -e "hy:" -e "ft:"` (hits in 3 entries); `rg -l -F RULE` for each of the six rules
+  (hit only `NR-20261026-wall-vs-memory-no-wall-porous`).
+- Membership: `NR-20261026` covers exactly the 48 `hy:RULE:0:1:SEED` specs (EF = 1 random fresh
+  turns); `ft:` specs are deterministic fresh-turn policies and are not members. The
+  kappa-exposure and crawler hits are incidental ("forced first departures" as an observable of
+  the plain ant, "fresh" target directories). The additive-law entry concerns conservation laws.
+- Decision: **run**. `ft:RULE:R` deliberately replicates the deterministic ants (gate T1).
+- Budget: 18 runs of 2^27 steps on 4 cores (minutes). No extension without a new registration.
