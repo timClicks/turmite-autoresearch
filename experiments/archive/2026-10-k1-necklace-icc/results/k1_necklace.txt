@@ -1,4 +1,4 @@
 blob rules 2591 in 618 necklaces with >= 2 blob members; sizes: {np.uint32(2): np.int64(66), np.uint32(3): np.int64(119), np.uint32(4): np.int64(171), np.uint32(5): np.int64(170), np.uint32(6): np.int64(76), np.uint32(7): np.int64(16)}
-log kappa            ICC(1) = 0.199  (permutation null mean -0.000, 95th pct +0.030; 618 groups)
-log c                ICC(1) = 0.129  (permutation null mean -0.001, 95th pct +0.028; 618 groups)
-a (area exponent)    ICC(1) = 0.189  (permutation null mean +0.000, 95th pct +0.032; 618 groups)
+log kappa            ICC(1) = 0.199  (permutation null mean +0.001, 95th pct +0.029; 618 groups)
+log c                ICC(1) = 0.129  (permutation null mean -0.000, 95th pct +0.024; 618 groups)
+a (area exponent)    ICC(1) = 0.189  (permutation null mean +0.000, 95th pct +0.029; 618 groups)
