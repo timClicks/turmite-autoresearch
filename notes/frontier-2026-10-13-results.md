@@ -441,6 +441,17 @@ Script `experiments/archive/2026-10-a7-rrllllllr-self-averaging/scripts/a7_censu
 - **Prediction (<= 3 rising rules, < 5% flagged): falsified.** 18 of 239 rules (7.5%) are flagged rising (one-sided bootstrap p < 0.025 and CV26 > CV20; 2.5% expected by chance). In the random-sample subsets the fraction is 5.1% (5 of 99 in `b2_probe`, the unbiased 100-rule sample; 2 of 39 in `patched.csv`), about double the chance rate; the pooled 7.5% is inflated by the outlier-selected `item21` rules (68 of its 98 rules were chosen for atypical exponents), so the census-level rate is closer to ~5%, not estimable better with these data. The rotor's CV falls (slope -0.003 per octave, CV 0.031 to 0.015 over 24 seeds); the median rule's slope is -0.0035, so most rules behave like it.
 - The flagged set is not random: 11 of the 18 begin "RLLL" (e.g. RLLLRRRLLRLL, slope +0.30 per octave from CV 0.14 to 1.52 over 24 seeds; RLLRRRRRRRRL, RLLLLLLRLRL), several with CV already > 0.4-1.2 at k = 20 (RLRRRLRRRRL, RLRRRLLLRLLL at ~1.2: bursty rules whose CV is huge but flat). RRLLLLLLR (219 seeds pooled) is flagged with slope +0.025 per octave (CV 0.21 to 0.35 over k = 20..26): it is a mild member of the class, not unique; the strongest cases are different rules. This reframes A7: rising CV is a recurring feature of a minority of rules rather than a peculiarity of RRLLLLLLR, concentrated among rules starting with RLLL.
 - Limits: 12 seeds per rule gives bootstrap CV slopes with wide errors (SE 0.01-0.09), the pool mixes selection regimes, and the fit window k = 20..26 is the census window, not 2^30.
+- **Correction 2026-10-28 (append only; numbers above kept as written).** `a7_census.py` was not reproducible: polars
+  `group_by("base")` and `unique()` return rules and seeds in per-process hash order, so the seeded bootstrap draws
+  (`default_rng(20261013)`) landed on different rules each run; the committed `a7_census.txt` said 20 (8.4%), this note 18
+  (7.5%), and two fresh runs gave 19 and 20. Fixed at `54a013b3` (groups and seeds sorted; output byte-identical under
+  different `PYTHONHASHSEED`). Deterministic result: **17 of 239 (7.1%)** flagged, 10 of the 17 beginning "RLLL";
+  random-sample subsets **4 of 99 (4.0%)** in `b2_probe` and **1 of 39** in `patched.csv`. The registered prediction
+  (<= 3 rising rules, < 5% flagged) is still **falsified** on the pooled set (P(X >= 17 | 239, 0.025) < 0.001). But the
+  reading "about double the chance rate" in the unbiased sample does not survive: 4 of 99 against 2.5% expected has
+  P(X >= 4) = 0.24, consistent with chance. The pooled excess comes mainly from the outlier-selected ensembles. Flag
+  counts move by +-3 with the bootstrap draw because several rules sit near p = 0.025 (Monte Carlo SE about 0.005 at
+  1000 resamples), so treat the count as uncertain at that level.
 
 ### A3 control result (done 2026-10-13): the formula and the cone both fail for ants on a random background
 `examples/shape.rs RULE@SEED@RADIUS` (default radius 2 unchanged), 4 rules x seeds 1..3, full random-colour background, `shape 24 16384` -> `experiments/archive/2026-10-a3-background-cone-control/results/a3_shape_bg.csv` (12 of 12 runs stayed on the board), `experiments/archive/2026-10-a3-background-cone-control/scripts/a3_stats.py` -> `experiments/archive/2026-10-a3-background-cone-control/results/a3_stats.txt`.
