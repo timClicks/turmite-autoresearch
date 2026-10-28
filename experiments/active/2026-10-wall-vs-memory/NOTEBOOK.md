@@ -176,3 +176,18 @@ Registered Stage 3b in the README (100 new core-class rules, arms R/L/U, escape 
 f = compact / non-escape, sd-ratio prediction from the Stage 3 post hoc observation). Cohort draw is byte-identical
 across two processes (rules sorted before and after the draw). Scorer tested only on synthetic input (Stage 3 rows
 relabelled onto the new names), not on any Stage 3b output. Committing, then running.
+
+### 2026-10-28 18:33 (+1300) · 383fe4c · observation
+Stage 3b ran (300 runs, 3 min 16 s). T2 passes. f_L 0.857 [0.771, 0.915] (78/91), f_U 1.000 [0.943, 1.000] (63/63);
+escapes L 9, U 37; porous in no arm. Registered reading: unresolved. U escape-rate prediction failed (37% vs 2-20%).
+sd-ratio prediction held (0.725 [0.556, 0.958]); U late a 0.687 held.
+
+### 2026-10-28 18:40 (+1300) · 383fe4c · surprise
+All 13 non-compact, non-escape L runs are ordered fillers: A/t constant (1/10, 1/8, 1/6, 1/4, ...), mostly exact
+squares. The forced-L policy turns some chaotic rules into square-spiral fillers. Post hoc check of A/t, w/h and
+perimeter / 2(w + h) on the last three windows.
+
+### 2026-10-28 18:45 (+1300) · 383fe4c · interpretation
+No porous run among 300 bounded-policy walkers. Candidate dichotomy: bounded fresh runs and no crystallisation give
+compact growth. The confound left in Stage 1 is that F1's fresh turns are both random and unbounded. A random but
+bounded policy separates them: R and U mixed at random is bounded (a U returns at once, R closes a 2x2 block within 4).

@@ -1,0 +1,10 @@
+commit 383fe4caaf636f6c09ca992d75810d8094e7ae4c
+dirty 0 tracked files
+rustc rustc 1.97.0 (2d8144b78 2026-07-07)
+probe_sha256 92aacf017243e8fb122ff8ac6fc5265da5ddc8a70b14ecaae7e290df46ae72bd
+specs_sha256 855cc93063bfb0d24e9f4946d59f42e8ef6358005df863e0e082f59a93e75b47
+command probe 27 16384 < experiments/active/2026-10-wall-vs-memory/results/stage3b_specs.txt
+RAYON_NUM_THREADS 3
+start 2026-10-28T05:29:16Z
+end 2026-10-28T05:32:32Z
+stage3b_probe.csv_sha256 d2c77b0ffaad6155f10c248c7f86926da8674a6237ce449f2d5155d3f90b0c18

@@ -715,3 +715,51 @@ Pruning preflight: same index revision content as Stage 3 (no entries added sinc
 the new rules are not members of any entry (`NR-20261026` covers only `hy:RULE:0:1:SEED`
 specs); decision **run**. Budget: 300 runs of 2^27 steps, a few minutes on 4 cores. No
 extension without a new registration.
+
+## Stage 3b results (run 2026-10-28 18:29-18:32 NZDT, commit `383fe4c`)
+
+Command: `RAYON_NUM_THREADS=3 sh experiments/active/2026-10-wall-vs-memory/scripts/run_stage3b.sh`, then
+`uv run --frozen python experiments/active/2026-10-wall-vs-memory/scripts/analyse_stage3b.py`. Clean tree; probe sha256
+`92aacf01...` (same binary as Stage 3); CSV sha256 `d2c77b0f...`; `results/stage3b_provenance.txt`,
+`results/stage3b_runs.csv`, `results/stage3b_analysis.txt`. 300 runs in 3 min 16 s.
+
+**Gate T2 passes** (R arm: 0 escapes, 99/100 compact; the one intermediate, `RRLRLLLLRLL`, has early
+a 0.814 but late a 0.671, a slow transient).
+
+| arm | compact | intermediate | escape | porous | f = compact / non-escape (Wilson 95%) | escape rate (Wilson 95%) |
+|---|---|---|---|---|---|---|
+| R (the ants) | 99 | 1 | 0 | 0 | 0.990 | 0 |
+| L (forced L) | 78 | 13 | 9 | 0 | **0.857 [0.771, 0.915]** | 0.09 [0.05, 0.16] |
+| U (reversal) | 63 | 0 | 37 | 0 | **1.000 [0.943, 1.000]** | **0.37 [0.28, 0.47]** |
+
+- **Registered reading: unresolved** (f_L = 0.857 falls between the 0.50 and 0.90 bands).
+- **H-chiral and H-match are rejected by the U arm**: both predicted f_U <= 0.50; observed 63/63 compact,
+  interval [0.94, 1.00]. A walker whose fresh-ground turn has no handedness and does not match colour 0
+  grows compactly in every run that stays on the board.
+- Escape-rate prediction (2-20% per arm): held for L (9%), **failed for U (37%)**. Reversal makes
+  early highways far more common than the census base rate.
+- Late-a spread (registered from the Stage 3 post hoc observation): sd_U / sd_R = 0.725, rule bootstrap
+  95% [0.556, 0.958], **held** (n = 60 rules with both late windows); U mean late a 0.687, in [0.67, 0.72],
+  **held**. The effect is weaker than the six-rule hint (0.31 there), as one would expect of a pattern
+  noticed in a small sample.
+- Distinct trajectories: R 99, L 98, U 86 of 100 (rules sharing a prefix can coincide when an ordered
+  structure forms before longer colours are read).
+
+Post hoc, descriptive (not registered): **the 13 "intermediate" L runs are ordered fillers, not
+porous walks.** Early a 0.94-1.15, beta 0.50-0.57; late a ~1; area grows at a constant rate with A/t
+settling to 1/10, 1/8, 1/6 (five rules), 1/4 (three rules), and two non-rational-looking values (0.150, 0.083), the
+territory a solid square in 10 of 13 (w/h = 1.00, perimeter = 2(w + h)), a 2:1 rectangle in one and
+an octagon-like shape (perimeter / 2(w + h) = 0.76) in two that share a trajectory. These are the
+square-ring / square-spiral fillers known from the census (`notes/proof-track-2026-10-20.md`,
+`experiments/archive/2026-10-square-ring-fillers/`), here produced by the forced-L policy. Treating fillers like
+highways (ordered structures, not growth regimes) would give f_L = 78/78, but that class was not
+registered, so it does not change the score.
+
+Interpretation (mine; it goes beyond the registered table and is labelled as such). Across 300
+deterministic bounded-fresh-run walkers, **no run is porous**. Every run either locks into an ordered
+structure (a highway or a filler) or grows compactly with early a ~ 0.69-0.70 and beta ~ 0.55. That is
+a dichotomy: *bounded fresh runs + no crystallisation => compact growth near the cube root*. The fresh
+turn's handedness and its match with colour 0 decide only which ordered structures are likely (U:
+highways; L: highways and fillers; R: neither, by the selection of this cohort). This reading predicts
+something Stage 1 could not separate: F1 (random R/L on fresh cells) was porous because its fresh
+runs are *unbounded*, not because they are random. Stage 3c tests exactly that.
