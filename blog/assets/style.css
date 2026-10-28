@@ -198,7 +198,9 @@ input[type=search] { width: min(100%, 640px); margin-top: 10px; padding: 14px 16
 /* Home page widgets: "How an ant works" (ex-) and "Four walkers" (wc-). */
 .ant-explainer, .walker-compare { margin-bottom: 55px; --wc-0: #b74727; --wc-1: #2f6f6a; --wc-2: #8a6d1f; --wc-3: #5d6f46; }
 .ant-explainer[hidden], .walker-compare[hidden] { display: none; }
-.ex-lede { max-width: 760px; font-size: 18px; color: var(--muted); margin: 22px 0; }
+.ex-lede, .section-lede { max-width: 760px; font-size: 18px; color: var(--muted); margin: 22px 0; }
+/* A bridge closes a home-page section by handing the reader on to the next one. */
+.section-bridge { color: var(--ink); margin: 30px 0 0; }
 .ex-lede code, .homepage-note code { font: .9em ui-monospace, monospace; color: var(--ink); }
 .ex-layout { display: grid; grid-template-columns: minmax(0, 460px) minmax(0, 1fr); gap: 34px; align-items: start; }
 .ex-board canvas { display: block; width: 100%; height: auto; aspect-ratio: 1; background: var(--panel); }
@@ -225,7 +227,7 @@ input[type=search] { width: min(100%, 640px); margin-top: 10px; padding: 14px 16
 .ex-chip.ex-blank { background: var(--panel); color: var(--muted); border: 1px solid var(--line); line-height: 20px; }
 #ex-table .ex-turn { width: 100%; text-align: left; border-color: transparent; }
 #ex-table .ex-turn:hover { border-color: var(--accent); }
-.ex-narration { list-style: none; counter-reset: ex; margin: 16px 0; padding: 0; font-size: 15px; line-height: 1.55; min-height: 6.4em; }
+.ex-narration { list-style: none; counter-reset: ex; margin: 16px 0; padding: 0; font-size: 15px; line-height: 1.55; }
 .ex-narration li { counter-increment: ex; padding-left: 26px; position: relative; margin-bottom: 2px; }
 .ex-narration li::before { content: counter(ex); position: absolute; left: 0; top: 2px; width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--line); color: var(--muted); font: 11px/16px ui-monospace, monospace; text-align: center; }
 .ex-controls { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -245,6 +247,6 @@ input[type=search] { width: min(100%, 640px); margin-top: 10px; padding: 14px 16
 .wc-chart { display: block; width: 100%; height: auto; margin-top: 26px; background: var(--panel); }
 @media (prefers-color-scheme: dark) { .ant-explainer, .walker-compare { --wc-0: #f09b76; --wc-1: #98bbb8; --wc-2: #d7bc83; --wc-3: #b6c895; } }
 @media (max-width: 900px) { .wc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 760px) { .ex-layout { grid-template-columns: 1fr; gap: 20px; } }
+@media (max-width: 760px) { .ex-layout { grid-template-columns: 1fr; gap: 20px; } .ex-counter { min-height: 3.6em; } }
 @media (max-width: 420px) { .wc-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .ant-explainer *, .walker-compare * { scroll-behavior: auto; transition: none; } }

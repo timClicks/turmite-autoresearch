@@ -196,9 +196,27 @@
       narration.replaceChildren(Object.assign(document.createElement('li'),
         { textContent: 'The board starts blank (colour 0) and the ant faces north. Press Step to watch it follow the table.' }));
     }
-    if (atCap) narration.append(Object.assign(document.createElement('li'), { textContent: `Stopped at ${MAX_STEPS.toLocaleString('en-NZ')} steps; reset to start again.` }));
+    if (atCap) narration.append(capLine());
     markCurrentRow();
     draw();
+  }
+
+  const capLine = () => Object.assign(document.createElement('li'), { textContent: `Stopped at ${MAX_STEPS.toLocaleString('en-NZ')} steps; reset to start again.` });
+
+  // The narration's wrapped height varies step to step, which made the controls below
+  // it jump. Reserve the tallest it can be: an off-screen copy holding the longest
+  // wording (two-digit colour, wrap to blank, longest headings) plus the cap notice.
+  function reserveNarrationHeight() {
+    const probe = narration.cloneNode(false);
+    probe.removeAttribute('id');
+    probe.setAttribute('aria-hidden', 'true');
+    probe.style.cssText = `position:absolute;visibility:hidden;left:0;top:0;min-height:0;width:${narration.clientWidth}px`;
+    const longest = describe({ colour: 11, turn: 'R', before: 3, after: 0, painted: 0 });
+    probe.append(...longest.map(text => Object.assign(document.createElement('li'), { textContent: text })), capLine());
+    narration.parentNode.append(probe);
+    const height = probe.getBoundingClientRect().height;
+    probe.remove();
+    if (height > 0) narration.style.minHeight = `${Math.ceil(height)}px`;
   }
 
   function setRule(rule) {
@@ -279,4 +297,10 @@
   speed.dispatchEvent(new Event('input'));
   root.hidden = false;
   setRule('RL');
+  reserveNarrationHeight();
+  if (typeof ResizeObserver !== 'undefined') {
+    let width = narration.clientWidth;
+    new ResizeObserver(() => { if (narration.clientWidth !== width) { width = narration.clientWidth; reserveNarrationHeight(); } }).observe(narration);
+  }
+  if (document.fonts) document.fonts.ready.then(reserveNarrationHeight);
 })();
