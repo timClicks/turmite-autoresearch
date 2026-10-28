@@ -31,6 +31,8 @@ jobs:
       - run: cargo build --release --locked --bin sweep --bin sweep_lean --bin probe
       - name: Compare thread counts and record provenance
         run: uv run --frozen python .github/scripts/check_determinism.py --output "$RUNNER_TEMP/reproducibility"
+      - name: Seeded analysis scripts are independent of hash order
+        run: uv run --frozen python .github/scripts/check_python_determinism.py
       - name: Check analysis against exact answers and an independent PRESS calculation
         run: uv run --frozen python experiments/archive/2026-10-fixed-area-cycles/scripts/check_analysis.py
       - uses: actions/upload-artifact@v4

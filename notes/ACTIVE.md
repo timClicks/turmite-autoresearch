@@ -1,6 +1,6 @@
 # Active work and open items
 
-Living index, last updated 2026-10-25 (square-ring filler follow-ups added to the backlog; priorities unchanged); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
@@ -79,21 +79,13 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
 
 ## Science: retained backlog (not an execution queue)
 
-- **Seeded bootstrap that is not reproducible (found 2026-10-28, not fixed):**
-  `experiments/archive/2026-10-kappa-matched-area/scripts/matched_area.py` gives different M2/M3 bootstrap intervals
-  on every run, in the same environment, with the same input (sha256[:16] `e813c6f21f63421c`). Three runs at `2d8f189`
-  gave M2 between-rule 95% intervals [1.096, 1.400], [1.088, 1.400], [1.086, 1.397]; the committed
-  `results/matched_area.txt` (run at `797704a`, dirty tree) has [1.107, 1.403]. Point estimates (M1, the M2 slopes 1.271
-  and 0.420, the M3 partial rho) reproduce exactly, and no M1-M3 verdict changes at this size of wobble (M2's
-  within - between = -0.851 against a 0.3 bar). Likely cause, not yet confirmed by a fix: `seeds["rule"].unique()` and
-  `group_by(...)` without `maintain_order=True` return rules in hash order, so the fixed `default_rng(20261014)` draws map
-  to different rules each run (AGENTS.md rule 1: no hash-order dependence). Next: sort the rule list (or pass
-  `maintain_order=True`), check two runs are byte-identical, then regenerate the result with a NOTEBOOK entry and
-  report the interval shift. Wider audit: 46 scripts under `experiments/` and `research-outputs/` combine polars
-  `unique()`/`group_by().agg()` with a seeded RNG (a crude grep, not a confirmed list), including this experiment's
-  `matched_pairs.py` and `noise_floor.py`; any that feed RNG draws through an unordered result have the same flaw, and
-  paper numbers built from them should be rechecked. (Before this check I had guessed a numpy version change; that
-  guess was wrong.)
+- **Seeded bootstraps that were not reproducible (found and fixed 2026-10-28):** polars `unique()`/`group_by()` (and
+  Python sets of strings) iterate in per-process hash order; where that order decided which unit got which seeded draw, or
+  broke ties, outputs changed between runs. All 98 candidate scripts were run twice under different `PYTHONHASHSEED` in a
+  scratch worktree; every one that differed was fixed (sorted groups) and its committed output regenerated. Verdicts are
+  unchanged everywhere; intervals moved by <= 0.02. One interpretation weakened: the A7-next random-sample excess (now
+  4/99, consistent with chance). Full list, scripts not testable without gitignored dumps, and residual cosmetic
+  differences: `notes/reproducibility-audit-2026-10-28.md`. Lesson for new scripts: sort before any seeded draw.
 
 - **Wall or memory (done 2026-10-26, owner-requested, `experiments/active/2026-10-wall-vs-memory/`):** turn noise split by
   fresh/revisited cell. Randomising the first-departure turn disrupts compact growth in 6/6 core rules (condition means
@@ -102,6 +94,13 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
   k = 27..31, rotor 0.68: finite-window separation, asymptote unresolved. Follow-ups F-a..F-d registered in the README. Open: Q30 (where the edge fails between 10% and 100% fresh noise), Q31 (what memory
   adds: local-time discrepancy). Relevant to priority 1: boundary access depends on the fresh-ground turn, so a
   boundary-access explanation should say how that turn shapes returns.
+  **Stages 3-3c (2026-10-28, registered before each run, readings unresolved at their thresholds):** the fresh-ground effect
+  sits in the *bound* on fresh runs. Forced L, reversal and random {R,U}/{L,U} (all bounded) gave 1 porous run in 514;
+  random {R,L,U} (unbounded) 73/148 porous, 2/148 compact. Handedness and the colour-0 match are not needed (reversal
+  63/63 compact when not escaping). Forced turns crystallise rules (highways; square-spiral fillers). F-a done (its
+  prediction failed), F-b deferred (bounded at 4 cells by construction). Dead end, exact scope:
+  `NR-20261028-wall-vs-memory-bounded-random-fresh-compact`. Open: Q33 (does the bound's size set a crossover? a
+  candidate priority-1 test, since it predicts boundary access from a parameter fixed in advance), Q34, Q35.
 
 - **Proof track (bounded closure only this phase; started 2026-10-20):** turn simulated regularities into checked macro-transitions
   (`notes/proof-track-2026-10-20.md`). First target: is the `RLRLLL` column sweeper `C(L) -> C(L+g)` for all heights?
