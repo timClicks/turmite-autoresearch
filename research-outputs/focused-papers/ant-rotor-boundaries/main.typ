@@ -4,7 +4,7 @@
 #let TB = json("../../cube-root-growth-paper/tail_budget.json")
 #let CB = json("../../cube-root-growth-paper/chirality_baselines.json")
 #let RF = json("../../cube-root-growth-paper/recent_findings.json")
-#let TF = json("../../../experiments/2026-10-13-transport-forecast/results/transport_forecast.json").cohorts
+#let TF = json("../../../experiments/archive/2026-10-transport-forecast/results/transport_forecast.json").cohorts
 #let f(x, d: 3) = str(calc.round(x, digits: d))
 #let pct(x) = str(calc.round(100 * x, digits: 0)) + "%"
 #let iqr(v, d: 2) = "[" + f(v.at(0), d: d) + ", " + f(v.at(2), d: d) + "]"

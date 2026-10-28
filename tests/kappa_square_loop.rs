@@ -1,4 +1,4 @@
-//! Square-loop instrument (examples/kappa_square_loop_sampler.rs; experiments/2026-10-16-kappa-square-loop).
+//! Square-loop instrument (examples/kappa_square_loop_sampler.rs; experiments/archive/2026-10-kappa-square-loop).
 //! 1. Identity: the sampler's area, perimeter, new_cells, boundary_steps, escaped flag and window set equal
 //!    `probe_walker`, and its loop counters equal a store-the-whole-path reference that counts by definition.
 //! 2. Calibration: blank-board lead-k traps (exactly k laps), PersistentWalk loop fraction against the exact value.

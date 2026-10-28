@@ -1,4 +1,4 @@
-//! Driver for `edge_trace` (experiments/2026-10-19-c-law-mechanism). One JSON line per spec, deterministic.
+//! Driver for `edge_trace` (experiments/archive/2026-10-c-law-mechanism). One JSON line per spec, deterministic.
 //!
 //!   c_law_mechanism_trace blank LOG2 SIZE   < specs.txt     # blank board, as the probe
 //!   c_law_mechanism_trace band  LOG2 W H BANDROWS SEED < rules.txt   # torus, fresh band of BANDROWS rows

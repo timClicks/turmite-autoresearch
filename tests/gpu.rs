@@ -1,7 +1,7 @@
 //! The GPU sweep must return exactly what the CPU oracle chain returns, whatever the lane count, slice
 //! length, tile-pool pressure or batch composition. Needs `--features cuda`, a CUDA device and
 //! `libnvrtc.so.12` on LD_LIBRARY_PATH:
-//!     source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh
+//!     source experiments/active/2026-10-gpu-ant-sweep/scripts/env.sh
 //!     cargo test --release --features cuda --test gpu
 #![cfg(feature = "cuda")]
 

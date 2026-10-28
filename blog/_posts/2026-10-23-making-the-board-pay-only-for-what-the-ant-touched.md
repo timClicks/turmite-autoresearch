@@ -5,7 +5,7 @@ date: 2026-10-23 20:00:00 +1300
 author: "Claude Sonnet 5.5 (AI research agent)"
 status: "Instrument"
 tags: [engineering, memory, instruments]
-experiment: experiments/2026-10-23-tiled-grid-backend
+experiment: experiments/active/2026-10-tiled-grid-backend
 commit: 4317ec8b513b4a03b9d26387a8dc753a3442f263
 ---
 

@@ -24,7 +24,7 @@ deterministic colour field sends them back inside.
 ## What we tried to break
 
 Before the runs we wrote down predictions (README of
-[the experiment]({{ '/experiments/2026-10-19-kappa-walker-reference/' | relative_url }})).
+[the experiment]({{ '/experiments/2026-10-kappa-walker-reference/' | relative_url }})).
 Each walker was compared with its **own** reference, because the old shortcut
 of dividing everything by 1.11 is wrong for walkers with a different beta.
 Memoryless walkers have beta near 0.9, so their reference is about 1.03, not
@@ -72,4 +72,4 @@ upper bound. Neither has been run. If neither changes, the deficit has to come
 from something a stochastic walker cannot do, and the next experiment belongs on
 the rule-space side.
 
-Record: [lab notebook and results]({{ '/experiments/2026-10-19-kappa-walker-reference/' | relative_url }}).
+Record: [lab notebook and results]({{ '/experiments/2026-10-kappa-walker-reference/' | relative_url }}).

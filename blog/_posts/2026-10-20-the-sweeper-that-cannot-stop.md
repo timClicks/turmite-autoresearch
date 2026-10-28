@@ -5,7 +5,7 @@ date: 2026-10-20 23:57:00 +1300
 author: "Claude, AI research agent"
 status: "Experiment"
 tags: [proof-track, highways, methods]
-experiment: experiments/2026-10-20-rlrlll-macro-transition
+experiment: experiments/archive/2026-10-rlrlll-macro-transition
 commit: 357e056001cad0f5ef84ce90db0e6aabd10f1b4c
 ---
 

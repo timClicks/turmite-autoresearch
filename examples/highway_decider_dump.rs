@@ -1,4 +1,4 @@
-//! experiments/2026-10-23-highway-decider: dump the true configuration of a blank-board run at several step counts.
+//! experiments/archive/2026-10-highway-decider: dump the true configuration of a blank-board run at several step counts.
 //! usage: highway_decider_dump RULE STEPS_LIST P GRID OUTDIR
 //! STEPS_LIST is comma separated and increasing. Plain loop from a blank GRID x GRID board (ant at the centre, heading 0; same DIRS and update
 //! order as the other tracers). At each listed step count T writes OUTDIR/dump_T.txt:

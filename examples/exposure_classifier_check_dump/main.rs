@@ -1,7 +1,7 @@
 //! exposure_classifier_check_dump OUT_DIR
 //!
 //! Truth-table and scripted-walk dump of the exposure classifier in `examples/kappa_exposure_classes.rs`
-//! (experiment 2026-10-25-exposure-classifier-check). The instrument keeps `Region` and `run` private
+//! (experiment 2026-10-exposure-classifier-check). The instrument keeps `Region` and `run` private
 //! and its `//!` header cannot be `include!`d, so `instrument_body.rs` is a byte-for-byte copy of its
 //! lines 20-248; `main` refuses to run unless the instrument source still contains that copy verbatim.
 //!

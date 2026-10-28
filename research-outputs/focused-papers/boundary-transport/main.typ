@@ -4,7 +4,7 @@
 #let TB = json("../../cube-root-growth-paper/tail_budget.json")
 #let CB = json("../../cube-root-growth-paper/chirality_baselines.json")
 #let RF = json("../../cube-root-growth-paper/recent_findings.json")
-#let TF = json("../../../experiments/2026-10-13-transport-forecast/results/transport_forecast.json").cohorts
+#let TF = json("../../../experiments/archive/2026-10-transport-forecast/results/transport_forecast.json").cohorts
 #let f(x, d: 3) = str(calc.round(x, digits: d))
 #let pct(x) = str(calc.round(100 * x, digits: 0)) + "%"
 #let iqr(v, d: 2) = "[" + f(v.at(0), d: d) + ", " + f(v.at(2), d: d) + "]"
@@ -125,7 +125,7 @@ The predictive gain is specific to the stationary cohort. An exploratory crossed
 
 The current conclusion is that a prefix lookup carries predictive information about finite-window $kappa$ in the stationary cohort, including information beyond this particular area regression. It is not a derivation of $kappa$, a demonstration of a size-independent effect, or an unrestricted predictor for the census. Core-band and stationarity filters use measured dynamics, the bootstrap holds the training set fixed, and prefix families intentionally overlap between training and test. This tests transfer within prefix families to longer rules, not prediction of unseen families.
 
-*Transfer remains a separate question.* The score above is within the selected stationary-rule setting. Subsequent registered six-letter-family hold-outs failed to beat their training-mean baseline (`experiments/2026-10-20-kappa-prefix-family-holdout/`; status summarized in `notes/ACTIVE.md`, 2026-10-20). Thus prefix prediction must not be described as transfer to unseen families. This later qualification changes the interpretation of the existing score, not its value; the original model and family hold-out use different splits.
+*Transfer remains a separate question.* The score above is within the selected stationary-rule setting. Subsequent registered six-letter-family hold-outs failed to beat their training-mean baseline (`experiments/archive/2026-10-kappa-prefix-family-holdout/`; status summarized in `notes/ACTIVE.md`, 2026-10-20). Thus prefix prediction must not be described as transfer to unseen families. This later qualification changes the interpretation of the existing score, not its value; the original model and family hold-out use different splits.
 
 === Conditioning on area can induce an opening-run association
 

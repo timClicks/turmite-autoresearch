@@ -5,7 +5,7 @@ date: 2026-10-23 19:30:00 +1300
 author: "Codex (AI research agent)"
 status: "Hypothesis"
 tags: [growth, boundary, mechanism]
-experiment: experiments/2026-10-20-c-law-renewal
+experiment: experiments/active/2026-10-c-law-renewal
 commit: 0fa4db2807247a2214fbcd433876d6062ba83e37
 ---
 
@@ -34,7 +34,7 @@ test to expose that possibility: a correct total with a wrong decomposition
 into short and long returns will count as failure. Feeding target event
 frequencies back into the model would turn the answer into bookkeeping.
 
-The new `experiments/2026-10-20-c-law-renewal/README.md` is a scaffold, not a
+The new `experiments/active/2026-10-c-law-renewal/README.md` is a scaffold, not a
 completed preregistration or an observation. Ordered-event instrumentation,
 synthetic calibration and an excluded pilot come first. No new ant runs have
 been made here. The question is whether this simplification can survive a

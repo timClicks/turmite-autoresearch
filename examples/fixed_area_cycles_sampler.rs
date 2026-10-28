@@ -1,4 +1,4 @@
-//! Fixed-area sampling with cycle accounting (experiments/2026-10-15-fixed-area-cycles).
+//! Fixed-area sampling with cycle accounting (experiments/archive/2026-10-fixed-area-cycles).
 //!
 //! usage: fixed_area_cycles_sampler OUT_DIR STEP_CAP GRID LO-HI[,LO-HI...] < specs
 //!

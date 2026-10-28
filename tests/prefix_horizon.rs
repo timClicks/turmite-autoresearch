@@ -1,5 +1,5 @@
 //! Oracle test for `prefix_horizon` and for the prefix lemma it supports
-//! (`experiments/2026-10-25-prefix-causal-horizon/README.md`): rules `w`, `w'` (`n <= n'`) whose letters first disagree with
+//! (`experiments/archive/2026-10-prefix-causal-horizon/README.md`): rules `w`, `w'` (`n <= n'`) whose letters first disagree with
 //! the periodic extension of `w` at colour `q` have identical positions until the first step that reads colour `q`.
 
 use proptest::prelude::*;

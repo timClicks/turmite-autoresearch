@@ -13,11 +13,11 @@ import polars as pl
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT
 
-v2 = pl.read_csv(DATA / "experiments/2026-10-13-census-sweeps/results/sweep_v2.csv")
+v2 = pl.read_csv(DATA / "experiments/archive/2026-10-census-sweeps/results/sweep_v2.csv")
 BUDGET = int(v2["steps"].max())
 # Keep only highways re-confirmed on two board sizes with identical onsets;
 # demote the rest (square-builders whose pass crossed the edge) to unresolved.
-confirmed = pl.read_csv(DATA / "experiments/2026-10-13-census-sweeps/results/confirmed_v2.csv")
+confirmed = pl.read_csv(DATA / "experiments/archive/2026-10-census-sweeps/results/confirmed_v2.csv")
 ok = set(confirmed.filter(pl.col("confirmed"))["rule"])
 v2 = v2.with_columns(
     [pl.when(pl.col("rule").is_in(ok)).then(pl.col(c)).otherwise(None).alias(c) for c in ["period", "dx", "dy", "onset"]]
@@ -36,10 +36,10 @@ edges = [10**k for k in range(2, 9)]
 past = [int(((o > a) & (o <= b)).sum()) for a, b in zip(edges[:-1], edges[1:])]
 test = {"rules": int(small.filter(pl.col("period").is_null()).height), "past": past, "lo": min(past), "hi": max(past), "found": None}
 
-big_path = DATA / "experiments/2026-10-13-census-sweeps/results/sweep_1B.csv"
+big_path = DATA / "experiments/archive/2026-10-census-sweeps/results/sweep_1B.csv"
 big = pl.read_csv(big_path)
 assert big.height == test["rules"], (big.height, test["rules"])
-conf = pl.read_csv(DATA / "experiments/2026-10-13-census-sweeps/results/confirmed_1B.csv").filter(pl.col("confirmed"))
+conf = pl.read_csv(DATA / "experiments/archive/2026-10-census-sweeps/results/confirmed_1B.csv").filter(pl.col("confirmed"))
 # A highway that began before 1e8 but only reached the edge after the 1e8
 # budget belongs to the earlier decade, so fold it back into "past".
 older = conf.filter(pl.col("onset") <= 10**8)
@@ -60,10 +60,10 @@ test.update(
 for r in conf.iter_rows(named=True):
     rows.append({"rule": r["rule"], "n": r["n"], "onset": r["onset"], "period": r["period"], "dx": r["dx"], "dy": r["dy"], "late": True})
 
-verdict_path = DATA / "experiments/2026-10-12-knockout-maps/results/verdict.html"
+verdict_path = DATA / "experiments/archive/2026-10-knockout-maps/results/verdict.html"
 test["verdict"] = verdict_path.read_text() if verdict_path.exists() else ""
 
-census = pl.read_csv(DATA / "experiments/2026-10-13-census-sweeps/results/census.csv")
+census = pl.read_csv(DATA / "experiments/archive/2026-10-census-sweeps/results/census.csv")
 grow = census.filter(pl.col("cls") != "builder")["alpha"].to_numpy()
 bins = np.round(np.arange(0.0, 0.625, 0.025), 3)
 hist, _ = np.histogram(np.clip(grow, 0, 0.6 - 1e-9), bins=bins)
@@ -75,21 +75,21 @@ data_census = {
 }
 assert sum(data_census[k] for k in ["highway", "builder", "log", "blob"]) == v2.height
 
-cube = json.loads((DATA / "experiments/2026-10-13-probe-growth-census/results/cube_stats.json").read_text())
-occ = json.loads((ROOT / "experiments/2026-10-13-occupancy-pages/results/page_occ.json").read_text())
+cube = json.loads((DATA / "experiments/archive/2026-10-probe-growth-census/results/cube_stats.json").read_text())
+occ = json.loads((ROOT / "experiments/archive/2026-10-occupancy-pages/results/page_occ.json").read_text())
 data = {"total": v2.height, "budget": BUDGET, "highways": rows, "test": test, "census": data_census, "cube": cube, "occ": occ,
-        "follow": json.loads((DATA / "experiments/2026-10-12-knockout-maps/results/followup_stats.json").read_text()),
-        "calib": {"A": json.loads((DATA / "experiments/2026-10-13-calib-instrument-calibration/results/calib_partA.json").read_text()), "B": json.loads((DATA / "experiments/2026-10-13-calib-instrument-calibration/results/calib_partB.json").read_text()),
-                  "contour": json.loads((DATA / "experiments/2026-10-13-calib-instrument-calibration/results/calib_contour_page.json").read_text()),
-                  "patched": json.loads((DATA / "experiments/2026-10-13-calib-instrument-calibration/results/calib_patched.json").read_text())}}
+        "follow": json.loads((DATA / "experiments/archive/2026-10-knockout-maps/results/followup_stats.json").read_text()),
+        "calib": {"A": json.loads((DATA / "experiments/archive/2026-10-calib-instrument-calibration/results/calib_partA.json").read_text()), "B": json.loads((DATA / "experiments/archive/2026-10-calib-instrument-calibration/results/calib_partB.json").read_text()),
+                  "contour": json.loads((DATA / "experiments/archive/2026-10-calib-instrument-calibration/results/calib_contour_page.json").read_text()),
+                  "patched": json.loads((DATA / "experiments/archive/2026-10-calib-instrument-calibration/results/calib_patched.json").read_text())}}
 
 imgs = {}
-for png in sorted((ROOT / "experiments/2026-10-13-snapshots/results").glob("*.png")):
+for png in sorted((ROOT / "experiments/archive/2026-10-snapshots/results").glob("*.png")):
     imgs[png.stem] = "data:image/png;base64," + base64.b64encode(png.read_bytes()).decode()
 wanted = ["RL", "RLR", "LLRR", "RRRRLL", "RRLRRRRRRLRL", "RRLRLLRRR", "RRRLRLLRRRLR", "RRLRLLRLRRLR"]
 imgs = {k: imgs[k] for k in wanted}
 for r in ["RRRRRLLLLLL", "RLR", "RLLLLLRRLRR"]:
-    imgs["occ_" + r] = "data:image/png;base64," + base64.b64encode((ROOT / "experiments/2026-10-13-occupancy-pages/results" / f"page_{r}.png").read_bytes()).decode()
+    imgs["occ_" + r] = "data:image/png;base64," + base64.b64encode((ROOT / "experiments/archive/2026-10-occupancy-pages/results" / f"page_{r}.png").read_bytes()).decode()
 
 page = (ROOT / "web" / "template.html").read_text()
 sim = (ROOT / "web" / "sim.js").read_text()

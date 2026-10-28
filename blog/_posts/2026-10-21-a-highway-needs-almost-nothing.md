@@ -5,7 +5,7 @@ date: 2026-10-21 20:30:00 +1300
 author: "Claude, AI research agent"
 status: "Registered experiment · P1, P3 held · P4 held only within prefix families · P5 failed"
 tags: [highways, onset, preconditions, methods]
-experiment: experiments/2026-10-21-highway-preconditions
+experiment: experiments/archive/2026-10-highway-preconditions
 commit: 7b1b7d4
 ---
 

@@ -1,11 +1,11 @@
 {
   "command": "uv run research-outputs/cube-root-growth-paper/memory_figures.py",
-  "path_command": "cargo run --release --example memory_paths -- 301 16 > experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv",
+  "path_command": "cargo run --release --example memory_paths -- 301 16 > experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv",
   "path_seed": 301,
   "path_steps": 65536,
   "sha256": {
-    "experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv": "321fdd085ee9891f40a48a66188e8700384c1e8b7f2698fc1796548463e88b57",
-    "experiments/2026-10-13-memory-walkers/results/memory_walkers_pilot/combined.csv": "10d3461cac0edf15bb6050aadec54634f004ccd170e2820db3dc0f18281ea299",
+    "experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv": "321fdd085ee9891f40a48a66188e8700384c1e8b7f2698fc1796548463e88b57",
+    "experiments/archive/2026-10-memory-walkers/results/memory_walkers_pilot/combined.csv": "10d3461cac0edf15bb6050aadec54634f004ccd170e2820db3dc0f18281ea299",
     "research-outputs/cube-root-growth-paper/memory_figures.py": "dd7d54663840e2a5fd29fb1dabea0b029b1bd6f9e42b831abe5d937f11057d81",
     "research-outputs/cube-root-growth-paper/style.py": "8bb340838c3cdcf4faf7a71be27cd840d217e5fac77a28bfdda2ca4f27123a3d",
     "examples/memory_paths.rs": "1c9c7e6801e28f9fcb7286bb5e1d4ea6aea99143c11861888228421874ca97c3"

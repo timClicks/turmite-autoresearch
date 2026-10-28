@@ -4,7 +4,7 @@
 //!   OUT_<t>.bin  u8 image of side W = min(GRID, 1024): per block of (GRID/W)^2 cells, 0 = never visited, otherwise
 //!                1 + the colour of the last visited cell in scan order
 //!   OUT.csv      t, ant x, y, heading, visited cells, bounding box, left_board (one row per snapshot)
-//! Experiment `2026-10-21-late-highway-board-check`; rendered by `scripts/render.py`.
+//! Experiment `2026-10-late-highway-board-check`; rendered by `scripts/render.py`.
 use std::io::Write;
 use turmite::{DIRS, Rule};
 

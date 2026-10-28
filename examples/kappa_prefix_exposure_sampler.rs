@@ -1,4 +1,4 @@
-//! Per-colour exposure and fresh-cell launch tallies (experiments/2026-10-15-kappa-prefix-exposure).
+//! Per-colour exposure and fresh-cell launch tallies (experiments/archive/2026-10-kappa-prefix-exposure).
 //!
 //! usage: kappa_prefix_exposure_sampler OUT_DIR STEP_CAP GRID W LO-HI[,LO-HI...] < specs
 //!

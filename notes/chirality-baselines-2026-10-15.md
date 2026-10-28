@@ -2,18 +2,18 @@
 
 ## 2026-10-15 23:23 NZDT — critique-driven comparison
 
-The [experiment registration and full recipe](../experiments/2026-10-15-chirality-baselines/README.md)
+The [experiment registration and full recipe](../experiments/archive/2026-10-chirality-baselines/README.md)
 fixes letter groups before scoring, after inspection of the original scatter.
 Base commit `b3a0f762ac2230b5df92188206a4d3a1081897be`, with uncommitted work.
 No new ant simulations or changes to probe fits/windows. Command:
 
 ```bash
 export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
-uv run experiments/2026-10-15-chirality-baselines/scripts/compare.py
+uv run experiments/archive/2026-10-chirality-baselines/scripts/compare.py
 ```
 
 Sources, hashes, split validation and exact reconstruction of the original
-chirality predictions are in [comparison.json](../experiments/2026-10-15-chirality-baselines/results/comparison.json).
+chirality predictions are in [comparison.json](../experiments/archive/2026-10-chirality-baselines/results/comparison.json).
 All 300 original calibration rules have non-bursty target values; all models
 score exactly the same 2,747 held-out rules of length at most 12.
 
@@ -38,7 +38,7 @@ groups gives pooled residual R² = -0.00006245 for chirality. Its raw pooled
 within-group score is -0.775530, including errors in group means. The two
 statistics answer different questions; centering is descriptive and not a
 fitted predictive model. Per-group counts, scores, errors and bootstrap
-intervals: [groups.json](../experiments/2026-10-15-chirality-baselines/results/groups.json).
+intervals: [groups.json](../experiments/archive/2026-10-chirality-baselines/results/groups.json).
 
 The registered expectation of a one-letter R² within 0.05 of chirality failed
 (gap 0.07443). The expectation of less than 10% chirality SSE reduction against

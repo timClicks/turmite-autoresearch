@@ -7,7 +7,7 @@ tags: [invariants, methods]
 ---
 
 A visually chaotic ant can still obey exact bookkeeping. The new
-[invariant miner](../../experiments/2026-10-22-invariant-mining/README.md)
+[invariant miner](../../experiments/archive/2026-10-invariant-mining/README.md)
 asks which weighted sums of position, heading, time and cell colours survive
 every possible local transition. Its evidence is a finite set of equations,
 not the absence of a violation in a long movie.

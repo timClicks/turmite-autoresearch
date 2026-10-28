@@ -1,4 +1,4 @@
-//! experiments/2026-10-23-sweeper-generalisation, Stage 2 probe: the ant's trace over one stretch of a square-spiral builder, plus the
+//! experiments/archive/2026-10-sweeper-generalisation, Stage 2 probe: the ant's trace over one stretch of a square-spiral builder, plus the
 //! outer band of the configuration before and after it.
 //! usage: sweeper_generalisation_spiral_probe RULE T0 T1 GRID OUTDIR D
 //! Plain loop from a blank board (same DIRS and update order as the other tracers). At T0 and at T1 writes OUTDIR/band_T.txt: first line

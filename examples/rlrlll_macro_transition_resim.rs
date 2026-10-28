@@ -1,4 +1,4 @@
-//! experiments/2026-10-20-rlrlll-macro-transition, Task D: re-simulate the base case two ways and compare fingerprints.
+//! experiments/archive/2026-10-rlrlll-macro-transition, Task D: re-simulate the base case two ways and compare fingerprints.
 //! usage: rlrlll_macro_transition_resim RULE STEPS GRID
 //! (a) `fast::run` (proptested against `reference`); (b) the plain loop of `rlrlll_macro_transition_window`.
 //! Prints pos, heading, FNV-1a of every cell's colour (row-major) and the non-zero cell count for each.

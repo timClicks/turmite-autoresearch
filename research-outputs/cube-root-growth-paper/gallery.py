@@ -63,9 +63,9 @@ fig.subplots_adjust(left=0.01, right=0.99, top=0.94, bottom=0.07, wspace=0.05, h
 st.save(fig, OUT / "gallery.pdf"); plt.close(fig)
 
 # --- Fig B: growth curves -------------------------------------------------
-pa = pl.read_csv(R / "experiments/2026-10-13-probe-growth-census/results/probe_all.csv")
-rot = pl.read_csv(R / "experiments/2026-10-13-calib-instrument-calibration/results/calib_rotor.csv").filter(pl.col("rule") == "rotor:0").sort("t")
-rw = pl.read_csv(R / "experiments/2026-10-13-calib-instrument-calibration/results/calib_rw.csv").filter(pl.col("rule") == "rw:0").sort("t")
+pa = pl.read_csv(R / "experiments/archive/2026-10-probe-growth-census/results/probe_all.csv")
+rot = pl.read_csv(R / "experiments/archive/2026-10-calib-instrument-calibration/results/calib_rotor.csv").filter(pl.col("rule") == "rotor:0").sort("t")
+rw = pl.read_csv(R / "experiments/archive/2026-10-calib-instrument-calibration/results/calib_rw.csv").filter(pl.col("rule") == "rw:0").sort("t")
 fig, ax = plt.subplots(1, 2, figsize=(st.W, 2.7))
 for a, key, slope, lab in [(ax[0], "width", 1 / 3, "width of the territory (cells)"), (ax[1], "area", 2 / 3, "cells visited")]:
     for r, c in st.RULE_COLOUR.items():

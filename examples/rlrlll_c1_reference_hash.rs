@@ -1,4 +1,4 @@
-//! experiments/2026-10-20-rlrlll-macro-transition, Task C1a: thin driver that runs `reference::Ant` from an explicit state
+//! experiments/archive/2026-10-rlrlll-macro-transition, Task C1a: thin driver that runs `reference::Ant` from an explicit state
 //! and prints a per-step hash, so that an independent implementation (scripts/c1_*.py) can be compared with it.
 //! usage: rlrlll_c1_reference_hash STATE_FILE [CELLS_OUT [TRACE_OUT]]
 //!

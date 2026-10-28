@@ -17,7 +17,7 @@ from matplotlib.patches import Patch
 import style as st
 
 ROOT = Path(__file__).resolve().parents[2]
-G1 = ROOT / "experiments/2026-10-13-g1-ribbon-breakout/results"
+G1 = ROOT / "experiments/archive/2026-10-g1-ribbon-breakout/results"
 OUT = Path(__file__).resolve().parent / "fig"
 TIMES = (12_800_000_000, 12_900_000_000)
 HALF_WINDOW = 20_000_000

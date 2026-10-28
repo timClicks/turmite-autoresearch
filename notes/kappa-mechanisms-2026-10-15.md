@@ -11,7 +11,7 @@ below as a current execution queue.
 
 ## Prospective first-passage follow-up — 2026-10-20 21:10 +13:00
 
-[New scaffold](../experiments/2026-10-20-kappa-first-passage/README.md), base
+[New scaffold](../experiments/archive/2026-10-kappa-first-passage/README.md), base
 `44ed81f71f4bb1fdccdcdc1cbd586bc1b2eb5613`: compose depth-crossing kernels
 into independent return and occupation predictions; test family transfer and
 the conditional drift relation `1 + delta - z(1-theta)`. Instrument and all
@@ -53,18 +53,18 @@ Keep three levels distinct: accounting, prediction, causal mechanism.
   early-to-late forecast failed their registered tests. A median excursion
   of one step gives little discrimination. Redoing these correlations is
   not a new mechanism.
-- [Fixed-area cycles](../experiments/2026-10-15-fixed-area-cycles/README.md):
+- [Fixed-area cycles](../experiments/archive/2026-10-fixed-area-cycles/README.md):
   primary association failed its both-band criterion, secondary prediction
   passed, and the narrower-band sensitivity passed. The predictive feature
   was an extreme quantile, not the time mass in the tail. This is the main
   reason to pursue a time-budget model, not to call it established.
-- [Prefix audit](../experiments/2026-10-kappa-rule-space/README.md): prefix
+- [Prefix audit](../experiments/archive/2026-10-kappa-rule-space/README.md): prefix
   prediction survives flexible area adjustment within stationary rules;
   all-rules transfer is weak. The audit is on inspected data, and a single
   area measurement does not control field history. W5's short-lag bulk
   measures supplied too little predictive gain; long-lag reliability was
   inadequate. Do not call long-range transport ruled out.
-- [Matched-area noise floor](../experiments/2026-10-14-kappa-matched-area/README.md):
+- [Matched-area noise floor](../experiments/archive/2026-10-kappa-matched-area/README.md):
   its gate failed. These plans do not reopen a transplant on that selected
   pair set by silently changing the gate.
 
@@ -86,7 +86,7 @@ This explains why a failed top-1% contrast need not kill a time-budget theory.
 Test a compact survival model on separate seeds and predict occupation on
 fresh ones. Then ask whether its parameters transfer across area bands.
 Do not use a measured held-out E[T] to 'predict' its own kappa.
-[Plan: tail budget](../experiments/2026-10-15-kappa-tail-budget/README.md).
+[Plan: tail budget](../experiments/archive/2026-10-kappa-tail-budget/README.md).
 
 ## 2. The prefix is a boundary preparation programme
 
@@ -103,7 +103,7 @@ it changes. A late letter with comparable exposure is a useful control.
 Compare birth-neighbourhood exposure with bulk exposure. Cyclic rotation
 of a rule alone changes the physical initial background; joint rotation of
 rule and colour labels is an exact relabelling control, not an intervention.
-[Plan: prefix exposure](../experiments/2026-10-15-kappa-prefix-exposure/README.md).
+[Plan: prefix exposure](../experiments/archive/2026-10-kappa-prefix-exposure/README.md).
 
 ## 3. Sparse gates couple the active rim to interior traps
 
@@ -120,7 +120,7 @@ then test whether disrupting observed gates changes return time more than
 matched edits elsewhere. Geometry, colour phase and incoming heading could
 all carry the gates; separating them is part of the experiment. This differs
 from the failed crust-depth model and the failed angular-return statistic.
-[Plan: return gates](../experiments/2026-10-15-kappa-return-gates/README.md).
+[Plan: return gates](../experiments/archive/2026-10-kappa-return-gates/README.md).
 
 ## 4. A slowly maturing field controls return hazards
 
@@ -135,7 +135,7 @@ Measure hazards conditional on cell age and visit count, using independent
 seed groups and several fixed-area bands. Compare size/shape, age, and prefix
 models on exactly the same held-out rules. Nonstationary rules are a declared
 second stratum, not exclusions selected after inspecting target kappa.
-[Plan: field age](../experiments/2026-10-15-kappa-field-age/README.md).
+[Plan: field age](../experiments/archive/2026-10-kappa-field-age/README.md).
 
 ## Other ideas worth retaining, but not launching yet
 
@@ -206,8 +206,8 @@ more repeatable. These are instrument-precision findings, not associations with
 kappa. Do not discard the median-age feature or missing drifting rules to obtain
 a favorable scientific verdict.
 
-Reproducible summaries/commands: [tail report](../experiments/2026-10-15-kappa-tail-budget/results/REPORT.md)
-and [age report](../experiments/2026-10-15-kappa-field-age/results/REPORT.md), with
+Reproducible summaries/commands: [tail report](../experiments/archive/2026-10-kappa-tail-budget/results/REPORT.md)
+and [age report](../experiments/archive/2026-10-kappa-field-age/results/REPORT.md), with
 source/input/seed manifests and executed notebooks in each folder. Release tests
 and sampled one-versus-six-thread replay pass; finished-pilot resume preserves
 bytes. Mid-trajectory state checkpoints and fitted scientific estimator calibration
@@ -216,7 +216,7 @@ then freeze scientific roles/folds/models before new confirmation outcomes.
 
 ## Uniform-occupation baseline — 2026-10-16 00:45 +13:00 (accounting, not mechanism)
 
-[experiments/2026-10-16-kappa-uniform-baseline](../experiments/2026-10-16-kappa-uniform-baseline/README.md).
+[experiments/archive/2026-10-kappa-uniform-baseline](../experiments/archive/2026-10-kappa-uniform-baseline/README.md).
 The probe divides a window-mean B/S by the end-of-window P/A, so a walker uniform
 on its territory at every instant gets kappa = 2∫_{1/2}^{1} x^(-a(1-β)) dx = 1.110
 (a=2/3, β=1/2). A mean-field walker (resampled uniformly over visited cells each
@@ -229,18 +229,18 @@ on their reserve-gate and checkpoint requirements.
 
 ## Return-gates Stage 1 outcome — 2026-10-16
 
-Section 3 was tested in [experiments/2026-10-15-kappa-return-gates](../experiments/2026-10-15-kappa-return-gates/README.md)
+Section 3 was tested in [experiments/archive/2026-10-kappa-return-gates](../experiments/archive/2026-10-kappa-return-gates/README.md)
 (registration and results at the bottom of its README). Two gate summaries added no held-out predictive value beyond a
 depth-profile baseline (DeltaR2 <= 0 at both bands), but the baseline alone reached R2 0.88-0.95, so the verdict is
 UNINFORMATIVE (headroom and reliability gates failed), not a rejection of gates as a mechanism. The intervention stage was
 not attempted. Lesson for the other plans: a baseline built from depth-profile ratios of the same trajectories is nearly an
 accounting identity with occupation; use baselines from quantities that precede the window.
 
-- Square-loop mechanism for the lead effect (H-loop) tested and rejected at this scale (and the fixed-area lead effect itself is reproduced by a collider model with no direct effect, `experiments/2026-10-19-c-law-mechanism` Stage 4, see the reconciliation at the end of `open-questions-hypotheses.md`): see `open-questions-hypotheses.md` ("Kappa square-loop test", 2026-10-16) and `experiments/2026-10-16-kappa-square-loop/README.md`.
+- Square-loop mechanism for the lead effect (H-loop) tested and rejected at this scale (and the fixed-area lead effect itself is reproduced by a collider model with no direct effect, `experiments/archive/2026-10-c-law-mechanism` Stage 4, see the reconciliation at the end of `open-questions-hypotheses.md`): see `open-questions-hypotheses.md` ("Kappa square-loop test", 2026-10-16) and `experiments/archive/2026-10-kappa-square-loop/README.md`.
 
 ## First-passage closure outcome — 2026-10-21
 
-[experiments/2026-10-20-kappa-first-passage](../experiments/2026-10-20-kappa-first-passage/README.md) ("Results" at the bottom; frozen before the run, 768 runs, 46 of 48 rules eligible).
+[experiments/archive/2026-10-kappa-first-passage](../experiments/archive/2026-10-kappa-first-passage/README.md) ("Results" at the bottom; frozen before the run, 768 runs, 46 of 48 rules eligible).
 **P2 FAILED** (median relative error 1.07 against a 0.20 threshold; a band-1 persistence baseline was better; family-bootstrap interval for the improvement [-0.023, +0.001]).
 P1, P3 and P4 were **not tested** (no calibrated tail estimator; no rule-conditional input for unseen families; radius-4 context not recorded), and a frozen deep-dominance rule
 (depth-64 carries > 0.5 of E[T] in 35 of 46 rules) declares the milestone closure uninformative about locality.
@@ -261,7 +261,7 @@ P1, P3 and P4 were run in a registered stage V2 (experiment README "Stage V2 res
 
 ### Boundary return map: colour-intervention outcome — 2026-10-21
 
-[experiments/2026-10-21-boundary-return-map](../experiments/2026-10-21-boundary-return-map/README.md) (registered before running; 36 rules x 2 seeds, plus a 12-rule pilot).
+[experiments/archive/2026-10-boundary-return-map](../experiments/archive/2026-10-boundary-return-map/README.md) (registered before running; 36 rules x 2 seeds, plus a 12-rule pilot).
 Replacing colours outside radius r (within-depth shuffle) at boundary departures: the typical excursion's duration is fixed by colours within a few cells
 (population-weighted r*/L about 0.05-0.1, almost flat in L; registered P1 "no compact state" falsified), but weighted by interior time the reach is about L
 (median r*_t/L 1.16, scaling exponent about 1). So a compact boundary state describes the many short loops, not the time budget that sets kappa.
@@ -270,7 +270,7 @@ Limits: the shuffle removes structure, not single cells; P5 was added after the 
 
 ## 2026-10-23: same next-turn map, different return (excluded pilot)
 
-[Protocol and results](../experiments/2026-10-23-hidden-phase-return/README.md),
+[Protocol and results](../experiments/archive/2026-10-hidden-phase-return/README.md),
 evidence revision `1c0d631a1745f3bf12ab9e7a1d87d9d0bb9b6974`.
 A one-time shuffle of interior phases within depth bins and next-turn classes
 preserves every current turn and the depth-bin colour histogram. In 160 selected

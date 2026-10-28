@@ -306,19 +306,19 @@
       "research-outputs/cube-root-growth-paper/kappa_prediction.json": "6226d9f050e79419945c7949f1e9b66267875ebfd3022ee4641e94ce6d2bb61e",
       "research-outputs/cube-root-growth-paper/supplementary/rule-census/rule_census.build.json": "b45bfb27c6c9504f3979a40bf7c118cb85c11c2e3a61e5edbbff432e1431ee9b",
       "research-outputs/cube-root-growth-paper/supplementary/walker-reference/walker_reference.csv": "9d9b05f2ebbdfe8ae1106ca333cac5cca5e3bba3be7b94d39d246bd186af9f76",
-      "experiments/2026-10-13-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
-      "experiments/2026-10-21-rlrlll-portrait/results/frames.json": "e7f74c00d32be8b7573feff339abe495d7a3919fa03d1265da5cfd42163810b4",
-      "experiments/2026-10-21-rlrlll-portrait/results/figure.json": "aa7a501f9ab1f41bbdd6a2108a21dcd6d60c85eaed51e3778a69627f0338a831",
+      "experiments/archive/2026-10-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
+      "experiments/archive/2026-10-rlrlll-portrait/results/frames.json": "e7f74c00d32be8b7573feff339abe495d7a3919fa03d1265da5cfd42163810b4",
+      "experiments/archive/2026-10-rlrlll-portrait/results/figure.json": "aa7a501f9ab1f41bbdd6a2108a21dcd6d60c85eaed51e3778a69627f0338a831",
       "research-outputs/cube-root-growth-paper/fig/exponents.png": "34dd06ca248ae909021d5c8ac5875321c94b0474637558889dff9f21d931375d",
       "research-outputs/cube-root-growth-paper/fig/hero.png": "372e58458aceebd31ac87ebdf801aa99d13509428fa96c3fda6354bfadf626f6",
       "research-outputs/cube-root-growth-paper/fig/ck_time.png": "7c26e81bed73cb4883d3acf32a507eac36758ddc11132d509d65fb4a66bb3602",
       "research-outputs/cube-root-growth-paper/fig/memory_paths.png": "41eb73e0f4f797502e0ba38bcac16133f8dc971cf728df3f9a6a26cb9aaa856d",
       "research-outputs/cube-root-growth-paper/fig/late_switch.png": "fa2105a3bc85bfff10bb523498126d0619508e977c0d539e88e6df5aceeb346f",
-      "experiments/2026-10-21-rlrlll-portrait/results/portrait.png": "b67c3b14dff4a4f077d215b91a6d14030ac63899a2a8818e26b60f85499c3236",
-      "experiments/2026-10-21-rlrlll-portrait/results/portrait_details.png": "45e2c5f74ef4d05c275962e1165eb73c31d4a9382bb469ce48a2638a6ded63cb",
-      "experiments/2026-10-21-rlrlll-portrait/results/territory_map.png": "c383ee73ee51bfe86e46d142e27c1ff60ff7db38cd8cb8a178131c902106a74c",
-      "experiments/2026-10-21-rlrlll-portrait/results/arrival_b16.png": "6e704bb5dc86d666031ad868f5766e10787dbe2e2c8e6c5b2d20a320bcffefc5",
-      "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt": "ad7a062d72dd9390f936e40aaefa53ff3d69e58c1acb79aa44c499082a7b6913"
+      "experiments/archive/2026-10-rlrlll-portrait/results/portrait.png": "b67c3b14dff4a4f077d215b91a6d14030ac63899a2a8818e26b60f85499c3236",
+      "experiments/archive/2026-10-rlrlll-portrait/results/portrait_details.png": "45e2c5f74ef4d05c275962e1165eb73c31d4a9382bb469ce48a2638a6ded63cb",
+      "experiments/archive/2026-10-rlrlll-portrait/results/territory_map.png": "c383ee73ee51bfe86e46d142e27c1ff60ff7db38cd8cb8a178131c902106a74c",
+      "experiments/archive/2026-10-rlrlll-portrait/results/arrival_b16.png": "6e704bb5dc86d666031ad868f5766e10787dbe2e2c8e6c5b2d20a320bcffefc5",
+      "experiments/archive/2026-10-kappa-uniform-baseline/results/census_spread.txt": "ad7a062d72dd9390f936e40aaefa53ff3d69e58c1acb79aa44c499082a7b6913"
     }
   }
 }

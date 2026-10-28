@@ -1,4 +1,4 @@
-//! Causal dependency sets of the ant's future (experiment `2026-10-21-highway-preconditions`).
+//! Causal dependency sets of the ant's future (experiment `2026-10-highway-preconditions`).
 //!
 //! `D(tau)` is the set of cells that are nonzero after `tau` steps and are read again at
 //! some later step. Their colours, plus the ant's position and heading, determine the

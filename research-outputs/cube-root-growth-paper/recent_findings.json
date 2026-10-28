@@ -224,14 +224,14 @@
     "command": "uv run research-outputs/cube-root-growth-paper/recent_findings_numbers.py",
     "git_commit": "0e7d251d036057dc131631f7807a43b8568e0fd3",
     "sha256": {
-      "experiments/2026-10-19-kappa-chiral-edge/results/c_law.json": "bc64aaab294e2ab3d3ad3096a92f3f0fda3e60e54ab01406817f3bc46917fa81",
-      "experiments/2026-10-19-c-law-mechanism/results/stage2_analysis.json": "c3737dfe00c82ebb7c78c011d910e471d606a7292b53b219d44fe1788b0b1567",
-      "experiments/2026-10-19-c-law-mechanism/results/stage2c_analysis.json": "477b2bee88362cb18bbdcf1314e9685d38587d41779fff3b214b0341001f031f",
-      "experiments/2026-10-19-c-law-mechanism/results/stage4_analysis.json": "09cff85b6d4be3d98de2c9dc3a545148a87aa1a34917ee3d970d7a615f5d9775",
-      "experiments/2026-10-16-kappa-uniform-baseline/results/analysis.txt": "194a2f639e3c6e7a6a510eb10eceb45c0f659082834b633a7bc607bfa5622a94",
-      "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt": "ad7a062d72dd9390f936e40aaefa53ff3d69e58c1acb79aa44c499082a7b6913",
-      "experiments/2026-10-19-kappa-walker-reference/results/analysis.txt": "bbd47850f2593c7a0f4d13676bdc19e52263b73cbc504eb0fcd34f54709f0648",
-      "experiments/2026-10-19-kappa-walker-reference/results/analysis_nrotor.txt": "a61fdfac8779a07b0939e7724e4e16bc2e014ec7d07970f3d08531f2eed74063",
+      "experiments/archive/2026-10-kappa-chiral-edge/results/c_law.json": "bc64aaab294e2ab3d3ad3096a92f3f0fda3e60e54ab01406817f3bc46917fa81",
+      "experiments/archive/2026-10-c-law-mechanism/results/stage2_analysis.json": "c3737dfe00c82ebb7c78c011d910e471d606a7292b53b219d44fe1788b0b1567",
+      "experiments/archive/2026-10-c-law-mechanism/results/stage2c_analysis.json": "477b2bee88362cb18bbdcf1314e9685d38587d41779fff3b214b0341001f031f",
+      "experiments/archive/2026-10-c-law-mechanism/results/stage4_analysis.json": "09cff85b6d4be3d98de2c9dc3a545148a87aa1a34917ee3d970d7a615f5d9775",
+      "experiments/archive/2026-10-kappa-uniform-baseline/results/analysis.txt": "194a2f639e3c6e7a6a510eb10eceb45c0f659082834b633a7bc607bfa5622a94",
+      "experiments/archive/2026-10-kappa-uniform-baseline/results/census_spread.txt": "ad7a062d72dd9390f936e40aaefa53ff3d69e58c1acb79aa44c499082a7b6913",
+      "experiments/archive/2026-10-kappa-walker-reference/results/analysis.txt": "bbd47850f2593c7a0f4d13676bdc19e52263b73cbc504eb0fcd34f54709f0648",
+      "experiments/archive/2026-10-kappa-walker-reference/results/analysis_nrotor.txt": "a61fdfac8779a07b0939e7724e4e16bc2e014ec7d07970f3d08531f2eed74063",
       "research-outputs/cube-root-growth-paper/recent_findings_numbers.py": "89a4b9afcedb1336f7fd4c05dfd82063b259c0b3e6159366830758df434c7701"
     },
     "scope": "Extraction only. Text-source values are cited in Audits 44 and 48; no new measurements."

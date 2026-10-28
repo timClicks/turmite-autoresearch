@@ -21,14 +21,14 @@ length 2..9 (2e4 steps, `examples/equiv.rs`). Repeats u^k collide exactly with u
 = RRLRRLL = RRLRRLR ...) are all highway builders whose cells never reach the
 extra colours; these are prefix-equivalent only for a finite horizon (confirm
 by running longer: they diverge iff some cell reaches colour |u|... see
-below). Census (`experiments/2026-10-13-census-sweeps/results/census.csv`, 3512 rules): 52 are exact repeats (39
+below). Census (`experiments/archive/2026-10-census-sweeps/results/census.csv`, 3512 rules): 52 are exact repeats (39
 blob, 2 builder, 11 log), 1.5%; dropping them moves the blob median
 exponent 0.3322 -> 0.3321 (no effect), and the repeats' alpha equals their
 root's bitwise. Added `Rule::root`/`is_primitive` and `tests/equiv.rs`
 (proptest, repeat == root step-for-step).
 
 **Reproduce.** `cargo run --release --example equiv -- 2 9 20000`;
-`uv run experiments/2026-10-13-census-sweeps/scripts/equiv_census.py`; `cargo test --release --test equiv`.
+`uv run experiments/archive/2026-10-census-sweeps/scripts/equiv_census.py`; `cargo test --release --test equiv`.
 
 ## Items 18, 19, 20 (and the data side of 17): highway onset, catalogue, chaos vs highway
 
@@ -51,7 +51,7 @@ rules of length <=10 still unresolved were rerun to 1e9 (`sweep_1B`).
   (#R, longest run, palindromic symmetry): cross-validated AUC < 0.75.
   Falsifier: AUC > 0.9.
 
-### Results (items 18-20) -- `uv run experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/scripts/highway_stats.py` > `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/results/highway_stats.txt`
+### Results (items 18-20) -- `uv run experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/scripts/highway_stats.py` > `experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/results/highway_stats.txt`
 
 Population: primitive rules (repeats of shorter rules removed, item 23).
 Caution found on the way: of the 28 `escaped` rows in `sweep_1B.csv`, 16 have
@@ -90,15 +90,15 @@ onset are counted as highways below.
 
 ### Item 17 pilot design
 
-`experiments/2026-10-13-h1-lacunarity-decomposition/scripts/run_1e10.sh` reruns the primitive survivors at 1e9 to 1e10 steps (grid
-32768, resumable chunks in `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/results/h1e10/`). Prediction (H17, written
+`experiments/archive/2026-10-h1-lacunarity-decomposition/scripts/run_1e10.sh` reruns the primitive survivors at 1e9 to 1e10 steps (grid
+32768, resumable chunks in `experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/results/h1e10/`). Prediction (H17, written
 2026-10-12 before it finishes): if the onset tail is flat as H18 says,
 about 1% of survivors (around 6-10 of ~800) become highways in 1e9..1e10; a
 thin tail would give <= 3. Results to be appended below when finished.
 
 ## Item 8: edge exponent beta = 0.52
 
-**Hypothesis** (2026-10-12, before running `experiments/2026-10-13-edge-statistics/scripts/edge_exponent.py`). Calibration
+**Hypothesis** (2026-10-12, before running `experiments/archive/2026-10-edge-statistics/scripts/edge_exponent.py`). Calibration
 says 0.52 is finite time for both rotor and ants. Prediction: local slope of
 log P vs log A (octaves k..k+4) drifts down monotonically toward 0.5 for the
 six rules run to 2^32 and is within 0.01 of 0.5 at k>=26; a model
@@ -106,7 +106,7 @@ P = c1 sqrt(A) + c0 fits all octaves k>=17 better than a free exponent
 (residual of the offset model <= free-exponent residual). Falsifier: local
 slope plateaus above 0.51 or the offset model is clearly worse.
 
-**Result** (`experiments/2026-10-13-edge-statistics/results/edge_exponent.txt`, six long ants + 64 rotors). Partly
+**Result** (`experiments/archive/2026-10-edge-statistics/results/edge_exponent.txt`, six long ants + 64 rotors). Partly
 supported, not decisive. Mean local slope (4-octave windows) across the six
 ants: 0.544 (k14), 0.545 (k18), 0.527 (k20), 0.547 (k22), 0.523 (k24),
 0.510 (k26), 0.522 (k28): a downward drift toward 0.5, but with per-window
@@ -124,7 +124,7 @@ into claims: "0.52 is consistent with a finite-time approach to 0.5 and the
 rotor does the same" is supported; "converges to exactly 0.5" is not
 established. Decisive data would need many more octaves or an ensemble average
 over patched starts (item 4 provides such an ensemble).
-Reproduce: `uv run experiments/2026-10-13-edge-statistics/scripts/edge_exponent.py`.
+Reproduce: `uv run experiments/archive/2026-10-edge-statistics/scripts/edge_exponent.py`.
 
 ## Item 4: is the exponent exactly 1/3 for every chaotic rule?
 
@@ -132,9 +132,9 @@ Reproduce: `uv run experiments/2026-10-13-edge-statistics/scripts/edge_exponent.
 one asymptotic area exponent 2/3 (width 1/3); the residual between-rule spread
 in fitted exponents (sd 0.004-0.014 true, Part C) is a convergence-rate effect.
 Design: 11 primitive core rules (stratified by length 3..12 and by census
-width exponent; `experiments/2026-10-13-item4-exponent-rotor-calibrated/scripts/item4_select.py`), 24 random 5x5 starting patches each
+width exponent; `experiments/archive/2026-10-item4-exponent-rotor-calibrated/scripts/item4_select.py`), 24 random 5x5 starting patches each
 (seeds 1..24, `RULE@SEED`), 2^30 steps, octave probe output
-(`experiments/2026-10-13-item4-exponent-rotor-calibrated/results/item4_probe.csv`). Per rule, ensemble-average the local area exponent
+(`experiments/archive/2026-10-item4-exponent-rotor-calibrated/results/item4_probe.csv`). Per rule, ensemble-average the local area exponent
 a(k) = d log A / d log t over 3-octave windows and fit
 a(k) = a_inf + b * 2^(-k/3) (correction ~ 1/width, delta fixed 1/3; also
 delta free as a check). Predictions: (i) a_inf within 2 SE of 2/3 for >= 9 of
@@ -155,7 +155,7 @@ harmonics h2/h4/h8 of the outermost-visited-radius profile (128 bins, about the
 centroid), K&D boundary width `Wsurf` (sd of surface-cell radius about the
 centroid), and at the last checkpoint the radial visit-density profile in
 units t/A and shell width 0.075 R_eq. Rotor = calibration (40 seeds, 2^26);
-ants = 11 core rules from `experiments/2026-10-13-item4-exponent-rotor-calibrated/results/item4_rules.txt` x 8 patched seeds, 2^28.
+ants = 11 core rules from `experiments/archive/2026-10-item4-exponent-rotor-calibrated/results/item4_rules.txt` x 8 patched seeds, 2^28.
 - P5a. Rotor shape converges to a disc: median h2, h4, aniso fall with k.
   Ants: median aniso at 2^28 below 0.1 and h4 below 0.05 for most rules
   (a chaotic territory is statistically round, lattice anisotropy washes out).
@@ -224,7 +224,7 @@ chaotic ant with exact-n fraction > 0.5, which would be a lead for a reduction.
 Limit: this tests one observable; failure to find a peak does not rule out a
 different coupling, so this is a pilot, not a negative theorem.
 
-**Result** (`experiments/2026-10-13-misc-instruments/results/lastvisits.txt`; `cargo run --release --example lastvisits -- 22 rotor:1 ... RLR RLL ...`;
+**Result** (`experiments/archive/2026-10-misc-instruments/results/lastvisits.txt`; `cargo run --release --example lastvisits -- 22 rotor:1 ... RLR RLL ...`;
 T = 2^22 then consecutive windows of m*A steps, interior = cell and its 4
 neighbours visited before the window). Rotor: exactly-4 fraction 0.918-0.932
 (4 runs; K&D-style definition gave 0.893, mine counts interior only),
@@ -244,13 +244,13 @@ cup picture does not predict. Limits: 7 rules, 1 age, one observable.
 
 ## Item 3 (P2.1): letters that set c
 
-**Hypothesis** (2026-10-12, before `experiments/2026-10-13-probe-growth-census/scripts/c_letters.py`). c depends on rule[1],
+**Hypothesis** (2026-10-12, before `experiments/archive/2026-10-probe-growth-census/scripts/c_letters.py`). c depends on rule[1],
 rule[2] much more than later letters (H2). Prediction: among core blob rules
 (n>=8, primitive) a linear model on letters 1-2 alone has R^2 >= 2/3 of the
 R^2 of letters 1-5, and letters 3-5 alone have R^2 < 0.05. Falsifier: letters 3-5
 alone explain > 0.1.
 
-**Result** (`experiments/2026-10-13-probe-growth-census/results/c_letters.txt`, 2515 rules). P2.1 supported strongly. Letters 1-2
+**Result** (`experiments/archive/2026-10-probe-growth-census/results/c_letters.txt`, 2515 rules). P2.1 supported strongly. Letters 1-2
 alone: R^2 = 0.747 (CV 0.747); letters 1-5: 0.789; letters 3-5 alone: 0.026;
 letter 1 alone 0.578. Effect of R instead of L on c: -0.185 (letter 1), -0.104
 (letter 2), -0.05 (letter 3), ~0 beyond. Fraction of R alone: R^2 = 0.159. So
@@ -308,7 +308,7 @@ t^(3/4), radius t^(1/4). This matches the rotor's rigorous lower bound
   octaves. Falsifier: exponent differing by > 0.05, or the ratio drifting by
   more than a factor 1.5 over those octaves (interaction changes the class).
 
-### Results: items 26 and 27 (`bash experiments/2026-10-13-ext-other-lattices-turmites-noise/scripts/ext_specs_26_27.sh`; `uv run experiments/2026-10-13-ext-other-lattices-turmites-noise/scripts/ext_stats.py` > `experiments/2026-10-13-ext-other-lattices-turmites-noise/results/ext_stats.txt`)
+### Results: items 26 and 27 (`bash experiments/archive/2026-10-ext-other-lattices-turmites-noise/scripts/ext_specs_26_27.sh`; `uv run experiments/archive/2026-10-ext-other-lattices-turmites-noise/scripts/ext_stats.py` > `experiments/archive/2026-10-ext-other-lattices-turmites-noise/results/ext_stats.txt`)
 
 - **H27 supported.** RLR, RLL, RLRLRRRLLR, RRRLR with m = 1, 2, 4, 8 ants
   (start 2 cells apart, deterministic): area exponent (k=18..26, per tick)
@@ -337,7 +337,7 @@ t^(3/4), radius t^(1/4). This matches the rotor's rigorous lower bound
 ## Items 11-16, 22: the tether ("home") questions -- hypotheses written 2026-10-13 before any run
 
 Tool: `examples/tetherlab.rs` (own code, own grids; does not read or write
-`experiments/2026-10-12-knockout-maps/knock/`, `experiments/2026-10-12-knockout-maps/dumps/`, the knockout files). Calibration done before the
+`experiments/archive/2026-10-knockout-maps/knock/`, `experiments/archive/2026-10-knockout-maps/dumps/`, the knockout files). Calibration done before the
 hypotheses: `tetherlab dose RRRRRLLLLLL 16777216 4194304 2 real shuffle keep:0.9`
 gives spread 14.1 (real), 38.6 (shuffle), 24.8 (keep 0.9) vs the published
 14.4, 39.3, 22.6 at trial length 2^26 (mine 2^22; the notes say spread is flat
@@ -395,14 +395,14 @@ mean position; "tethered" = spread < 25 in the last quarter.
   (Extent is only observed at the end of the run in my implementation, so I
   compare final extent, a weaker test; stated now.)
 - H22 (tether drift). From the 2^26 trajectories of the five known tethered rules
-  (own dumps in `experiments/2026-10-13-tether-rules/dumps_f/`): radial drift v and diffusion D at lag tau from
+  (own dumps in `experiments/archive/2026-10-tether-rules/dumps_f/`): radial drift v and diffusion D at lag tau from
   `experiments/_lib/tether.py`; P1.5 predicts D/v (outward) equals the decay length of the
   occupancy profile within 30% for the easy rules, and fails (ratio far from 1,
   or no inward drift at all) for the hard rules because their hold is not a
   smooth potential. Falsifier: D/v matches for the hard rules too.
 
-### Results: items 24 and 28 (screens: `python3 experiments/2026-10-13-ext-other-lattices-turmites-noise/scripts/ext_screens.py hex|cube 6 | ext 12 24 ...`;
-### `uv run experiments/2026-10-13-ext-other-lattices-turmites-noise/scripts/ext_lattice_stats.py experiments/2026-10-13-ext-other-lattices-turmites-noise/results/ext_hex.csv`; `experiments/2026-10-13-probe-growth-census/scripts/cube_fill.py`; `experiments/2026-10-13-probe-growth-census/scripts/sq_baseline_window.py`)
+### Results: items 24 and 28 (screens: `python3 experiments/archive/2026-10-ext-other-lattices-turmites-noise/scripts/ext_screens.py hex|cube 6 | ext 12 24 ...`;
+### `uv run experiments/archive/2026-10-ext-other-lattices-turmites-noise/scripts/ext_lattice_stats.py experiments/archive/2026-10-ext-other-lattices-turmites-noise/results/ext_hex.csv`; `experiments/archive/2026-10-probe-growth-census/scripts/cube_fill.py`; `experiments/archive/2026-10-probe-growth-census/scripts/sq_baseline_window.py`)
 
 - **Item 24 (hexagonal lattice), H24 mostly held, with a small offset.** 2718
   mirror-canonical hex rules of length 2..6 over {r,l (60 deg), R,L (120 deg)}
@@ -411,7 +411,7 @@ mean position; "tethered" = spread < 25 in the last quarter.
   blobs, area exponent over k=16..24: quantiles 10/25/50/75/90% =
   0.681/0.694/0.712/0.737/0.768, extent exponent median 0.346 (IQR 0.331-0.366), flat in
   rule length (median a 0.711-0.736 for n = 2..6). Same window for the square-lattice core rules
-  (`experiments/2026-10-13-probe-growth-census/results/sq_baseline_window.txt`): 0.682 median (0.667-0.697 IQR), so hex is higher by
+  (`experiments/archive/2026-10-probe-growth-census/results/sq_baseline_window.txt`): 0.682 median (0.667-0.697 IQR), so hex is higher by
   about 0.03 in area exponent; extent exponents agree (0.346 vs ~0.34). My
   acceptance interval for the median was [0.65, 0.70]; 0.712 misses it, but is
   inside the wider falsifier [0.62, 0.75]. Reading: cube root class on the
@@ -437,7 +437,7 @@ mean position; "tethered" = spread < 25 in the last quarter.
   Bou-Rabee-Peres theorem.) I rely on the extent exponent matching 1/4 and
   the downward drift of the volume exponent only.
 
-### Result: item 22 (`experiments/_lib/tether.py` on `experiments/2026-10-13-tether-rules/dumps_f/` = own 2^26 dumps; `experiments/2026-10-13-tether-rules/results/tether_drift.txt`)
+### Result: item 22 (`experiments/_lib/tether.py` on `experiments/archive/2026-10-tether-rules/dumps_f/` = own 2^26 dumps; `experiments/archive/2026-10-tether-rules/results/tether_drift.txt`)
 
 Zero-flux drift-diffusion check: v/D (outward displacement over lag tau divided
 by MSD/4tau, averaged with weights) against the observed exponential slope
@@ -481,16 +481,16 @@ and then forward again, fused transition table. `run_lean` returns the same
 grid 24-200, 60k steps, history 100-30000) checks every field including
 highway detection; `sweep_lean` output is byte-identical to `sweep` on test rules.
 
-**Result** (`experiments/2026-10-13-misc-instruments/results/leanbench.txt`, 5e8 steps, 8192 grid, machine under load from
+**Result** (`experiments/archive/2026-10-misc-instruments/results/leanbench.txt`, 5e8 steps, 8192 grid, machine under load from
 other jobs): fast 139-141 Msteps/s; lean (without fusion) 207-211 (1.5x);
 lean (fused) 285-303 Msteps/s: **2.05-2.16x** on RLL, RLRLLRRLL, RLLRLLRLRRRL.
 Both predictions held. Limits: no block/compression algorithm (the interior is
 chaotic, so a Hashlife-style macro-step has nothing to cache); the speedup
 is constant-factor, bounded by the dependent-load chain (~3.3 ns/step). `highway_onset`
 (HashMap re-run) is unchanged and is the new bottleneck for runs that end in a highway.
-Used for item 17 (`experiments/2026-10-13-h1-lacunarity-decomposition/scripts/run_1e10.sh`, `sweep_lean`).
+Used for item 17 (`experiments/archive/2026-10-h1-lacunarity-decomposition/scripts/run_1e10.sh`, `sweep_lean`).
 
-### Results: item 15 (`tetherlab screen 16777216 8388608 1 < experiments/2026-10-13-log-growers/results/log_rules.txt`; `uv run experiments/2026-10-13-tether-rules/scripts/tether_screen_stats.py` > `experiments/2026-10-13-tether-rules/results/tether_screen.txt`)
+### Results: item 15 (`tetherlab screen 16777216 8388608 1 < experiments/archive/2026-10-log-growers/results/log_rules.txt`; `uv run experiments/archive/2026-10-tether-rules/scripts/tether_screen_stats.py` > `experiments/archive/2026-10-tether-rules/results/tether_screen.txt`)
 
 Population: the 560 primitive census rules of class `log` (n = 5..12). Grown 2^24, then a
 fresh ant on the real and on a shuffled copy of the field, 2^23 steps each, spread over
@@ -520,9 +520,9 @@ RRRLLLLRRRLL 7.0 / 18.0, RLLRRRRRLRLR 7.0 / 11.7 (easy, as published). Calibrati
   RRRRRLLLLLL).
 
 ### Results: items 13 and 16 (`tetherlab dose RULE AGE 8388608 12 real keep:0.5 ... keep:0.99 shuffle`;
-### ages 2^20, 2^24, 2^28; 12 shuffle seeds per point; `uv run experiments/2026-10-13-dose-corruption-dose/scripts/dose_stats.py` > `experiments/2026-10-13-dose-corruption-dose/results/dose_stats.txt`)
+### ages 2^20, 2^24, 2^28; 12 shuffle seeds per point; `uv run experiments/archive/2026-10-dose-corruption-dose/scripts/dose_stats.py` > `experiments/archive/2026-10-dose-corruption-dose/results/dose_stats.txt`)
 
-Territory area by age (from `experiments/2026-10-13-dose-corruption-dose/results/dose.log`): RRRRRLLLLLL 2907 / 7264 / 14239 (x4.9 over 2^20 -> 2^28),
+Territory area by age (from `experiments/archive/2026-10-dose-corruption-dose/results/dose.log`): RRRRRLLLLLL 2907 / 7264 / 14239 (x4.9 over 2^20 -> 2^28),
 RLLLLRRRRLR 5336 / 11144 / 20712 (x3.9). So the age comparison does discriminate
 fixed-count from fixed-fraction. Calibration: spreads at 2^24 reproduce the earlier values
 (real 14.3, shuffled 38.8, F=0.9: 24.2).
@@ -550,7 +550,7 @@ fixed-count from fixed-fraction. Calibration: spreads at 2^24 reproduce the earl
   fraction is slightly less than 1 - F (10 colours: ~ 0.9(1-F)... exact factor not computed); f50 values
   are therefore nominal.
 
-### Results: item 4 (`probe 30 < experiments/2026-10-13-item4-exponent-rotor-calibrated/results/item4_walkers.txt`; `uv run experiments/2026-10-13-item4-exponent-rotor-calibrated/scripts/item4_stats.py` > `experiments/2026-10-13-item4-exponent-rotor-calibrated/results/item4_stats.txt`)
+### Results: item 4 (`probe 30 < experiments/archive/2026-10-item4-exponent-rotor-calibrated/results/item4_walkers.txt`; `uv run experiments/archive/2026-10-item4-exponent-rotor-calibrated/scripts/item4_stats.py` > `experiments/archive/2026-10-item4-exponent-rotor-calibrated/results/item4_stats.txt`)
 
 11 rules x 24 patched seeds to 2^30 steps (251 of 264 runs kept: 13 runs left the 8192
 board, 3 rules affected -- RLRR 7, RLRLLL 5, RRLLLLLLR 1 -- so those rules' ensembles are biased toward
@@ -596,7 +596,7 @@ occupation drifts). (iv) controls: 12-seed mean within 0.30-0.37 for >= 90%.
 Falsifier of the 'noise' reading: fewer than 50% regress.
 
 ### Results: item 14 (`tetherlab dose ... class:K ctrlclass:K parity:P ctrl:M recolour:K recolourctrl:K core:R`; age 2^24, 12 seeds;
-### `experiments/2026-10-12-knockout-maps/results/classko_stats.txt`, `experiments/2026-10-13-recolour/results/recolour_stats.txt`, `experiments/2026-10-13-colourstats/results/describe_colours.csv`)
+### `experiments/archive/2026-10-knockout-maps/results/classko_stats.txt`, `experiments/archive/2026-10-recolour/results/recolour_stats.txt`, `experiments/archive/2026-10-colourstats/results/describe_colours.csv`)
 
 **H14 FALSIFIED: a colour class is special.** The carrier of the hold is not diffuse.
 - Colour counts in the grown field are far from uniform: for RRRRRLLLLLL colours 6, 8, 10 have 222, 188,
@@ -623,7 +623,7 @@ idea in `pattern-fields-results.md`). Not explained: why exactly those colours a
 rule, 0, 6, 8 for the second). Immediate follow-up for the other agent's knockout map: its hot tiles should be
 rich in rare-colour cells; a cheap check is the rare-colour density of hot versus cold tiles.
 
-### Results: item 11 (`tetherlab flip RULE 16777216 33554432 16 NFLIP 7`; `experiments/2026-10-13-flip-damage/results/flip_stats.txt`)
+### Results: item 11 (`tetherlab flip RULE 16777216 33554432 16 NFLIP 7`; `experiments/archive/2026-10-flip-damage/results/flip_stats.txt`)
 
 Clone the grown state *with the running ant*, flip NFLIP random visited cells (colour +1) in the clone,
 run both 3.4e7 steps in lockstep, 16 perturbations per setting, both hard rules.
@@ -644,7 +644,7 @@ run both 3.4e7 steps in lockstep, 16 perturbations per setting, both hard rules.
   return map / Lyapunov exponent proper not computed (damage grows ~14x per decade of lag from 1e5 to 1e6 for one flip;
   between 1e4 and 1e5 it barely grows, so it is not exponential in lag).
 
-### Results: item 12 (`tetherlab formage RULE 24 7 24 524288`; `uv run experiments/2026-10-13-formage-age/scripts/formage_stats.py` > `experiments/2026-10-13-formage-age/results/formage_stats.txt`)
+### Results: item 12 (`tetherlab formage RULE 24 7 24 524288`; `uv run experiments/archive/2026-10-formage-age/scripts/formage_stats.py` > `experiments/archive/2026-10-formage-age/results/formage_stats.txt`)
 
 Method change (stated honestly): my pre-registered operationalisation (windowed RMS distance from the start in a
 single long run; `tetherlab form`) was uninformative (the ant is within 1.5x of its home radius in nearly every
@@ -666,8 +666,8 @@ on the real and on a shuffled copy for 2^19 steps, and report the spread.
   (4.7 -> 4.9).
 - Limits: spread < ~14 at ages < 2^12 cannot be distinguished from a small cup (shuffled 12-13); five rules; 2^19-step trials.
 
-### Results: items 5 and 7 (`shape 26 2048 < experiments/2026-10-13-shape-limit/results/shape_rotor_specs.txt`; `shape 28 4096 < experiments/2026-10-13-shape-limit/results/shape_ant_specs.txt`;
-### `uv run experiments/2026-10-13-shape-limit/scripts/shape_stats.py experiments/2026-10-13-shape-limit/results/shape_rotor.csv experiments/2026-10-13-shape-limit/results/shape_ants.csv` > `experiments/2026-10-13-shape-limit/results/shape_stats.txt`)
+### Results: items 5 and 7 (`shape 26 2048 < experiments/archive/2026-10-shape-limit/results/shape_rotor_specs.txt`; `shape 28 4096 < experiments/archive/2026-10-shape-limit/results/shape_ant_specs.txt`;
+### `uv run experiments/archive/2026-10-shape-limit/scripts/shape_stats.py experiments/archive/2026-10-shape-limit/results/shape_rotor.csv experiments/archive/2026-10-shape-limit/results/shape_ants.csv` > `experiments/archive/2026-10-shape-limit/results/shape_stats.txt`)
 
 Rotor calibration: 40 seeds, 2^26. Ants: 11 rules x 8 patched seeds, 2^28 (85 of 88 runs reach 2^28; three left the 4096 board).
 Instrument checks: rotor boundary-width local exponents 0.24, 0.19, 0.13, 0.17, 0.16, 0.17, 0.13 for k = 12..26 (K&D 0.136 ->
@@ -703,20 +703,20 @@ S/t^(2/3) falls 10% -> 1.3% over 14 octaves (K&D/Bou-Rabee-Peres: deterministic 
 **Hypothesis** (2026-10-13). Between-seed sd of the per-rule headline numbers is of the same size as the Part C
 within-rule sd (alpha_w 0.016, alpha_rg 0.011, a 0.020) and is much larger than the fit standard errors; c has
 essentially no seed noise (it is set by the rule's letters, cf. item 3). 
-**Result** (`research-outputs/cube-root-growth-paper/seed_uncertainty.py`, `experiments/2026-10-13-probe-growth-census/results/seed_uncertainty.txt`, `research-outputs/cube-root-growth-paper/seed_uncertainty.json`; 11 rules x 24 patched
+**Result** (`research-outputs/cube-root-growth-paper/seed_uncertainty.py`, `experiments/archive/2026-10-probe-growth-census/results/seed_uncertainty.txt`, `research-outputs/cube-root-growth-paper/seed_uncertainty.json`; 11 rules x 24 patched
 starts, census windows k = 20..26): median between-seed sd across the 11 rules: alpha_w 0.0165, alpha_rg 0.0096, area exponent
 0.0126, beta (edge) 0.0128, **c 0.0006**, kappa 0.041. Both predictions held (Part C: 0.016 / 0.011 / 0.020). c is
 deterministic to 3 digits across starts (0.0000-0.0030 per rule), kappa is not (0.017-0.061). The exception again is
 RRLLLLLLR: alpha_w 0.379 +- 0.065, a 0.763 +- 0.137, kappa 2.2 +- 1.1 (non-self-averaging).
 `research-outputs/cube-root-growth-paper/compute_numbers.py` now exits with an error before computing anything if any data file named in the
-script is missing or empty (tested by hiding `experiments/2026-10-13-census-sweeps/results/census.csv`), and reproduces `research-outputs/cube-root-growth-paper/numbers.json` bit for bit
+script is missing or empty (tested by hiding `experiments/archive/2026-10-census-sweeps/results/census.csv`), and reproduces `research-outputs/cube-root-growth-paper/numbers.json` bit for bit
 (`cmp` against the committed copy). `main.typ` was not changed; the new sd numbers live in `research-outputs/cube-root-growth-paper/seed_uncertainty.json`
 for a later edit of the manuscript.
 
 ### Correction to the H18 result above (2026-10-13)
 
 The decade counts quoted for H18 ("17, 14, 17, 26, 11, 11 for 1e3..1e9", slope -0.011) were mislabelled by one
-decade, and the slope fit dropped a zero-count bin incorrectly. Correct values (`experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/results/highway_stats.txt`, last block;
+decade, and the slope fit dropped a zero-count bin incorrectly. Correct values (`experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/results/highway_stats.txt`, last block;
 primitive rules of length <= 10, v2 + 1B rerun): onsets per decade (1e3,1e4] ... (1e8,1e9] = **13, 17, 14, 17, 26, 11**.
 Poisson log-linear fit: slope **+0.015 +- 0.026 log10 per decade** (counts x1.04 per decade); the last decade (11) against the mean of
 the previous five (17.4): Poisson P(X <= 11) = 0.071. The H18 verdict stands ("not decaying by 3x per decade; flat within
@@ -739,7 +739,7 @@ area exponent 0.71" at 6.4M steps. Built with `uv run web/build.py web/dist/expl
 committed). Limit: only a headless check; the visual appearance of the overlay (highlight density at large zoom, where
 a pixel samples one cell) was not inspected by eye.
 
-### Cross-check with the knockout map (read-only use of `experiments/2026-10-12-knockout-maps/knock/*/tiles.csv` and `experiments/2026-10-12-knockout-maps/dumps/*.grid`; `experiments/2026-10-13-hot-tiles/scripts/hot_rare.py` > `experiments/2026-10-13-hot-tiles/results/hot_rare.txt`)
+### Cross-check with the knockout map (read-only use of `experiments/archive/2026-10-knockout-maps/knock/*/tiles.csv` and `experiments/archive/2026-10-knockout-maps/dumps/*.grid`; `experiments/archive/2026-10-hot-tiles/scripts/hot_rare.py` > `experiments/archive/2026-10-hot-tiles/results/hot_rare.txt`)
 
 Hypothesis written before looking (2026-10-13): if the rare colours found in item 14 carry the hold, then the other agent's
 independently measured 5x5-tile knockout loss should correlate with the number of rare-colour cells in the tile, and the hot tiles should
@@ -754,7 +754,7 @@ where the hold lives. I did not touch their files or take over their protocol.
 
 ## Item 10 (refinement to 1x1 cells): status
 
-Owned by the knockout agent: `experiments/2026-10-12-knockout-maps/knock/RULE/refine5.csv`, `refine3.csv`, `fresh3.csv`, `fresh5.csv` exist and are growing, so the
+Owned by the knockout agent: `experiments/archive/2026-10-knockout-maps/knock/RULE/refine5.csv`, `refine3.csv`, `fresh3.csv`, `fresh5.csv` exist and are growing, so the
 protocol is running there. Not duplicated here. What this work adds for it: a concrete candidate for the minimal set (the ~200 cells of each
 rare colour; for the first rule colours 6, 8, 10) that the 1x1 refinement can test directly, e.g. by recolouring only the rare-colour
 cells inside a hot tile versus the same number of other cells in that tile.
@@ -762,9 +762,9 @@ cells inside a hot tile versus the same number of other cells in that tile.
 ### Item 10 complement: is the rare-colour set the minimal set inside the hot tiles?
 
 Hypothesis (2026-10-13, before the run): if the rare-colour cells are the critical cells, recolouring only the rare-colour cells inside the
-knockout agent's hot tiles (47 cells for RRRRRLLLLLL, 62 for RLLLLRRRRLR, from `experiments/2026-10-12-knockout-maps/knock/RULE/hot.csv`) should damage the hold at least as much as
+knockout agent's hot tiles (47 cells for RRRRRLLLLLL, 62 for RLLLLRRRRLR, from `experiments/archive/2026-10-knockout-maps/knock/RULE/hot.csv`) should damage the hold at least as much as
 recolouring the same number of other cells from the same tiles (prediction: rare effect >= 1.5x control effect).
-Result (`experiments/2026-10-13-hot-tiles/results/hot_recolour_stats.txt`, 12 random recolourings per list, 6 control lists, `tetherlab dose ... recolourlist:FILE`, spread of
+Result (`experiments/archive/2026-10-hot-tiles/results/hot_recolour_stats.txt`, 12 random recolourings per list, 6 control lists, `tetherlab dose ... recolourlist:FILE`, spread of
 a fresh ant, age 2^24): intact 14.3 / 14.7. Rare cells: +2.67 / +1.73. Equal-sized controls from the same tiles: +2.10 / +2.59 (the second rule goes the
 wrong way). All cells of the hot tiles: +4.59 / +5.76. **Prediction false: within a hot tile the rare cells are not special.** So the rare colours
 mark where the hot tiles are (item 14 and the tile enrichment above) without being the minimal set themselves; in a hot tile the damage seems to
@@ -779,10 +779,10 @@ Prediction: chaotic (non-highway, non-bounded) triangular ants also have area ex
 the k = 16..24 window (square 0.682, hex 0.712 in the same window). Falsifier: median outside [0.60, 0.76]. Screen: all
 canonical (first letter R) non-trivial L/R rules of length 2..12 (4083 rules, same list as the square census), 2^24 steps.
 
-### Correction/calibration for item 4 (added 2026-10-13 after review; `experiments/2026-10-13-item4-exponent-rotor-calibrated/results/item4_rotor_stats.txt`)
+### Correction/calibration for item 4 (added 2026-10-13 after review; `experiments/archive/2026-10-item4-exponent-rotor-calibrated/results/item4_rotor_stats.txt`)
 
-AGENTS rule 5: the a(k)/a_inf estimator of `experiments/2026-10-13-item4-exponent-rotor-calibrated/scripts/item4_stats.py` had not been run on the rotor. Done now: 24 rotor seeds, `probe 30`, same
-script (argument `experiments/2026-10-13-item4-exponent-rotor-calibrated/results/item4_rotor_probe.csv`). The rotor (true exponent 2/3, proved) gives a(k) = 0.737 (k=16), 0.712 (20), 0.682 (24), 0.674 (28), 0.673 (k = 29-30);
+AGENTS rule 5: the a(k)/a_inf estimator of `experiments/archive/2026-10-item4-exponent-rotor-calibrated/scripts/item4_stats.py` had not been run on the rotor. Done now: 24 rotor seeds, `probe 30`, same
+script (argument `experiments/archive/2026-10-item4-exponent-rotor-calibrated/results/item4_rotor_probe.csv`). The rotor (true exponent 2/3, proved) gives a(k) = 0.737 (k=16), 0.712 (20), 0.682 (24), 0.674 (28), 0.673 (k = 29-30);
 a_inf = 0.656 / 0.670 / 0.674 (delta = 1/6, 1/3, 1/2; chi2/dof 1.2, 2.4, 6.0, SE 0.001); mean of the last six local exponents 0.677.
 So the estimator at 2^30 is biased by +0.004 to +0.010 (and an SE-based "within 2 SE of 2/3" criterion is meaningless: the rotor itself is 4.7 SE
 above 2/3). The earlier "prediction (i) FAILED" used that flawed criterion and should be read as: "relative to the rotor benchmark (last-six mean 0.677)":
@@ -797,7 +797,7 @@ same as the best ant rules. Decisive statement in one line: 6 of 11 rules match 
 ## Corrections after review (2026-10-13)
 
 **Item 15 -- hardness cutoff was confounded with territory size.** `spread_shuf >= 30` is an absolute cutoff, so small territories
-cannot be 'hard'. Size-free reanalysis (`experiments/2026-10-13-tether-rules/scripts/tether_screen_stats.py`, last block; q = spread_shuf / cup_rms with cup_rms = sqrt(A/pi)/sqrt2):
+cannot be 'hard'. Size-free reanalysis (`experiments/archive/2026-10-tether-rules/scripts/tether_screen_stats.py`, last block; q = spread_shuf / cup_rms with cup_rms = sqrt(A/pi)/sqrt2):
 q is bimodal over the 556 tethered rules (histogram per 0.1 from 0: 0, 54, 112, 28, 21, 21, 28, 31, 25, 21, 77, 112, 11, 8, 1): 194 rules
 (35%) keep the home on a shuffled field (q < 0.4), 209 (38%) are cup-wide (q >= 1.0), 153 (27%) in between. The headline "33% hard" was an
 artefact of the cutoff; with q >= 0.5 the share is 61% (65% for 0.4, 58% for 0.6); the honest statement is "hardness is graded; about a third
@@ -816,7 +816,7 @@ profile from the drift/diffusion measured in a different field (e.g. real-field 
 age. What the data support: no detectable formation event; the real-field spread is flat (11.8 -> 14.4) while the cup grows from 12 to 35.
 The status line 'present at 128 steps' is replaced by that.
 
-**NEW, unexplained finding (found while checking identical spreads; `experiments/2026-10-13-spread-home/results/spread_dups.txt`, `experiments/2026-10-13-spread-home/results/spread_clusters.txt`, `experiments/2026-10-13-spread-home/results/spread_groups.txt`,
+**NEW, unexplained finding (found while checking identical spreads; `experiments/archive/2026-10-spread-home/results/spread_dups.txt`, `experiments/archive/2026-10-spread-home/results/spread_clusters.txt`, `experiments/archive/2026-10-spread-home/results/spread_groups.txt`,
 `examples/orbit.rs`).** The 556 tethered rules take only 203 distinct spread values at 0.01 resolution, and when clustered at 2% relative gap there are 28 clusters of which 16
 hold >= 5 rules and 530 rules (95%): e.g. spread 7.0: 165 rules (n = 8 and 12, 4-7 runs, territories 2530-18807 cells); 14.5: 114 rules (all n = 11, includes the two
 'hard' rules); 2.66: 53 rules (n = 11); 2.32: 43 rules. So the radial law of the bound state (exponential occupancy, decay length l = spread / sqrt6, v/D = 1/l) takes
@@ -828,7 +828,7 @@ configuration but of a coarse rule class: this is presumably also why different 
 Consequence for items 11 and 14: the 'rare colour' structure may be a signature of the class (the hard rules' class has spread 14.5), but the check across the 114 rules of
 that class was not done.
 
-### Results: item 21 (`probe 27 < experiments/2026-10-13-item21-slow-outliers/results/item21_walkers.txt` -- 98 rules x 12 patched seeds; `uv run experiments/2026-10-13-item21-slow-outliers/scripts/item21_stats.py` > `experiments/2026-10-13-item21-slow-outliers/results/item21_stats.txt`)
+### Results: item 21 (`probe 27 < experiments/archive/2026-10-item21-slow-outliers/results/item21_walkers.txt` -- 98 rules x 12 patched seeds; `uv run experiments/archive/2026-10-item21-slow-outliers/scripts/item21_stats.py` > `experiments/archive/2026-10-item21-slow-outliers/results/item21_stats.txt`)
 
 All 98 rules re-measured (36 high-alpha outliers, 32 low, 30 core controls). Window k = 20..26 as in the census.
 - **Prediction (i) FAILED, the 'noise' reading is falsified for most outliers.** Only 17% of the high outliers (6 of 36) have a 12-seed mean below 0.37
@@ -843,7 +843,7 @@ All 98 rules re-measured (36 high-alpha outliers, 32 low, 30 core controls). Win
 - Reading: most of the 68 outliers are real rule properties over 2^20-2^27, not noise or patch artefacts. Whether they are different asymptotic exponents or very slow
   transients is untestable at this length (compare item 4: even core rules differ by up to 0.03 at 2^30); the 'real but not necessarily asymptotic' wording is the safe claim.
 
-**Result (triangular cells; `ext 12 24 4096 64 < experiments/2026-10-13-ext-other-lattices-turmites-noise/results/tri_specs.txt`, `uv run experiments/2026-10-13-ext-other-lattices-turmites-noise/scripts/ext_lattice_stats.py experiments/2026-10-13-ext-other-lattices-turmites-noise/results/ext_tri.csv 16 24`).** Prediction held, with the
+**Result (triangular cells; `ext 12 24 4096 64 < experiments/archive/2026-10-ext-other-lattices-turmites-noise/results/tri_specs.txt`, `uv run experiments/archive/2026-10-ext-other-lattices-turmites-noise/scripts/ext_lattice_stats.py experiments/archive/2026-10-ext-other-lattices-turmites-noise/results/ext_tri.csv 16 24`).** Prediction held, with the
 best agreement of the three lattices. 4083 rules (length 2..12): 4039 blob-like (99%), 24 escaped (highway or ballistic), 20 fast; none bounded, none slow.
 Area exponent over k = 16..24: quantiles 10/25/50/75/90% = 0.652/0.665/0.676/0.687/0.700; extent exponent median 0.331 (IQR 0.322-0.340); median by rule length
 0.676-0.690 (n = 3..12), 0.676 at n = 12. The same window gave 0.682 (square) and 0.712 (hex). No tethered/bounded behaviour exists in this screen (on the square lattice
@@ -851,7 +851,7 @@ Area exponent over k = 16..24: quantiles 10/25/50/75/90% = 0.652/0.665/0.676/0.6
 and the rotor-calibrated window bias (+0.01 to +0.02 at 2^20-2^26, item 4) is of the size of the offsets between lattices, so I do not claim they differ.
 Not done: rotor walkers on the hex and triangular lattices (the windows are uncalibrated there).
 
-### Generalising item 14 (hypothesis written 2026-10-13 before `experiments/2026-10-13-hot-tiles/scripts/rare_class_test.py`)
+### Generalising item 14 (hypothesis written 2026-10-13 before `experiments/archive/2026-10-hot-tiles/scripts/rare_class_test.py`)
 
 Does the 'rare colours are critical' result belong to the two named hard rules or to their class? For 12 random rules with home spread 13.7-15.6
 (the 114-rule cluster that contains both hard rules) and 12 random rules with spread 6.8-7.3 (165-rule cluster), take the 3 rarest and the 3 most abundant colours
@@ -859,7 +859,7 @@ of the 2^24 field and run the swap test against the matched random control. Pred
 >= 60% of rare colours exceed 1.3, while abundant colours have median < 0.9; in the ~7.0 cluster (different home type) the rare-colour effect is weaker (median ratio < 1.3).
 Falsifier: median rare ratio < 1.2 in the 14.5 cluster (the effect is specific to the two rules, or an artefact of the swap construction).
 
-**Result (`experiments/2026-10-13-hot-tiles/scripts/rare_class_test.py` > `experiments/2026-10-13-hot-tiles/results/rare_class_test.txt`; 24 rules, 3 rarest and 3 most abundant colours each, 6 seeds, trial 2^22).** The rare-colour effect is
+**Result (`experiments/archive/2026-10-hot-tiles/scripts/rare_class_test.py` > `experiments/archive/2026-10-hot-tiles/results/rare_class_test.txt`; 24 rules, 3 rarest and 3 most abundant colours each, 6 seeds, trial 2^22).** The rare-colour effect is
 general, not specific to the two named rules, and it is NOT confined to the 14.5 cluster. Home ~14.5 (12 rules): class/control ratio for the rare colours median 2.06
 (92% above 1.3); abundant colours median 0.80 (81% below 0.9). Home ~7.0 (12 rules): rare median 1.84 (100% above 1.3), abundant median 0.71 (100% below 0.9). The prediction that the
 ~7.0 cluster would show a weaker effect (< 1.3) is FALSIFIED; the prediction for the 14.5 cluster (median >= 1.5, >= 60% above 1.3, abundant < 0.9) held. Exceptions: RLLLLRRLLRR (rare colours
@@ -875,7 +875,7 @@ volume exponent over k = 24..28 is within 0.72-0.80 (the earlier window k = 20..
 Falsifier: volume exponent still > 0.80 at k = 24..28 or no downward trend from the k = 20..24 value. Rotor bias in 3D is uncalibrated (the 3D rotor is transient), so a
 miss would not distinguish a different exponent from slow convergence.
 
-### Results: item 25 (turmites; `python3 experiments/2026-10-13-ext-other-lattices-turmites-noise/scripts/ext_screens.py tm | ext 12 20 2048 64`, then `ext 16 26 8192 64 < experiments/2026-10-13-ext-other-lattices-turmites-noise/results/tm_candidates.txt`; `experiments/2026-10-13-ext-other-lattices-turmites-noise/results/ext_tm_screen.txt`, `experiments/2026-10-13-ext-other-lattices-turmites-noise/results/ext_tm_long.txt`)
+### Results: item 25 (turmites; `python3 experiments/archive/2026-10-ext-other-lattices-turmites-noise/scripts/ext_screens.py tm | ext 12 20 2048 64`, then `ext 16 26 8192 64 < experiments/archive/2026-10-ext-other-lattices-turmites-noise/results/tm_candidates.txt`; `experiments/archive/2026-10-ext-other-lattices-turmites-noise/results/ext_tm_screen.txt`, `experiments/archive/2026-10-ext-other-lattices-turmites-noise/results/ext_tm_long.txt`)
 
 Pre-registered (2026-10-13, before the screen): among 2-state 2-colour turmites (all 65536 tables, square lattice, decoded as in `Turmite::from_id`: write colour, turn N/R/U/L, next state)
 that grow without a highway, the area exponent clusters at 2/3 (> 50% within 0.1); a second parameter would be needed if a distinct cluster appeared.
@@ -888,7 +888,7 @@ quantiles 10/25/50/75/90 = 0.667/0.678/0.701/0.726/0.771 over k = 22..26 (median
 parameter is needed for the bulk; the separate sqrt(t) cluster is the exception. Limits: one family (2 states x 2 colours), the 0.55-0.85 selection was made from the 2^20
 screen, no calibration of window bias for turmites (rotor-like bias assumed similar), duplicates under symmetry (mirror, state relabelling) not removed -- counts are tables, not distinct ants.
 
-### Result: item 28 follow-up (`ext 20 28 64 384 < experiments/2026-10-13-probe-growth-census/results/cube_long_specs.txt`; `experiments/2026-10-13-ext-other-lattices-turmites-noise/results/ext_cube_long.txt`)
+### Result: item 28 follow-up (`ext 20 28 64 384 < experiments/archive/2026-10-probe-growth-census/results/cube_long_specs.txt`; `experiments/archive/2026-10-ext-other-lattices-turmites-noise/results/ext_cube_long.txt`)
 
 16 of the 24 chosen cubic blob rules stay in the 384^3 box to 2^28 (the other 8 left it: faster growers; selection bias toward slower growth). Volume exponent median 0.801 at k = 20..24 and
 **0.788 at k = 24..28** (IQR 0.776-0.796); extent exponent 0.246 and 0.245. Pre-registered band [0.72, 0.80] for the volume exponent and [0.23, 0.27] for the extent: both held
@@ -898,17 +898,17 @@ walker in 3D; the 3D rotor is transient).
 ## Item 17 (partial result, 2026-10-13; run still going)
 
 Pre-registered: ~1% of survivors (6-10 of 807) become highways in (1e9, 1e10] if the onset tail is flat; <= 3 if it is thin.
-`experiments/2026-10-13-h1-lacunarity-decomposition/scripts/run_1e10.sh` (lean ant, 32768 board, 1e10 steps, fixed-seed shuffled chunks of 12 rules; `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/scripts/h1e10_stats.py`, `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/results/h1e10_stats.txt`).
+`experiments/archive/2026-10-h1-lacunarity-decomposition/scripts/run_1e10.sh` (lean ant, 32768 board, 1e10 steps, fixed-seed shuffled chunks of 12 rules; `experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/scripts/h1e10_stats.py`, `experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/results/h1e10_stats.txt`).
 After 12 of 68 chunks (144 rules, 17.8% unbiased sample): **7 highways** (RRRRRLRLLR onset 1.69e9, RRRRRRRRLR 2.13e9, RLRRRLLR 4.29e9, RRLRRRRRLR 6.44e9,
 RLLRLRLRL 7.91e9, RRRLR 8.82e9, RLLLRLLR 9.53e9; periods 1772, 508, 16, 24, 212, 332, 564), 6 blobs reaching the board edge, 131 still unresolved. That is 4.9%
 of survivors (about 39 scaled to all 807), well above the predicted ~1% and far from the thin-tail alternative: the tail is heavy, perhaps rising, so the unresolved set is NOT
 mostly chaotic-forever. Caveats: 7 events (Poisson uncertainty ~ +-2.6 of 7), onsets near the budget are unconfirmed on a second board size, the last census decade was low (11). Even a 5-colour rule
-(RRRLR) builds its highway only at 8.8e9 steps. The remaining chunks keep running; rerun `bash experiments/2026-10-13-census-sweeps/scripts/regen_frontier_stats.sh` when they finish.
+(RRRLR) builds its highway only at 8.8e9 steps. The remaining chunks keep running; rerun `bash experiments/archive/2026-10-census-sweeps/scripts/regen_frontier_stats.sh` when they finish.
 
 ## Item 17 (FINAL, 2026-10-13): all 68 chunks, 807 of 807 rules to 1e10 steps
 
-Command: `bash experiments/2026-10-13-h1-lacunarity-decomposition/scripts/run_1e10.sh` (sweep_lean, 32768 board); summary `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/results/h1e10_stats.txt` (`uv run experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/scripts/h1e10_stats.py`).
-Prediction (pre-registered, ~1% of survivors, 6-10 rules): **falsified**. Result: 38 new highways (4.7% of 807) with onset in (1e9, 1e10] **[Corrected 2026-10-21: 22 of the 38 (1e9,1e10] and 4+ of the 16 (1e10,1e11] "highways" are board artefacts; genuine yields 1.98% and 0.68-1.64% (1.64% if the 7 pending rechecks confirm); see `experiments/2026-10-21-late-highway-board-check/README.md`.]**
+Command: `bash experiments/archive/2026-10-h1-lacunarity-decomposition/scripts/run_1e10.sh` (sweep_lean, 32768 board); summary `experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/results/h1e10_stats.txt` (`uv run experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/scripts/h1e10_stats.py`).
+Prediction (pre-registered, ~1% of survivors, 6-10 rules): **falsified**. Result: 38 new highways (4.7% of 807) with onset in (1e9, 1e10] **[Corrected 2026-10-21: 22 of the 38 (1e9,1e10] and 4+ of the 16 (1e10,1e11] "highways" are board artefacts; genuine yields 1.98% and 0.68-1.64% (1.64% if the 7 pending rechecks confirm); see `experiments/archive/2026-10-late-highway-board-check/README.md`.]**
 (periods mostly 16/24/32 plus long ones to 1772), 37 blob grid escapes (no highway), 732 still unresolved at 1e10.
 The decade yield is therefore ~2x the earlier decades (11-26 per decade), not flat or falling: the onset tail is heavy and the unresolved
 set shrinks by only ~5% per decade. The earlier 12-chunk partial (7 of 144) understated it.
@@ -919,7 +919,7 @@ rules, 8.5875-8.5881e9 for 2). These are near 2^32, 1.5*2^32, 2*2^32 but not at 
 `cargo test --release` passes; regen_frontier_stats.sh ran clean.
 
 ## Item 10 (own investigation; the knockout agent's 5x5/3x3 refine data are the starting point)
-Hypotheses, written 2026-10-13 before any single-cell run (my tool: `examples/cell1.rs`, reads `experiments/2026-10-12-knockout-maps/dumps/RULE.grid`, same protocol as knock: fresh ant at home,
+Hypotheses, written 2026-10-13 before any single-cell run (my tool: `examples/cell1.rs`, reads `experiments/archive/2026-10-knockout-maps/dumps/RULE.grid`, same protocol as knock: fresh ant at home,
 2^26 steps, near_home over the last quarter; baseline 0.4737 for RRRRRLLLLLL; I do not edit any knockout file):
 - H10a: the loss of the best 3x3 windows (0.07-0.09) is carried by a few cells: some single-cell recolourings inside the window lose >= 0.02
   (the single-cell null p95 from 200 random visited cells, same recolouring rule, will be measured and reported; I expect ~0.005).
@@ -928,8 +928,8 @@ Hypotheses, written 2026-10-13 before any single-cell run (my tool: `examples/ce
 - H10c: the sensitive cells are not a closed cycle/object: the top cells are not connected in the ant's own trajectory loop (descriptive; I look at their colours and positions only).
 
 ### Item 10 result (2026-10-13)
-Command: `cell1 experiments/2026-10-12-knockout-maps/dumps/RULE.grid RULE 67108864 experiments/2026-10-13-cell1/results/RULE <three 3x3 window corners>` (windows = the three lowest-near_home 3x3 windows in `experiments/2026-10-12-knockout-maps/knock/RULE/refine3.csv`:
-RRRRRLLLLLL -7,-10 -7,-11 -5,-15; RLLLLRRRRLR -1,7 1,6 -2,8), `examples/cell1.rs`; stats `uv run experiments/2026-10-13-cell1/scripts/cell1_stats.py` -> `experiments/2026-10-13-cell1/results/cell1_stats.txt`. Each run is a deterministic fresh ant, 2^26 steps.
+Command: `cell1 experiments/archive/2026-10-knockout-maps/dumps/RULE.grid RULE 67108864 experiments/archive/2026-10-cell1/results/RULE <three 3x3 window corners>` (windows = the three lowest-near_home 3x3 windows in `experiments/archive/2026-10-knockout-maps/knock/RULE/refine3.csv`:
+RRRRRLLLLLL -7,-10 -7,-11 -5,-15; RLLLLRRRRLR -1,7 1,6 -2,8), `examples/cell1.rs`; stats `uv run experiments/archive/2026-10-cell1/scripts/cell1_stats.py` -> `experiments/archive/2026-10-cell1/results/cell1_stats.txt`. Each run is a deterministic fresh ant, 2^26 steps.
 Scan: every visited cell within 1 of those windows (52 / 47 cells) x every other colour (10 alternatives) = 520 / 470 single-cell recolourings; null = 200 random visited cells anywhere, random other colour.
 - **H10a supported.** Single-cell null: mean loss 0.002 / 0.004, p95 0.0065 / 0.0088, p99 0.011 / 0.016, max 0.025 / 0.036. In the scan the worst recolouring of a single cell loses
   0.039 / 0.046 (8-9% of the tether); all 52 / 46 of 47 cells exceed the null p95, 29 / 20 exceed the null max. A single cell can matter, but the typical recolouring costs only 0.01.
@@ -944,5 +944,5 @@ Caveats: windows were chosen as the worst of the knockout map (winner's curse; t
 top-cell loss / typical-cell-in-window loss (4x) is location-free); one field per rule at 2^24, one deterministic outcome per recolouring; the scan covers about 50 cells around three windows only.
 
 ### Verification notes (2026-10-13)
-`bash experiments/2026-10-13-census-sweeps/scripts/regen_frontier_stats.sh` run twice (txt and b suffix), all outputs byte-identical (including the new cell1_stats). `cargo test --release` all suites pass.
+`bash experiments/archive/2026-10-census-sweeps/scripts/regen_frontier_stats.sh` run twice (txt and b suffix), all outputs byte-identical (including the new cell1_stats). `cargo test --release` all suites pass.
 The web cup overlay was NOT inspected by eye: the Chrome extension was not connected in this session. It is covered by the Rust cross-check and jsdom smoke tests only.

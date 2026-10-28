@@ -142,7 +142,7 @@ estimate new scientific quantities. The ant bar is a median
 over rules; walker bars are eight-seed means, with the window mismatch disclosed.
 
 Numbers, paper bullet titles, five manuscript figure copies and one homepage-only
-figure (card 09's RLRLLL portrait, from `experiments/2026-10-21-rlrlll-portrait/results/`;
+figure (card 09's RLRLLL portrait, from `experiments/archive/2026-10-rlrlll-portrait/results/`;
 listed in `EXTRA_IMAGES`) are exported from committed sources, with hashes and a
 pinned revision:
 
@@ -206,7 +206,7 @@ evidence, counterevidence, open questions and a chronology per topic. It is a
 **materialised view, not a place to record work**. `blog/atlas.json` only
 curates which experiment bears on which question, in what role, and what
 changed; findings and caveats are copied from `experiment-guides.tsv` and claims
-from the evidence ledger (`experiments/2026-10-23-evidence-ledger/results/claims.json`).
+from the evidence ledger (`experiments/archive/2026-10-evidence-ledger/results/claims.json`).
 Curated prose may not carry measurements (a lint rejects decimals, percentages
 and exponent notation; it is a guardrail, not proof). Every tracked experiment must be
 filed under a topic or listed under `unfiled` with a reason, so a new experiment

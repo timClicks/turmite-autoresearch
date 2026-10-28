@@ -1,4 +1,4 @@
-//! crystal-rules S4 (experiments/2026-10-crystal-rules): census of the "ground state" and of highways on it.
+//! crystal-rules S4 (experiments/archive/2026-10-crystal-rules): census of the "ground state" and of highways on it.
 //! For each rule in FILE (one per line): (A) blank-board run of 2^22 steps on 2048^2: bbox, visited, modal visit count
 //! Gv and modal colour Gc of visited cells, fraction of visited cells in that ground state; (B) for every colour g the
 //! lone ant on a uniform 1024^2 board of colour g, 2^20 steps, heading 0: bitmask of g's from which it leaves the board.

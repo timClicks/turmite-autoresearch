@@ -1,4 +1,4 @@
-//! experiments/2026-10-20-rlrlll-macro-transition, Stage 2: check that the proposed sweeper family is closed.
+//! experiments/archive/2026-10-rlrlll-macro-transition, Stage 2: check that the proposed sweeper family is closed.
 //! usage: rlrlll_macro_transition_check RULE CANONICAL_TXT
 //!
 //! The canonical file (scripts/extract_canonical.py) proposes three phases q = 0, 1, 2. Phase q is the configuration
