@@ -525,3 +525,12 @@ numbers are not imported here because they overlap with the numbering now used o
 - **Open (unnumbered):** which *filled* compact-domain walker (visited-neighbour reflection,
   Eden growth, or internal DLA) can pass compactness and prefer D under the frozen Score? Until that
   is newly registered and green, do not run the reserved confirmation specs. Do not P-shop the retired cup.
+- **Revision 2** (registration `900f25f`, results `1da42bd`, 2026-10-28): Eden-style growth and internal
+  DLA both pass compactness, yet the frozen Score prefers S (Eden) or neither (IDLA), not D. Gate fail;
+  confirmation **not run**; both retired for this Score (`NR-20261028-excursion-score-compact-d-calibrators`).
+  Reading: short boundary returns have an L-independent head in compact walkers and dominate the
+  number-weighted Score, so it cannot certify diffusion even where diffusion is built in. This is an
+  instrument limitation; it does not bear on whether ant excursions diffuse or sweep.
+- **Open (unnumbered, supersedes the item above):** can a newly registered tail-restricted or step-weighted
+  collapse statistic prefer D on IDLA (and Eden) while mean-field still prefers L? Calibrate before any ant
+  data; do not retune the retired Score.

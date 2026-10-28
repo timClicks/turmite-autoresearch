@@ -6,11 +6,11 @@ the retained backlog is context, not a list of simultaneous commitments. Remove 
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
-## Pointer (2026-10-27): excursion-duration collapse stage 1 + Revision 1
+## Pointer (2026-10-28): excursion-duration collapse stage 1 + Revisions 1–2
 
-`experiments/2026-10-27-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`, before revised measurement).
+`experiments/2026-10-27-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`, each before its measurement).
 Implements P-C / Q32 from `notes/cube-root-routes-2026-10-26.md` on PR #18 (reference by branch/PR; do not mint colliding Q numbers here).
-Stage-1: **revise** (RW D calibrator never grows L). Revision 1 reflecting cup: L grows but compactness (A/P²) fails and Score prefers S (frontier trapping); C1' **inadequate**; confirmation **not run**; cup-as-D design **retired** (`NR-20261027-reflecting-cup-d-calibrator`). MF L-control still passes; rotor inconclusive. Next step only after a newly registered compact-domain D candidate (not P-shopping the cup).
+Stage-1: **revise** (RW D calibrator never grows L). Revision 1 reflecting cup: L grows but compactness (A/P²) fails and Score prefers S (frontier trapping); C1' **inadequate**; confirmation **not run**; cup-as-D design **retired** (`NR-20261027-reflecting-cup-d-calibrator`). MF L-control still passes; rotor inconclusive. Revision 2: Eden-style and IDLA both pass compactness but the frozen number-weighted Score does not prefer D (Eden S, IDLA inconclusive); gate **fail**, confirmation **not run**; both retired as D calibrators for this Score (`NR-20261028-excursion-score-compact-d-calibrators`). Instrument limitation, not an ant result. Paused: any next step needs a newly registered observable (e.g. tail-restricted collapse) calibrated on these walkers before ant data.
 
 ## Next phase: boundary access, regime validation, closure
 

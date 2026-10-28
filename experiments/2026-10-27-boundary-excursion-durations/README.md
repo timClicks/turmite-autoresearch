@@ -639,3 +639,107 @@ passing calibrator(s)**:
 
 Expected to be minutes of wall time at most for the calibration (Revision 1
 took seconds). Confirmation cost is as reserved.
+
+## Revision 2 results (appended after registration `900f25ff9a6ec2abb90233670dc104789b58248e`)
+
+**Revision 2 registration (hypotheses frozen, no outcomes):** `900f25ff9a6ec2abb90233670dc104789b58248e`  
+**First Revision 2 results commit:** `1da42bdb2c3c23fb0d20bf99af4baefec5b9575d`  
+**Instrument binary sha256:** `9f282ce855e0397954dd96c64ef983ed116153e020088c87a36b93532c935688`  
+**Board / horizon:** 8192 / max_log2 24 / k=16..24 / `RAYON_NUM_THREADS=4` / `--check` on every run.  
+**Compute:** C0 smoke plus the 20 calibration specs took about 2 s wall on this box (`results/rev2_calib_outer.log`). Confirmation **not run**.
+
+**Deviation (procedural, recorded):** the `eden`/`idla`/`idlar` walker code and
+`scripts/run_rev2.sh` were written after the registration commit and were
+committed only with the results (`1da42bd`), not in a separate commit before
+measurement. The calibration ran with HEAD at `900f25f` and those files
+uncommitted. The outer log records the binary hash. The committed source
+rebuilds to that same hash (a later rustfmt pass was reverted because moved
+panic line numbers changed the binary). The definitions, seeds, Score, margin,
+compactness rule and gate were all fixed in `900f25f` before measuring. No
+parameter was changed after outcomes, and no other `q1` was run.
+
+All 36 band windows (4 seeds × k=16..24) were retained for every spec family.
+No run escaped the board. The largest censored step share was ≈0.092 (rotor),
+and ≤0.011 for every other family.
+
+### C0
+**PASS.** The `--check` smoke at grid 512 / max_log2 14 (`rw`, `rotor`, `cup:1.0`,
+`eden`, `idla`, `idlar`, `mf`) covered four checks:
+
+- the probe matches rw and rotor;
+- `cup:1.0` ≡ `rw`;
+- a full-bounding-box rescan matches the incremental area, perimeter and
+  boundary counters at every window;
+- birth invariants hold: Eden supported + fallback births + 1 = area; each
+  IDLA birth starts from an unvisited cell; births + 1 = area.
+
+Under `--check`, `idla` and `idlar` gave identical geometry. The stage-1
+mutant still panics (exit 101).
+
+### Compactness pre-check (unchanged rule)
+
+| walker | L range | A range | median A/P² | compactness |
+|---|---|---|---|---|
+| eden | 7.34 (L 6.8–50.0) | 62.7 | 0.0652 | **pass** |
+| idla | 4.01 (L 6.8–27.3) | 16.5 | 0.0714 | **pass** |
+
+Both territories are filled, compact blobs whose L grows across the band. The
+IDLA L range matches the registered width growth (about t^(1/4) over eight
+doublings gives about four-fold).
+
+### C1E (eden → D)
+**INCONCLUSIVE.** Score(L)=0.1017, Score(L²)=0.1612, frozen verdict **S**
+(not D). Not censoring-fragile (KM 0.1018 / 0.1613). Mean τ/L ≈ 3.07. This
+is the registered Eden ambiguity: excursions launched from the boundary have
+an L-independent short head, and the number-weighted Score is dominated by
+that head.
+
+### C1I (idla → D)
+**INCONCLUSIVE.** Score(L)=0.0673, Score(L²)=0.0773, frozen verdict
+**inconclusive** (neither ratio clears the 0.75 margin). Not
+censoring-fragile (KM 0.0673 / 0.0774). Mean τ/L ≈ 26.7: the
+restart-launched excursions are long, as registered.
+
+### Diagnostic `idlar` (restart excursions dropped; not a gate)
+Score(L)=0.0846, Score(L²)=0.1282, verdict S, mean τ/L ≈ 3.01. Once the
+centre-launched excursions are removed, the IDLA boundary returns look like
+Eden's. The IDLA D signal is carried only by the restart-launched excursions.
+
+### Exploratory observation (post hoc, not a registered test)
+In `results/figures/ccdf_idla.png`, the long tail in the τ/L² panel visibly
+overlies better than in the τ/L panel. The Score does not reward this,
+because it weights every excursion equally and the short head is shared
+across L. This observation suggests, but does not establish, that a
+tail-restricted or step-weighted Score might see the diffusive part. Any such
+Score would need its own registration and calibration.
+
+### C2 (mf re-gate)
+**PASS.** Score(L)=0.0550, Score(L²)=0.1494, verdict S. Mean τ/L ≈ 0.997.
+L range 6.60. Fresh seeds `2026102841`..`44`.
+
+### C3 (rotor, measured)
+Score(L)=0.1134, Score(L²)=0.1350, verdict **inconclusive** (allowed). Mean
+τ/L ≈ 1.90. L range 6.21.
+
+### Gate and confirmation
+C0 PASS ∧ C2 PASS, but neither C1E nor C1I is PASS. **Gate FAIL, so stop.**
+The reserved confirmation cohort (`results/reserved_confirmation_specs.txt`)
+was **not run** and remains untouched.
+
+### Retain / revise / stop (Revision 2)
+
+**Stop.** Three compact or growing D candidates have now failed to make the
+frozen number-weighted Score prefer τ/L²: the stay-on-reject cup, Eden-style
+growth and IDLA. The two Revision 2 walkers pass compactness, so this failure
+is not a geometry failure. The frozen Score cannot certify diffusive excursions
+in these walkers, because their short boundary returns do not scale with L.
+This is an **instrument limitation**. It is not evidence about the ants:
+
+- it does not show that ant excursions are sweep-like;
+- it does not show that ants fail to diffuse.
+
+Retire Eden-style (`q1 = 1/64`) and IDLA as D calibrators *for this Score*
+(`NR-20261028-excursion-score-compact-d-calibrators`). Any further step needs
+a newly registered observable that is calibrated against the same walkers
+before any ant data. One example is a tail-restricted collapse statistic. Do
+not tune `q1`, the margin, the u-grid or the mask on these results.

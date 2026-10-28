@@ -137,3 +137,25 @@ untested.
 Gate: confirmation runs only if C0 ∧ C2 ∧ (C1E PASS ∨ C1I PASS). The
 confirmation readout is interpreted relative to the passing calibrator(s).
 Otherwise stop. `idlar` (restart excursions dropped) is a diagnostic only.
+
+### 2026-10-28 15:50 NZDT · 1da42bd · observation
+Revision 2 calibration (20 specs, about 2 s wall, binary `9f282ce…`). C0 PASS: the scan recount, birth invariants and idla≡idlar geometry all held, and the mutant panicked. Both walkers are compact. Eden: L range 7.34, median A/P² 0.065. IDLA: L range 4.01, median A/P² 0.071. Neither prefers D:
+
+- Eden: Score L 0.102 vs L² 0.161, so **S**.
+- IDLA: Score L 0.067 vs L² 0.077, so **inconclusive**.
+- Neither verdict is censoring-fragile.
+- Diagnostic `idlar`: S (0.085 / 0.128).
+- C2 mf: S (0.055 / 0.149), PASS.
+- C3 rotor: inconclusive (0.113 / 0.135).
+
+Post hoc, exploratory: the IDLA long tail overlies better under τ/L², but the number-weighted Score is dominated by the shared short head.
+
+### 2026-10-28 15:50 NZDT · 1da42bd · interpretation
+Compactness is no longer the problem. Short boundary returns have an L-independent head in every compact walker tried, and the frozen Score is number-weighted. So it reads S or inconclusive even where diffusion is built in (IDLA restarts). This is an instrument limitation. It says nothing about whether ant excursions are diffusive or sweep-like.
+
+### 2026-10-28 15:50 NZDT · 1da42bd · decision
+Gate FAIL (no calibrator PASS), so **stop**. The reserved confirmation cohort was not run. Retire Eden-style (q1 = 1/64) and IDLA as D calibrators for this Score (`NR-20261028-excursion-score-compact-d-calibrators`). A different observable, for example tail-restricted or step-weighted collapse, needs its own registration and calibration on these walkers before any ant data.
+
+### 2026-10-28 15:50 NZDT · 1da42bd · deviation
+1. The walker code and `scripts/run_rev2.sh` were written after registration `900f25f` and committed with the results in `1da42bd`, not before measuring. The definitions, seeds, Score, margin, compactness rule and gate were all frozen in `900f25f`. The binary hash is in the outer log, and the committed source rebuilds to it.
+2. The registration heading says 15:50 NZDT, but Git records the registration commit at 15:46 and the results commit at 15:49 (+13:00). The commit order, registration before results, is the authoritative ordering. The earlier text is left unchanged.
