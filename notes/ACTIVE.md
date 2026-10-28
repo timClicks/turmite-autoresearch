@@ -79,6 +79,22 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
 
 ## Science: retained backlog (not an execution queue)
 
+- **Seeded bootstrap that is not reproducible (found 2026-10-28, not fixed):**
+  `experiments/archive/2026-10-kappa-matched-area/scripts/matched_area.py` gives different M2/M3 bootstrap intervals
+  on every run, in the same environment, with the same input (sha256[:16] `e813c6f21f63421c`). Three runs at `2d8f189`
+  gave M2 between-rule 95% intervals [1.096, 1.400], [1.088, 1.400], [1.086, 1.397]; the committed
+  `results/matched_area.txt` (run at `797704a`, dirty tree) has [1.107, 1.403]. Point estimates (M1, the M2 slopes 1.271
+  and 0.420, the M3 partial rho) reproduce exactly, and no M1-M3 verdict changes at this size of wobble (M2's
+  within - between = -0.851 against a 0.3 bar). Likely cause, not yet confirmed by a fix: `seeds["rule"].unique()` and
+  `group_by(...)` without `maintain_order=True` return rules in hash order, so the fixed `default_rng(20261014)` draws map
+  to different rules each run (AGENTS.md rule 1: no hash-order dependence). Next: sort the rule list (or pass
+  `maintain_order=True`), check two runs are byte-identical, then regenerate the result with a NOTEBOOK entry and
+  report the interval shift. Wider audit: 46 scripts under `experiments/` and `research-outputs/` combine polars
+  `unique()`/`group_by().agg()` with a seeded RNG (a crude grep, not a confirmed list), including this experiment's
+  `matched_pairs.py` and `noise_floor.py`; any that feed RNG draws through an unordered result have the same flaw, and
+  paper numbers built from them should be rechecked. (Before this check I had guessed a numpy version change; that
+  guess was wrong.)
+
 - **Wall or memory (done 2026-10-26, owner-requested, `experiments/active/2026-10-wall-vs-memory/`):** turn noise split by
   fresh/revisited cell. Randomising the first-departure turn disrupts compact growth in 6/6 core rules (condition means
   porous; 39/48 runs; dead end `NR-20261026-wall-vs-memory-no-wall-porous`, amended after review; not shown to be
