@@ -27,13 +27,13 @@ class AtlasTests(unittest.TestCase):
         self.assertEqual(self.inp["experiments"] - filed - set(self.inp["atlas"]["unfiled"]), set())
 
     def test_unfiled_experiment_fails(self):
-        errs = self.mutated(lambda i: i["experiments"].add("2099-01-01-new-thing") or i["guides"].update({"2099-01-01-new-thing": {}}))
+        errs = self.mutated(lambda i: i["experiments"].add("2099-01-new-thing") or i["guides"].update({"2099-01-new-thing": {}}))
         self.assertTrue(any("neither filed" in e for e in errs))
 
     def test_unknown_experiment_and_claim_fail(self):
         def f(i):
             t = i["atlas"]["topics"][0]
-            t["evidence"].append({"ref": "2026-10-13-nope"})
+            t["evidence"].append({"ref": "2026-10-nope"})
             t["claims"].append("ZZ-99")
         errs = self.mutated(f)
         self.assertTrue(any("unknown experiment" in e for e in errs))

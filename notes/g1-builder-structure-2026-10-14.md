@@ -34,7 +34,7 @@ Commands (worktree `g1-builder-structure`, base commit dd0e234 + uncommitted `ex
 - Heading period: heading autocorrelation at lags 4-48 is 0.41-0.59, so the local 10-step-per-row traverse is not a simple short-period cycle; no claim is made about it.
 
 ## 2026-10-20: the builder is a checked macro-transition (appended)
-`experiments/2026-10-20-rlrlll-macro-transition/` (predictions P1-P5 registered at `4bc029a` before the run).
+`experiments/archive/2026-10-rlrlll-macro-transition/` (predictions P1-P5 registered at `4bc029a` before the run).
 Over all 4,729 cycles of the blank-board run, each cycle adds 3 columns and exactly 2 rows of height, and takes
 exactly `12 m + b_q` steps with `b = (934, 1058, 898)` cycling in period 3 (`m` = bulk rows). A separate checker shows
 the three-phase family `C(m, q)` is closed for every even m >= 2 (shift lemmas over the bulk, every step by

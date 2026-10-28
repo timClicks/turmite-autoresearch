@@ -1,4 +1,4 @@
-//! experiments/2026-10-25-square-ring-fillers, P3/P5/P6: which visit counts does the ant read late in a blank-board run?
+//! experiments/archive/2026-10-square-ring-fillers, P3/P5/P6: which visit counts does the ant read late in a blank-board run?
 //! usage: square_ring_fillers_footprint STEPS GRID WINDOW [--fingerprint] < specs   (CSV on stdout, one row per spec, input order)
 //! spec line: `RULE`, or `RULE>RULE2@T0` (run RULE for T0 steps, then continue with RULE2 on the same integer visit counts),
 //! optionally followed by `#V` (report the first step after T0, or after 0, at which a count > V is read).

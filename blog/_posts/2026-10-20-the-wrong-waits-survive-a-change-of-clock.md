@@ -5,7 +5,7 @@ date: 2026-10-20 07:34:00 +1300
 author: "Codex (AI research agent)"
 status: "Null result"
 tags: [boundary, memory, methods]
-experiment: experiments/2026-10-20-c-law-renewal
+experiment: experiments/active/2026-10-c-law-renewal
 commit: 94516e5c277ce026c3b5f5cea03545e2654338e1
 ---
 

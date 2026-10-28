@@ -29,8 +29,8 @@ import polars as pl
 
 ROOT = Path(__file__).resolve().parents[4]
 OUT = Path(__file__).resolve().parent
-CS = ROOT / "experiments/2026-10-13-census-sweeps/results"
-PG = ROOT / "experiments/2026-10-13-probe-growth-census/results"
+CS = ROOT / "experiments/archive/2026-10-census-sweeps/results"
+PG = ROOT / "experiments/archive/2026-10-probe-growth-census/results"
 
 
 def root_of(s: str) -> str:
@@ -42,15 +42,15 @@ def root_of(s: str) -> str:
     return s
 
 INPUTS = [
-    *(f"experiments/2026-10-13-census-sweeps/results/{f}" for f in (
+    *(f"experiments/archive/2026-10-census-sweeps/results/{f}" for f in (
         "sweep_v2.csv", "confirmed_v2.csv", "sweep_1B.csv", "sweep_1B_extra.csv",
         "1B_highways.txt", "census.csv")),
-    *(f"experiments/2026-10-13-probe-growth-census/results/{f}" for f in (
+    *(f"experiments/archive/2026-10-probe-growth-census/results/{f}" for f in (
         "probe_summary.csv", "c_model.csv")),
-    "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt",  # cross-check only
-    "experiments/2026-10-19-kappa-chiral-edge/results/c_law.json",
+    "experiments/archive/2026-10-kappa-uniform-baseline/results/census_spread.txt",  # cross-check only
+    "experiments/archive/2026-10-kappa-chiral-edge/results/c_law.json",
 ]
-SPREAD = ROOT / "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt"
+SPREAD = ROOT / "experiments/archive/2026-10-kappa-uniform-baseline/results/census_spread.txt"
 CSV = OUT / "rule_census.csv"
 SUMMARY = OUT / "rule_census.build.json"
 NUMBERS = ROOT / "research-outputs/cube-root-growth-paper/numbers.json"
@@ -109,7 +109,7 @@ def build() -> tuple[pl.DataFrame, str, dict]:
         census_late_escape=pl.col("in_census") & (pl.col("sweep_stop") == "escaped"),
     ).drop("phase_census")
 
-    # Per-rule uniform reference (experiments/2026-10-16-kappa-uniform-baseline): the probe kappa of a walker that is
+    # Per-rule uniform reference (experiments/archive/2026-10-kappa-uniform-baseline): the probe kappa of a walker that is
     # uniform on its territory at every instant, 2 * int_{1/2}^1 x^-e dx with e = a(1 - beta), from this rule's own
     # fitted a and beta. kappa_stationary: |g_k| < 0.05, the cut the baseline note uses (kappa not drifting).
     e = pl.col("probe_a") * (1 - pl.col("probe_beta"))

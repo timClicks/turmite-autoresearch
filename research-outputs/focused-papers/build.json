@@ -15,7 +15,7 @@
         "/mnt/f/Code/turmite/research-outputs/focused-papers/growth-census/main.pdf"
       ],
       "inputs_sha256": {
-        "experiments/2026-10-13-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
+        "experiments/archive/2026-10-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
         "research-outputs/cube-root-growth-paper/chirality_baselines.json": "074fc01fc8be56a08afdf3a5640de519adb6969fde07e3edacae24d92277e287",
         "research-outputs/cube-root-growth-paper/fig/alpha_gap.pdf": "68d67d22e72d6cbe584cf5b6ec70bf096534d92977e5077c90a3c66edd9bc66d",
         "research-outputs/cube-root-growth-paper/fig/census.pdf": "76a1f5a4838904d1e41475f81dc48526a2acafa957927d67f2eb00303ac1f80e",
@@ -54,9 +54,9 @@
         "/mnt/f/Code/turmite/research-outputs/focused-papers/boundary-transport/main.pdf"
       ],
       "inputs_sha256": {
-        "experiments/2026-10-13-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
-        "experiments/2026-10-20-kappa-prefix-family-holdout/README.md": "5bf7c35fee5ebdc7cc99edb1d57ab78b0668e776b2feca9e6cd640a61e6bcc57",
-        "experiments/2026-10-20-kappa-prefix-family-holdout/results/holdout.json": "2186a043a87d9eb08df4c01979a530cda0ebbcb161778061a3e35082ed6f7c4c",
+        "experiments/archive/2026-10-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
+        "experiments/archive/2026-10-kappa-prefix-family-holdout/README.md": "5bf7c35fee5ebdc7cc99edb1d57ab78b0668e776b2feca9e6cd640a61e6bcc57",
+        "experiments/archive/2026-10-kappa-prefix-family-holdout/results/holdout.json": "2186a043a87d9eb08df4c01979a530cda0ebbcb161778061a3e35082ed6f7c4c",
         "research-outputs/cube-root-growth-paper/chirality_baselines.json": "074fc01fc8be56a08afdf3a5640de519adb6969fde07e3edacae24d92277e287",
         "research-outputs/cube-root-growth-paper/fig/ck_time.pdf": "d0defac27e2a4a1d49fe6850fc74d8d89bdc270beb7947f3e03ce6fb3b14bb5c",
         "research-outputs/cube-root-growth-paper/fig/cmodel.pdf": "99e395e0c9130675e253cfc62d26e10ffc60e1139b2ca161c2beb9348ffa4870",
@@ -94,7 +94,7 @@
         "/mnt/f/Code/turmite/research-outputs/focused-papers/ant-rotor-boundaries/main.pdf"
       ],
       "inputs_sha256": {
-        "experiments/2026-10-13-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
+        "experiments/archive/2026-10-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
         "research-outputs/cube-root-growth-paper/chirality_baselines.json": "074fc01fc8be56a08afdf3a5640de519adb6969fde07e3edacae24d92277e287",
         "research-outputs/cube-root-growth-paper/fig/edge_gap.pdf": "777583eb95a8e97898cf82daa6dd6bdec7b593f0561717f348722ec2d012f5c1",
         "research-outputs/cube-root-growth-paper/fig/hero.pdf": "30ca20c602e181215ff9584f12948b7f96f7acc0fca752d92568807870909e90",

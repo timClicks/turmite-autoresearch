@@ -1,5 +1,5 @@
 //! Per-colour exposure and fresh-cell launch instrument
-//! (experiments/2026-10-15-kappa-prefix-exposure; conventions in its NOTEBOOK.md and SCHEMA.md).
+//! (experiments/archive/2026-10-kappa-prefix-exposure; conventions in its NOTEBOOK.md and SCHEMA.md).
 //!
 //! Same producer/accountant split as `fixed_area`, each with its own oracle in
 //! `tests/prefix_exposure.rs`:

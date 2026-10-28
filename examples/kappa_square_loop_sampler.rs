@@ -1,4 +1,4 @@
-// Square-loop (H-loop) instrument: experiments/2026-10-16-kappa-square-loop.
+// Square-loop (H-loop) instrument: experiments/archive/2026-10-kappa-square-loop.
 //
 // usage: kappa_square_loop_sampler MAX_LOG2 [GRID [MIN_LOG2]] < specs > loops.csv
 // Specs: RULE@SEED (PatchedAnt, radius 2), pw:Q:SEED (PersistentWalk), rotor:SEED. Same board, escape rule, octave

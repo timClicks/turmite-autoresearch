@@ -164,8 +164,8 @@
   "provenance": {
     "command": "uv run research-outputs/cube-root-growth-paper/chirality_baseline_numbers.py",
     "input_sha256": {
-      "experiments/2026-10-15-chirality-baselines/results/comparison.json": "1a73b6782ebb8a78b72b8c74e39538fe8c45b22a0f9171984b9a57917388e5d4",
-      "experiments/2026-10-15-chirality-baselines/results/groups.json": "80c14b433b0f4eba34b087cc4831d7a6a8c2458626c538e1c8d88366a62ec455",
+      "experiments/archive/2026-10-chirality-baselines/results/comparison.json": "1a73b6782ebb8a78b72b8c74e39538fe8c45b22a0f9171984b9a57917388e5d4",
+      "experiments/archive/2026-10-chirality-baselines/results/groups.json": "80c14b433b0f4eba34b087cc4831d7a6a8c2458626c538e1c8d88366a62ec455",
       "research-outputs/cube-root-growth-paper/chirality_baseline_numbers.py": "5dbcee93f213dc1b8a07b0b310a67e017e4cdcce821293cecc8b216fa61efe39"
     }
   }

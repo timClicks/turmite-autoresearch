@@ -1,4 +1,4 @@
-//! W5 of experiments/2026-10-kappa-rule-space: bulk fingerprint on an area-matched mature field.
+//! W5 of experiments/archive/2026-10-kappa-rule-space: bulk fingerprint on an area-matched mature field.
 //!
 //! usage: kappa_rs_bulk A0 T_REC D0 [GRID] < specs.txt > bulk.csv
 //! Specs as `bin/probe`: RULE, RULE@SEED (random 5x5 patch), rotor:SEED, pw:Q:SEED, rw:SEED.

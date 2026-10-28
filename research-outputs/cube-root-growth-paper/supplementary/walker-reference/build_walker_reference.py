@@ -2,7 +2,7 @@
 # dependencies = ["polars", "numpy"]
 # ///
 """Build walker_reference.csv: one row per (walker, seed, window set) of kappa against the walker's own
-uniform reference. Reads only committed results of experiments/2026-10-19-kappa-walker-reference.
+uniform reference. Reads only committed results of experiments/archive/2026-10-kappa-walker-reference.
 
   uv run research-outputs/cube-root-growth-paper/supplementary/walker-reference/build_walker_reference.py [--check]
 
@@ -16,8 +16,8 @@ import numpy as np, polars as pl
 
 here = Path(__file__).resolve().parent
 root = here.parents[3]
-exp = root / "experiments/2026-10-19-kappa-walker-reference/results"
-ANT = dict(q05=0.443, q25=0.664, med=0.814, q75=0.957, q95=1.332)  # 2026-10-16-kappa-uniform-baseline census_spread.txt
+exp = root / "experiments/archive/2026-10-kappa-walker-reference/results"
+ANT = dict(q05=0.443, q25=0.664, med=0.814, q75=0.957, q95=1.332)  # 2026-10-kappa-uniform-baseline census_spread.txt
 WALKERS = [("probe_mem.csv", p, "k12-22", 12, 22) for p in ("rw", "pw:0.25", "pw:0.5", "pw:0.75")] + \
           [("probe_rotor.csv", "rotor", "k12-22", 12, 22), ("probe_rotor.csv", "rotor", "k20-26", 20, 26)]
 

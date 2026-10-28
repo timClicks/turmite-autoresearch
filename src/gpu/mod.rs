@@ -2,7 +2,7 @@
 //!
 //! Behind the `cuda` cargo feature. Kernels are compiled at run time with NVRTC (no `nvcc`), and
 //! `libcuda`/`libnvrtc` are found with `dlopen`, so building needs no CUDA toolkit; running needs
-//! `libnvrtc.so.12` on `LD_LIBRARY_PATH` (see `experiments/2026-10-16-gpu-ant-sweep/README.md`).
+//! `libnvrtc.so.12` on `LD_LIBRARY_PATH` (see `experiments/active/2026-10-gpu-ant-sweep/README.md`).
 //!
 //! # Contract
 //! For every [`Job`], [`GpuSweeper::run`] returns exactly the [`RunResult`] that [`fast::run`] returns

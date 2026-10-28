@@ -10,7 +10,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent
-E = ROOT / "experiments/2026-10-kappa-rule-space/results"
+E = ROOT / "experiments/archive/2026-10-kappa-rule-space/results"
 stats = (E / "w3c_stats.txt").read_text()
 cross = (E / "w3c_cross.txt").read_text()
 

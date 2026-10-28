@@ -1,6 +1,6 @@
 """Test the random-environment picture of the ant's interior motion.
 
-For each dumped rule (experiments/2026-10-12-knockout-maps/dumps/RULE.traj, experiments/2026-10-12-knockout-maps/dumps/RULE.grid from examples/dump.rs):
+For each dumped rule (experiments/archive/2026-10-knockout-maps/dumps/RULE.traj, experiments/archive/2026-10-knockout-maps/dumps/RULE.grid from examples/dump.rs):
   q_eff     fraction of turns that were R, vs q_rule = #R / n
   turn_corr correlation of successive turns (lags 1..8)
   msd_slope MSD(tau) / tau for tau in [16, 1024], vs the persistent-walk

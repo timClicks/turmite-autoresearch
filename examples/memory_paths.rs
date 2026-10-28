@@ -1,5 +1,5 @@
 //! Equal-step illustrations, not selected for appearance.
-//! cargo run --release --example memory_paths -- 301 16 > experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv
+//! cargo run --release --example memory_paths -- 301 16 > experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv
 use std::collections::BTreeMap;
 use std::io::Write;
 use turmite::{DIRS, walkers::{CookieWalk, EdgeReinforcedWalk, RandomWalk, Rotor, Walker, AntWalker}};

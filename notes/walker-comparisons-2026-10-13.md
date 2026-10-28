@@ -77,9 +77,9 @@ files and .done markers make the sweep resumable; a finished spec is skipped.
 ## Refit results (appended; predictions unchanged)
 
 Recipe: `export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy;
-uv run experiments/2026-10-13-w-width-radius-refit/scripts/width_radius_refit.py > experiments/2026-10-13-w-width-radius-refit/results/width_radius_refit.log`, in WSL from
-`/mnt/f/Code/turmite`. Script: `experiments/2026-10-13-w-width-radius-refit/scripts/width_radius_refit.py`; machine-readable
-fits, input hashes, commit and seed: `experiments/2026-10-13-w-width-radius-refit/results/width_radius_refit.json`.
+uv run experiments/archive/2026-10-w-width-radius-refit/scripts/width_radius_refit.py > experiments/archive/2026-10-w-width-radius-refit/results/width_radius_refit.log`, in WSL from
+`/mnt/f/Code/turmite`. Script: `experiments/archive/2026-10-w-width-radius-refit/scripts/width_radius_refit.py`; machine-readable
+fits, input hashes, commit and seed: `experiments/archive/2026-10-w-width-radius-refit/results/width_radius_refit.json`.
 Synthetic instrument checks passed. All trajectories in each cohort completed
 their specified window, and none were excluded.
 
@@ -107,13 +107,13 @@ before interpreting any trajectory slope as spatial roughness.
 
 All 64 runs finished or reported grid escape. Driver:
 `export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy;
-uv run experiments/2026-10-13-memory-walkers/scripts/memory_walkers_pilot.py $HOME/turmite-target-memory/release/probe`.
+uv run experiments/archive/2026-10-memory-walkers/scripts/memory_walkers_pilot.py $HOME/turmite-target-memory/release/probe`.
 Build: `CARGO_TARGET_DIR=$HOME/turmite-target-memory cargo build --release --bin probe`.
-Run log: `experiments/2026-10-13-memory-walkers/results/memory_walkers_pilot.log`. Per-spec CSVs, hashes, .done markers,
-source/binary hashes and exact recipe: `experiments/2026-10-13-memory-walkers/results/memory_walkers_pilot/recipe.json`.
-Analysis: `uv run experiments/2026-10-13-memory-walkers/scripts/memory_walkers_pilot.py --analyse`, producing
+Run log: `experiments/archive/2026-10-memory-walkers/results/memory_walkers_pilot.log`. Per-spec CSVs, hashes, .done markers,
+source/binary hashes and exact recipe: `experiments/archive/2026-10-memory-walkers/results/memory_walkers_pilot/recipe.json`.
+Analysis: `uv run experiments/archive/2026-10-memory-walkers/scripts/memory_walkers_pilot.py --analyse`, producing
 `combined.csv` and `summary.json` in that directory. Full `cargo test --release`
-passed (including independent reference comparisons); log `experiments/2026-10-13-memory-walkers/results/memory_walkers_tests.log`.
+passed (including independent reference comparisons); log `experiments/archive/2026-10-memory-walkers/results/memory_walkers_tests.log`.
 
 Primary k=14..18, eight complete seeds per uncensored row; numbers are mean
 plus/minus between-seed sd, kappa evaluated at k=18:
@@ -150,7 +150,7 @@ nonstationary boundary occupancy prevent a cube-root universality claim.
 ## Illustrations and manuscript update
 
 User requested trajectory plots and manuscript updates. Equal-step paths:
-`CARGO_TARGET_DIR=$HOME/turmite-target-memory cargo run --release --example memory_paths -- 301 16 > experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv`.
+`CARGO_TARGET_DIR=$HOME/turmite-target-memory cargo run --release --example memory_paths -- 301 16 > experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv`.
 Seed 301 selected before inspecting paths; 65,536 steps, ant RLR blank start.
 The raw path dump is gitignored. `uv run research-outputs/cube-root-growth-paper/memory_figures.py` creates
 `research-outputs/cube-root-growth-paper/fig/memory_paths.pdf` and `memory_growth.pdf` (plus PNG previews), with
@@ -168,8 +168,8 @@ succeeded; changed manuscript pages 11, 12 and 16 were rendered with Poppler
 and visually inspected, with no clipping or overlapping labels. The final
 full `cargo test --release` passed after the buffered illustration exporter
 and fixed property-test seed were added. Re-running both analyses produced
-identical SHA256 hashes (`experiments/2026-10-13-w-width-radius-refit/results/width_radius_refit.verify` and
-`experiments/2026-10-13-memory-walkers/results/memory_walkers_pilot/analysis.verify`). Text-source whitespace checks
-passed (`experiments/2026-10-13-memory-walkers/results/memory_diff_check.log`); an initial repository-wide check tried
+identical SHA256 hashes (`experiments/archive/2026-10-w-width-radius-refit/results/width_radius_refit.verify` and
+`experiments/archive/2026-10-memory-walkers/results/memory_walkers_pilot/analysis.verify`). Text-source whitespace checks
+passed (`experiments/archive/2026-10-memory-walkers/results/memory_diff_check.log`); an initial repository-wide check tried
 to interpret the generated binary PDF as text, so it was rerun on source
 files only. No dependencies changed and no commit was made.

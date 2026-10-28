@@ -1,4 +1,4 @@
-//! experiments/2026-10-25-square-ring-fillers, P1: does the explicit edge configuration C_k translate?
+//! experiments/archive/2026-10-square-ring-fillers, P1: does the explicit edge configuration C_k translate?
 //! usage: square_ring_fillers_crawler K RULE [PERIODS=16]
 //! Builds C_k (README table: crawler on the north side moving west, ant at (0,0) heading N; a=k, b=k+1, c=2k+1, d=2k+2
 //! visits) on a finite strip, runs the plain ant (turn = RULE[visits mod n]) for PERIODS * 8(k+1) steps, and after every

@@ -7,8 +7,8 @@ a status check, not a result. Nothing here changes a claim in the paper.
 
 | Work | Kind | Status |
 |---|---|---|
-| `experiments/2026-10-16-gpu-probe` (P2, P4, script fixes) | engineering | P2 falsified at HEAD on its upper bound: 5.81x vs the registered 4.9x line. The earlier "3.84x, held" came from a stale binary and is superseded (not edited). P4 held (lane scaling). GPU output byte-identical to CPU `probe`; tests pass on a verified build. The 34% CPU slowdown against the old baseline is unexplained and unbisected. |
-| `experiments/2026-10-19-kappa-walker-reference` | science | Finished; interpretation in its `NOTEBOOK.md`. |
+| `experiments/active/2026-10-gpu-probe` (P2, P4, script fixes) | engineering | P2 falsified at HEAD on its upper bound: 5.81x vs the registered 4.9x line. The earlier "3.84x, held" came from a stale binary and is superseded (not edited). P4 held (lane scaling). GPU output byte-identical to CPU `probe`; tests pass on a verified build. The 34% CPU slowdown against the old baseline is unexplained and unbisected. |
+| `experiments/archive/2026-10-kappa-walker-reference` | science | Finished; interpretation in its `NOTEBOOK.md`. |
 | `research-outputs/.../supplementary/rule-census` builder rewrite, `rebuild_figures.py`, `.githooks/pre-commit` | infrastructure | `build_rule_census.py --check` passes (4083 rows, 3512 census, 3055 analysed, blob median alpha_w 0.3326). |
 | Paper accounting-identity audit (2026-10-16 wording changes) | editorial | In the working tree, uncommitted. |
 
@@ -48,7 +48,7 @@ halved numbers should not be quoted anywhere.
   with 1.27-1.35 measured here.
 - **Gate:** only after the user has read the walker-reference interpretation
   entry. Numbers should enter via a script in `research-outputs/` that reads
-  `experiments/2026-10-19-kappa-walker-reference/results/analysis.txt` or a CSV
+  `experiments/archive/2026-10-kappa-walker-reference/results/analysis.txt` or a CSV
   derived from it, not typed by hand.
 - **Leave the GPU benchmark out of the paper.** It belongs in the experiment README.
 - Commit the pending audit wording separately from any new science.

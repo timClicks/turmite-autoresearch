@@ -20,9 +20,9 @@ IMAGES = ("exponents", "hero", "ck_time", "memory_paths", "late_switch")
 SOURCES = ["main.typ", "numbers.json", "recent_findings.json", "kappa_prediction.json",
            "supplementary/rule-census/rule_census.build.json",
            "supplementary/walker-reference/walker_reference.csv"]
-FORECAST = "experiments/2026-10-13-transport-forecast/results/transport_forecast.json"
+FORECAST = "experiments/archive/2026-10-transport-forecast/results/transport_forecast.json"
 # Homepage-only figures drawn from experiment results rather than the manuscript: name -> committed source.
-PORTRAIT = "experiments/2026-10-21-rlrlll-portrait/results"
+PORTRAIT = "experiments/archive/2026-10-rlrlll-portrait/results"
 EXTRA_IMAGES = {"rlrlll_portrait": f"{PORTRAIT}/portrait.png", "rlrlll_details": f"{PORTRAIT}/portrait_details.png",
                 "rlrlll_map": f"{PORTRAIT}/territory_map.png", "rlrlll_arrival": f"{PORTRAIT}/arrival_b16.png"}
 
@@ -84,7 +84,7 @@ def export():
                            "sha256": {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}}}
     # The saved census-spread summary, not a different core cohort, supplies the
     # stationary-blob median used for the raw/normalized display.
-    spread = ROOT / "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt"
+    spread = ROOT / "experiments/archive/2026-10-kappa-uniform-baseline/results/census_spread.txt"
     line = next(l for l in spread.read_text().splitlines() if l.startswith("kappa, stationary"))
     data["ant_raw"] = float(re.search(r"\[([^\]]+)\]", line)[1].split(",")[2])
     assert not git("status", "--porcelain", "--", str(spread.relative_to(ROOT)))

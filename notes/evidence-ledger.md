@@ -1,8 +1,8 @@
 # Evidence ledger and access guide
 
-Initial audit: 2026-10-23. Start with the [compact claim ledger](../experiments/2026-10-23-evidence-ledger/results/ledger.md).
+Initial audit: 2026-10-23. Start with the [compact claim ledger](../experiments/archive/2026-10-evidence-ledger/results/ledger.md).
 It covers boundary occupation (BO), return dynamics (RD) and regime changes (RG).
-The [JSON catalogue](../experiments/2026-10-23-evidence-ledger/results/claims.json)
+The [JSON catalogue](../experiments/archive/2026-10-evidence-ledger/results/claims.json)
 is the editable source; Markdown is generated. This is an editorial synthesis of
 existing evidence, not a new experiment or an exhaustive project inventory.
 
@@ -34,14 +34,14 @@ reserved where relevant. No new sweep is proposed or registered by this ledger.
 | Is the ant still in the modeled regime? | RG-01, RG-02, RG-03 | Censoring, second-board checks, calibrated windows |
 | Can a null result justify skipping a family? | [Pruning index](pruning-index/README.md) | Exact membership, objective and evidence class; never this ledger alone |
 
-The [inventory reconciliation](../experiments/2026-10-23-evidence-ledger/results/inventory-audit.md)
+The [inventory reconciliation](../experiments/archive/2026-10-evidence-ledger/results/inventory-audit.md)
 explains why the supplied broad inventory was not imported as facts. It includes
 the finite scope of the additive-law result and unsupported taxonomy claims.
 
 ## A small knowledge base now; indexed views when needed
 
 The implemented interface is Git-backed JSON plus a CLI: see the
-[commands](../experiments/2026-10-23-evidence-ledger/README.md#reproduce-and-query).
+[commands](../experiments/archive/2026-10-evidence-ledger/README.md#reproduce-and-query).
 It is sufficient for exact topic/verdict filters and full-record text retrieval.
 No database service, embedding model or Prolog runtime is installed.
 

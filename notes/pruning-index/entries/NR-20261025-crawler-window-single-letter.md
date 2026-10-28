@@ -12,7 +12,7 @@
 ## Topological dead-end signature
 
 - Model and update semantics: one ant on Z^2, blank board 4096 x 4096 (run ends on escape), colours 0..n-1. On colour c the ant turns by rule[c] (R = +1, L = -1 quarter turn), sets the colour to (c+1) mod n and steps (`src/edge_trace.rs`, `AntWalker`).
-- Rule-space vertices and adjacency: the parents are the 90 rules in `experiments/2026-10-25-crawler-cost-chaotic-edge/results/lists/p2_parents.txt`: 30 per lead m in {1, 2, 3}, drawn from stationary census blobs (`cls == blob`, `c > 0`, `|g_k| < 0.05`), n in 10..12, not Pi(m), by `scripts/make_lists.py` with numpy `default_rng(20261025)`. Edges: one letter flipped at position p in `[m+1, n-1]`, keeping the lead and primitivity (748 parent-mutant pairs, 664 distinct mutants, `lists/cohorts.csv`).
+- Rule-space vertices and adjacency: the parents are the 90 rules in `experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/p2_parents.txt`: 30 per lead m in {1, 2, 3}, drawn from stationary census blobs (`cls == blob`, `c > 0`, `|g_k| < 0.05`), n in 10..12, not Pi(m), by `scripts/make_lists.py` with numpy `default_rng(20261025)`. Edges: one letter flipped at position p in `[m+1, n-1]`, keeping the lead and primitivity (748 parent-mutant pairs, 664 distinct mutants, `lists/cohorts.csv`).
 - Membership predicate: a pair belongs if and only if it is a row with role `p2_mutant` in `lists/cohorts.csv` (sha256 below).
 - Canonicalization/equivalences: none. Mirror images and rotations are not covered.
 - Invariants: not used.
@@ -23,9 +23,9 @@
 
 ## Evidence and limits
 
-- Preregistered criterion: `experiments/2026-10-25-crawler-cost-chaotic-edge/README.md`, W2 and W3 (and the N0 gate), registered at `a387d27` before any list or run.
+- Preregistered criterion: `experiments/archive/2026-10-crawler-cost-chaotic-edge/README.md`, W2 and W3 (and the N0 gate), registered at `a387d27` before any list or run.
 - Evidence revision: `b4798f8412fbe5bfbeedf0190156b7a53a61ab54`.
-- Inputs/results (SHA-256, under `experiments/2026-10-25-crawler-cost-chaotic-edge/results/`): `lists/p2_parents.txt` cf137fd6d62c91099f91e361e7fb8a2d79f16bd8dd0bc65dd8a39d3015417fb7; `lists/p2_mutants.txt` 63e00373aa60f9b6426843d1b56fe9f83b5566d047bcd6f477fd21985bce91f0; `lists/cohorts.csv` 3ee20861434037f8e71fd0a460a3c4a44c845f4333963b72a320701c645067f1; `trace_p2_parents_24.jsonl` bb7f6a19514d829aee6eeb7ae292e3d64af4589430e79e434bb91a09c4512b8e; `trace_p2_parents_25.jsonl` b2d4d03f2c28ad5a325a51fd6b6979b133647dca2f6e168076450da5e482ed81; `trace_p2_mutants.jsonl` a6e798ee8be1424662c7baf68c685d7ea59eae0818ba3235c918a1540e86d9b3; `p2_effects.csv` 3ffac26e2e68f9831dee1cbcef91bd937adaecb617babba13ce94d089aba7b1e; `analysis.txt` b0acac75143e446ca753f664a51cbb04a76e7fc40c60471f023cdedcb369da18; `analysis.json` b28e5154522faf21da0e587c0cb7c79dc9e1cd131d65be6d69256ce14322c33e; `run.log` 7a257a588e0276d26645005c378c04ba24a05e1dbfdbadd8784ad7fa8b6185e5.
+- Inputs/results (SHA-256, under `experiments/archive/2026-10-crawler-cost-chaotic-edge/results/`): `lists/p2_parents.txt` cf137fd6d62c91099f91e361e7fb8a2d79f16bd8dd0bc65dd8a39d3015417fb7; `lists/p2_mutants.txt` 63e00373aa60f9b6426843d1b56fe9f83b5566d047bcd6f477fd21985bce91f0; `lists/cohorts.csv` 3ee20861434037f8e71fd0a460a3c4a44c845f4333963b72a320701c645067f1; `trace_p2_parents_24.jsonl` bb7f6a19514d829aee6eeb7ae292e3d64af4589430e79e434bb91a09c4512b8e; `trace_p2_parents_25.jsonl` b2d4d03f2c28ad5a325a51fd6b6979b133647dca2f6e168076450da5e482ed81; `trace_p2_mutants.jsonl` a6e798ee8be1424662c7baf68c685d7ea59eae0818ba3235c918a1540e86d9b3; `p2_effects.csv` 3ffac26e2e68f9831dee1cbcef91bd937adaecb617babba13ce94d089aba7b1e; `analysis.txt` b0acac75143e446ca753f664a51cbb04a76e7fc40c60471f023cdedcb369da18; `analysis.json` b28e5154522faf21da0e587c0cb7c79dc9e1cd131d65be6d69256ce14322c33e; `run.log` 7a257a588e0276d26645005c378c04ba24a05e1dbfdbadd8784ad7fa8b6185e5.
 - Recipe: `uv run --frozen scripts/make_lists.py`; `CARGO_TARGET_DIR_FRESH=$(mktemp -d) sh scripts/run.sh`; `uv run --frozen scripts/analyse.py` (all paths relative to the experiment folder).
 - Proof or measured result: 748 pairs, of which 530 were kept. W1 scored 28, 25 and 25 parents (m = 1, 2, 3). W2 compared 40 (m = 3) and 43 (m = 1) kept mutants. W3 used 67 + 63 kept in-window mutants for m = 2 and 3. N0: the median relative drift of the parents' `1/c` from 2^24 to 2^25 is 0.0026, well under half the median in-window effect (0.070).
 - Controls and oracle checks: the same instrument reproduces the crawler's exact `1/c = k + 5/4` to within 0.0021 on 25 census fillers (P0b), and the experiment's own strip simulation gives the exact rationals (P0a). The edge tracer has property tests against `probe_walker` and a naive reimplementation (`tests/edge_trace.rs`).
@@ -36,7 +36,7 @@
 
 - Reopen if: a gap-dose or multi-letter design shows that window letters act collectively (an all-or-nothing chain); the instrument or filter changes; other lengths, leads, backgrounds or horizons are used; or between-start variance turns out to be comparable to e.
 - Discriminating next test: on the flat band (c-law-mechanism Stage 2 setting), rules with a complete crawler window except for 0, 1 or 2 gaps at controlled positions. This tests a product (chain) model against an additive one. Not scheduled.
-- Experiment / lab notebook / scientific note: `experiments/2026-10-25-crawler-cost-chaotic-edge/README.md`, `NOTEBOOK.md`, `notebook.ipynb`; `notes/open-questions-hypotheses.md`.
+- Experiment / lab notebook / scientific note: `experiments/archive/2026-10-crawler-cost-chaotic-edge/README.md`, `NOTEBOOK.md`, `notebook.ipynb`; `notes/open-questions-hypotheses.md`.
 - Related signature IDs: none. `NR-20261025-kappa-exposure-classes-exposed-edge` concerns kappa by exposure class, not c or letter positions.
 
 ## Amendments (append only)

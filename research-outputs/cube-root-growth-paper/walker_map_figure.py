@@ -23,9 +23,9 @@ import style as st  # noqa: E402
 from analyse_probe import per_rule  # noqa: E402
 
 OUT = Path(__file__).resolve().parent / "fig"
-ANTS = ROOT / "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv"
-MEM = ROOT / "experiments/2026-10-13-memory-walkers/results/memory_walkers_pilot/summary.json"
-NOISE = ROOT / "experiments/2026-10-13-arm-kappa-depletion-arms/results/armb_probe.csv"
+ANTS = ROOT / "experiments/archive/2026-10-probe-growth-census/results/probe_summary.csv"
+MEM = ROOT / "experiments/archive/2026-10-memory-walkers/results/memory_walkers_pilot/summary.json"
+NOISE = ROOT / "experiments/archive/2026-10-arm-kappa-depletion-arms/results/armb_probe.csv"
 FAMILIES = {"rw": ("random walk", st.RANDOM, "o"), "rotor": ("rotor", st.ROTOR, "s"),
             "rcookie:0.25": ("random cookie B=.25", "#9aa5ea", "^"), "rcookie:0.75": ("random cookie B=.75", "#5fb3d9", "v"),
             "errw:1": ("edge reinf. I=1", st.BUILDER, "D"), "errw:4": ("edge reinf. I=4", "#444444", "P")}

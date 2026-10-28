@@ -85,7 +85,7 @@ The CV of A/t^(2/3) rises with t, and alpha_w is 0.38 +/- 0.07. Every other rule
 - **Also:** report how the census median and the fast fraction (103 of 2,622 now) change when they are added.
 
 ### B5. Highway classification is finite-time
-- **Problem:** 304 builders were identified by finite simulation. In the 807 unresolved rules run to 10^10, 38 (4.7%) became highways in (10^9, 10^10]. The pre-registered 1% was falsified. **[Corrected 2026-10-21: 22 of the 38 (1e9,1e10] and 4+ of the 16 (1e10,1e11] "highways" are board artefacts; genuine yields 1.98% and 0.68-1.64% (1.64% if the 7 pending rechecks confirm); see `experiments/2026-10-21-late-highway-board-check/README.md`.]**
+- **Problem:** 304 builders were identified by finite simulation. In the 807 unresolved rules run to 10^10, 38 (4.7%) became highways in (10^9, 10^10]. The pre-registered 1% was falsified. **[Corrected 2026-10-21: 22 of the 38 (1e9,1e10] and 4+ of the 16 (1e10,1e11] "highways" are board artefacts; genuine yields 1.98% and 0.68-1.64% (1.64% if the 7 pending rechecks confirm); see `experiments/archive/2026-10-late-highway-board-check/README.md`.]**
 - **Plan:** extend the 10^10 run to 10^11 or 10^12 for the surviving rules, using the lean ant.
 - **Prediction:** the onset rate per decade stays about flat (slope +0.015 +/- 0.026), so about 4% of survivors escape each decade. A falling rate would support a finite set of late highways.
 - **Implication:** if the rate stays flat, the "chaotic" census contains rules that will eventually build highways, and every exponent in it is a transient. This is the most dangerous caveat for the headline result.
@@ -119,7 +119,7 @@ Two hard rules (RRRRRLLLLLL, RLLLLRRRRLR), one territory each at age 2^24, shuff
 ### E1. Why is RRRRRLLLLLL's hot region one-sided?
 Its 11 hot tiles all lie north of the tether centre (octant counts 0,0,0,2,2,2,4,1), while RLLLLRRRRLR's 17 form a rough disc.
 - **Hypothesis:** the lobe is set by where this particular field built up, not by a fixed direction in the rule's geometry.
-- **Test:** repeat the map on the 2^26 grids in `experiments/2026-10-13-tether-rules/dumps_f/` and on other ages (2^22, 2^25).
+- **Test:** repeat the map on the 2^26 grids in `experiments/archive/2026-10-tether-rules/dumps_f/` and on other ages (2^22, 2^25).
 - **Prediction:** if the lobe is tied to the field, it moves or grows with age and keeps its offset from the tether centre. If it is tied to the rule's geometry, it keeps a fixed compass direction. Also rotate the field by 90 degrees and rerun: a rule-fixed lobe should not rotate with it.
 
 ### E2. Is the sensitive disc set by the tether radius or the excursion scale?

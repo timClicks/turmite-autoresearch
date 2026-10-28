@@ -1,4 +1,4 @@
-//! experiments/2026-10-21-rlrlll-portrait: whole-territory snapshots of RLRLLL from a blank board, for the
+//! experiments/archive/2026-10-rlrlll-portrait: whole-territory snapshots of RLRLLL from a blank board, for the
 //! homepage visual of the late column sweeper. No statistic is computed here; the frames are pictures.
 //! usage: rlrlll_portrait_frames RULE TIMES_FILE OUTDIR [GRID=32768] [BLOCK=16] [CROP=256]
 //! TIMES_FILE: one step count per line, ascending. At each listed t (before step t is taken) and once more when

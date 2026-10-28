@@ -12,14 +12,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).with_name("recent_findings.json")
 FILES = {
-    "c_law": "experiments/2026-10-19-kappa-chiral-edge/results/c_law.json",
-    "edge": "experiments/2026-10-19-c-law-mechanism/results/stage2_analysis.json",
-    "interior": "experiments/2026-10-19-c-law-mechanism/results/stage2c_analysis.json",
-    "conditioning": "experiments/2026-10-19-c-law-mechanism/results/stage4_analysis.json",
-    "uniform": "experiments/2026-10-16-kappa-uniform-baseline/results/analysis.txt",
-    "spread": "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt",
-    "walkers": "experiments/2026-10-19-kappa-walker-reference/results/analysis.txt",
-    "noisy": "experiments/2026-10-19-kappa-walker-reference/results/analysis_nrotor.txt",
+    "c_law": "experiments/archive/2026-10-kappa-chiral-edge/results/c_law.json",
+    "edge": "experiments/archive/2026-10-c-law-mechanism/results/stage2_analysis.json",
+    "interior": "experiments/archive/2026-10-c-law-mechanism/results/stage2c_analysis.json",
+    "conditioning": "experiments/archive/2026-10-c-law-mechanism/results/stage4_analysis.json",
+    "uniform": "experiments/archive/2026-10-kappa-uniform-baseline/results/analysis.txt",
+    "spread": "experiments/archive/2026-10-kappa-uniform-baseline/results/census_spread.txt",
+    "walkers": "experiments/archive/2026-10-kappa-walker-reference/results/analysis.txt",
+    "noisy": "experiments/archive/2026-10-kappa-walker-reference/results/analysis_nrotor.txt",
 }
 
 

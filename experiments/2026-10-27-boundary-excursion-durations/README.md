@@ -26,7 +26,7 @@ By Kac's lemma, a stationary uniform occupant of a territory of area A with
 boundary size P has mean return time to the boundary of order A/P = L. The
 repo already finds that constant kappa is equivalent (via the renewal identity)
 to the ant's mean interior excursion duration E[T] tracking L
-(`experiments/2026-10-20-kappa-first-passage/`, Correction after review). The
+(`experiments/archive/2026-10-kappa-first-passage/`, Correction after review). The
 **mean** therefore cannot separate two stories that both give E[T] ~ L:
 
 - **D (diffusive):** Pr(T > s) ~ s^(-1/2) for 1 << s << L^2, cut off near L^2.
@@ -207,7 +207,7 @@ stopped the instrument, do not interpret these numbers as evidence.
 
 ## Why the earlier tail estimator failed, and how this avoids it
 
-Recorded in `experiments/2026-10-20-kappa-first-passage/README.md` (Correction
+Recorded in `experiments/archive/2026-10-kappa-first-passage/README.md` (Correction
 after review / C6) and ACTIVE.md: a truncated-power-law fit for (theta, cutoff)
 failed its own calibration (ln-cutoff bias and coverage), and any such fit is
 pushed toward z(1-theta) ~ 1 whenever E[T] ~ L, so the mean cannot identify the
@@ -250,7 +250,7 @@ C1 STOP forbids reading these as a D/S claim. Descriptive only (`results/analysi
 pooled ants Score(L)=0.1629, Score(L²)=0.0801, frozen verdict would have been D on 67 windows — **do not promote**. Per-rule exploratory verdicts in `analysis.json`. Trajectories permanently excluded from confirmation.
 
 ### Why the earlier tail estimator failed, and how this avoided it
-First-passage C6 (`experiments/2026-10-20-kappa-first-passage/`): parametric $(\theta,z)$ fit failed |bias ln τ| and coverage, and $z(1-\theta)\sim 1$ is forced by $E[T]\sim L$. This experiment never estimated $\theta$ or $z$; it used a nonparametric collapse Score with a 0.75 margin, required RW→D and MF→S before any ant reading, and treated censoring flips as uninformative. The new failure mode is different: the chosen D calibrator cannot grow $L$.
+First-passage C6 (`experiments/archive/2026-10-kappa-first-passage/`): parametric $(\theta,z)$ fit failed |bias ln τ| and coverage, and $z(1-\theta)\sim 1$ is forced by $E[T]\sim L$. This experiment never estimated $\theta$ or $z$; it used a nonparametric collapse Score with a 0.75 margin, required RW→D and MF→S before any ant reading, and treated censoring flips as uninformative. The new failure mode is different: the chosen D calibrator cannot grow $L$.
 
 ### Retain / revise / stop
 **Revise.** Keep the excursion definition, probe `--check`, MF L-control, rotor as measured calibrator, nonparametric Score, and excluded-pilot discipline. Replace the D calibrator with a **compact-domain** walker whose linear size grows (e.g. random walk in a growing disk/cup of radius $R$ with $L\sim R$, or Brownian hitting times in a growing interval), re-register C1 against that calibrator, and only then revisit confirmation. Do not interpret the excluded pilot as evidence.

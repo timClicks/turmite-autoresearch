@@ -1,6 +1,6 @@
 //! A tile-based CPU grid for the lean ant: sparse allocation, a bounded cache of uncompressed tiles and, optionally,
 //! bit-packed storage for the tiles that are not being stepped on. Design, memory accounting and the checkpoint format:
-//! `experiments/2026-10-23-tiled-grid-backend/README.md`.
+//! `experiments/active/2026-10-tiled-grid-backend/README.md`.
 //!
 //! The board is the same bounded `size x size` square as `lean::LeanGrid` (start cell at the centre, escape = leaving it),
 //! cut into `T x T` tiles (T a power of two) aligned to the *relative* coordinates (tile `x.div_euclid(T)`), so about half

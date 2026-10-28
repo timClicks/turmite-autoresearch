@@ -1,4 +1,4 @@
-//! Colour-resolved boundary occupancy (W4 of experiments/2026-10-kappa-rule-space).
+//! Colour-resolved boundary occupancy (W4 of experiments/archive/2026-10-kappa-rule-space).
 //!
 //! The same octave windows (2^k, 2^(k+1)] and the same boundary definition as `probe`
 //! (a visited cell with at least one never-visited 4-neighbour, tested at the start of a

@@ -19,6 +19,8 @@ from nbconvert import HTMLExporter
 ROOT = Path(__file__).resolve().parents[2]
 BLOG = ROOT / "blog"
 OUTPUT = BLOG / "experiments"
+# experiments/<bucket>/<slug>/: the bucket is status, the slug is identity, so pages are keyed by slug alone.
+BUCKETS = ("active", "archive", "proposed")
 
 
 def git(*args: str) -> str:
@@ -37,12 +39,39 @@ def heading_slug(text: str) -> str:
     return re.sub(r"[^\w -]", "", unquote(text).lower()).replace(" ", "-")
 
 
+def former_slugs(tracked: set[Path], current: set[str]) -> tuple[dict[str, list[str]], list[Path]]:
+    """Old slugs of each current experiment, from the relocation maps (oldest map first), for jekyll-redirect-from."""
+    maps = sorted(p for p in tracked if p.parent == ROOT / "experiments" / "_migration" and p.suffix == ".tsv"
+                  and p.read_text(encoding="utf-8").startswith("old_path\tnew_path\t"))
+    renamed = {}
+    for path in maps:
+        with path.open(encoding="utf-8") as handle:
+            for row in csv.DictReader(handle, delimiter="\t"):
+                old, new = Path(row["old_path"]).name, Path(row["new_path"]).name
+                if old != new:
+                    renamed[old] = new
+    former = {}
+    for old in renamed:
+        new = old
+        while new in renamed:
+            new = renamed[new]
+        if old in current:
+            raise ValueError(f"Former slug {old} is also a current experiment; its redirect would hide that page")
+        if new in current:
+            former.setdefault(new, []).append(old)
+    return {slug: sorted(names) for slug, names in former.items()}, maps
+
+
 def build(baseurl: str, repository: str) -> None:
     tracked = {ROOT / path for path in git("ls-files").splitlines()}
-    readmes = sorted((p for p in tracked if p.parent.parent == ROOT / "experiments"
-                      and p.name == "README.md" and not p.parent.name.startswith("_")), reverse=True)
+    readmes = sorted((p for p in tracked if p.parent.parent.parent == ROOT / "experiments"
+                      and p.parent.parent.name in BUCKETS and p.name == "README.md"
+                      and not p.parent.name.startswith("_")), key=lambda p: p.parent.name, reverse=True)
     experiments = {p.parent for p in readmes}
+    if len({p.name for p in experiments}) != len(experiments):
+        raise ValueError("Two buckets hold experiments with the same slug; slugs must be unique")
     commit = git("rev-parse", "HEAD")
+    former, maps = former_slugs(tracked, {p.name for p in experiments})
     # This fixed directory contains generated website files, never research data.
     assert OUTPUT.resolve() == ROOT.resolve() / "blog" / "experiments"
     marker = OUTPUT / ".generated-by-turmite-blog"
@@ -56,6 +85,8 @@ def build(baseurl: str, repository: str) -> None:
     exporter.exclude_anchor_links = True
     catalog = []
     manifest = {"commit": commit, "inputs": {}, "missing_links": []}
+    for path in maps:
+        manifest["inputs"][path.relative_to(ROOT).as_posix()] = digest(path)
     guide_path = BLOG / "experiment-guides.tsv"
     guides = {}
     if guide_path.is_file():
@@ -247,8 +278,12 @@ def build(baseurl: str, repository: str) -> None:
         metadata = {"layout": "experiment", "title": title, "description": description,
                     "reader_guide": bool(guide), "has_figures": bool(gallery),
                     "figure_preview": BeautifulSoup(gallery[0], "html.parser").find("img")["src"] if gallery else "",
-                    "slug": experiment.name, "source_commit": commit, "notebooks": notebook_info,
+                    "slug": experiment.name, "bucket": experiment.parent.name, "source_commit": commit, "notebooks": notebook_info,
                     "source_url": repo_url(readme) if repository else ""}
+        if experiment.name in former:
+            # Folder renames must not break published links; GitHub Pages cannot send a 301, so the plugin writes
+            # meta-refresh pages at the old URLs.
+            metadata["redirect_from"] = ["/experiments/" + name + "/" for name in former[experiment.name]]
         destination = OUTPUT / experiment.name / "index.html"
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text("---\n" + json.dumps(metadata, ensure_ascii=False) + "\n---\n{% raw %}\n"

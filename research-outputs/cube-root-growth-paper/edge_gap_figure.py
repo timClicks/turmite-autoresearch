@@ -2,7 +2,7 @@
 
 Run: uv run research-outputs/cube-root-growth-paper/edge_gap_figure.py
 Reads the committed pooled A4 + A4c shape files only (checkpoints at t = 2^k, one row per run and k). No refits beyond the
-same finite-difference local exponent d(k) between k and k+2 that experiments/2026-10-13-a4-boundary-width/scripts/a4c_stats.py
+same finite-difference local exponent d(k) between k and k+2 that experiments/archive/2026-10-a4-boundary-width/scripts/a4c_stats.py
 reports, so panel b should reproduce its 'pooled' lines; numbers go to fig/edge_gap_numbers.json.
 """
 import hashlib
@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import style as st
 
 ROOT = Path(__file__).resolve().parents[2]
-R = ROOT / "experiments/2026-10-13-a4-boundary-width/results"
+R = ROOT / "experiments/archive/2026-10-a4-boundary-width/results"
 OUT = Path(__file__).resolve().parent / "fig"
 FILES = {"ants": ["a4_shape_ants.csv", "a4c_shape_ants.csv"], "rotor": ["a4_shape_rotor.csv", "a4c_shape_rotor.csv"]}
 COL = {"ants": st.ANT, "rotor": st.ROTOR}

@@ -9,7 +9,7 @@ The exact discrete budget is Q=(X-X0)/dt. Endpoint c*kappa*g equals
 new_cells*sqrt(A)/dt; its 3/2 multiple is a right-end approximation,
 not the exact transformed increment. Use the exact budget for prediction.
 
-Primary cohort: every complete nonescaped trajectory in experiments/2026-10-13-b2-between-rule-variance/results/b2_probe.csv,
+Primary cohort: every complete nonescaped trajectory in experiments/archive/2026-10-b2-between-rule-variance/results/b2_probe.csv,
 training k=20..22, forecasts k=23..26. No outcome growth-band filter.
 Estimate constant Q by the arithmetic training mean; a competing drift model
 fits log Q against log t on the same three windows. Predict each held-out
@@ -34,7 +34,7 @@ exclusions and input hashes. No new walker or estimator of growth exponents.
 ## Results (appended after measurement)
 
 Recipe in WSL from /mnt/f/Code/turmite:
-`export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy && uv run experiments/2026-10-13-transport-forecast/scripts/transport_forecast.py > experiments/2026-10-13-transport-forecast/results/transport_forecast.log`.
+`export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy && uv run experiments/archive/2026-10-transport-forecast/scripts/transport_forecast.py > experiments/archive/2026-10-transport-forecast/results/transport_forecast.log`.
 Full trajectory records, input SHA256 hashes, exclusions, commit and seed:
 [transport_forecast.json](../data/transport_forecast.json). Producing script:
 [transport_forecast.py](../data/transport_forecast.py).

@@ -8,7 +8,7 @@
 //! each layer at the window's start and end, and the edge-phase visit count v_e of
 //! the cells whose edge phase ended in the window. Layer 0 are the boundary cells
 //! of the probe, so rho(0) is the probe's kappa up to the choice of area/perimeter
-//! normalisation (checked in experiments/2026-10-13-layers-colours/scripts/layers_stats.py).
+//! normalisation (checked in experiments/archive/2026-10-layers-colours/scripts/layers_stats.py).
 
 use rayon::prelude::*;
 use turmite::Rule;

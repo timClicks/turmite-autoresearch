@@ -1,10 +1,10 @@
 {
   "library": {
     "hidden-phase": {
-      "path": "experiments/2026-10-23-hidden-phase-return/results/phase_effect.png",
+      "path": "experiments/archive/2026-10-hidden-phase-return/results/phase_effect.png",
       "alt": "Two panels compare return-time sensitivity when zero, one, two, four or all future turns are preserved at each cell.",
       "caption": "Hidden-phase pilot: mean absolute log-two time changes with four-start standard deviations. The support gate failed in most start/area groups; these selected long excursions do not establish a transport mechanism.",
-      "recipe": "experiments/2026-10-23-hidden-phase-return/scripts/analyze.py"
+      "recipe": "experiments/archive/2026-10-hidden-phase-return/scripts/analyze.py"
     },
     "mechanics": {
       "path": "research-outputs/cube-root-growth-paper/fig/mechanics.png",
@@ -61,40 +61,40 @@
       "recipe": "research-outputs/cube-root-growth-paper/memory_figures.py"
     },
     "fixed-area": {
-      "path": "experiments/2026-10-15-fixed-area-cycles/results/association.png",
+      "path": "experiments/archive/2026-10-fixed-area-cycles/results/association.png",
       "alt": "Independent-seed excursion-tail cutoff versus boundary occupation at visited areas 32768 and 131072; the negative association is stronger at the larger area.",
       "caption": "Each panel compares rules at a fixed visited area, with separate seeds for the long-excursion statistic and boundary occupation. Longer extreme excursions accompany lower boundary occupation more clearly in the larger territory. The primary small-area criterion fails; the selected 44-rule cohort does not establish causality. Seeds, bands and uncertainty are recorded in the experiment record.",
-      "recipe": "experiments/2026-10-15-fixed-area-cycles/README.md"
+      "recipe": "experiments/archive/2026-10-fixed-area-cycles/README.md"
     },
     "alpha-gap": {
-      "path": "experiments/2026-10-15-alpha-gap/results/alpha_gap.png",
+      "path": "experiments/archive/2026-10-alpha-gap/results/alpha_gap.png",
       "alt": "The distribution of fitted growth exponents and checks of the cut between slow and compact growers.",
       "caption": "The cut separates a slow-growth population from the compact-growth peak. Moving it changes the central estimate little, but not little enough to pass the strict registered tolerance. A statistical trough is not proof of a phase boundary.",
-      "recipe": "experiments/2026-10-15-alpha-gap/README.md"
+      "recipe": "experiments/archive/2026-10-alpha-gap/README.md"
     },
     "occupancy-home": {
-      "path": "experiments/2026-10-13-occupancy-pages/results/page_RRRRRLLLLLL.png",
+      "path": "experiments/archive/2026-10-occupancy-pages/results/page_RRRRRLLLLLL.png",
       "alt": "Saved multi-panel colour and occupancy analysis of tethered rule RRRRRLLLLLL.",
       "caption": "The territory is larger than the neighbourhood where this ant spends most of its time. Compare the colour field with occupancy and the page’s motion diagnostics. This is a selected saved example; the individual panel labels give its measurement context.",
-      "recipe": "experiments/2026-10-13-occupancy-pages/README.md"
+      "recipe": "experiments/archive/2026-10-occupancy-pages/README.md"
     },
     "occupancy-blob": {
-      "path": "experiments/2026-10-13-occupancy-pages/results/page_RLR.png",
+      "path": "experiments/archive/2026-10-occupancy-pages/results/page_RLR.png",
       "alt": "Saved multi-panel colour and occupancy analysis of compact-growing rule RLR.",
       "caption": "A compact grower provides a comparison with the tethered example. The visit-density and motion panels ask how the walker uses its territory, which a colour snapshot alone cannot reveal. This is descriptive context, not an independent test of every linked experiment.",
-      "recipe": "experiments/2026-10-13-occupancy-pages/README.md"
+      "recipe": "experiments/archive/2026-10-occupancy-pages/README.md"
     },
     "crystal": {
-      "path": "experiments/2026-10-crystal-rules/results/RLLLLRRL_visits.png",
+      "path": "experiments/archive/2026-10-crystal-rules/results/RLLLLRRL_visits.png",
       "alt": "Visit-count image of rule RLLLLRRL showing long diagonal structures.",
       "caption": "The long diagonal rays make the crystal question visible. This is the saved visit image of the deterministic blank-board rule RLLLLRRL; the ray tests in the record distinguish the visible structure from claims about how it sustains itself.",
-      "recipe": "experiments/2026-10-crystal-rules/README.md"
+      "recipe": "experiments/archive/2026-10-crystal-rules/README.md"
     },
     "snapshot": {
-      "path": "experiments/2026-10-13-snapshots/results/LLRR.png",
+      "path": "experiments/archive/2026-10-snapshots/results/LLRR.png",
       "alt": "Saved colour-field snapshot of the symmetric builder LLRR.",
       "caption": "LLRR is a reminder that an ant need not build an irregular blob. This selected saved snapshot is visual context; use the generating record for its run parameters rather than inferring a growth exponent from the shape.",
-      "recipe": "experiments/2026-10-13-snapshots/README.md"
+      "recipe": "experiments/archive/2026-10-snapshots/README.md"
     },
     "excursion-cup-010": {
       "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/ccdf_cup_010.png",
@@ -142,43 +142,43 @@
       "excursion-idla",
       "excursion-eden"
     ],
-    "2026-10-23-hidden-phase-return": ["hidden-phase"],
-    "2026-10-12-knockout-maps": ["occupancy-home"],
-    "2026-10-13-a1-kappa": ["boundary-factors"],
-    "2026-10-13-a3-background-cone-control": ["rotor"],
-    "2026-10-13-a5-home-types": ["occupancy-home"],
-    "2026-10-13-a6-corruption-mechanism": ["occupancy-home"],
-    "2026-10-13-b1-exact-exponent": ["exponents", "late-switch"],
-    "2026-10-13-b2-between-rule-variance": ["exponents"],
-    "2026-10-13-calib-instrument-calibration": ["exponents", "rotor"],
-    "2026-10-13-census-sweeps": ["gallery", "mechanics"],
-    "2026-10-13-edge-statistics": ["edge", "boundary-factors"],
-    "2026-10-13-ext-other-lattices-turmites-noise": ["memory-growth"],
-    "2026-10-13-formage-age": ["occupancy-home"],
-    "2026-10-13-g1-ribbon-breakout": ["late-switch"],
-    "2026-10-13-hot-tiles": ["occupancy-home"],
-    "2026-10-13-item4-exponent-rotor-calibrated": ["exponents"],
-    "2026-10-13-log-growers": ["occupancy-home"],
-    "2026-10-13-memory-walkers": ["memory-paths", "memory-growth"],
-    "2026-10-13-mixing": ["occupancy-blob"],
-    "2026-10-13-occupancy-pages": ["occupancy-home", "occupancy-blob"],
-    "2026-10-13-patterns-fields": ["occupancy-home"],
-    "2026-10-13-probe-growth-census": ["exponents", "boundary-factors"],
-    "2026-10-13-shape-limit": ["rotor"],
-    "2026-10-13-snapshots": ["gallery", "snapshot"],
-    "2026-10-13-spread-home": ["occupancy-home"],
-    "2026-10-13-tether-rules": ["occupancy-home"],
-    "2026-10-13-w2": ["memory-paths"],
-    "2026-10-13-w3": ["rotor"],
-    "2026-10-14-hull-width": ["edge"],
-    "2026-10-15-alpha-gap": ["alpha-gap"],
-    "2026-10-15-fixed-area-cycles": ["fixed-area"],
-    "2026-10-15-independent-area": ["fixed-area"],
-    "2026-10-16-kappa-loop-surgery": ["edge"],
-    "2026-10-16-kappa-uniform-baseline": ["edge", "boundary-factors"],
-    "2026-10-19-c-law-mechanism": ["edge"],
-    "2026-10-19-kappa-chiral-edge": ["edge"],
-    "2026-10-19-kappa-walker-reference": ["rotor"],
+    "2026-10-hidden-phase-return": ["hidden-phase"],
+    "2026-10-knockout-maps": ["occupancy-home"],
+    "2026-10-a1-kappa": ["boundary-factors"],
+    "2026-10-a3-background-cone-control": ["rotor"],
+    "2026-10-a5-home-types": ["occupancy-home"],
+    "2026-10-a6-corruption-mechanism": ["occupancy-home"],
+    "2026-10-b1-exact-exponent": ["exponents", "late-switch"],
+    "2026-10-b2-between-rule-variance": ["exponents"],
+    "2026-10-calib-instrument-calibration": ["exponents", "rotor"],
+    "2026-10-census-sweeps": ["gallery", "mechanics"],
+    "2026-10-edge-statistics": ["edge", "boundary-factors"],
+    "2026-10-ext-other-lattices-turmites-noise": ["memory-growth"],
+    "2026-10-formage-age": ["occupancy-home"],
+    "2026-10-g1-ribbon-breakout": ["late-switch"],
+    "2026-10-hot-tiles": ["occupancy-home"],
+    "2026-10-item4-exponent-rotor-calibrated": ["exponents"],
+    "2026-10-log-growers": ["occupancy-home"],
+    "2026-10-memory-walkers": ["memory-paths", "memory-growth"],
+    "2026-10-mixing": ["occupancy-blob"],
+    "2026-10-occupancy-pages": ["occupancy-home", "occupancy-blob"],
+    "2026-10-patterns-fields": ["occupancy-home"],
+    "2026-10-probe-growth-census": ["exponents", "boundary-factors"],
+    "2026-10-shape-limit": ["rotor"],
+    "2026-10-snapshots": ["gallery", "snapshot"],
+    "2026-10-spread-home": ["occupancy-home"],
+    "2026-10-tether-rules": ["occupancy-home"],
+    "2026-10-w2": ["memory-paths"],
+    "2026-10-w3": ["rotor"],
+    "2026-10-hull-width": ["edge"],
+    "2026-10-alpha-gap": ["alpha-gap"],
+    "2026-10-fixed-area-cycles": ["fixed-area"],
+    "2026-10-independent-area": ["fixed-area"],
+    "2026-10-kappa-loop-surgery": ["edge"],
+    "2026-10-kappa-uniform-baseline": ["edge", "boundary-factors"],
+    "2026-10-c-law-mechanism": ["edge"],
+    "2026-10-kappa-chiral-edge": ["edge"],
+    "2026-10-kappa-walker-reference": ["rotor"],
     "2026-10-crystal-rules": ["crystal"],
     "2026-10-kappa-rule-space": ["boundary-factors"]
   }

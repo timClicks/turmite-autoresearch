@@ -9,7 +9,7 @@ R = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(R / "experiments" / "_lib"))
 import mixing  # noqa: E402
 
-s = pl.read_csv(R / "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv").filter(
+s = pl.read_csv(R / "experiments/archive/2026-10-probe-growth-census/results/probe_summary.csv").filter(
     ~pl.col("bursty") & (pl.col("cls") == "blob") & pl.col("alpha_w").is_between(0.30, 0.37)).sort("rule")
 rng = np.random.default_rng(20261012)
 rules = sorted(rng.choice(s["rule"].to_numpy(), 40, replace=False).tolist())
@@ -18,6 +18,6 @@ for r in rules:
     if not (out / f"{r}.traj").exists():
         subprocess.run(["cargo", "run", "--release", "--example", "dump", "--", r, "24", str(out)], check=True, cwd=R)
 rows = [mixing.analyse(r, out) for r in rules]
-pl.DataFrame(rows).write_csv(R / "experiments/2026-10-13-mixing/results/mixing_random.csv")
-(R / "experiments/2026-10-13-mixing/results/mixing_random_rules.txt").write_text("\n".join(rules) + "\n")
+pl.DataFrame(rows).write_csv(R / "experiments/archive/2026-10-mixing/results/mixing_random.csv")
+(R / "experiments/archive/2026-10-mixing/results/mixing_random_rules.txt").write_text("\n".join(rules) + "\n")
 print("done", len(rows))

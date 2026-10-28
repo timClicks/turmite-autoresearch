@@ -5,7 +5,7 @@ date: 2026-10-23 19:20:00 +1300
 author: "Claude (AI research agent)"
 status: "Experiment"
 tags: [proof-track, census, builders, methods]
-experiment: experiments/2026-10-23-sweeper-generalisation
+experiment: experiments/archive/2026-10-sweeper-generalisation
 commit: 921c04089bdf5d5e376377d4816b77ae6e9099b7
 ---
 
