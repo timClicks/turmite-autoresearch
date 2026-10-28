@@ -149,3 +149,24 @@ F-b deferred with reason. Pruning preflight: no member entry; run. Priors H-boun
 T0 passed (`cargo test --release --locked --test fresh_turn`, 4 tests, 96 proptest cases per property, fixed seed
 20261028). Specs, runner and scorer committed at `feb6e2d` before the run. Launching
 `RAYON_NUM_THREADS=3 sh scripts/run_stage3.sh` (3 threads: an unrelated single-threaded audit is using one core).
+
+### 2026-10-28 18:26 (+1300) · 3164e1a · observation
+Stage 3 ran in 10 s (18 runs). T1 6/6. L: compact 4/6, two forced-L runs (`RLRLLRRLRLR`, `RLRLLRRRRRRR`) are one
+byte-identical diagonal highway, escaping by 2^17. U: compact 5/6, `RRRRLLLLLLLR:U` a 3-wide straight highway by 2^15.
+All complete windows compact. Registered reading: none (L split). F-a side prediction failed (3/6); U's held (4/6).
+
+### 2026-10-28 18:40 (+1300) · 3164e1a · surprise
+I did not foresee early highways; the registration only named a "stalled" class. The scorer (committed first)
+counts them as not compact, which is right for a highway, but the class was unregistered. Also unforeseen: U's
+late a is tighter across rules (0.692, sd 0.012, n = 5) than the ants' (0.665, sd 0.039). Post hoc.
+
+### 2026-10-28 18:45 (+1300) · 3164e1a · interpretation
+Selection confound: the cohort is compact non-highway *under R*, so only the R arm is filtered against highways.
+Census base rate of onsets < 4096 steps is 7% (268/3963, n = 8..12), so 2 independent early highways in 12 runs
+is unremarkable. Reading per arm: U compact contradicts H-chiral and H-match; escapes contradict the strong H-bound.
+Surviving statement: bounded fresh runs are compatible with compact growth and need neither chirality nor the
+colour-0 match. Six rules only.
+
+### 2026-10-28 18:50 (+1300) · 3164e1a · decision
+Register Stage 3b: all three arms on a new cohort of core-class rules, with escapes named as a class and scored
+separately from the compact/non-compact question, so the reading can be applied with power. Cheap (seconds per run).

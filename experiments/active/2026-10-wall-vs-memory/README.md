@@ -618,3 +618,56 @@ unchanged; the late a (when the run completes `k = 20..26`) is reported beside t
 scored separately as "late a <= 0.74", not folded into the class. Specs:
 `results/stage3_specs.txt` (18 lines, `ft:RULE:T` for T = R, L, U); scorer `scripts/analyse_stage3.py`,
 committed before the run.
+
+## Stage 3 results (run 2026-10-28 18:25 NZDT, commit `3164e1a`)
+
+Command: `RAYON_NUM_THREADS=3 sh experiments/active/2026-10-wall-vs-memory/scripts/run_stage3.sh`, then
+`uv run --frozen python experiments/active/2026-10-wall-vs-memory/scripts/analyse_stage3.py`. Provenance
+(clean tree, probe sha256 `92aacf01...`, CSV sha256 `c5978b24...`) in `results/stage3_provenance.txt`;
+per-run fits `results/stage3_runs.csv`; scored output `results/stage3_analysis.txt`. 18 runs, 10 s.
+
+**Gates: T0 and T1 pass** (T1: every `ft:RULE:R` row equals the Stage 1 `hy:RULE:0:0:0` row in all fields).
+
+| rule | ant (R) early / late a | forced L early / late a | reversal U early / late a |
+|---|---|---|---|
+| `RLRLLRRLRLR` | 0.690 / 0.678 | **highway**, escaped by 2^17 | 0.699 / 0.678 |
+| `RLRLLRRRRRRR` | 0.675 / 0.662 | **highway**, escaped by 2^17 (same trajectory as the row above) | 0.649 / 0.681 |
+| `RRLLLRLRRRLL` | 0.670 / 0.694 | 0.691 / 0.695 | 0.700 / 0.698 |
+| `RRLLRLLRLR` | 0.705 / 0.665 | 0.717 / 0.679 | 0.704 / 0.703 |
+| `RRRLLLLR` | 0.591 / 0.592 | 0.611 / 0.566 | 0.698 / 0.700 |
+| `RRRRLLLLLLLR` | 0.646 / 0.702 | 0.777 / 0.664 | **highway** (3 cells wide), escaped by 2^15 |
+
+Every run with a complete early window is compact (early beta 0.51-0.57), and every complete late
+window has late a <= 0.74.
+
+- **Arm L: split** (compact 4/6; 2 escaped). **Arm U: compact** (5/6; 1 escaped).
+- **Registered reading: none** (arm L is split). F-a's side prediction (forced L within 0.05 of the
+  ant in >= 5/6) **failed**: 3/6, partly because two runs never reached the window. U's side
+  prediction (>= 4/6 within 0.05) held at exactly 4/6.
+- **Escapes were not a named class.** The registration anticipated cycles that stall but not
+  early highways. Each escaped run has area linear in t, constant width (U) or w = h (L)
+  from k <= 12, and leaves the 16384 board by 2^15-2^17 steps. The scorer committed before the run
+  counts "no early fit" as not compact, which is the right call for a highway, but I note that
+  the class was not registered. The two forced-L highways are byte-identical rows: presumably
+  neither ant read a colour past their shared prefix `RLRLLRR` before locking in (inferred, not checked).
+
+Post hoc, descriptive (not registered):
+- The six rules were drawn from the core class *under their own fresh turn R* (blob, not
+  bursty, no highway), so the R arm cannot build a highway by selection, while L and U are new
+  dynamics with no such filter. Base rate: 7% of canonical rules of length 8-12 have a highway
+  onset before 4096 steps (`experiments/archive/2026-10-census-sweeps/results/sweep_v2.csv`, 268 of 3963). Three early
+  highways in 12 non-identity runs, two of them one trajectory, is not out of line with that.
+- Among the runs that stayed bounded, reversal's late a clusters tightly: 0.692 (sd 0.012, n = 5)
+  against the six ants' 0.665 (sd 0.039). The slowest ant, `RRRLLLLR` (0.592), moves to 0.700
+  under U.
+
+Interpretation (mine; post hoc where it goes beyond the registered table). Taken one arm at a time,
+the U result contradicts the U predictions of H-chiral and H-match in 5 of 6 rules: a walker
+that never curls on fresh ground, and whose fresh turn matches neither the rule's colour-0 turn
+nor any chirality, still grows compactly with a ~ 0.70 whenever it does not lock into a highway.
+But H-bound as registered ("any bounded policy keeps growth compact") is contradicted too, by
+3 escapes in 12 runs. What survives: **bounded fresh excursions are compatible with compact
+growth in every non-highway run here, and need neither chirality nor a match with colour 0;
+boundedness does not prevent highways**, which compete as they do for ordinary rules. This
+narrows Stage 1's "the fresh turn matters": what F1 destroys is plausibly the bound on fresh
+runs, not the R. It is six rules, one class, finite windows; Stage 3b tests it on new rules.
