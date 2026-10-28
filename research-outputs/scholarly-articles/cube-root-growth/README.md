@@ -1,5 +1,7 @@
 # Manuscript build
 
+To cite this manuscript, use the BibTeX entry in [`CITATION.bib`](CITATION.bib) (key `mcnamara2026cuberoot`); it is also the `preferred-citation` in the repository's `CITATION.cff`. There is no DOI yet; add one to the entry when the manuscript is archived.
+
 ## October follow-up revision (2026-10-20)
 
 Follows the blog assessment in commit `0e7d251`; scientific evidence is pinned

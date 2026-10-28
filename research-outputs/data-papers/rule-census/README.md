@@ -112,3 +112,7 @@ highway rules, builders or the unfitted growers), not zero.
   fit and window bias (see the paper's calibration section). Between-seed
   uncertainty does not exist here (blank start) but the window choice matters.
 - Floats are written to 10 decimal places.
+
+## Citation
+
+To cite this dataset, use the BibTeX entry in [`CITATION.bib`](CITATION.bib) (key `mcnamara2026rulecensus`). The dataset is CC0-1.0 (see `LICENSE.md` at the repository root). There is no DOI yet; add one to the entry when the dataset is archived.

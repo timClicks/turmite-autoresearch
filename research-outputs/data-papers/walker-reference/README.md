@@ -50,3 +50,7 @@ The mean-field uniform walker (ratio 1.010, sd 0.009) is from that earlier exper
   limits). The experiment's local-exponent reference agrees to <= 0.006 but is not in this table.
 - The rotor ratio depends on the window set (1.69 vs 1.80); the exponent `a` is still relaxing towards 2/3.
 - The ratio is accounting against a reference, not a mechanism. See the experiment's `NOTEBOOK.md`.
+
+## Citation
+
+To cite this dataset, use the BibTeX entry in [`CITATION.bib`](CITATION.bib) (key `mcnamara2026walkerref`). The dataset is CC0-1.0 (see `LICENSE.md` at the repository root). There is no DOI yet; add one to the entry when the dataset is archived.

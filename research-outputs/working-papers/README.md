@@ -2,6 +2,8 @@
 
 Three editorial drafts, 20 October 2026. The existing synthesis in `../scholarly-articles/cube-root-growth/` is retained. No new simulations or fits were performed.
 
+Each draft folder has a `CITATION.bib` with an `@unpublished` entry marked "Working paper": `mcnamara2026eighttimes`, `mcnamara2026costedge` and `mcnamara2026sharedbulk`.
+
 This folder was `research-outputs/focused-papers/` until 2026-10-28. The drafts read the synthesis's figures, numbers and bibliography from `../scholarly-articles/cube-root-growth/`, and the rule census and walker-reference datasets are in `../data-papers/`.
 
 | Draft | Question | Reading copy |
