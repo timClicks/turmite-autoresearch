@@ -52,7 +52,8 @@ temporary renders and logs are in `tmp/paper-update/` (ignored).
 
 ## Keep the census dataset current
 
-`supplementary/rule-census/rule_census.csv` is the paper's per-rule supplementary
+`../../data-papers/rule-census/rule_census.csv` (moved from `supplementary/` on
+2026-10-28; see `../../data-papers/README.md`) is the paper's per-rule supplementary
 dataset (all 4083 swept rules, 65 columns; data dictionary in its README). It is a
 join of committed result files, so it goes stale silently. Rebuild it and commit
 the result in the same change whenever you touch anything it reads:

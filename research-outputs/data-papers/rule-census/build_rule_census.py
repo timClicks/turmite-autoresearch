@@ -1,7 +1,7 @@
 # /// script
 # dependencies = ["polars"]
 # ///
-"""Build supplementary/rule-census/rule_census.csv: one row per swept rule (length 2-12,
+"""Build research-outputs/data-papers/rule-census/rule_census.csv: one row per swept rule (length 2-12,
 4083 rules), joining every per-rule measurement the paper's census uses.
 
 Run from the repo root:
