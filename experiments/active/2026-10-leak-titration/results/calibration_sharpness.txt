@@ -1,0 +1,18 @@
+# sharpness calibration; 20000 sims per cell, rise 0.2, 8 seeds per EF > 0, seed 20261028
+
+## between-seed sd 0.03
+shape                                   med-of-6 SP(med>=0.40)P(med<=0.28)
+linear                                      0.212      0.000      0.999
+logistic c=0.5 w=0.15 (broad)               0.245      0.000      0.941
+logistic c=0.5 w=0.05 (sharp)               0.430      0.876      0.000
+logistic c=0.3 w=0.05 (sharp, early)        0.431      0.886      0.000
+endpoint (all rise in 0.9 -> 1)             1.000      1.000      0.000
+
+## between-seed sd 0.05
+shape                                   med-of-6 SP(med>=0.40)P(med<=0.28)
+linear                                      0.287      0.002      0.406
+logistic c=0.5 w=0.15 (broad)               0.311      0.012      0.165
+logistic c=0.5 w=0.05 (sharp)               0.464      0.939      0.000
+logistic c=0.3 w=0.05 (sharp, early)        0.465      0.940      0.000
+endpoint (all rise in 0.9 -> 1)             1.000      1.000      0.000
+
