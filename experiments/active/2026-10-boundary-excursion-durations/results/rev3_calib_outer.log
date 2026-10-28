@@ -1,0 +1,11 @@
+bin=/workspace/turmite-autoresearch/target/release/examples/boundary_excursions sha256=1c85ded940206f4d5d9f0e0e0c8ab799579c5b2698101993bd99830c1d5dcca7
+max_log2=24 grid=8192 threads=4
+git=a8a93b1f98cec93d05c026995f30772144ce5f5f
+7 specs, max_log2 14, grid 512, check true
+wrote fhist /dev/null
+wrote hist /dev/null
+C0 smoke (--check: probe match rw/rotor, cup:1≡rw, scan recount, birth invariants, idla≡idlar geometry) OK
+C0 mutant panicked as required (exit 101)
+C0 fine-mutant panicked as required (exit 101)
+rev3 calib wall seconds: 2
+windows: 321 hist rows: 3242

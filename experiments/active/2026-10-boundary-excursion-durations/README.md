@@ -887,3 +887,62 @@ or laws on these results, and add a pruning entry if warranted. If all pass, the
 registered** excluded pilot. It is not run under this revision.
 
 Budget: under 15 CPU-minutes total (walker run similar to Rev2; synthetic sampling is pmf-based).
+
+## Revision 3 results (calibration only; 2026-10-29 09:22–09:23 NZDT)
+
+Registration `3d87d8b` (09:16:57 +13:00). Instrument and scripts `a8a93b1` (09:21:57), both committed before any
+Revision 3 measurement. Binary sha256 `1c85ded9…dcca7`; full outputs below are in `results/`.
+
+**G0 instrument: PASS** (`results/rev3_g0.txt`). Windows and `--hist` output are byte-identical to the `9701882` binary on
+the 7-spec smoke. The new `--check` passes. `--mutant` and the new `--fine-mutant` both panic.
+`cargo test --release --locked` passed 227 tests, 0 failed.
+
+**G1 synthetic discrimination: PASS** (`scripts/synth_rev3.py` → `results/rev3_synth.{txt,json}`; 12 s CPU).
+
+| law (truth) | Score_tw correct / opposite | median Score_tw(L) vs (L²) | number-weighted (report only) correct / opposite |
+|---|---|---|---|
+| SD (D) | 20/20 / 0/20 | 0.1070 vs 0.0189 | **0/20 / 20/20** |
+| SD2 (D, 70% short head) | 20/20 / 0/20 | 0.1201 vs 0.0446 | **0/20 / 20/20** |
+| SG (S) | 20/20 / 0/20 | 0.0162 vs 0.1516 | 20/20 / 0/20 |
+| SS1 (S, 60% short head) | 20/20 / 0/20 | 0.0373 vs 0.1624 | 20/20 / 0/20 |
+| SS2 (S, ruin shape, cutoff ∝ L) | 20/20 / 0/20 | 0.0161 vs 0.1258 | 20/20 / 0/20 |
+
+All 36 synthetic windows were retained in every replicate. The number-weighted Score calls a law that is D by construction
+**S in 20/20 replicates**. So the number-weighted Score mislabels a known-D law. This is consistent with the Rev2 failures being a bias of that Score rather than a property of the walkers, which the walker replication line below also suggests.
+
+**Walker calibration** (`scripts/run_rev3.sh` → `results/rev3_calib_*`; `scripts/analyse_rev3.py` → `results/rev3_analysis.{txt,json}`;
+seeds 2026102951..54; 2 s wall):
+
+| kind | retained | L range | Score_tw(L) | Score_tw(L²) | verdict | censored-incl verdict | compactness | number-weighted (replication) |
+|---|---|---|---|---|---|---|---|---|
+| eden | 36 | 6.28–50.7 (8.09×) | 0.1078 | 0.0252 | **D** | D | pass (A/P² 0.0662) | S (0.1037 vs 0.1666) |
+| idla | 36 | 6.43–27.5 (4.28×) | 0.1427 | 0.0404 | **D** | D | pass (A/P² 0.0709) | inconclusive (0.0627 vs 0.0742) |
+| idlar | 31 (5 dropped, n_eff<30) | 8.14–27.5 (3.38×) | 0.0776 | 0.0401 | D | D | pass | S |
+| mf | 36 | 10.7–66.1 (6.19×) | 0.0163 | 0.1421 | **S** | S | fails (0.0317; not required) | S; mean τ/L 0.9999 |
+| rotor | 35 (1 dropped, n_eff<30) | 8.53–60.3 (7.07×) | 0.0897 | 0.0483 | **D** | D | fails (0.0092) | inconclusive |
+
+Gates: **C1E-tw PASS, C1I-tw PASS, C2-tw PASS** (mf S, number-weighted mean τ/L = 0.9999 ∈ [0.5, 2]). idlar
+(diagnostic) gave D as predicted. **Rotor gave D, against the unscored guess S.** The replication line reproduced
+Rev2 exactly in kind: eden S, idla inconclusive, mf S. No verdict is censoring-fragile. The largest censored
+share of window mass was 2.4%.
+
+**Overall: the Score_tw instrument is calibrated for an excluded pilot** under this registration. The pilot
+was **not run**. It needs its own registration (ant rule list, excluded seeds, and what the D/S verdict may and may not be read as; see below).
+
+### Interpretation and an important limit (post hoc, not registered)
+
+- The rotor D verdict is not evidence that the rotor diffuses. Its time-weighted curves collapse in s/L² with a sharp
+  cliff at s/L² ≈ 2^4–2^5 (`results/figures/rev3_tw_rotor.png`). A/P² is roughly constant (≈ 0.009), so A ≈ 110 L²,
+  and the cliff sits at τ ≈ 0.15–0.3·A. That looks like **sweeps of a sizeable fraction of the whole territory**.
+- In any shape-stable domain A ∝ L², so **Score_tw cannot tell "τ ∝ L² (diffusive)" from "τ ∝ A (area-filling sweep)"**.
+  It *can* tell both apart from boundary-local sweeps with τ ∝ L. For the ant question, a D verdict under
+  Score_tw must therefore be read as "time is dominated by excursions scaling like the area". It must not be
+  read as "diffusive".
+- The post hoc depth–duration idea (τ vs maximum boundary distance d; d² vs d) would separate the two. It should be
+  part of, or precede, the pilot registration.
+
+### Retain / revise / stop (Revision 3)
+
+**Retain Score_tw** as the calibrated excursion observable. **Do not run** the reserved confirmation. Next step: register an
+excluded ant pilot under Score_tw. Before that, either add a registered depth–duration readout, or restrict the pilot claim to
+"L vs L²/A scaling of time-weighted excursions".

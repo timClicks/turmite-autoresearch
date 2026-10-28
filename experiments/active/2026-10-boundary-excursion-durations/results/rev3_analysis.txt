@@ -1,0 +1,16 @@
+Revision 3 calibration — time-weighted survival Score (frozen rules, fresh seeds 2026102951..54)
+eden   retained 36 (dropped {}); L 6.2759..50.7452 (ratio 8.0858); Score_tw(L) 0.1078 vs (L^2) 0.0252 -> D; censored-incl 0.1074 vs 0.0250 -> D; compactness True (ok; L 8.0858, A 73.8938, A/P^2 0.0662); min n_eff 128.5245
+       number-weighted (Rev2 frozen, replication): 0.1037 vs 0.1666 -> S; mean tau/L 3.1481; time-weighted mean/L ~ 79.7336
+idla   retained 36 (dropped {}); L 6.4343..27.5364 (ratio 4.2796); Score_tw(L) 0.1427 vs (L^2) 0.0404 -> D; censored-incl 0.1423 vs 0.0403 -> D; compactness True (ok; L 4.2796, A 16.5611, A/P^2 0.0709); min n_eff 123.2106
+       number-weighted (Rev2 frozen, replication): 0.0627 vs 0.0742 -> inconclusive; mean tau/L 26.6703; time-weighted mean/L ~ 79.1113
+idlar  retained 31 (dropped {'n_eff<30': 5}); L 8.1389..27.5364 (ratio 3.3833); Score_tw(L) 0.0776 vs (L^2) 0.0401 -> D; censored-incl 0.0776 vs 0.0399 -> D; compactness True (ok; L 3.3833, A 11.7190, A/P^2 0.0703); min n_eff 33.2452
+       number-weighted (Rev2 frozen, replication): 0.0751 vs 0.1213 -> S; mean tau/L 2.8867; time-weighted mean/L ~ 58.4829
+mf     retained 36 (dropped {}); L 10.6752..66.0845 (ratio 6.1905); Score_tw(L) 0.0163 vs (L^2) 0.1421 -> S; censored-incl 0.0162 vs 0.1421 -> S; compactness False (median A/P^2 0.03169 < 0.04; L 6.1905, A 42.7026, A/P^2 0.0317); min n_eff 1525.7863
+       number-weighted (Rev2 frozen, replication): 0.0541 vs 0.1586 -> S; mean tau/L 0.9999; time-weighted mean/L ~ 1.7667
+rotor  retained 35 (dropped {'n_eff<30': 1}); L 8.5345..60.3080 (ratio 7.0663); Score_tw(L) 0.0897 vs (L^2) 0.0483 -> D; censored-incl 0.0895 vs 0.0481 -> D; compactness False (median A/P^2 0.009177 < 0.04; L 7.0663, A 47.9228, A/P^2 0.0092); min n_eff 30.8778
+       number-weighted (Rev2 frozen, replication): 0.1138 vs 0.1463 -> inconclusive; mean tau/L 1.8899; time-weighted mean/L ~ 304.5510
+C1E-tw: PASS
+C1I-tw: PASS
+C2-tw: PASS
+calibrated_for_excluded_pilot: PASS
+idlar (diagnostic, predicted D): D; rotor (reported, guess S): D

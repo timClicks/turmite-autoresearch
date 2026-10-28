@@ -277,3 +277,39 @@ only (the file was not rustfmt-clean before; unrelated hunks were reverted).
 Scripts: `tw_score.py` (shared Score_tw), `synth_rev3.py` (G1), `analyse_rev3.py` (walkers), `run_rev3.sh`.
 `tw_score.number_weighted_score` reproduces the frozen `analyse.py` number-weighted Score exactly on a toy input.
 The registration heading says 09:17; the commit `3d87d8b` is stamped 09:16:57 +13:00 (heading 3 s ahead of the clock; order unaffected).
+
+### 2026-10-29 09:22 NZDT · a8a93b1 · observation
+G1 synthetic gate **PASS** (`results/rev3_synth.txt`): SD, SD2 → D 20/20; SG, SS1, SS2 → S 20/20; opposite verdict 0/20
+everywhere. Median Score_tw ratios (L²/L) were 0.15–0.20 for SD and 0.34–0.39 for SD2 (the heavy head costs margin
+but still clears 0.75). For the S laws they were 4.1–10.5. The number-weighted Score on the same data called SD and SD2 **S in 20/20**.
+
+### 2026-10-29 09:23 NZDT · a8a93b1 · observation
+Walker calibration (fresh seeds 2026102951..54; `results/rev3_analysis.txt`). Score_tw(L) vs (L²):
+- eden: 0.1078 vs 0.0252 → D;
+- idla: 0.1427 vs 0.0404 → D;
+- idlar: 0.0776 vs 0.0401 → D;
+- mf: 0.0163 vs 0.1421 → S;
+- rotor: 0.0897 vs 0.0483 → D.
+No verdict was censoring-fragile. Compactness passed for eden and idla. **C1E-tw, C1I-tw and C2-tw all PASS**, so the
+instrument is calibrated for an excluded pilot. The number-weighted replication line matched Rev2 (eden S, idla inconclusive, mf S).
+Retention drops: idlar 5 and rotor 1 window, all for n_eff < 30.
+
+### 2026-10-29 09:24 NZDT · a8a93b1 · surprise
+Rotor → D under Score_tw, against my unscored guess of S. The figure shows a sharp cliff at s/L² ≈ 2^4–2^5. Since the
+rotor's A/P² is roughly constant at ≈ 0.009, A ≈ 110 L², so the cliff is at τ ≈ 0.15–0.3·A: area-filling sweeps, not diffusion.
+
+### 2026-10-29 09:24 NZDT · a8a93b1 · interpretation
+Post hoc. In shape-stable domains A ∝ L², so Score_tw separates "τ ∝ L" (boundary-local sweep) from "τ ∝ L² or A", but
+cannot separate diffusion from area-filling sweeps. A D verdict on ants must not be read as "diffusive" without
+a further discriminator. The depth–duration readout (τ vs max boundary distance d) is the natural one. It
+would be falsified as a discriminator if the rotor also gave τ ~ d².
+
+### 2026-10-29 09:24 NZDT · a8a93b1 · decision
+Gates pass, so stop here as instructed: **no pilot, no confirmation today**. The next step is a separately registered
+excluded ant pilot under Score_tw, with the claim scoped as above, or with a registered depth–duration readout added first.
+Not tuned: margin, grid, mask, n_eff threshold, laws.
+
+### 2026-10-29 09:24 NZDT · a8a93b1 · question
+Does the rotor's cliff at τ ≈ A/5 reflect a deterministic Eulerian sweep of the territory interior (rotor circuits),
+and does the cliff position stay fixed as A/P² drifts? If so, a per-window τ/A collapse should beat τ/L² for the rotor
+but tie for Eden. That is a cheap discriminator to register next to the depth–duration readout.
