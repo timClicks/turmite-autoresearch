@@ -164,7 +164,8 @@ Use release builds for simulations and `uv run --frozen` for Python analyses.
 output checks, simulator checks and separate GPU validation commands.
 
 For new experiments, copy [`experiments/_template/`](experiments/_template/) to
-`experiments/YYYY-MM-DD-slug/`. Include the registered predictions, append-only
+`experiments/proposed/YYYY-MM-slug/` (or `active/` once work starts; see
+[`experiments/README.md`](experiments/README.md) for the buckets). Include the registered predictions, append-only
 lab notebook, shareable notebook, scripts and small reproducible results.
 Record seeds and source revisions, quantify uncertainty between seeds, and
 keep large raw dumps in the experiment's ignored directories. See
@@ -190,6 +191,6 @@ See [design, checks and limits](experiments/active/2026-10-macos-gpu/README.md).
 
 ## License
 
-Code is MIT OR Apache-2.0, data (`experiments/*/results/` and Zenodo deposits)
+Code is MIT OR Apache-2.0, data (`experiments/*/*/results/` and Zenodo deposits)
 is CC0 1.0, and writing and figures are CC BY 4.0. See
 [`LICENSE.md`](LICENSE.md) for exactly what falls under which.

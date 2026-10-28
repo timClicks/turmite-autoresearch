@@ -45,7 +45,7 @@ choosing commands; adapt shell syntax and paths without changing the experiment.
 ## Reproducibility is the first requirement
 
 A result that cannot be regenerated is not a result. Every number that lands
-in `notes/` or `experiments/*/results/` must be traceable to code, inputs and a seed.
+in `notes/` or `experiments/*/*/results/` must be traceable to code, inputs and a seed.
 
 1. **Determinism.** All randomness is seeded explicitly; no `thread_rng`, no
    time-based seeds, no hash-order dependence. Parallel code (`rayon`) must give
@@ -145,7 +145,7 @@ The aim is understanding, not a pile of plots. Be bold:
 | `src/bin/probe.rs` | Run the probe on a rule/seed |
 | `examples/*.rs` | One-off analyses (`edgestats`, `rotorstats`, `occupancy`, `longperiod`, ...); run with `cargo run --release --example NAME -- ARGS` |
 | `tests/` | Property tests (`proptest`) comparing fast vs reference |
-| `experiments/YYYY-MM-slug/` | **New work goes here.** One folder per investigation: `README.md` (question, timestamped hypothesis, commands, results), `NOTEBOOK.md` (lab notebook), `notebook.ipynb` (shareable Jupyter write-up), `scripts/`, `results/` (small, committed), `experiments/archive/2026-10-knockout-maps/dumps/` + `scratch/` (bulk, gitignored). Copy `experiments/_template/` to start. See `experiments/README.md` |
+| `experiments/{proposed,active,archive}/YYYY-MM-slug/` | **New work goes here.** One folder per investigation, in the bucket for its status (`proposed`: registered, nothing run; `active`: open work or a maintained instrument; `archive`: concluded or paused): `README.md` (question, timestamped hypothesis, commands, results), `NOTEBOOK.md` (lab notebook), `notebook.ipynb` (shareable Jupyter write-up), `scripts/`, `results/` (small, committed), `experiments/archive/2026-10-knockout-maps/dumps/` + `scratch/` (bulk, gitignored). Copy `experiments/_template/` to start; move between buckets with `experiments/_migration/relocate.py`. See `experiments/README.md` |
 | `research-outputs/<name>/` | Publishable artefacts (currently `cube-root-growth-paper/`: Typst manuscript, figure/number scripts, `fig/`). Reads committed results, not `dumps/` (one known exception, see conventions) |
 | `experiments/_lib/` | Shared Python helpers imported by several experiments (`analyse_probe.py`, `mixing.py`, `calib_kd.py`, `tether.py`, `lawmod.py` exact conservation-law solver); scripts add it with `sys.path.insert(0, "experiments/_lib")` |
 | `experiments/_migration/` | One-off tooling and `map.tsv` (old path -> new path) from the 2026-10-14 restructure of the flat `data/` layout |
@@ -301,16 +301,18 @@ shareable notebook and `notes/`; they do not replace them.
   template). Treat any constraint a law places on a tile, period or displacement as a necessary condition, never a
   certificate.
 - **Isolate working material.** Each investigation lives in its own
-  `experiments/YYYY-MM-slug/` folder (scripts, investigation-specific notes,
-  results). Bulk output (dumps, knockout maps, scratch) goes in that folder's
+  `experiments/<bucket>/YYYY-MM-slug/` folder (scripts, investigation-specific notes,
+  results). Slugs are unique across buckets, and a slug's month is when the work started;
+  status changes move the folder between `proposed/`, `active/` and `archive/` with
+  `experiments/_migration/relocate.py`, which also rewrites references (see `experiments/README.md`). Bulk output (dumps, knockout maps, scratch) goes in that folder's
   `dumps*/`, `knock*/` or `scratch/`, never in the repo root or
   `research-outputs/`. Scripts write only inside their own folder and find the
-  repo root via `Path(__file__).resolve().parents[3]` (script in `experiments/<slug>/scripts/`). Rust one-offs stay in
+  repo root via `Path(__file__).resolve().parents[4]` (script in `experiments/<bucket>/<slug>/scripts/`). Rust one-offs stay in
   `examples/` (Cargo only discovers them there), prefixed with the experiment
   slug. The former flat `data/`, `calib/`, `occ/`, `snaps/`, `dumps*`, `knock*` no longer
   exist: their contents were migrated into experiment folders (old path -> new path in
-  `experiments/_migration/map.tsv`; helpers in `experiments/_lib/`). Cross-cutting hypotheses and open questions stay
-  in `notes/`; paper numbers are computed from `experiments/*/results/` by scripts in
+  `experiments/_migration/map.tsv`, then `experiments/_migration/2026-10-28-buckets.tsv`; helpers in `experiments/_lib/`). Cross-cutting hypotheses and open questions stay
+  in `notes/`; paper numbers are computed from `experiments/*/*/results/` by scripts in
   `research-outputs/`, which should not read `dumps/` (known exception: `memory_figures.py`
   reads `experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv`).
 - **Keep a lab notebook, and write a shareable notebook.** Every experiment has an
@@ -327,7 +329,7 @@ shareable notebook and `notes/`; they do not replace them.
   are still registered in the README before the measurement. Full rules and the
   Jupyter setup (not yet in `pyproject.toml`): `experiments/README.md`.
 - Don't commit large raw dumps: `dumps*/`, `knock*/` (at the root
-  and under `experiments/*/`), `experiments/*/scratch/`, `/synth` and `/target` are gitignored for a
+  and under `experiments/*/*/`), `experiments/*/*/scratch/`, `/synth` and `/target` are gitignored for a
   reason. Summaries and the scripts that regenerate them are what belong in git.
 - Commit frequently and freely, without waiting for explicit permission. Make
   small, coherent commits at useful milestones with clear messages, and include

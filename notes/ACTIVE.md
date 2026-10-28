@@ -202,13 +202,20 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
 
 ## Repository housekeeping
 
+- **Experiment folders reorganised (2026-10-28):** `experiments/YYYY-MM-DD-slug/` became
+  `experiments/{active,archive,proposed}/YYYY-MM-slug/`; layout rules, the full old -> new table and the move
+  procedure are in `experiments/README.md`, the map in `experiments/_migration/2026-10-28-buckets.tsv`. Gitignored
+  `dumps*/`, `knock*/`, `scratch/` and `synth/` in other checkouts and worktrees stay under the old folder names
+  until moved with `uv run --frozen experiments/_migration/relocate.py experiments/_migration/2026-10-28-buckets.tsv --local-only`
+  (run it there after merging; it refuses to overwrite). Paths inside those worktrees, below, keep the old names because that is where the data is.
+
 - **Jupyter**: `ipykernel`, `nbformat`, `nbclient` added to `pyproject.toml`/`uv.lock` (`7df6d35`). The leadrun-fresh notebook's Proposal 2 bounds are not in it (rebuild with `scripts/build_notebook.py` if wanted).
 - **Blog index refreshed (done 2026-10-22):** c-law, lattice, lead-slope-by-colour and kappa-spread highlights and the null-result post link are on `blog/index.html`. The experiment pages were
   re-rendered 2026-10-20 (from a worktree under WSL set `GIT_DIR=/mnt/f/Code/turmite/.git/worktrees/<name>` and `GIT_WORK_TREE=$PWD`).
 - **Stale worktrees and branches** (nothing deleted). On 2026-10-20 tracked work was committed on their own branches
   (`agent-a810708e829d8af34` as `4cb0261`, `g1-builder-structure` as `b985636`, rulepat as `275d52b`), but **gitignored data
   exists only in the worktrees and is lost on removal** (checked with `git status --ignored`): `g1-builder-structure/dumps/`
-  73 MB (the only raw input for `g1_wake_extract.py`; regenerating takes hours), `rule-pattern-experiment-aa95e3/experiments/archive/2026-10-rulepat/dumps/`
+  73 MB (the only raw input for `g1_wake_extract.py`; regenerating takes hours), `rule-pattern-experiment-aa95e3/experiments/2026-10-14-rulepat/dumps/`
   192 MB and `scratch/` 3 MB (plus `target/`, rebuildable), `agent-a810708e829d8af34/experiments/2026-10-16-gpu-probe-port/scratch/` 19 MB.
   Archive what matters before any removal. `g1-builder-structure` is also the only home of `examples/builder_dump.rs` and
   `notes/g1-builder-structure-2026-10-14.md` (handover item 3). Deletion needs the user's go-ahead:

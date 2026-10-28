@@ -44,6 +44,11 @@ def slug_date(slug: str) -> str:
     return f"{m.group(1)}-{m.group(2) or '00'}"
 
 
+def start_date(slug: str, guides: dict) -> str:
+    """Start day from the reader guide; slugs carry only the month (YYYY-MM-slug)."""
+    return guides.get(slug, {}).get("started") or slug_date(slug)
+
+
 def post_meta(name: str) -> dict:
     text = (BLOG / "_posts" / name).read_text(encoding="utf-8")
     m = re.search(r"^title:\s*(.+)$", text, re.M)
@@ -55,7 +60,7 @@ def post_meta(name: str) -> dict:
 def load_inputs(source: Path = SOURCE) -> dict:
     tracked = set(git("ls-files").splitlines())
     experiments = {Path(p).parent.name for p in tracked
-                   if re.fullmatch(r"experiments/[^_/][^/]*/README\.md", p)}
+                   if re.fullmatch(r"experiments/(?:active|archive|proposed)/[^_/][^/]*/README\.md", p)}
     guides = {}
     with GUIDES.open(encoding="utf-8") as handle:
         for row in csv.DictReader(handle, delimiter="\t"):
@@ -128,6 +133,10 @@ def validate(inp: dict) -> list[str]:
         errors.append("Experiments neither filed nor listed under unfiled: " + ", ".join(sorted(missing)))
     if set(inp["guides"]) != inp["experiments"]:
         errors.append("Reader guides and tracked experiments differ")
+    for slug, g in inp["guides"].items():
+        started = g.get("started", "")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", started) or not slug.startswith(started[:7] + "-"):
+            errors.append(f"Reader guide {slug}: started {started!r} is not a YYYY-MM-DD date in the slug's month")
     return errors
 
 
@@ -136,7 +145,7 @@ def materialise(inp: dict, revision: str) -> dict:
 
     def exp_entry(slug: str) -> dict:
         g = guides[slug]
-        return {"kind": "experiment", "slug": slug, "date": slug_date(slug), "title": g["title"],
+        return {"kind": "experiment", "slug": slug, "date": start_date(slug, guides), "title": g["title"],
                 "url": f"/experiments/{slug}/", "finding": g["finding"], "caveat": g["caveat"],
                 "evidence_path": g["evidence"]}
 
@@ -170,7 +179,7 @@ def materialise(inp: dict, revision: str) -> dict:
             chron.append({"kind": "post", "date": p["date"], "title": p["title"], "url": p["url"],
                           "role": "post", "turn": ""})
         chron.sort(key=lambda c: (c["date"], c["title"]))
-        newest = max(slug_date(s) for s in members)
+        newest = max(start_date(s, guides) for s in members)
         since = [c for c in chron if c["kind"] == "experiment" and c["date"] > t["reviewed"]]
         claims = []
         for cid in t["claims"]:

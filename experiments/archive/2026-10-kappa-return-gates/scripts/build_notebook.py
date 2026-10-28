@@ -24,8 +24,8 @@ code("""import json, hashlib, subprocess
 from pathlib import Path
 import polars as pl
 EXP = Path.cwd()
-while not (EXP / 'results').is_dir() and EXP != EXP.parent.parent:
-    EXP = EXP.parent.parent if (EXP / 'README.md').exists() is False else EXP
+while not (EXP / 'results').is_dir() and EXP != EXP.parent:
+    EXP = EXP.parent if (EXP / 'README.md').exists() is False else EXP
 R = EXP / 'results'
 if not R.is_dir():
     R = Path('experiments/archive/2026-10-kappa-return-gates/results')

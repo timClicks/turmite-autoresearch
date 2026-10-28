@@ -1,4 +1,4 @@
-"""Shared helpers for the kappa-rule-space experiment (read-only use of the pre-restructure data, now in experiments/*/results/)."""
+"""Shared helpers for the kappa-rule-space experiment (read-only use of the pre-restructure data, now in experiments/*/*/results/)."""
 import subprocess, sys
 from pathlib import Path
 import numpy as np, polars as pl
@@ -12,9 +12,9 @@ from analyse_probe import per_rule  # noqa: E402
 
 def legacy(name):
     """Path of a pre-restructure data/ file, which now lives in some experiments/<exp>/results/ (not in this experiment)."""
-    hits = [p for p in sorted(ROOT.glob(f"experiments/*/results/{name}")) if EXP not in p.parents]
+    hits = [p for p in sorted(ROOT.glob(f"experiments/*/*/results/{name}")) if EXP not in p.parents]
     if len(hits) != 1:
-        raise FileNotFoundError(f"{name}: expected exactly one match under experiments/*/results, got {hits}")
+        raise FileNotFoundError(f"{name}: expected exactly one match under experiments/*/*/results, got {hits}")
     return hits[0]
 
 

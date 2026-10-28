@@ -13,7 +13,12 @@ __pycache__/
 /knock_e1
 /knock_e5
 
-# per-experiment bulk output (see experiments/README.md)
+# per-experiment bulk output (see experiments/README.md); experiments/<bucket>/<slug>/
+experiments/*/*/dumps*/
+experiments/*/*/knock*/
+experiments/*/*/scratch/
+experiments/*/*/synth/
+# pre-2026-10-28 layout: keeps leftovers in other checkouts ignored until relocate.py --local-only moves them
 experiments/*/dumps*/
 experiments/*/knock*/
 experiments/*/scratch/

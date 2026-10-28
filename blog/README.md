@@ -226,9 +226,12 @@ and `reviewed` in `atlas.json` in the same commit.
 
 ## Experiment pages and notebook renders
 
-The preparation script discovers tracked `experiments/*/README.md` files,
-excluding internal `_` folders. Every experiment gets an entry in
-`/experiments/` and a page at `/experiments/<folder-name>/`. The searchable
+The preparation script discovers tracked `experiments/<bucket>/<slug>/README.md`
+files (buckets `active`, `archive`, `proposed`), excluding internal `_` folders.
+Every experiment gets an entry in `/experiments/` and a page at
+`/experiments/<slug>/`. The URL omits the bucket, so moving an experiment from
+`active/` to `archive/` does not break links to its page; slugs must therefore
+be unique across buckets (the script checks). The searchable
 index remains usable without JavaScript; JavaScript adds filtering.
 
 Each page opens with an editorial reader guide: an approachable title, the

@@ -12,7 +12,7 @@ import numpy as np
 import polars as pl
 
 R = Path(__file__).resolve().parents[2]
-D = R  # inputs are addressed by repo-relative path (they live in experiments/*/results)
+D = R  # inputs are addressed by repo-relative path (they live in experiments/*/*/results)
 
 # Fail loudly (before computing anything) if an input file named in this script is missing or empty.
 _missing = [
