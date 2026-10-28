@@ -7,13 +7,15 @@ rng = np.random.default_rng(20261013)
 import os
 files = os.environ.get("A7_FILES", "experiments/archive/2026-10-b2-between-rule-variance/results/b2_probe.csv,experiments/archive/2026-10-item21-slow-outliers/results/item21_probe.csv,experiments/archive/2026-10-patched-starts/results/patched.csv,experiments/archive/2026-10-item4-exponent-rotor-calibrated/results/item4_probe.csv,experiments/archive/2026-10-a7-rrllllllr-self-averaging/results/a7_probe.csv").split(",")
 d = pl.concat([pl.read_csv(f, columns=["rule", "k", "area", "escaped"]) for f in files]).filter(~pl.col("escaped") & pl.col("k").is_between(20, 26))
-d = d.with_columns(base=pl.col("rule").str.split("@").list.first(), seed=pl.col("rule").str.split("@").list.get(1).cast(pl.Int64)).unique(subset=["rule", "k"])
+d = d.with_columns(base=pl.col("rule").str.split("@").list.first(), seed=pl.col("rule").str.split("@").list.get(1).cast(pl.Int64)).unique(subset=["rule", "k"], maintain_order=True)
 KS = list(range(20, 27))
 def slope_cv(piv):
     cv = np.array([piv[:, i].std(ddof=1) / piv[:, i].mean() for i in range(len(KS))]); return float(np.polyfit(KS, cv, 1)[0]), cv
 rows = []
-for (b,), g in d.group_by("base"):
-    ws = g.pivot(on="k", index="seed", values="area").drop_nulls()
+# sorted groups and seeds: polars group_by()/unique() order is per-process hash order, and the
+# seeded bootstrap draws must land on the same rule and seed rows every run
+for (b,), g in sorted(d.group_by("base"), key=lambda kv: kv[0]):
+    ws = g.pivot(on="k", index="seed", values="area").drop_nulls().sort("seed")
     if ws.height < 8 or any(str(k) not in ws.columns for k in KS): continue
     piv = np.column_stack([ws[str(k)].to_numpy().astype(float) / 2.0 ** (2 * k / 3) for k in KS])
     s0, cv = slope_cv(piv)

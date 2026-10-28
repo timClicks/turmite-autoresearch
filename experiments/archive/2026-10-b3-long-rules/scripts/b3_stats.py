@@ -9,11 +9,11 @@ import polars as pl, numpy as np
 from analyse_probe import per_rule
 rng = np.random.default_rng(20261013)
 raw = pl.read_csv("experiments/archive/2026-10-b3-long-rules/results/b3_probe.csv")
-rules = raw["rule"].unique().to_list()
+rules = sorted(raw["rule"].unique().to_list())
 pr = per_rule(raw)
 # census-style class from the probe: extent exponent over k=21..27
 cls = {}
-for (rule,), g in raw.group_by("rule"):
+for (rule,), g in sorted(raw.group_by("rule"), key=lambda kv: kv[0]):  # sorted: polars group order is per-process hash order; the seeded draws below depend on it
     n_win = g.height
     esc = bool(g["escaped"][0])
     g = g.sort("k"); last = g.tail(1)

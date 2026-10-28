@@ -7,7 +7,7 @@ cluster n spread  best_feature value F1_full F1_heldout
  9  43   2.32  canon          LLLLLLLLLRLR                 0.44 0.31 (train-chosen: canon=LLLLLLLRRLRR)
 10  22   2.41  canon          LLLLLLRRLLRR                 0.71 0.71 (train-chosen: canon=LLLLLLRRLLRR)
 11  53   2.66  n_nR           (11, 7)                      0.47 0.47 (train-chosen: n_nR=(11, 7))
-12  23   3.21  n_nruns        (10, 5)                      0.59 0.59 (train-chosen: canon=LLLLLRRLRR)
+12  23   3.21  n_nruns        (10, 5)                      0.59 0.59 (train-chosen: canon=LLLLLLLRLR)
 13   5   3.36  runs_multiset  (1, 3, 6)                    0.57 0.00 (train-chosen: runs_multiset=(1, 3, 6))
 14  15   3.59  canon          LLLLLLRRRR                   0.64 0.62 (train-chosen: canon=LLLLLLRRRR)
 15  33   4.23  n              9                            0.88 0.89 (train-chosen: n=9)
