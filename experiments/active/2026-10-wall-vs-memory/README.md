@@ -825,3 +825,61 @@ Gates: T0' (`cargo test --release --locked --test fresh_set` passes: sparse refe
 the T3 gate are not members, and the T3 gate is a deliberate replication of six F1 specs as an
 identity check. Decision **run**. Budget: 350 runs of 2^27 steps on 3-4 cores (minutes). No extension
 without a new registration.
+
+## Stage 3c results (run 2026-10-28 18:37-18:41 NZDT, commit `3d13c18`)
+
+Command: `RAYON_NUM_THREADS=3 sh experiments/active/2026-10-wall-vs-memory/scripts/run_stage3c.sh`, then
+`uv run --frozen python experiments/active/2026-10-wall-vs-memory/scripts/analyse_stage3c.py`. Probe sha256 `a0615a05...`,
+CSV sha256 `29fa44d8...` (`results/stage3c_provenance.txt`). The provenance records 2 dirty tracked files:
+uncommitted fixes to two Python scripts in *other* experiments (`a7_census.py`, `a5_home_types.py`), which
+the probe binary does not read; the Rust sources were committed (`3d13c18`). 350 runs in 4 min 16 s.
+
+**Gates T0' and T3 pass** (T3: all six `fs:RULE:RL:2026102601` rows equal F1's `hy:RULE:0:1:2026102601`).
+
+| cohort, set | fresh runs | compact | intermediate | porous | f (Wilson 95%) | p (Wilson 95%) | mean early a / beta |
+|---|---|---|---|---|---|---|---|
+| A, `RU` (48) | bounded, random | 47 | 1 | 0 | 0.979 [0.891, 0.996] | 0 | 0.721 / 0.60 |
+| A, `LU` (48) | bounded, random | 42 | 6 | 0 | 0.875 [0.753, 0.941] | 0 | 0.736 / 0.61 |
+| A, `RLU` (48) | unbounded, random | 1 | 29 | 18 | 0.021 | 0.375 [0.252, 0.516] | 0.851 / 0.79 |
+| B, `RU` (100) | bounded, random | 86 | 13 | 1 | 0.860 [0.779, 0.915] | 0.010 | 0.737 / 0.61 |
+| B, `RLU` (100) | unbounded, random | 1 | 44 | 55 | 0.010 | 0.550 [0.452, 0.644] | 0.858 / 0.81 |
+
+No run escaped and none was a filler or stalled. Cohort A condition means (early a; ant / F1 / RU / LU / RLU):
+`RLRLLRRLRLR` 0.690 / 0.883 / 0.729 / 0.783 / 0.889; `RLRLLRRRRRRR` 0.675 / 0.861 / 0.683 / 0.739 / 0.834;
+`RRLLLRLRRRLL` 0.670 / 0.869 / 0.721 / 0.737 / 0.860; `RRLLRLLRLR` 0.705 / 0.906 / 0.732 / 0.744 / 0.864;
+`RRRLLLLR` 0.591 / 0.877 / 0.745 / 0.719 / 0.841; `RRRRLLLLLLLR` 0.646 / 0.867 / 0.719 / 0.696 / 0.816.
+
+- **Registered reading: unresolved in both cohorts.** A: `RU` 0.979 and `LU` 0.875 (below 0.90), `RLU` p
+  0.375 (below 0.50). B: `RU` f 0.860 (below 0.90). Each cohort misses an H-bound threshold.
+- **H-random is rejected**: it predicted f <= 0.50 for the bounded sets; observed 0.86-0.98, every
+  interval's lower end at or above 0.75.
+- Side predictions: `RU` condition-mean early a <= 0.78 in 6/6 rules, **held**; `RU` escape rate < 5% in
+  both cohorts (0/48, 0/100), **held**; `RLU` p >= 0.7, **failed** in both (0.375, 0.550).
+
+What the misses are. The non-compact bounded runs are mostly *intermediate, near the compact edge*
+(early a 0.77-0.86, beta about 0.66-0.69, late a about 0.74), not porous: 1 porous run in 196. `RLU` is
+less porous than F1 (A: 18/48 against F1's 39/48 run-level) and most of its non-porous runs are
+intermediate with early a 0.78-0.89 (U draws cut a third of the staircase steps short, so its fresh
+runs are unbounded but shorter than F1's).
+
+Post hoc, descriptive: bounded randomness is not free. In cohort B, `RU` early a exceeds the same rule's
+deterministic ant by 0.056 on average (sd 0.040, n = 100), with beta 0.60-0.61 against the ants' 0.55;
+late a about 0.71 against 0.68. That is the size of V1's finite-window offset from the rotor in Stage 2
+(+0.05), which also keeps a bound (forced R) and randomises elsewhere.
+
+Interpretation (mine; beyond the registered reading). Stages 3-3c together:
+
+| fresh-ground policy | fresh runs | compact | porous |
+|---|---|---|---|
+| deterministic R / L / U (3, 3b) | bounded | every non-ordered run (1 slow transient) | 0 of 318 |
+| random from {R, U} or {L, U} (3c) | bounded | 175 of 196 | 1 of 196 |
+| random from {R, L, U} (3c) | unbounded | 2 of 148 | 73 of 148 |
+| random from {R, L} (F1, Stage 1) | unbounded | 0 of 48 condition-level | 39 of 48 runs |
+
+The bound on fresh runs separates compact from porous growth far more sharply than chirality,
+the match with colour 0, or randomness. Randomness and the particular turn tune the exponent by a
+few hundredths and decide which ordered structures appear. This is the mechanism H-wall named in
+Stage 1 ("forced R on a fresh cell bounds penetration into fresh ground"), now tested against
+alternatives that Stage 1 could not separate. It is still a finite-window, core-class result: it
+does not say why the bounded regime's exponent is near 2/3 rather than 0.70-0.74, and the
+registered thresholds were not met cleanly.

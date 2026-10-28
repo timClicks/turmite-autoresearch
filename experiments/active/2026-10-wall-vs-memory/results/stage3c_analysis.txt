@@ -1,0 +1,27 @@
+# Stage 3c scoring; 350 specs
+T3 fs:RULE:RL:2026102601 == hy:RULE:0:1:2026102601 (all fields but the label): 6/6 -> PASS
+
+cohort A  LU: {'compact': 42, 'intermediate': 6}
+      f = 42/48 = 0.875 [0.753, 0.941]; p = 0/48 = 0.000 [0.000, 0.074]; escape 0/48 = 0.000 [0.000, 0.074]
+cohort A RLU: {'compact': 1, 'intermediate': 29, 'porous': 18}
+      f = 1/48 = 0.021 [0.004, 0.109]; p = 18/48 = 0.375 [0.252, 0.516]; escape 0/48 = 0.000 [0.000, 0.074]
+cohort A  RU: {'compact': 47, 'intermediate': 1}
+      f = 47/48 = 0.979 [0.891, 0.996]; p = 0/48 = 0.000 [0.000, 0.074]; escape 0/48 = 0.000 [0.000, 0.074]
+cohort B RLU: {'compact': 1, 'intermediate': 44, 'porous': 55}
+      f = 1/100 = 0.010 [0.002, 0.054]; p = 55/100 = 0.550 [0.452, 0.644]; escape 0/100 = 0.000 [0.000, 0.037]
+cohort B  RU: {'compact': 86, 'intermediate': 13, 'porous': 1}
+      f = 86/100 = 0.860 [0.779, 0.915]; p = 1/100 = 0.010 [0.002, 0.054]; escape 0/100 = 0.000 [0.000, 0.037]
+
+READING cohort A: bounded f RU 0.979, LU 0.875; RLU p 0.375 -> unresolved
+READING cohort B: bounded f RU 0.860; RLU p 0.550 -> unresolved
+
+cohort A condition means (early a over complete runs): rule, ant, F1 (hy:0:1), RU, LU, RLU
+   RLRLLRRLRLR   0.690  0.883  0.729  0.783  0.889
+   RLRLLRRRRRRR  0.675  0.861  0.683  0.739  0.834
+   RRLLLRLRRRLL  0.670  0.869  0.721  0.737  0.860
+   RRLLRLLRLR    0.705  0.906  0.732  0.744  0.864
+   RRRLLLLR      0.591  0.877  0.745  0.719  0.841
+   RRRRLLLLLLLR  0.646  0.867  0.719  0.696  0.816
+side prediction: RU condition-mean early a <= 0.78 in 6/6 rules (needs >= 5) -> HELD
+side prediction: cohort A RU escape rate 0.000 < 0.05 -> HELD; RLU p 0.375 >= 0.7 -> FAILED
+side prediction: cohort B RU escape rate 0.000 < 0.05 -> HELD; RLU p 0.550 >= 0.7 -> FAILED

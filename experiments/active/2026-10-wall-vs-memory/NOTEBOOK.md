@@ -200,3 +200,17 @@ H-random 25%. Added a "filler" class before running, from the Stage 3b post hoc 
 T0' passes (`cargo test --release --locked --test fresh_set`: sparse reference, RL = F1, RU/LU bound, RLU long runs;
 hybrid_walker and fresh_turn still pass). Specs (350), runner and scorer committed before the run; the scorer was
 checked on synthetic input only (F1 and Stage 3b rows relabelled), where it reproduces Stage 1's F1 numbers.
+
+### 2026-10-28 19:45 (+1300) · 3d13c18 · observation
+Stage 3c ran (350 runs, 4 min 16 s). T3 6/6. Bounded random: A RU 47/48 compact, LU 42/48, B RU 86/100; porous 1 of
+196. Unbounded random RLU: compact 2/148, porous 73/148. Registered reading unresolved in both cohorts (LU 0.875, B RU
+0.860 under 0.90; A RLU p 0.375 under 0.50). H-random's prediction (f <= 0.50) is far off. RLU p >= 0.7 failed.
+
+### 2026-10-28 19:50 (+1300) · 3d13c18 · deviation
+The run's provenance says 2 dirty tracked files: my uncommitted fixes to `a7_census.py` and `a5_home_types.py` (other
+experiments, Python only). The probe binary does not read them; its sources were committed at `3d13c18`.
+
+### 2026-10-28 19:55 (+1300) · 3d13c18 · interpretation
+The bound on fresh runs is the strongest separator found: bounded policies 0 + 1 porous of 514 runs, unbounded 73/148
+(+ F1 39/48). Bounded randomness shifts early a by +0.056 (sd 0.040) in cohort B: compact but not the ant. My
+thresholds (0.90, 0.50, 0.70) were too sharp for the near-edge intermediates; I do not move them after the fact.
