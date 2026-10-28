@@ -1,0 +1,8 @@
+bin=target/release/examples/boundary_excursions sha256=c84e20780315f4cc3b1a83b9200d314a6569c166ec9c1c9b42e0450d11ea0682
+git=9c2aeea1732e2cb281544f7c4e07829847272873
+start=2026-10-27T07:52:56Z
+exit=0
+end=2026-10-27T07:52:57Z
+   321 experiments/2026-10-27-boundary-excursion-durations/results/rev1_calib_windows.csv
+  3269 experiments/2026-10-27-boundary-excursion-durations/results/rev1_calib_hist.csv
+  3590 total

@@ -10,7 +10,7 @@ import ledger
 
 data = json.loads(ledger.CATALOGUE.read_text(encoding="utf-8"))
 ledger.validate(data)
-assert len(ledger.query(data, topic="return-dynamics")) == 5
+assert len(ledger.query(data, topic="return-dynamics")) == 6
 assert {c["id"] for c in ledger.query(data, topic="return-dynamics", verdict="uninformative")} == {"RD-03", "RD-05"}
 assert "RD-05" in {c["id"] for c in ledger.query(data, text="ELIGIBILITY")}
 assert not ledger.query(data, text="no_such_claim_19e92")

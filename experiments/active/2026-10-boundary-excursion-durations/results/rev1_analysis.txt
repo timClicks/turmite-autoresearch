@@ -1,0 +1,10 @@
+=== rev1 ===
+cup:0.05: nwin=34 L_range=5.508983844978372 Score(L)=0.10006804580559872 Score(L^2)=0.17232382630725018 verdict=S mean_tau/L=2.6111684709121965 fragile=False compact_pass=False A/P2_med=0.025745962998150733 A_range=51.28409090909091 (median A/P^2 0.02575 < 0.04)
+cup:0.10: nwin=36 L_range=6.471978702257066 Score(L)=0.10305350695195452 Score(L^2)=0.16896350927727286 verdict=S mean_tau/L=2.4644840406092823 fragile=False compact_pass=False A/P2_med=0.018842851509356807 A_range=55.854614412136534 (median A/P^2 0.01884 < 0.04)
+cup:0.25: nwin=36 L_range=5.097634713289195 Score(L)=0.1040032691897475 Score(L^2)=0.1618080807699147 verdict=S mean_tau/L=2.020335752173752 fragile=False compact_pass=False A/P2_med=0.005558265137077483 A_range=71.5861204013378 (median A/P^2 0.005558 < 0.04)
+mf: nwin=36 L_range=7.208244743828988 Score(L)=0.059304705182878927 Score(L^2)=0.1663343363049837 verdict=S mean_tau/L=0.997701561471216 fragile=False
+rotor: nwin=36 L_range=7.496364929302823 Score(L)=0.11951328151225774 Score(L^2)=0.15355954652123002 verdict=inconclusive mean_tau/L=1.9282710666798064 fragile=False
+
+C1' (cup:0.10→D + compactness): INADEQUATE (verdict=S, compact=False)
+C2 (mf→S & E[tau]/L in [0.5,2]): PASS (verdict=S, ratio=0.997701561471216)
+Run confirmation cohort: False
