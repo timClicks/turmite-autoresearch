@@ -112,7 +112,7 @@ Evidence revision `df2e5bb1908e052a0e7ac3cd93d3fa2e2a9b233b`
 mechanism ("blank cells repel") was dissected with fresh-ground policies that differ in handedness,
 in matching the rule's colour-0 turn, in randomness, and in whether they bound how far the walker
 can run into fresh ground. Bounded policies (forced R, forced L, reversal, and random choices between
-a quarter turn and a reversal) produced no porous run in 514; unbounded random policies produced
+a quarter turn and a reversal) produced one porous run in 514; unbounded random policies produced
 porous or intermediate growth in 146 of 148. Handedness and the colour-0 match are not needed:
 reversal, which has neither, grew compactly in every run that did not form a highway. The registered
 readings were unresolved (thresholds narrowly missed), so this is a well-supported pattern, not a
