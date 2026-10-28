@@ -502,3 +502,400 @@ following corrections and limits are appended. Review-time numbers come from
      repel" is not the same intervention as "fresh ground repels".
    A denser EF dose curve follows these controls; a steep finite-time curve alone would not
    separate a transition from a noise-dependent crossover.
+
+## Stage 3: what about the fresh-ground turn matters? (registered 2026-10-28 18:35 NZDT, before any code or run)
+
+Base commit `4fd558bf93177bfeb5461e2a2ae7e3206450fdf9`. Supersedes nothing above; it runs
+F-a from item 9 of the review addendum unchanged in substance, adds one arm, and defers F-b
+for a reason found while designing it.
+
+### An exact fact that reshapes F-b
+
+Call a *fresh run* a maximal sequence of consecutive steps taken from fresh (never departed)
+cells. Under any deterministic quarter-turn policy on fresh cells (forced R, as in the ant and
+V1, or forced L), the fresh cells of one run are visited around a 2x2 block: after four equal
+quarter turns the walker re-enters the first cell of the run, which is now departed. So **a
+fresh run has at most 4 cells** under forced R or forced L, whatever the interior does, and
+under a forced U-turn (below) at most 2 (2 only at the start cell). Under F1's fair R/L the
+run is an unbounded random path into fresh ground. This is a property of the construction,
+not a measurement; the oracle test below checks it on simulated trajectories.
+
+Consequence: F-b's "fresh excursion length" and "new cells deposited before the first return"
+are bounded by 4 for every deterministic arm and can only separate F1 from the rest, which
+Stage 1 already did. Its registered Spearman criterion (>= 0.8 over 24 conditions) would be
+met or missed mainly by that one split. **F-b is deferred**, not run; a mediator worth
+measuring has to vary among bounded policies.
+
+### Explanations and arms
+
+Three explanations of why the fresh-ground turn matters (Stage 1: randomising it makes all six
+rules porous):
+
+- **H-bound.** What matters is that excursions into fresh ground are *bounded*: the walker
+  deposits O(1) cells and returns to departed territory. Any bounded policy keeps growth compact.
+- **H-chiral.** What matters is *coherent chirality* on fresh ground: a consistent loop sense
+  (R or L), not boundedness alone. (This is the reading behind the registered F-a prediction.)
+- **H-match.** What matters is that the fresh turn *matches the rule's colour-0 turn* (every
+  canonical rule turns R on colour 0), so fresh ground behaves like the interior's colour-0 cells.
+
+New walker `ft:RULE:T` (deterministic, no seed): the ant `RULE`, except that on a cell it stands
+on for the first time it turns by `T` instead of `rule[0]`: `R` (+1 quarter turn), `L` (-1) or
+`U` (half turn, a reversal: the walker steps straight back to the cell it came from). The colour
+advances as in the ant; freshness is the never-departed flag, as in `hy:` (a revisited cell at
+colour 0 is not fresh).
+
+| arm | H-bound | H-chiral | H-match |
+|---|---|---|---|
+| `ft:RULE:L` (F-a, forced L) | compact | compact | not compact |
+| `ft:RULE:U` (new, reversal) | compact | not compact | not compact |
+
+`ft:RULE:R` is the ant itself for these rules (all six turn R on colour 0) and is the identity
+gate. A straight-ahead policy is not run: from the start cell it walks a ray of fresh cells
+and never returns, which is trivially non-compact and tells us nothing.
+
+### Instrument, classes, cohort (frozen)
+
+The Stage 1 instrument unchanged: `probe 27 16384`, early `k = 12..22`, late `k = 20..26`,
+fits as `scripts/analyse.py`. Classes as Stage 1 (compact / porous / intermediate), plus one
+added before any run because a reflecting policy might trap the walker in a cycle that never
+touches fresh ground again, which the compact thresholds would mislabel: **stalled** if early
+a < 0.45 or if the final window's area equals the previous window's. Stalled is not compact.
+"Not compact" in the table means porous, intermediate or stalled.
+
+Cohort: the six Stage 1 rules (`results/rules.txt`). The walker is deterministic, so the eight
+seeds of F-a's wording would give eight identical runs; there is **one run per (rule, arm)**,
+18 runs in all (3 arms x 6 rules), and the independent units are the six rules. There is no
+between-seed sd; the spread over rules is reported instead.
+
+Gates (if one fails, nothing is scored):
+- T0. `cargo test --release --locked --test fresh_turn` passes: `ft:RULE:R` equals
+  `reference::Ant` step for step (cells, heading, position) for rules starting with R; `ft:`
+  equals an independent sparse reference for all three policies; the fresh-run bound (<= 4 for
+  R/L, <= 2 for U) holds on every simulated step.
+- T1. Each `ft:RULE:R` probe row equals the committed deterministic `hy:RULE:0:0:0` row in
+  `results/probe.csv` field for field except the label.
+
+Reading (per arm, an arm is "compact" or "not compact" when at least 5 of 6 rules agree; else
+"split, rule-dependent"):
+- L compact and U compact: **H-bound** favoured.
+- L compact, U not compact: **H-chiral** favoured.
+- L not compact, U not compact: **H-match** favoured.
+- L not compact, U compact: none of the three; reported as unexplained.
+- Any split arm: no reading for that arm.
+
+Quantitative side predictions (scored, not part of the reading): F-a as registered, forced L
+early a within 0.05 of the ant in >= 5 of 6 rules. For U, if compact, early a within 0.05 of
+the ant in >= 4 of 6 rules.
+
+**My priors, stated before running:** H-bound 40%, H-chiral 30%, H-match 20%, other 10%. On
+F-a I keep the registered ~60% for "forced L compact". The reason for leaning towards H-bound:
+V1 (bounded fresh runs, no interior colour memory) was already much more compact than `pw:0.5`,
+which suggests the bound does most of the work. Against it: reversal deposits one cell per
+contact, which is Eden-like deposition and could be compact for a different reason, or
+could let the ant's interior sweep along the edge without growing.
+
+What this cannot show: a finite-window class, six rules of one class, and nothing about why
+the bound gives a cube root. A reading favours an explanation among these three; it does not
+establish it.
+
+### Pruning-index preflight (Stage 3)
+
+- Index revision `4fd558bf93177bfeb5461e2a2ae7e3206450fdf9`; `rg --files notes/pruning-index/entries`
+  (4 entries); `rg -n -i -c -e forced -e u-turn -e uturn -e reverse -e first.departure -e fresh
+  -e chiral -e "hy:" -e "ft:"` (hits in 3 entries); `rg -l -F RULE` for each of the six rules
+  (hit only `NR-20261026-wall-vs-memory-no-wall-porous`).
+- Membership: `NR-20261026` covers exactly the 48 `hy:RULE:0:1:SEED` specs (EF = 1 random fresh
+  turns); `ft:` specs are deterministic fresh-turn policies and are not members. The
+  kappa-exposure and crawler hits are incidental ("forced first departures" as an observable of
+  the plain ant, "fresh" target directories). The additive-law entry concerns conservation laws.
+- Decision: **run**. `ft:RULE:R` deliberately replicates the deterministic ants (gate T1).
+- Budget: 18 runs of 2^27 steps on 4 cores (minutes). No extension without a new registration.
+
+Clarification (2026-10-28 18:55 NZDT, still before any run): Stage 1's `classify()` applies the
+late-window test only to conditions with >= 6 runs, so the single-run deterministic ants were
+classed on the early window alone. Stage 3 conditions are single runs and use the same function
+unchanged; the late a (when the run completes `k = 20..26`) is reported beside the class and
+scored separately as "late a <= 0.74", not folded into the class. Specs:
+`results/stage3_specs.txt` (18 lines, `ft:RULE:T` for T = R, L, U); scorer `scripts/analyse_stage3.py`,
+committed before the run.
+
+## Stage 3 results (run 2026-10-28 18:25 NZDT, commit `3164e1a`)
+
+Command: `RAYON_NUM_THREADS=3 sh experiments/active/2026-10-wall-vs-memory/scripts/run_stage3.sh`, then
+`uv run --frozen python experiments/active/2026-10-wall-vs-memory/scripts/analyse_stage3.py`. Provenance
+(clean tree, probe sha256 `92aacf01...`, CSV sha256 `c5978b24...`) in `results/stage3_provenance.txt`;
+per-run fits `results/stage3_runs.csv`; scored output `results/stage3_analysis.txt`. 18 runs, 10 s.
+
+**Gates: T0 and T1 pass** (T1: every `ft:RULE:R` row equals the Stage 1 `hy:RULE:0:0:0` row in all fields).
+
+| rule | ant (R) early / late a | forced L early / late a | reversal U early / late a |
+|---|---|---|---|
+| `RLRLLRRLRLR` | 0.690 / 0.678 | **highway**, escaped by 2^17 | 0.699 / 0.678 |
+| `RLRLLRRRRRRR` | 0.675 / 0.662 | **highway**, escaped by 2^17 (same trajectory as the row above) | 0.649 / 0.681 |
+| `RRLLLRLRRRLL` | 0.670 / 0.694 | 0.691 / 0.695 | 0.700 / 0.698 |
+| `RRLLRLLRLR` | 0.705 / 0.665 | 0.717 / 0.679 | 0.704 / 0.703 |
+| `RRRLLLLR` | 0.591 / 0.592 | 0.611 / 0.566 | 0.698 / 0.700 |
+| `RRRRLLLLLLLR` | 0.646 / 0.702 | 0.777 / 0.664 | **highway** (3 cells wide), escaped by 2^15 |
+
+Every run with a complete early window is compact (early beta 0.51-0.57), and every complete late
+window has late a <= 0.74.
+
+- **Arm L: split** (compact 4/6; 2 escaped). **Arm U: compact** (5/6; 1 escaped).
+- **Registered reading: none** (arm L is split). F-a's side prediction (forced L within 0.05 of the
+  ant in >= 5/6) **failed**: 3/6, partly because two runs never reached the window. U's side
+  prediction (>= 4/6 within 0.05) held at exactly 4/6.
+- **Escapes were not a named class.** The registration anticipated cycles that stall but not
+  early highways. Each escaped run has area linear in t, constant width (U) or w = h (L)
+  from k <= 12, and leaves the 16384 board by 2^15-2^17 steps. The scorer committed before the run
+  counts "no early fit" as not compact, which is the right call for a highway, but I note that
+  the class was not registered. The two forced-L highways are byte-identical rows: presumably
+  neither ant read a colour past their shared prefix `RLRLLRR` before locking in (inferred, not checked).
+
+Post hoc, descriptive (not registered):
+- The six rules were drawn from the core class *under their own fresh turn R* (blob, not
+  bursty, no highway), so the R arm cannot build a highway by selection, while L and U are new
+  dynamics with no such filter. Base rate: 7% of canonical rules of length 8-12 have a highway
+  onset before 4096 steps (`experiments/archive/2026-10-census-sweeps/results/sweep_v2.csv`, 268 of 3963). Three early
+  highways in 12 non-identity runs, two of them one trajectory, is not out of line with that.
+- Among the runs that stayed bounded, reversal's late a clusters tightly: 0.692 (sd 0.012, n = 5)
+  against the six ants' 0.665 (sd 0.039). The slowest ant, `RRRLLLLR` (0.592), moves to 0.700
+  under U.
+
+Interpretation (mine; post hoc where it goes beyond the registered table). Taken one arm at a time,
+the U result contradicts the U predictions of H-chiral and H-match in 5 of 6 rules: a walker
+that never curls on fresh ground, and whose fresh turn matches neither the rule's colour-0 turn
+nor any chirality, still grows compactly with a ~ 0.70 whenever it does not lock into a highway.
+But H-bound as registered ("any bounded policy keeps growth compact") is contradicted too, by
+3 escapes in 12 runs. What survives: **bounded fresh excursions are compatible with compact
+growth in every non-highway run here, and need neither chirality nor a match with colour 0;
+boundedness does not prevent highways**, which compete as they do for ordinary rules. This
+narrows Stage 1's "the fresh turn matters": what F1 destroys is plausibly the bound on fresh
+runs, not the R. It is six rules, one class, finite windows; Stage 3b tests it on new rules.
+
+## Stage 3b: fresh-turn policies on a new cohort (registered 2026-10-28 19:05 NZDT, before any run)
+
+Base commit `ad29f506`. **Informed by Stage 3 and says so**: the predictions below were written
+after seeing six rules. This stage asks whether Stage 3's surviving statement holds with power on
+rules that played no part in forming it.
+
+Cohort: 100 rules drawn uniformly without replacement (numpy `default_rng(20261028)`, from the
+core class sorted by rule string, with the six Stage 1 rules removed first; core class as Stage 1:
+cls blob, 0.30 < alpha_w < 0.37, not bursty, 2404 rules, all turning R on colour 0). Arms R, L, U
+of `ft:RULE:T`, one deterministic run each: 300 specs in `results/stage3b_specs.txt`, made by
+`scripts/select_stage3b.py`. Instrument, windows and fits as Stage 1 and 3 (`probe 27 16384`).
+
+Classes per run (named before running):
+- **escape**: the run leaves the board before completing the early window (`k = 12..22`);
+- **stalled**: as Stage 3;
+- otherwise Stage 1's `classify()` on the early window: compact / intermediate / porous.
+
+Gate T2 (instrument and selection, not a hypothesis): no R-arm run escapes, and >= 90 of 100 R
+runs are compact. If it fails, the arms are reported but not scored.
+
+Primary measure per arm (L and U): f = compact / (runs that are not escapes), with a Wilson 95%
+interval; escape rates reported separately with Wilson intervals.
+
+Reading:
+- f_L >= 0.90 and f_U >= 0.90: **bounded fresh runs suffice whenever no highway forms** (the
+  weak H-bound of Stage 3) survives on a new cohort.
+- f_L >= 0.90 and f_U <= 0.50: H-chiral.
+- f_L <= 0.50 and f_U <= 0.50: H-match.
+- anything else: unresolved or rule-dependent, reported as such.
+
+Predictions (mine, after Stage 3): weak H-bound, about 70%. Escape rate per arm between 2% and 20%
+(census base rate of highway onsets before 4096 steps is 7%; this horizon is longer). Second,
+from the Stage 3 post hoc observation (registered now, so this is its first test): among rules
+where both the R and U runs complete the late window, the between-rule sd of late a is smaller
+under U than under R, with a rule-bootstrap (10,000 resamples, seed 20261028, rules sorted
+before resampling) 95% interval of sd_U / sd_R entirely below 1; about 60%. And mean late a under
+U in [0.67, 0.72].
+
+Scorer `scripts/analyse_stage3b.py` and runner `scripts/run_stage3b.sh`, committed before the run.
+Pruning preflight: same index revision content as Stage 3 (no entries added since `4fd558b`);
+the new rules are not members of any entry (`NR-20261026` covers only `hy:RULE:0:1:SEED`
+specs); decision **run**. Budget: 300 runs of 2^27 steps, a few minutes on 4 cores. No
+extension without a new registration.
+
+## Stage 3b results (run 2026-10-28 18:29-18:32 NZDT, commit `383fe4c`)
+
+Command: `RAYON_NUM_THREADS=3 sh experiments/active/2026-10-wall-vs-memory/scripts/run_stage3b.sh`, then
+`uv run --frozen python experiments/active/2026-10-wall-vs-memory/scripts/analyse_stage3b.py`. Clean tree; probe sha256
+`92aacf01...` (same binary as Stage 3); CSV sha256 `d2c77b0f...`; `results/stage3b_provenance.txt`,
+`results/stage3b_runs.csv`, `results/stage3b_analysis.txt`. 300 runs in 3 min 16 s.
+
+**Gate T2 passes** (R arm: 0 escapes, 99/100 compact; the one intermediate, `RRLRLLLLRLL`, has early
+a 0.814 but late a 0.671, a slow transient).
+
+| arm | compact | intermediate | escape | porous | f = compact / non-escape (Wilson 95%) | escape rate (Wilson 95%) |
+|---|---|---|---|---|---|---|
+| R (the ants) | 99 | 1 | 0 | 0 | 0.990 | 0 |
+| L (forced L) | 78 | 13 | 9 | 0 | **0.857 [0.771, 0.915]** | 0.09 [0.05, 0.16] |
+| U (reversal) | 63 | 0 | 37 | 0 | **1.000 [0.943, 1.000]** | **0.37 [0.28, 0.47]** |
+
+- **Registered reading: unresolved** (f_L = 0.857 falls between the 0.50 and 0.90 bands).
+- **H-chiral and H-match are rejected by the U arm**: both predicted f_U <= 0.50; observed 63/63 compact,
+  interval [0.94, 1.00]. A walker whose fresh-ground turn has no handedness and does not match colour 0
+  grows compactly in every run that stays on the board.
+- Escape-rate prediction (2-20% per arm): held for L (9%), **failed for U (37%)**. Reversal makes
+  early highways far more common than the census base rate.
+- Late-a spread (registered from the Stage 3 post hoc observation): sd_U / sd_R = 0.725, rule bootstrap
+  95% [0.556, 0.958], **held** (n = 60 rules with both late windows); U mean late a 0.687, in [0.67, 0.72],
+  **held**. The effect is weaker than the six-rule hint (0.31 there), as one would expect of a pattern
+  noticed in a small sample.
+- Distinct trajectories: R 99, L 98, U 86 of 100 (rules sharing a prefix can coincide when an ordered
+  structure forms before longer colours are read).
+
+Post hoc, descriptive (not registered): **the 13 "intermediate" L runs are ordered fillers, not
+porous walks.** Early a 0.94-1.15, beta 0.50-0.57; late a ~1; area grows at a constant rate with A/t
+settling to 1/10, 1/8, 1/6 (five rules), 1/4 (three rules), and two non-rational-looking values (0.150, 0.083), the
+territory a solid square in 10 of 13 (w/h = 1.00, perimeter = 2(w + h)), a 2:1 rectangle in one and
+an octagon-like shape (perimeter / 2(w + h) = 0.76) in two that share a trajectory. These are the
+square-ring / square-spiral fillers known from the census (`notes/proof-track-2026-10-20.md`,
+`experiments/archive/2026-10-square-ring-fillers/`), here produced by the forced-L policy. Treating fillers like
+highways (ordered structures, not growth regimes) would give f_L = 78/78, but that class was not
+registered, so it does not change the score.
+
+Interpretation (mine; it goes beyond the registered table and is labelled as such). Across 300
+deterministic bounded-fresh-run walkers, **no run is porous**. Every run either locks into an ordered
+structure (a highway or a filler) or grows compactly with early a ~ 0.69-0.70 and beta ~ 0.55. That is
+a dichotomy: *bounded fresh runs + no crystallisation => compact growth near the cube root*. The fresh
+turn's handedness and its match with colour 0 decide only which ordered structures are likely (U:
+highways; L: highways and fillers; R: neither, by the selection of this cohort). This reading predicts
+something Stage 1 could not separate: F1 (random R/L on fresh cells) was porous because its fresh
+runs are *unbounded*, not because they are random. Stage 3c tests exactly that.
+
+## Stage 3c: random but bounded fresh turns (registered 2026-10-28 19:30 NZDT, before any code or run)
+
+Base commit `9f8a06aa`. Informed by Stages 3 and 3b, and says so. Question: was F1 porous because its
+fresh turns were **random** or because its fresh runs were **unbounded**? Stage 1 could not tell:
+random R/L does both.
+
+Walker `fs:RULE:SET:SEED`: the ant `RULE`, except that on a fresh (never departed) cell the turn is
+drawn uniformly from `SET` (letters from R, L, U; U a reversal). One SplitMix64 draw per step,
+seeded by SEED, consumed on every step as in `hy:`; on a fresh cell the high 32 bits pick
+`SET[(high32 * |SET|) >> 32]`. With `SET = RL` this is exactly F1, `hy:RULE:0:1:SEED`, step for step
+(gate T3).
+
+Exact properties (by construction; checked by the oracle test):
+- `RU`, `LU`: **bounded**. A U steps straight back onto the cell just departed; a run of equal quarter
+  turns closes a 2x2 block within 4 cells. So a fresh run has at most 4 cells (5 for the run that
+  starts at the origin, whose U has no departed predecessor), whatever the draws.
+- `RL`, `RLU`: **unbounded**. Alternating R and L draws make a staircase into fresh ground, with
+  probability > 0 for every length.
+
+Explanations:
+- **H-bound (the Stage 3b dichotomy).** Bounded fresh runs and no crystallisation give compact growth;
+  randomness on fresh ground is harmless if runs stay bounded. Predicts: `RU` and `LU` compact;
+  `RLU` porous like F1.
+- **H-random.** Randomising the fresh turn breaks the compact regime by itself (for example by
+  breaking first-visit correlations with the colour field), whatever the bound. Predicts: `RU` and
+  `LU` not compact.
+
+Cohorts and specs (`results/stage3c_specs.txt`, made by `scripts/select_stage3c.py`):
+- **A**: the six Stage 1 rules x the eight Stage 1 seeds 2026102601..08, arms `RU`, `LU`, `RLU`
+  (144 runs), directly comparable with F1 (`hy:RULE:0:1:SEED`, committed in `results/probe.csv`).
+- **B**: the 100 Stage 3b rules x one seed 2026102801, arms `RU` and `RLU` (200 runs).
+- Gate T3 specs: `fs:RULE:RL:2026102601` for the six Stage 1 rules (6 runs), compared field for field
+  with the committed `hy:RULE:0:1:2026102601` rows.
+
+Classes per run (all named before running): escape, stalled (as Stage 3b), **filler** (added now from
+the Stage 3b post hoc finding: early a >= 0.90, early beta <= 0.62, and A/t over the last three
+windows within 3% of their mean), then Stage 1's `classify()`.
+
+Primary measure per (cohort, arm): f = compact / (runs that are neither escape nor filler), Wilson 95%;
+and p = porous / (same denominator).
+
+Reading (each cohort scored separately; A by runs, with rules as the independent units noted):
+- `RU` (and in A also `LU`) f >= 0.90 and `RLU` p >= 0.50: **H-bound** supported.
+- `RU` (and `LU`) f <= 0.50: **H-random** supported.
+- Anything else, or the cohorts disagree: unresolved.
+
+Side predictions (mine): in A, condition-mean early a for `RU` <= 0.78 in >= 5 of 6 rules; escape rate
+under `RU` below 5% in both cohorts (random fresh turns should rarely sustain a highway's leading
+edge); `RLU` porous fraction p >= 0.7 in both cohorts (F1 run-level porous was 39/48 = 0.81).
+
+**Priors:** H-bound about 65%, H-random about 25%, unresolved 10%. Against H-bound: random fresh
+turns add noise exactly where the ant's trajectory first meets new ground, which Stage 1 showed is
+where the regime is decided; for example the colour pattern laid at the edge may matter, not just
+how far the walker goes.
+
+Gates: T0' (`cargo test --release --locked --test fresh_set` passes: sparse reference, the bound for
+`RU`/`LU`, an unbounded run observed for `RLU`), T3 (above). Pruning preflight: no entries added since
+`4fd558b`; `NR-20261026` covers exactly the `hy:RULE:0:1:SEED` specs (F1); the `fs:` arms other than
+the T3 gate are not members, and the T3 gate is a deliberate replication of six F1 specs as an
+identity check. Decision **run**. Budget: 350 runs of 2^27 steps on 3-4 cores (minutes). No extension
+without a new registration.
+
+## Stage 3c results (run 2026-10-28 18:37-18:41 NZDT, commit `3d13c18`)
+
+Command: `RAYON_NUM_THREADS=3 sh experiments/active/2026-10-wall-vs-memory/scripts/run_stage3c.sh`, then
+`uv run --frozen python experiments/active/2026-10-wall-vs-memory/scripts/analyse_stage3c.py`. Probe sha256 `a0615a05...`,
+CSV sha256 `29fa44d8...` (`results/stage3c_provenance.txt`). The provenance records 2 dirty tracked files:
+uncommitted fixes to two Python scripts in *other* experiments (`a7_census.py`, `a5_home_types.py`), which
+the probe binary does not read; the Rust sources were committed (`3d13c18`). 350 runs in 4 min 16 s.
+
+**Gates T0' and T3 pass** (T3: all six `fs:RULE:RL:2026102601` rows equal F1's `hy:RULE:0:1:2026102601`).
+
+| cohort, set | fresh runs | compact | intermediate | porous | f (Wilson 95%) | p (Wilson 95%) | mean early a / beta |
+|---|---|---|---|---|---|---|---|
+| A, `RU` (48) | bounded, random | 47 | 1 | 0 | 0.979 [0.891, 0.996] | 0 | 0.721 / 0.60 |
+| A, `LU` (48) | bounded, random | 42 | 6 | 0 | 0.875 [0.753, 0.941] | 0 | 0.736 / 0.61 |
+| A, `RLU` (48) | unbounded, random | 1 | 29 | 18 | 0.021 | 0.375 [0.252, 0.516] | 0.851 / 0.79 |
+| B, `RU` (100) | bounded, random | 86 | 13 | 1 | 0.860 [0.779, 0.915] | 0.010 | 0.737 / 0.61 |
+| B, `RLU` (100) | unbounded, random | 1 | 44 | 55 | 0.010 | 0.550 [0.452, 0.644] | 0.858 / 0.81 |
+
+No run escaped and none was a filler or stalled. Cohort A condition means (early a; ant / F1 / RU / LU / RLU):
+`RLRLLRRLRLR` 0.690 / 0.883 / 0.729 / 0.783 / 0.889; `RLRLLRRRRRRR` 0.675 / 0.861 / 0.683 / 0.739 / 0.834;
+`RRLLLRLRRRLL` 0.670 / 0.869 / 0.721 / 0.737 / 0.860; `RRLLRLLRLR` 0.705 / 0.906 / 0.732 / 0.744 / 0.864;
+`RRRLLLLR` 0.591 / 0.877 / 0.745 / 0.719 / 0.841; `RRRRLLLLLLLR` 0.646 / 0.867 / 0.719 / 0.696 / 0.816.
+
+- **Registered reading: unresolved in both cohorts.** A: `RU` 0.979 and `LU` 0.875 (below 0.90), `RLU` p
+  0.375 (below 0.50). B: `RU` f 0.860 (below 0.90). Each cohort misses an H-bound threshold.
+- **H-random is rejected**: it predicted f <= 0.50 for the bounded sets; observed 0.86-0.98, every
+  interval's lower end at or above 0.75.
+- Side predictions: `RU` condition-mean early a <= 0.78 in 6/6 rules, **held**; `RU` escape rate < 5% in
+  both cohorts (0/48, 0/100), **held**; `RLU` p >= 0.7, **failed** in both (0.375, 0.550).
+
+What the misses are. The non-compact bounded runs are mostly *intermediate, near the compact edge*
+(early a 0.77-0.86, beta about 0.66-0.69, late a about 0.74), not porous: 1 porous run in 196. `RLU` is
+less porous than F1 (A: 18/48 against F1's 39/48 run-level) and most of its non-porous runs are
+intermediate with early a 0.78-0.89 (U draws cut a third of the staircase steps short, so its fresh
+runs are unbounded but shorter than F1's).
+
+Post hoc, descriptive: bounded randomness is not free. In cohort B, `RU` early a exceeds the same rule's
+deterministic ant by 0.056 on average (sd 0.040, n = 100), with beta 0.60-0.61 against the ants' 0.55;
+late a about 0.71 against 0.68. That is the size of V1's finite-window offset from the rotor in Stage 2
+(+0.05), which also keeps a bound (forced R) and randomises elsewhere.
+
+Interpretation (mine; beyond the registered reading). Stages 3-3c together:
+
+| fresh-ground policy | fresh runs | compact | porous |
+|---|---|---|---|
+| deterministic R / L / U (3, 3b) | bounded | every non-ordered run (1 slow transient) | 0 of 318 |
+| random from {R, U} or {L, U} (3c) | bounded | 175 of 196 | 1 of 196 |
+| random from {R, L, U} (3c) | unbounded | 2 of 148 | 73 of 148 |
+| random from {R, L} (F1, Stage 1) | unbounded | 0 of 48 condition-level | 39 of 48 runs |
+
+The bound on fresh runs separates compact from porous growth far more sharply than chirality,
+the match with colour 0, or randomness. Randomness and the particular turn tune the exponent by a
+few hundredths and decide which ordered structures appear. This is the mechanism H-wall named in
+Stage 1 ("forced R on a fresh cell bounds penetration into fresh ground"), now tested against
+alternatives that Stage 1 could not separate. It is still a finite-window, core-class result: it
+does not say why the bounded regime's exponent is near 2/3 rather than 0.70-0.74, and the
+registered thresholds were not met cleanly.
+
+### Timestamp correction for Stages 3-3c (2026-10-28 18:55 NZDT, append only)
+
+The NZDT times I wrote by hand in the Stage 3, 3b and 3c headings ran ahead of the clock (some lie in the future of
+the work). Git commit times are authoritative, and they confirm the order registration -> code -> run for every stage:
+
+| event | written | commit (NZDT, from git) |
+|---|---|---|
+| Stage 3 registered | 18:35 | `caa1fe1` 18:22 |
+| Stage 3 clarification, walker, scorer | 18:55 | `feb6e2d` 18:25 |
+| Stage 3 run | 18:25 | provenance 18:25:34-18:25:44 |
+| Stage 3b registered (with scorer) | 19:05 | `383fe4c` 18:29 |
+| Stage 3b run | 18:29-18:32 | provenance 18:29:16-18:32:32 |
+| Stage 3c registered | 19:30 | `9fbcbf2` 18:35 |
+| Stage 3c walker, scorer | (not stated) | `3d13c18` 18:36 |
+| Stage 3c run | 18:37-18:41 | provenance 18:37:05-18:41:21 |

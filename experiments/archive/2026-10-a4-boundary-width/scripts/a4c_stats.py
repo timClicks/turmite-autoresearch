@@ -11,7 +11,7 @@ def load(path):
     return d
 def local(d):
     out = {}
-    for (spec,), g in d.group_by("spec"):
+    for (spec,), g in sorted(d.group_by("spec"), key=lambda kv: kv[0]):  # sorted: polars group order is per-process hash order; the seeded draws below depend on it
         g = g.sort("k"); k = g["k"].to_numpy().astype(int); W = g["Wsurf"].to_numpy()
         out[spec] = {int(k[i]): (np.log(W[i + 1]) - np.log(W[i])) / ((k[i + 1] - k[i]) * np.log(2)) for i in range(len(k) - 1) if W[i] > 0 and W[i + 1] > 0}
     return out

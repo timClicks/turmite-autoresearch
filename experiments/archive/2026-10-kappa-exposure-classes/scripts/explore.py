@@ -80,7 +80,7 @@ pat = pat.with_columns(
      ((pl.col("B2") + pl.col("B3") + pl.col("B4") - pl.col("F2") - pl.col("F3") - pl.col("F4")) / (pl.col("M2") + pl.col("M3") + pl.col("M4")))).alias("Q"),
     ((pl.col("B1") - pl.col("F1")) / pl.col("M1")).alias("rho1_ret"),
     ((pl.col("B2") + pl.col("B3") + pl.col("B4") - pl.col("F2") - pl.col("F3") - pl.col("F4")) / (pl.col("M2") + pl.col("M3") + pl.col("M4"))).alias("rho2p_ret"))
-rr = pat.group_by("base").agg([pl.len().alias("n")] + [pl.col(c).mean() for c in ["rho", "Q", "rho1_ret", "rho2p_ret", "exposed_share"]])
+rr = pat.group_by("base").agg([pl.len().alias("n")] + [pl.col(c).mean() for c in ["rho", "Q", "rho1_ret", "rho2p_ret", "exposed_share"]]).sort("base")  # sorted: group_by order is per-process and feeds the seeded bootstrap below
 Qs = rr["Q"].to_numpy()
 rng = np.random.default_rng(20261020)
 ci = np.percentile(np.median(rng.choice(Qs, size=(4000, len(Qs)), replace=True), axis=1), [2.5, 97.5])

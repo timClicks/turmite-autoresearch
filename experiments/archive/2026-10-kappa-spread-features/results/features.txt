@@ -1,10 +1,10 @@
-# cmd: uv run experiments/2026-10-20-kappa-spread-features/scripts/features.py  seed 20261020  bootstraps 2000  (registered; README commit d5e0ff0)
+# cmd: uv run experiments/archive/2026-10-kappa-spread-features/scripts/features.py  seed 20261020  bootstraps 2000  (registered; README commit d5e0ff0)
 train rules 2185 (stationary blob census), test rules 162 (fresh stationary); rules in both: 0; training mean ln kappa -0.134, test sd 0.313
-P8    strict held-out R^2 +0.624  95% CI [+0.468, +0.733]
-S8    strict held-out R^2 -0.114  95% CI [-0.295, +0.028]
-C     strict held-out R^2 +0.079  95% CI [-0.059, +0.190]
-P8+C  strict held-out R^2 +0.632  95% CI [+0.484, +0.734]
-P8 - S8 = +0.739 CI [+0.560, +0.913];  (P8+C) - P8 = +0.008 CI [-0.026, +0.044]
+P8    strict held-out R^2 +0.624  95% CI [+0.479, +0.730]
+S8    strict held-out R^2 -0.114  95% CI [-0.303, +0.030]
+C     strict held-out R^2 +0.079  95% CI [-0.054, +0.189]
+P8+C  strict held-out R^2 +0.632  95% CI [+0.493, +0.736]
+P8 - S8 = +0.739 CI [+0.559, +0.912];  (P8+C) - P8 = +0.008 CI [-0.026, +0.045]
 F1 P8 within 0.1 of 0.633: HELD
 F2 S8 at least 0.2 below P8: HELD
 F3 C < 0.2: HELD

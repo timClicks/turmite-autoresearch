@@ -529,6 +529,30 @@ Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per
   times), which the rotor router keeps bounded. Prediction: ant and rotor low, hybrid diffusive-scale. Not registered.
 - Reading for Q1/Q6 (interpretation, not a test): the original "blank cells repel" ingredient is now the one with direct
   causal support; the "well-mixed interior" ingredient, in its memoryless form, is not enough by itself at these horizons.
+- **Update 2026-10-28: it is the bound on fresh runs, not chirality, colour-0 match or randomness** (wall-vs-memory Stages
+  3-3c, evidence revision `df2e5bb1908e052a0e7ac3cd93d3fa2e2a9b233b`; registered readings *unresolved* in 3, 3b and 3c, so
+  everything below past the per-arm facts is interpretation). Deterministic fresh policies (R, L, reversal U) bound a
+  fresh run at 4 cells (U: 2) by construction; random {R,U} / {L,U} stay bounded (<= 4, 5 from the origin); random {R,L}
+  (F1) and {R,L,U} do not. Over 318 deterministic bounded runs (6 + 100 core rules) none was porous: every run either
+  locked into an ordered structure (highways: L 9%, U 37% of the 100-rule cohort; square-spiral fillers with A/t = 1/10,
+  1/8, 1/6, 1/4: L 13%) or grew compactly (U: 63/63 non-escape runs). Bounded random policies: 175/196 compact, 1 porous,
+  early a +0.056 (sd 0.040) above the deterministic ant. Unbounded random RLU: 2/148 compact, 73/148 porous. H-chiral and
+  H-match (U predicted not compact) and H-random (bounded random predicted not compact) failed their registered predictions;
+  H-bound missed its own thresholds (f_L 0.857 in 3b; LU 0.875 and RU 0.860 in 3c). F-a's forced-L prediction failed (3/6).
+  F-b deferred: its excursion length is bounded by 4 for every deterministic arm. Dead end, exact scope only:
+  `NR-20261028-wall-vs-memory-bounded-random-fresh-compact`.
+- Q33. Does compactness fail at a scale set by the bound? A fresh policy whose runs are bounded by m cells (e.g. straight
+  for up to m - 1 fresh steps, then a quarter turn) should behave like a porous walker while the territory is smaller than
+  ~m and compact beyond it, if the bound is the mechanism. A crossover time t*(m) with a derived scaling would turn the
+  dichotomy into a quantitative prediction. Also reframes Q30: at fresh-noise rate EF < 1 the fresh-run length has a
+  geometric tail with a scale set by EF, so the EF dose curve should collapse on run-length scale / territory size.
+  Not registered.
+- Q38. Why does forcing L on fresh ground crystallise 13% of compact core-class rules into square-spiral fillers with
+  rational clocks (A/t = 1/10, 1/8, 1/6, 1/4), and reversal send 37% into highways, when the same rules under R do
+  neither (selection) and the census base rate of early highways is ~7%? The two forced-L runs of `RLRLLRRLRLR` and
+  `RLRLLRRRRRRR` are one byte-identical trajectory, so these structures form before long colours are read.
+- Q39. Why is the bounded regime's early a about 0.69-0.74 rather than 2/3 at these windows, and does bounded randomness
+  (+0.05) share V1's finite-window offset (Stage 2)? Unresolved; needs the longer horizons of F-c.
 
 ## Added 2026-10-27: excursion-duration collapse (stage 1) — P-C in PR #18
 

@@ -1,9 +1,9 @@
 Stage 2: fresh Pi(m) rules, n 13..18 (blank 24 4096); filter outcome by m (Pi rules | controls)
-  m=2: Pi {'ratio>1.9': 40, 'escaped': 1, 'kept': 19} | controls {'ratio<1.3': 3, 'escaped': 19, 'kept': 34, 'births<200': 2, 'ratio>1.9': 2}
-  m=3: Pi {'kept': 24, 'ratio>1.9': 36} | controls {'births<200': 8, 'kept': 35, 'ratio>1.9': 3, 'escaped': 9, 'ratio<1.3': 4}
-  m=4: Pi {'ratio>1.9': 46, 'kept': 14} | controls {'escaped': 14, 'kept': 36, 'ratio<1.3': 2, 'births<200': 4, 'ratio>1.9': 2}
-  m=5: Pi {'ratio>1.9': 34, 'kept': 26} | controls {'kept': 28, 'escaped': 10, 'births<200': 8, 'ratio<1.3': 6, 'ratio>1.9': 2}
-  m=6: Pi {'ratio>1.9': 10, 'kept': 6} | controls {'escaped': 4, 'kept': 5, 'births<200': 1}
+  m=2: Pi {'escaped': 1, 'kept': 19, 'ratio>1.9': 40} | controls {'births<200': 2, 'escaped': 19, 'kept': 34, 'ratio<1.3': 3, 'ratio>1.9': 2}
+  m=3: Pi {'kept': 24, 'ratio>1.9': 36} | controls {'births<200': 8, 'escaped': 9, 'kept': 35, 'ratio<1.3': 4, 'ratio>1.9': 3}
+  m=4: Pi {'kept': 14, 'ratio>1.9': 46} | controls {'births<200': 4, 'escaped': 14, 'kept': 36, 'ratio<1.3': 2, 'ratio>1.9': 2}
+  m=5: Pi {'kept': 26, 'ratio>1.9': 34} | controls {'births<200': 8, 'escaped': 10, 'kept': 28, 'ratio<1.3': 6, 'ratio>1.9': 2}
+  m=6: Pi {'kept': 6, 'ratio>1.9': 10} | controls {'births<200': 1, 'escaped': 4, 'kept': 5}
   scored m (>= 6 kept Pi rules): [2, 3, 4, 5, 6]
 S1: slope of 1/c on m, kept Pi (n=89): 0.884; paired subset (n=42): Pi 0.828, controls 0.784, difference 0.044 [-0.023, 0.114] -> FAILED
   m=2: kept 19, median 1/c 3.089 (LL 2.755, K3 3.103, crawler 3.25), median phi 0.675; paired controls median 1/c 2.653 (n=10)

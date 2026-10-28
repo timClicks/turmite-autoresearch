@@ -104,3 +104,19 @@ memoryless interior gave a = 0.73 at k = 24..30 (0.717 at k = 27..31; rotor
 its memoryless form is not shown sufficient. The original predictions above
 are unchanged; this is new evidence on which ingredient carries the exponent,
 not a derivation.
+
+## Update 2026-10-28: what about the fresh-ground turn matters
+
+Evidence revision `df2e5bb1908e052a0e7ac3cd93d3fa2e2a9b233b`
+([wall-vs-memory, Stages 3-3c](../experiments/active/2026-10-wall-vs-memory/README.md)). Step 1 of the
+mechanism ("blank cells repel") was dissected with fresh-ground policies that differ in handedness,
+in matching the rule's colour-0 turn, in randomness, and in whether they bound how far the walker
+can run into fresh ground. Bounded policies (forced R, forced L, reversal, and random choices between
+a quarter turn and a reversal) produced one porous run in 514; unbounded random policies produced
+porous or intermediate growth in 146 of 148. Handedness and the colour-0 match are not needed:
+reversal, which has neither, grew compactly in every run that did not form a highway. The registered
+readings were unresolved (thresholds narrowly missed), so this is a well-supported pattern, not a
+scored confirmation. Restated step 1, as an interpretation: *the fresh-ground turn must return the
+walker to departed territory within O(1) steps*. Nothing here yet explains why the bounded regime
+sits at a ~ 0.69-0.74 in these windows, or derives 2/3; see Q33, Q38 and Q39 in
+`notes/open-questions-hypotheses.md`. The original predictions above stand unchanged.

@@ -1,0 +1,33 @@
+# Stage 3 scoring; input /home/user/turmite-autoresearch/experiments/active/2026-10-wall-vs-memory/results/stage3_probe.csv; 18 specs
+T1 ft:RULE:R == hy:RULE:0:0:0 (all fields but the label): 6/6 -> PASS
+
+rule            turn  early a  early beta  late a  late beta  max k  class
+RLRLLRRLRLR        R    0.690       0.548   0.678      0.520     27  compact
+RLRLLRRLRLR        L      nan         nan     nan        nan     17  no early fit
+RLRLLRRLRLR        U    0.699       0.563   0.678      0.507     27  compact
+RLRLLRRRRRRR       R    0.675       0.517   0.662      0.510     27  compact
+RLRLLRRRRRRR       L      nan         nan     nan        nan     17  no early fit
+RLRLLRRRRRRR       U    0.649       0.532   0.681      0.505     27  compact
+RRLLLRLRRRLL       R    0.670       0.553   0.694      0.553     27  compact
+RRLLLRLRRRLL       L    0.691       0.545   0.695      0.568     27  compact
+RRLLLRLRRRLL       U    0.700       0.556   0.698      0.546     27  compact
+RRLLRLLRLR         R    0.705       0.547   0.665      0.508     27  compact
+RRLLRLLRLR         L    0.717       0.571   0.679      0.529     27  compact
+RRLLRLLRLR         U    0.704       0.549   0.703      0.541     27  compact
+RRRLLLLR           R    0.591       0.497   0.592      0.511     27  compact
+RRRLLLLR           L    0.611       0.507   0.566      0.514     27  compact
+RRRLLLLR           U    0.698       0.552   0.700      0.570     27  compact
+RRRRLLLLLLLR       R    0.646       0.519   0.702      0.512     27  compact
+RRRRLLLLLLLR       L    0.777       0.526   0.664      0.481     27  compact
+RRRRLLLLLLLR       U      nan         nan     nan        nan     15  no early fit
+
+arm L: compact in 4/6, not compact in 2/6 -> split
+   classes: {'compact': 4, 'no early fit': 2}
+   late a <= 0.74 in 4/4 runs with a complete late window
+arm U: compact in 5/6, not compact in 1/6 -> compact
+   classes: {'compact': 5, 'no early fit': 1}
+   late a <= 0.74 in 5/5 runs with a complete late window
+READING (L, U) = (split, compact): no reading (a split arm)
+
+side prediction L: |early a - ant| <= 0.05 in 3/6 (needs >= 5); differences +nan, +nan, +0.021, +0.012, +0.020, +0.132
+side prediction U: |early a - ant| <= 0.05 in 4/6 (needs >= 4); differences +0.010, -0.026, +0.030, -0.001, +0.107, +nan

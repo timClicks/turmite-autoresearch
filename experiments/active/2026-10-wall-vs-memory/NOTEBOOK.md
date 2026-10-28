@@ -129,3 +129,99 @@ class unchanged but shifted a. Independent units: six rules (seeds shared).
 ### 2026-10-27 21:35 (+1300) · 15d41a9 · decision
 Follow-ups F-a..F-d registered in the README addendum (item 9) with predictions, not run. Notes (Q32), pruning-entry
 amendment 1, blog post/homepage/atlas/guide wording and `notebook.ipynb` updated to match.
+
+### 2026-10-28 18:20 (+1300) · 4fd558b · intent
+Session start. Owner asked for the next priority to be pursued. Plan: (1) fix and audit the hash-order bootstrap
+bug (other experiment); (2) the boundary-access discriminating test, starting from this experiment's registered
+follow-ups F-a..F-d.
+
+### 2026-10-28 18:30 (+1300) · 4fd558b · surprise
+While designing F-b: under any deterministic quarter-turn fresh policy a fresh run is at most 4 cells (four equal
+turns close a 2x2 block onto the run's first, now departed, cell). So F-b's excursion length cannot vary among the
+deterministic arms; it only separates F1 again. F-a's eight seeds are also moot: forced L is deterministic.
+
+### 2026-10-28 18:35 (+1300) · 4fd558b · decision
+Registered Stage 3 in the README before any code: `ft:RULE:T` for T in {R, L, U}, 6 rules, one run each, three
+explanations (H-bound / H-chiral / H-match) with a reading table, a "stalled" class added before running, gates T0/T1.
+F-b deferred with reason. Pruning preflight: no member entry; run. Priors H-bound 40%, H-chiral 30%, H-match 20%.
+
+### 2026-10-28 19:00 (+1300) · feb6e2d · intent
+T0 passed (`cargo test --release --locked --test fresh_turn`, 4 tests, 96 proptest cases per property, fixed seed
+20261028). Specs, runner and scorer committed at `feb6e2d` before the run. Launching
+`RAYON_NUM_THREADS=3 sh scripts/run_stage3.sh` (3 threads: an unrelated single-threaded audit is using one core).
+
+### 2026-10-28 18:26 (+1300) · 3164e1a · observation
+Stage 3 ran in 10 s (18 runs). T1 6/6. L: compact 4/6, two forced-L runs (`RLRLLRRLRLR`, `RLRLLRRRRRRR`) are one
+byte-identical diagonal highway, escaping by 2^17. U: compact 5/6, `RRRRLLLLLLLR:U` a 3-wide straight highway by 2^15.
+All complete windows compact. Registered reading: none (L split). F-a side prediction failed (3/6); U's held (4/6).
+
+### 2026-10-28 18:40 (+1300) · 3164e1a · surprise
+I did not foresee early highways; the registration only named a "stalled" class. The scorer (committed first)
+counts them as not compact, which is right for a highway, but the class was unregistered. Also unforeseen: U's
+late a is tighter across rules (0.692, sd 0.012, n = 5) than the ants' (0.665, sd 0.039). Post hoc.
+
+### 2026-10-28 18:45 (+1300) · 3164e1a · interpretation
+Selection confound: the cohort is compact non-highway *under R*, so only the R arm is filtered against highways.
+Census base rate of onsets < 4096 steps is 7% (268/3963, n = 8..12), so 2 independent early highways in 12 runs
+is unremarkable. Reading per arm: U compact contradicts H-chiral and H-match; escapes contradict the strong H-bound.
+Surviving statement: bounded fresh runs are compatible with compact growth and need neither chirality nor the
+colour-0 match. Six rules only.
+
+### 2026-10-28 18:50 (+1300) · 3164e1a · decision
+Register Stage 3b: all three arms on a new cohort of core-class rules, with escapes named as a class and scored
+separately from the compact/non-compact question, so the reading can be applied with power. Cheap (seconds per run).
+
+### 2026-10-28 19:10 (+1300) · ad29f50 · decision
+Registered Stage 3b in the README (100 new core-class rules, arms R/L/U, escape class named, gate T2, reading on
+f = compact / non-escape, sd-ratio prediction from the Stage 3 post hoc observation). Cohort draw is byte-identical
+across two processes (rules sorted before and after the draw). Scorer tested only on synthetic input (Stage 3 rows
+relabelled onto the new names), not on any Stage 3b output. Committing, then running.
+
+### 2026-10-28 18:33 (+1300) · 383fe4c · observation
+Stage 3b ran (300 runs, 3 min 16 s). T2 passes. f_L 0.857 [0.771, 0.915] (78/91), f_U 1.000 [0.943, 1.000] (63/63);
+escapes L 9, U 37; porous in no arm. Registered reading: unresolved. U escape-rate prediction failed (37% vs 2-20%).
+sd-ratio prediction held (0.725 [0.556, 0.958]); U late a 0.687 held.
+
+### 2026-10-28 18:40 (+1300) · 383fe4c · surprise
+All 13 non-compact, non-escape L runs are ordered fillers: A/t constant (1/10, 1/8, 1/6, 1/4, ...), mostly exact
+squares. The forced-L policy turns some chaotic rules into square-spiral fillers. Post hoc check of A/t, w/h and
+perimeter / 2(w + h) on the last three windows.
+
+### 2026-10-28 18:45 (+1300) · 383fe4c · interpretation
+No porous run among 300 bounded-policy walkers. Candidate dichotomy: bounded fresh runs and no crystallisation give
+compact growth. The confound left in Stage 1 is that F1's fresh turns are both random and unbounded. A random but
+bounded policy separates them: R and U mixed at random is bounded (a U returns at once, R closes a 2x2 block within 4).
+
+### 2026-10-28 19:30 (+1300) · 9f8a06a · decision
+Registered Stage 3c (random but bounded fresh turns RU/LU vs unbounded RLU; F1 identity gate). Priors H-bound 65%,
+H-random 25%. Added a "filler" class before running, from the Stage 3b post hoc finding.
+
+### 2026-10-28 19:50 (+1300) · 9fbcbf2 · intent
+T0' passes (`cargo test --release --locked --test fresh_set`: sparse reference, RL = F1, RU/LU bound, RLU long runs;
+hybrid_walker and fresh_turn still pass). Specs (350), runner and scorer committed before the run; the scorer was
+checked on synthetic input only (F1 and Stage 3b rows relabelled), where it reproduces Stage 1's F1 numbers.
+
+### 2026-10-28 19:45 (+1300) · 3d13c18 · observation
+Stage 3c ran (350 runs, 4 min 16 s). T3 6/6. Bounded random: A RU 47/48 compact, LU 42/48, B RU 86/100; porous 1 of
+196. Unbounded random RLU: compact 2/148, porous 73/148. Registered reading unresolved in both cohorts (LU 0.875, B RU
+0.860 under 0.90; A RLU p 0.375 under 0.50). H-random's prediction (f <= 0.50) is far off. RLU p >= 0.7 failed.
+
+### 2026-10-28 19:50 (+1300) · 3d13c18 · deviation
+The run's provenance says 2 dirty tracked files: my uncommitted fixes to `a7_census.py` and `a5_home_types.py` (other
+experiments, Python only). The probe binary does not read them; its sources were committed at `3d13c18`.
+
+### 2026-10-28 19:55 (+1300) · 3d13c18 · interpretation
+The bound on fresh runs is the strongest separator found: bounded policies 0 + 1 porous of 514 runs, unbounded 73/148
+(+ F1 39/48). Bounded randomness shifts early a by +0.056 (sd 0.040) in cohort B: compact but not the ant. My
+thresholds (0.90, 0.50, 0.70) were too sharp for the near-edge intermediates; I do not move them after the fact.
+
+### 2026-10-28 18:55 (+1300) · 367df8f · deviation
+My hand-written entry times from 18:30 onwards ran ahead of the clock (entries stamped 19:10-19:55 were written between
+18:28 and 18:44; the clock reads 18:51 as I write this). Git commit times are authoritative; the README has a table
+mapping each registration and run to its commit or provenance time. The order registration -> code -> run holds for
+Stages 3, 3b and 3c. Earlier entries are left as written.
+
+### 2026-10-28 (+1300) · merge of origin/main · deviation
+Merging main brought in Q34-Q37 (cube-root-routes proposals, numbered on main first). My questions Q34 and Q35 from
+2026-10-28 are renumbered **Q38** (forced turns crystallise rules) and **Q39** (bounded regime near 0.70); Q33 is unchanged.
+References in notes, the homepage and the notebook are updated; links pinned at `df2e5bb` still show the old numbers.

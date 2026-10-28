@@ -9,7 +9,7 @@ use `PROPTEST_RNG_SEED=20261019`; keep regression cases committed.
 |---|---|
 | Rust correctness | `cargo test --release --locked`: CPU instruments and reference agreement |
 | Simulator checks | Build from committed results; check page initialization, charts, simulation, pause/resume, rule selection and mechanism readouts |
-| Small reproducibility checks | Compare sweep/probe CSV bytes at 1 and 3 Rayon threads; compare `sweep_lean` (dense and four tiled configurations) with `sweep` byte for byte; check estimators against exact answers and an independent PRESS calculation |
+| Small reproducibility checks | Compare sweep/probe CSV bytes at 1 and 3 Rayon threads; compare `sweep_lean` (dense and four tiled configurations) with `sweep` byte for byte; check estimators against exact answers and an independent PRESS calculation; run six seeded analysis scripts under two `PYTHONHASHSEED` values and require identical bytes (`check_python_determinism.py`) |
 | Portable GPU compilation | Linux/macOS builds, WGSL validation and CLI parsing with `wgpu`; no hardware execution |
 | CUDA compilation | Compile every target with `cuda`; no GPU required and no runtime kernel validation |
 | GPU oracle checks (manual) | Run `gpu`, `onset` and `gpu_probe` equality tests on dedicated CUDA hardware |
@@ -39,6 +39,7 @@ cargo test --release --locked
 cargo check --release --locked --features cuda --all-targets
 cargo build --release --locked --bin sweep --bin sweep_lean --bin probe
 uv run --frozen python .github/scripts/check_determinism.py --output /tmp/turmite-reproducibility
+uv run --frozen python .github/scripts/check_python_determinism.py
 uv run --frozen python experiments/archive/2026-10-fixed-area-cycles/scripts/check_analysis.py
 npm ci --prefix web
 mkdir -p web/dist

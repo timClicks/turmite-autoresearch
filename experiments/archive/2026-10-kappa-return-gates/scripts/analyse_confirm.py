@@ -99,7 +99,7 @@ def analyse_band(runs, rules, band, S):
         p, _ = loo(ok.select(cols).to_numpy(), y)
         ex[name + "_delta_r2"] = float(r2(y, p, base) - rB)
     strata = pl.read_csv(EXP / "results/cohort.csv").select("base", "crust", "stationary").rename({"base": "rule"})
-    ex["rule_strata_in_evaluable"] = ok.join(strata, on="rule").group_by("crust", "stationary").len().to_dicts()
+    ex["rule_strata_in_evaluable"] = ok.join(strata, on="rule").group_by("crust", "stationary").len().sort("crust", "stationary").to_dicts()
     ex["spearman_y_g1"] = float(spearmanr(y, ok["g1"]).statistic)
     ex["spearman_y_g2"] = float(spearmanr(y, ok["g2"]).statistic)
     rep["exploratory"] = ex

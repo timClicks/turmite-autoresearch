@@ -1,16 +1,15 @@
-Reading inline script metadata from `data/b3_stats.py`
 n | rules | builder | blob | log | log frac of non-builders (+-bootstrap SE) | blob width-exp median (+-SE) | blob area-exp median
-10 | 200 | 49 | 139 | 12 | 0.079 +- 0.022 | 0.3322 +- 0.0024 (blob n=139) | 0.6794
-12 | 200 | 51 | 128 | 21 | 0.141 +- 0.028 | 0.3328 +- 0.0014 (blob n=128) | 0.6778
-14 | 200 | 44 | 140 | 16 | 0.103 +- 0.025 | 0.3300 +- 0.0020 (blob n=139) | 0.6704
-16 | 200 | 33 | 159 | 8 | 0.048 +- 0.017 | 0.3295 +- 0.0016 (blob n=159) | 0.6745
+10 | 200 | 49 | 139 | 12 | 0.079 +- 0.022 | 0.3322 +- 0.0025 (blob n=139) | 0.6794
+12 | 200 | 51 | 128 | 21 | 0.141 +- 0.029 | 0.3328 +- 0.0014 (blob n=128) | 0.6778
+14 | 200 | 44 | 140 | 16 | 0.103 +- 0.024 | 0.3300 +- 0.0019 (blob n=139) | 0.6704
+16 | 200 | 33 | 159 | 8 | 0.048 +- 0.016 | 0.3295 +- 0.0016 (blob n=159) | 0.6745
 20 | 200 | 39 | 154 | 7 | 0.043 +- 0.016 | 0.3279 +- 0.0010 (blob n=154) | 0.6721
-24 | 200 | 39 | 159 | 2 | 0.012 +- 0.009 | 0.3269 +- 0.0017 (blob n=159) | 0.6722
+24 | 200 | 39 | 159 | 2 | 0.012 +- 0.009 | 0.3269 +- 0.0018 (blob n=159) | 0.6722
 Spearman(n, log frac) = -0.83 ; Spearman(n, width exp) = -0.94
 n=14 vs control 12: log frac diff -0.038 (-1.0 SE); width exp diff -0.0028
 n=16 vs control 12: log frac diff -0.093 (-2.8 SE); width exp diff -0.0033
 n=20 vs control 12: log frac diff -0.097 (-3.0 SE); width exp diff -0.0048
-n=24 vs control 12: log frac diff -0.129 (-4.4 SE); width exp diff -0.0058
+n=24 vs control 12: log frac diff -0.129 (-4.3 SE); width exp diff -0.0058
 
 c-model R^2 on blob rules from this sample (measured c = new cells / boundary steps, k=26 window):
   n in [10,12]: 267 rules, R^2 = 0.641, corr 0.840

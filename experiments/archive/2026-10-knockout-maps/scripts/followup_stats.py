@@ -13,9 +13,9 @@ from pathlib import Path
 import numpy as np
 import polars as pl
 
-ROOT = Path(__file__).resolve().parents[2 if lib else 3]
+ROOT = Path(__file__).resolve().parents[4]
 D = ROOT
-sys.path.insert(0, str(D))
+sys.path.insert(0, str(ROOT / "experiments/_lib"))  # shared helpers (tether.py)
 from tether import density_profile, radial  # noqa: E402
 
 out = {}

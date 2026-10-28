@@ -49,3 +49,28 @@ Do not run T2 on these pairs. Next candidate (needs registering first): rule-lev
 
 ### 2026-10-15 20:45 (+13:00) · da88e61 · decision
 Close the experiment. notebook.ipynb written and executed (nbconvert under uv --with, jupyter not in pyproject.toml); covers all three analyses and matches the README. The rule-level mixed-effects regression stays an open, unregistered follow-up; not started. No commit made (not asked).
+
+### 2026-10-28 18:25 (+1300) · fc9e625 · observation
+Reproduced the non-determinism logged in `notes/ACTIVE.md`: two runs of `scripts/matched_area.py` (same environment,
+same input sha256[:16] `e813c6f21f63421c`) differ in every M2 and M3 bootstrap interval; point estimates identical.
+(`uv run --frozen scripts/matched_area.py` now refuses a PEP 723 script without a script lockfile; run with
+`uv run --frozen python scripts/matched_area.py`, which uses the project environment.)
+
+### 2026-10-28 18:40 (+1300) · 4fd558b · decision
+Fix (`4fd558b`): sort the rule list before the M2 cluster bootstrap and sort the per-rule `group_by` results used by
+the M2 between-rule fit and the M3 bootstrap. Polars returns `unique()`/`group_by()` groups in hash order, which
+changes per process, so the seeded `default_rng(20261014)` draws landed on different rules each run. Confirmed as
+the cause by the fix: three runs after it are byte-identical. Regenerated `results/matched_area.txt`.
+
+### 2026-10-28 18:45 (+1300) · 4fd558b · observation
+Regenerated intervals against the committed ones (run at `797704a`): M2 between 1.271 [1.090, 1.395] (was
+[1.107, 1.403]); within 0.420 [0.159, 0.645] (was [0.152, 0.652]); M3 all seeds k=22 [-0.742, -0.338] (was
+[-0.743, -0.333]), k=25 [-0.827, -0.508] (was [-0.827, -0.526]); open share <= 0.10 k=22 [-0.752, -0.312] (was
+[-0.762, -0.315]), k=25 [-0.823, -0.512] (was [-0.825, -0.514]). Shifts <= 0.018, the size of run-to-run wobble.
+No verdict changes: M1 failed, M2 failed (within - between = -0.851 against >= 0.3), M3 held (|rho| >= 0.30 and
+intervals exclude 0 at both windows). The old numbers were one draw from the same bootstrap distribution, not wrong
+by more than its Monte Carlo error; they were not reproducible.
+
+### 2026-10-28 18:55 (+1300) · 367df8f · deviation
+The times on my three entries above are approximate: the fix was committed at `4fd558b` (18:18 NZDT) and the
+regenerated result at `d60e0f4` (18:25). Order unchanged.

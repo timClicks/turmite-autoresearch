@@ -49,8 +49,8 @@ df = pl.DataFrame(rows).with_columns(((pl.col("inv_c") - pl.col("m").map_element
 df.write_csv(RES / "stage2_rules.csv")
 say("Stage 2: fresh Pi(m) rules, n 13..18 (blank 24 4096); filter outcome by m (Pi rules | controls)")
 for (m,), g in df.group_by("m", maintain_order=True):
-    a = dict(g.group_by("status").len().iter_rows())
-    b = dict(g.filter(pl.col("control") != "").group_by("c_status").len().iter_rows())
+    a = dict(sorted(g.group_by("status").len().iter_rows()))  # sorted for byte-stable output
+    b = dict(sorted(g.filter(pl.col("control") != "").group_by("c_status").len().iter_rows()))
     say(f"  m={m}: Pi {a} | controls {b}")
 k = df.filter(pl.col("status") == "kept")
 scored = [m for m in range(2, 7) if k.filter(pl.col("m") == m).height >= 6]

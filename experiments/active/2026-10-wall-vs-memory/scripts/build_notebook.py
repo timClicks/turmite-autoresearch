@@ -98,13 +98,41 @@ Individual-run counts against the porous thresholds, the 10% noise shifts, and t
 ![local exponents](results/fig_local_exponents.png)
 
 *Local area exponent per octave (mean, standard error). Late points for F1 and pw:0.5 come from fewer runs, since porous runs
-escape the board; the early window used for scoring is complete for all of them. Regenerate with `scripts/figure.py`.*
+escape the board; the early window used for scoring is complete for all of them. Regenerate with `scripts/figure.py`.*"""),
+md("""## Stages 3-3c: what about the fresh-ground turn matters? (registered 2026-10-28, before each run)
+Under any deterministic quarter-turn fresh policy a *fresh run* (consecutive steps from never-departed cells) closes a 2x2
+block within 4 cells; a reversal U returns at once. Random R/L (F1) is unbounded. Three explanations of Stage 1's result were
+registered: **H-bound** (bounded fresh runs are what matter), **H-chiral** (a consistent loop sense) and **H-match** (the
+fresh turn must equal the rule's colour-0 turn); Stage 3c added **H-random** (randomness on fresh ground breaks the regime by
+itself). Walkers: `ft:RULE:T` (deterministic T in R, L, U on fresh cells) and `fs:RULE:SET:SEED` (uniform draw from SET).
+Cohorts: the six Stage 1 rules (3, 3c-A) and 100 new core-class rules (3b, 3c-B). Gates: oracle tests
+(`tests/fresh_turn.rs`, `tests/fresh_set.rs`), `ft:RULE:R` equals the ant and `fs:RULE:RL` equals F1, field for field."""),
+code("""for n in ("stage3_analysis.txt", "stage3b_analysis.txt", "stage3c_analysis.txt"):
+    print(f"==== {n}"); print((R / n).read_text())"""),
+code("""b = pl.read_csv(R / "stage3b_runs.csv").select(pl.lit("deterministic").alias("policy"), pl.col("turn").alias("set"), "cls")
+c = pl.read_csv(R / "stage3c_runs.csv").select(pl.lit("random").alias("policy"), "set", "cls")
+t = pl.concat([b, c]).with_columns(bounded=~(pl.col("set").str.contains("R") & pl.col("set").str.contains("L")))
+print(t.group_by("bounded", "policy", "set").agg(runs=pl.len(), compact=(pl.col("cls") == "compact").sum(),
+      porous=(pl.col("cls") == "porous").sum(), ordered_or_escape=pl.col("cls").is_in(["escape", "filler"]).sum(),
+      intermediate=(pl.col("cls") == "intermediate").sum()).sort("bounded", "policy", "set", descending=[True, False, False]))"""),
+md("""**What this shows.** Registered readings: Stage 3 none (forced L split: two runs became one highway), Stage 3b unresolved
+(f_L 0.857), Stage 3c unresolved in both cohorts. Per-arm facts that are clean: reversal (no handedness, no colour-0 match)
+was compact in 63/63 runs that did not escape, rejecting H-chiral and H-match as registered; bounded random sets were compact in
+175/196 with one porous run, rejecting H-random's prediction (f <= 0.5). Unbounded random RLU was compact in 2/148. Note that the
+deterministic table above counts Stage 3b's 13 forced-L "intermediate" runs; post hoc they are ordered square-spiral fillers
+(A/t constant at 1/10, 1/8, 1/6 or 1/4), not porous walks.
 
-## Caveats
+**What it does not show.** That the bound *causes* compactness in general (one class of rules, finite windows), or why the bounded
+regime sits at a ~ 0.69-0.74 here. Bounded randomness is not free: it raises early a by about 0.056 over the deterministic ant.
+Dead end, exact scope only: `NR-20261028-wall-vs-memory-bounded-random-fresh-compact`."""),
+md("""## Caveats
 - Six rules from one class (blob, width exponent 0.30-0.37, not bursty); not the census.
 - Finite windows: the CSV's k is log2 of the window end, so the early fit (k = 12..22) ends at 2^22 (corrected from 2^23), the late fit at 2^26, Stage 2 at 2^30 with a last window ending at 2^31. Late fits are censored by escapes (18 of 270 stage 1 runs). D3 showed exponent crossovers can be slow.
-- "Wall" means exactly the ant's fresh-cell turn (R for canonical rules). Other ways of weakening it (partial bias, forced L,
-  intermediate rates between 0.1 and 1) were not run.
+- In Stages 1-2, "wall" means exactly the ant's fresh-cell turn (R for canonical rules). Stages 3-3c vary it (forced L,
+  reversal, random bounded sets); intermediate EF rates between 0.1 and 1 were not run.
+- Stages 3-3c: all registered readings were unresolved (thresholds narrowly missed); the summary table is an interpretation.
+  The 100 new rules and the six are from one class, selected for compact growth under R, so only the R arm is filtered
+  against highways.
 - The hybrid is not the ant: its interior is memoryless (it keeps a `departed` flag, so "interior colour-dependent turns
   removed" is more precise than "memory removed"). That randomising the fresh-cell turn breaks the ant does not mean the ant's
   mechanism is the hybrid's, nor that reflection is the cause.
@@ -113,13 +141,18 @@ escape the board; the early window used for scoring is complete for all of them.
   correction, 23:15 NZDT). The order registration -> code -> run holds.
 
 ## Next steps
-Registered in the README review addendum (item 9), not run: F-a forced L on first departure; F-b fresh-excursion mediator
-statistics; F-c longer V1/rotor with frozen windows; F-d fresh versus colour-zero noise. Proposed, not registered:
+From the README review addendum (item 9): F-a (forced L) ran as Stage 3, below; F-b is deferred (its excursion length is
+bounded by 4 for every deterministic arm); F-c (longer V1/rotor with frozen windows) and F-d (fresh versus colour-zero noise)
+are registered, not run. Proposed, not registered (Q33, Q38 and Q39 in `notes/open-questions-hypotheses.md`): a dose curve in the
+bound itself (fresh runs bounded by m cells); why forced L crystallises some rules into square-spiral fillers; why the
+bounded regime sits at a ~ 0.69-0.74. Older proposals:
 - Q30: a dose curve in EF between 0.1 and 1, to find where the reflecting edge fails and whether the loss is sharp.
 - Q31: what memory adds on top of the wall. Compare neighbour discrepancies of visit counts (local times) in the ant, the
   rotor and the hybrid.
 - Whether V1 converges to 2/3 needs a longer horizon or an argument, not more seeds at 2^31."""),
 ]
+for i, c in enumerate(cells):
+    c.id = f"cell-{i:02d}"  # fixed ids: nbformat's random ids make every rebuild differ
 nb = nbf.v4.new_notebook(cells=cells, metadata={"kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"}})
 nbf.write(nb, Path(__file__).resolve().parents[1] / "notebook.ipynb")
 print("wrote notebook.ipynb")

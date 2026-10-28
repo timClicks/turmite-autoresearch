@@ -22,7 +22,7 @@ rng = np.random.default_rng(SEED)
 tr = (pl.read_csv(SRC_TRAIN).filter((pl.col("cls") == "blob") & (pl.col("g_k").abs() < .05) & (pl.col("kappa") > 0))
       .select("rule", y=pl.col("kappa").log()))
 te = (pl.read_csv(SRC_TEST).filter((pl.col("cohort") == "stationary") & (pl.col("encoding") == "loo") & (pl.col("area") == "linear"))
-      .select("rule", y="target").unique("rule"))
+      .select("rule", y="target").unique("rule", keep="first", maintain_order=True))  # ordered: unique() alone is hash order, and the seeded bootstrap indexes rows
 overlap = len(set(tr["rule"]) & set(te["rule"]))
 rules_tr, y_tr = tr["rule"].to_list(), tr["y"].to_numpy()
 rules_te, y_te = te["rule"].to_list(), te["y"].to_numpy()

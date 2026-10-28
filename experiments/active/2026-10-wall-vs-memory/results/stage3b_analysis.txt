@@ -1,0 +1,14 @@
+# Stage 3b scoring; 300 specs, 100 rules
+
+arm R: classes {'compact': 99, 'intermediate': 1}; distinct trajectories 99 of 100
+arm L: classes {'compact': 78, 'escape': 9, 'intermediate': 13}; distinct trajectories 98 of 100
+arm U: classes {'compact': 63, 'escape': 37}; distinct trajectories 86 of 100
+T2 R arm: escapes 0 (need 0), compact 99/100 (need >= 90) -> PASS
+
+arm L: f = compact / non-escape = 78/91 = 0.857 [Wilson95 0.771, 0.915]; escape rate 9/100 = 0.090 [0.048, 0.162] (predicted 0.02-0.20)
+   non-compact, non-escape runs: RLLLLRLLLLRR intermediate (a 1.054, beta 0.502), RLLLRLLLRR intermediate (a 1.067, beta 0.506), RLRLLLLLR intermediate (a 1.000, beta 0.505), RLRLLLLLRLR intermediate (a 1.150, beta 0.500), RLRLLLLR intermediate (a 0.989, beta 0.504), RLRLLLLRRRLL intermediate (a 0.992, beta 0.503), RLRLLLLRRRLR intermediate (a 0.971, beta 0.499), RLRLRRLLLRRL intermediate (a 1.109, beta 0.524), RLRRRLRR intermediate (a 0.942, beta 0.572), RLRRRLRRRLRR intermediate (a 0.942, beta 0.572), RRLLLLRLLLRL intermediate (a 0.994, beta 0.504), RRLLLLRRLRL intermediate (a 1.031, beta 0.503), RRLLLRRLLRRR intermediate (a 1.029, beta 0.503)
+arm U: f = compact / non-escape = 63/63 = 1.000 [Wilson95 0.943, 1.000]; escape rate 37/100 = 0.370 [0.282, 0.468] (predicted 0.02-0.20)
+READING (f_L 0.857, f_U 1.000): unresolved / rule-dependent
+
+late a, rules with both R and U complete (n = 60): R mean 0.682 sd 0.018; U mean 0.687 sd 0.013
+sd_U / sd_R = 0.725, rule-bootstrap 95% [0.556, 0.958] -> prediction (interval below 1) HELD; U mean late a in [0.67, 0.72]: HELD

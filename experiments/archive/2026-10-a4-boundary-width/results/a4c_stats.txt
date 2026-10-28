@@ -1,24 +1,28 @@
-Reading inline script metadata from `data/a4c_stats.py`
+
 rotor (new, to 2^32): runs 6
   local exponent d(k) between k and k+2 (mean over runs; n): 12:0.158(6) 14:0.358(6) 16:0.142(6) 18:0.208(6) 20:0.146(6) 22:0.057(6) 24:0.164(6) 26:0.167(6) 28:0.122(6) 30:0.134(6)
-  trend of d(k) vs log10 t over k=20..32: +0.0063 per decade (bootstrap SE 0.0112, 6 points)
+  trend of d(k) vs log10 t over k=20..32: +0.0063 per decade (bootstrap SE 0.0110, 6 points)
   mean d over k>=22: 0.129
+
 ants (new, to 2^32): runs 12
   local exponent d(k) between k and k+2 (mean over runs; n): 12:0.311(12) 14:0.318(12) 16:0.219(12) 18:0.279(12) 20:0.229(12) 22:0.285(12) 24:0.316(12) 26:0.269(12) 28:0.181(12) 30:0.202(12)
-  trend of d(k) vs log10 t over k=20..32: -0.0234 per decade (bootstrap SE 0.0169, 6 points)
+  trend of d(k) vs log10 t over k=20..32: -0.0234 per decade (bootstrap SE 0.0172, 6 points)
   mean d over k>=22: 0.251
+
 rotor (stored, to 2^26): runs 40
   local exponent d(k) between k and k+2 (mean over runs; n): 12:0.232(40) 14:0.201(40) 16:0.131(40) 18:0.172(40) 20:0.167(40) 22:0.168(40) 24:0.126(40)
-  trend of d(k) vs log10 t over k=20..26: -0.0337 per decade (bootstrap SE 0.0178, 3 points)
+  trend of d(k) vs log10 t over k=20..26: -0.0337 per decade (bootstrap SE 0.0173, 3 points)
   mean d over k>=22: 0.147
+
 ants (stored, to 2^28): runs 88
   local exponent d(k) between k and k+2 (mean over runs; n): 12:0.334(88) 14:0.340(88) 16:0.326(88) 18:0.315(88) 20:0.256(88) 22:0.278(88) 24:0.249(85) 26:0.273(85)
-  trend of d(k) vs log10 t over k=20..28: +0.0035 per decade (bootstrap SE 0.0124, 4 points)
+  trend of d(k) vs log10 t over k=20..28: +0.0035 per decade (bootstrap SE 0.0126, 4 points)
   mean d over k>=22: 0.266
+
 == pooled A4 + A4c
 rotor pooled 14 runs; d(k): 12:0.219(14) 14:0.255(14) 16:0.201(14) 18:0.175(14) 20:0.162(14) 22:0.097(14) 24:0.161(14) 26:0.154(14) 28:0.135(14) 30:0.103(14) 32:0.115(6)
-  trend k=22..32: -0.0022 +- 0.0089 per decade (5 points)
-  trend k=22..34: -0.0050 +- 0.0061 per decade (6 points)
+  trend k=22..32: -0.0022 +- 0.0092 per decade (5 points)
+  trend k=22..34: -0.0050 +- 0.0066 per decade (6 points)
 ants pooled 36 runs; d(k): 12:0.305(36) 14:0.283(36) 16:0.271(36) 18:0.248(36) 20:0.260(36) 22:0.265(36) 24:0.244(36) 26:0.273(36) 28:0.200(36) 30:0.235(36) 32:0.234(12)
-  trend k=22..32: -0.0174 +- 0.0136 per decade (5 points)
+  trend k=22..32: -0.0174 +- 0.0131 per decade (5 points)
   trend k=22..34: -0.0122 +- 0.0115 per decade (6 points)

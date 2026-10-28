@@ -67,7 +67,7 @@ def med_boot(df, col, by_rule=True):
     if v.height == 0: return "n/a"
     x = v[col].to_numpy()
     m = np.median(x)
-    rules = v["rule"].unique().to_list()
+    rules = sorted(v["rule"].unique().to_list())  # sorted: unique() order varies per process and decides the bootstrap draws
     groups = [v.filter(pl.col("rule") == r)[col].to_numpy() for r in rules]
     bs = []
     for _ in range(2000):

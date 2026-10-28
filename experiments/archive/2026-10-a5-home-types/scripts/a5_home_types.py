@@ -36,7 +36,7 @@ def f1(members, pred):
 def best(idx, pool):
     mem = set(idx); bestv = (0, None, None)
     for nm in names:
-        for val in {F[i][nm] for i in idx}:
+        for val in sorted({F[i][nm] for i in idx}, key=repr):  # sorted: set order of str varies with PYTHONHASHSEED and decides ties
             tp = sum(1 for i in idx if F[i][nm] == val); fp = sum(1 for i in pool if i not in mem and F[i][nm] == val)
             sc = 2 * tp / (2 * tp + fp + (len(idx) - tp))
             if sc > bestv[0]: bestv = (sc, nm, val)

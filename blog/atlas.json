@@ -17,7 +17,7 @@
       "slug": "cube-root-growth",
       "question": "Why cube-root growth?",
       "state": "empirical-unexplained",
-      "state_summary": "Many chaotic rules cluster at the same width exponent, matching a calibrated rotor walker at finite windows; one intervention shows the repelling fresh ground is necessary in the rules tested, but the exponent remains unexplained.",
+      "state_summary": "Many chaotic rules cluster at the same width exponent, matching a calibrated rotor walker at finite windows; every accounting of the growth reproduces it without explaining it. Interventions show the fresh-ground turn matters because it forces an early return: bounded fresh-ground policies stay compact in the rules tested, unbounded ones go porous, but the exponent remains unexplained.",
       "reviewed": "2026-10-28",
       "claims": ["BO-01"],
       "evidence": [
@@ -26,7 +26,7 @@
         {"ref": "2026-10-item4-exponent-rotor-calibrated"},
         {"ref": "2026-10-a3-background-cone-control"},
         {"ref": "2026-10-b3-long-rules", "why": "Registered extension: sampled rules much longer than the census keep the width exponent near a third."},
-        {"ref": "2026-10-wall-vs-memory", "why": "Registered intervention: removing the forced turn on fresh ground makes every tested ant porous, while a memoryless walker given that turn gets most of the way to the cube root."}
+        {"ref": "2026-10-wall-vs-memory", "why": "Registered interventions: removing the forced turn on fresh ground makes every tested ant porous; forced L, reversal and random bounded turns keep growth compact unless the ant crystallises, while unbounded random turns go porous (registered readings unresolved)."}
       ],
       "counter": [
         {"ref": "2026-10-memory-walkers", "why": "Mechanism test: adding memory to a simple walker does not recover the ant."},
@@ -52,6 +52,7 @@
         {"text": "Proposal, not registered: can a one-sided excursion argument like the rotor lower bound be adapted to ants, with tethered rules failing it?", "source": "notes/cube-root-routes-2026-10-26.md"},
         {"text": "Proposal, not registered: is there a class-independent reason for stationary edge access, or does every definition of tether and edge lock reduce to kappa?", "source": "notes/cube-root-routes-2026-10-26.md"},
         {"text": "Does the repelling fresh ground alone give a cube root in the long run, and what does the interior memory add on top of it?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Does a larger cap on fresh runs delay compact growth until the territory outgrows it, and why does the bounded regime grow slightly faster than the ant?", "source": "notes/open-questions-hypotheses.md"},
         {
           "text": "Eden-style growth and internal DLA are compact yet the number-weighted collapse score still misses their diffusion; can a separately registered tail-restricted or step-weighted statistic see it before any ant reading?",
           "source": "experiments/active/2026-10-boundary-excursion-durations/README.md"
@@ -61,7 +62,7 @@
         {"ref": "2026-10-item4-exponent-rotor-calibrated", "change": "An uncalibrated extrapolation is withdrawn as too strong."},
         {"ref": "2026-10-memory-walkers", "change": "Memory alone is shown not to be enough."},
         {"ref": "2026-10-kappa-first-passage", "change": "The renewal identity is confirmed as an identity and its prediction fails."},
-        {"ref": "2026-10-wall-vs-memory", "change": "Randomising the first-departure turn disrupts compact growth in the tested rules; the mechanism is not isolated."},
+        {"ref": "2026-10-wall-vs-memory", "change": "Follow-ups locate the fresh-ground effect in the bound on fresh runs, not in handedness or randomness."},
         {
           "ref": "2026-10-boundary-excursion-durations",
           "change": "Revision 2: Eden-style growth and internal DLA pass compactness, yet the collapse score misses diffusion; confirmation stays reserved."

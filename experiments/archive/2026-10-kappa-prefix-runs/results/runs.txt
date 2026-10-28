@@ -1,10 +1,10 @@
-# cmd: uv run experiments/2026-10-20-kappa-prefix-runs/scripts/runs.py  seed 20261020  bootstraps 2000  (registered; README commit 17ad529)
+# cmd: uv run experiments/archive/2026-10-kappa-prefix-runs/scripts/runs.py  seed 20261020  bootstraps 2000  (registered; README commit 17ad529)
 train 2185, test 162, overlap 0; training mean ln kappa -0.134
-P8  R^2 +0.624  95% CI [+0.472, +0.732]
-R1  R^2 -0.004  95% CI [-0.034, +0.013]  vs P8 -0.628 [-0.731, -0.482]
-R2  R^2 +0.246  95% CI [+0.120, +0.369]  vs P8 -0.378 [-0.517, -0.213]
-R3  R^2 +0.337  95% CI [+0.202, +0.482]  vs P8 -0.288 [-0.430, -0.118]
-R4  R^2 +0.475  95% CI [+0.286, +0.627]  vs P8 -0.149 [-0.260, -0.047]
+P8  R^2 +0.624  95% CI [+0.479, +0.730]
+R1  R^2 -0.004  95% CI [-0.033, +0.013]  vs P8 -0.628 [-0.730, -0.486]
+R2  R^2 +0.246  95% CI [+0.118, +0.383]  vs P8 -0.378 [-0.514, -0.226]
+R3  R^2 +0.337  95% CI [+0.206, +0.481]  vs P8 -0.288 [-0.424, -0.132]
+R4  R^2 +0.475  95% CI [+0.292, +0.626]  vs P8 -0.149 [-0.252, -0.049]
 H1 R1 >= 0.15: FAILED
 H2 R2 >= 0.40: FAILED
 H3 R3 within 0.10 of P8: FAILED

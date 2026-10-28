@@ -71,7 +71,7 @@ print("tethered rules (n>=8 only, to match lengths): >=1:", round(float((r.filte
 rng2 = np.random.default_rng(20261013)
 sim_frac05, sim_frac10, sim_med = [], [], []
 pairs = 0
-for (rule,), g in m.group_by("rule"):
+for (rule,), g in sorted(m.group_by("rule"), key=lambda kv: kv[0]):  # sorted: polars group order is per-process hash order; the seeded draws below depend on it
     g = g.sort("k"); ks = g["k"].to_list()
     if ks[-3:] != [24, 25, 26]: continue
     hb = np.array(g["hb"].to_list())[-3:]; hb = hb.astype(np.int64); N = hb.sum(1)

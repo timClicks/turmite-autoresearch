@@ -18,5 +18,5 @@ mf    (n=8) median: w1 0.601, first1 0.000, first2p 0.000, ret1 0.601, ret2p 0.3
 
 SENSITIVITY (post hoc): drop patched runs with births/step > 0.05 in window 26
 flagged runs: [('RLLLRLLL@2', 0.4997725486755371), ('RLRRRRLRR@1', 0.250116229057312), ('RLRRRRLRR@3', 0.250116229057312)]
-rules 64; median rho 0.8741, frac rho>=1 0.281; median Q 1.3493 [1.0987, 1.5939], frac Q>1 0.641; Spearman(rho, exposed share) +0.2069; Spearman(rho, rho1_ret) +0.9217, (rho, rho2p_ret) +0.6095, (rho, Q) +0.0021
+rules 64; median rho 0.8741, frac rho>=1 0.281; median Q 1.3493 [1.0910, 1.5926], frac Q>1 0.641; Spearman(rho, exposed share) +0.2069; Spearman(rho, rho1_ret) +0.9217, (rho, rho2p_ret) +0.6095, (rho, Q) +0.0021
 max rule-mean rho1_ret 1.009, rho2p_ret 1.939
