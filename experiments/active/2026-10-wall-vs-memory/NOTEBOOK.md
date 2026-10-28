@@ -191,3 +191,7 @@ perimeter / 2(w + h) on the last three windows.
 No porous run among 300 bounded-policy walkers. Candidate dichotomy: bounded fresh runs and no crystallisation give
 compact growth. The confound left in Stage 1 is that F1's fresh turns are both random and unbounded. A random but
 bounded policy separates them: R and U mixed at random is bounded (a U returns at once, R closes a 2x2 block within 4).
+
+### 2026-10-28 19:30 (+1300) · 9f8a06a · decision
+Registered Stage 3c (random but bounded fresh turns RU/LU vs unbounded RLU; F1 identity gate). Priors H-bound 65%,
+H-random 25%. Added a "filler" class before running, from the Stage 3b post hoc finding.

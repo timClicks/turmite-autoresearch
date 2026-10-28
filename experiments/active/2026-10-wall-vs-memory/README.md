@@ -763,3 +763,65 @@ turn's handedness and its match with colour 0 decide only which ordered structur
 highways; L: highways and fillers; R: neither, by the selection of this cohort). This reading predicts
 something Stage 1 could not separate: F1 (random R/L on fresh cells) was porous because its fresh
 runs are *unbounded*, not because they are random. Stage 3c tests exactly that.
+
+## Stage 3c: random but bounded fresh turns (registered 2026-10-28 19:30 NZDT, before any code or run)
+
+Base commit `9f8a06aa`. Informed by Stages 3 and 3b, and says so. Question: was F1 porous because its
+fresh turns were **random** or because its fresh runs were **unbounded**? Stage 1 could not tell:
+random R/L does both.
+
+Walker `fs:RULE:SET:SEED`: the ant `RULE`, except that on a fresh (never departed) cell the turn is
+drawn uniformly from `SET` (letters from R, L, U; U a reversal). One SplitMix64 draw per step,
+seeded by SEED, consumed on every step as in `hy:`; on a fresh cell the high 32 bits pick
+`SET[(high32 * |SET|) >> 32]`. With `SET = RL` this is exactly F1, `hy:RULE:0:1:SEED`, step for step
+(gate T3).
+
+Exact properties (by construction; checked by the oracle test):
+- `RU`, `LU`: **bounded**. A U steps straight back onto the cell just departed; a run of equal quarter
+  turns closes a 2x2 block within 4 cells. So a fresh run has at most 4 cells (5 for the run that
+  starts at the origin, whose U has no departed predecessor), whatever the draws.
+- `RL`, `RLU`: **unbounded**. Alternating R and L draws make a staircase into fresh ground, with
+  probability > 0 for every length.
+
+Explanations:
+- **H-bound (the Stage 3b dichotomy).** Bounded fresh runs and no crystallisation give compact growth;
+  randomness on fresh ground is harmless if runs stay bounded. Predicts: `RU` and `LU` compact;
+  `RLU` porous like F1.
+- **H-random.** Randomising the fresh turn breaks the compact regime by itself (for example by
+  breaking first-visit correlations with the colour field), whatever the bound. Predicts: `RU` and
+  `LU` not compact.
+
+Cohorts and specs (`results/stage3c_specs.txt`, made by `scripts/select_stage3c.py`):
+- **A**: the six Stage 1 rules x the eight Stage 1 seeds 2026102601..08, arms `RU`, `LU`, `RLU`
+  (144 runs), directly comparable with F1 (`hy:RULE:0:1:SEED`, committed in `results/probe.csv`).
+- **B**: the 100 Stage 3b rules x one seed 2026102801, arms `RU` and `RLU` (200 runs).
+- Gate T3 specs: `fs:RULE:RL:2026102601` for the six Stage 1 rules (6 runs), compared field for field
+  with the committed `hy:RULE:0:1:2026102601` rows.
+
+Classes per run (all named before running): escape, stalled (as Stage 3b), **filler** (added now from
+the Stage 3b post hoc finding: early a >= 0.90, early beta <= 0.62, and A/t over the last three
+windows within 3% of their mean), then Stage 1's `classify()`.
+
+Primary measure per (cohort, arm): f = compact / (runs that are neither escape nor filler), Wilson 95%;
+and p = porous / (same denominator).
+
+Reading (each cohort scored separately; A by runs, with rules as the independent units noted):
+- `RU` (and in A also `LU`) f >= 0.90 and `RLU` p >= 0.50: **H-bound** supported.
+- `RU` (and `LU`) f <= 0.50: **H-random** supported.
+- Anything else, or the cohorts disagree: unresolved.
+
+Side predictions (mine): in A, condition-mean early a for `RU` <= 0.78 in >= 5 of 6 rules; escape rate
+under `RU` below 5% in both cohorts (random fresh turns should rarely sustain a highway's leading
+edge); `RLU` porous fraction p >= 0.7 in both cohorts (F1 run-level porous was 39/48 = 0.81).
+
+**Priors:** H-bound about 65%, H-random about 25%, unresolved 10%. Against H-bound: random fresh
+turns add noise exactly where the ant's trajectory first meets new ground, which Stage 1 showed is
+where the regime is decided; for example the colour pattern laid at the edge may matter, not just
+how far the walker goes.
+
+Gates: T0' (`cargo test --release --locked --test fresh_set` passes: sparse reference, the bound for
+`RU`/`LU`, an unbounded run observed for `RLU`), T3 (above). Pruning preflight: no entries added since
+`4fd558b`; `NR-20261026` covers exactly the `hy:RULE:0:1:SEED` specs (F1); the `fs:` arms other than
+the T3 gate are not members, and the T3 gate is a deliberate replication of six F1 specs as an
+identity check. Decision **run**. Budget: 350 runs of 2^27 steps on 3-4 cores (minutes). No extension
+without a new registration.
