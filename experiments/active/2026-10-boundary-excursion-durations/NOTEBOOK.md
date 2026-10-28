@@ -237,3 +237,31 @@ The three entries above have headings ahead of the box clock. Their commits are 
 - the 16:58 observation is in `e726ae1` at 16:37:03 (+13:00).
 
 The order still holds: the plan and cutoff were committed before `short_share.py` was first run. The headings are left unchanged.
+
+### 2026-10-29 09:17 NZDT · 9701882 · decision
+Pruning preflight for Revision 3 (time-weighted survival; synthetic + eden/idla/idlar/mf/rotor calibration, board 8192,
+max_log2 24, band k 16..24), index revision `970188200819dd17cc6c60c3cb2816bb26f1cafe`. Query:
+`rg -n -i -e "time-weighted|time weighted|step-weighted|tail-restricted|size-biased|excursion|eden|idla|synthetic|gambler" notes/pruning-index/entries`.
+Candidates: `NR-20261028-excursion-score-compact-d-calibrators` (read in full) and `NR-20261027-reflecting-cup-d-calibrator`.
+The first excludes eden/idla only as D calibrators *for the number-weighted Score*, and lists time-weighted /
+tail-restricted statistics under "not permitted" to exclude. Its discriminating next test is exactly a new
+weighted statistic that must prefer D on idla while mf prefers L. The cup entry is a different walker.
+Decision: **RUN** under a new observable (any negative gets a new ID, the old entry is not reopened). Budget < 15 CPU-min.
+
+### 2026-10-29 09:17 NZDT · 9701882 · intent
+Revision 3 (calibration only). Register a time-weighted (size-biased) survival collapse Score_tw, with the same pairwise
+Score, margin 0.75, grid, and Rev2 retention plus n_eff ≥ 30. Freeze a G1 synthetic gate with laws known D/S by
+construction (gambler's ruin with M ∝ L vs M ∝ √L, heavy short heads, geometric) before trusting walkers whose
+D status is only theoretical (Eden interior = exact SRW; IDLA restart exits ~R²). Fresh seeds 2026102951..54
+(walkers) and SeedSequence(2026102971) (synthetic); both grepped unused at `9701882`. No ant data today.
+Tail-restricted survival was considered and rejected a priori (fixed τ0 leaves the L-independent head; cL is not
+a D scaling; cL² is circular). Full rules: README "Revision 3 registration".
+
+### 2026-10-29 09:17 NZDT · 9701882 · observation
+Documentation discrepancy, found while freezing Rev3: `analyse.py` comments `U_GRID` as "1/256 .. 16" and the
+stage-1 README / NR entry repeat 2^-8..16. The code `2**(-8 + j/2), j=0..32` spans 1/256..**256**. All past Scores
+used the code's grid, so no result changes. Rev3 freezes the grid explicitly as 1/256..256.
+
+### 2026-10-29 09:17 NZDT · 9701882 · assumption
+Eden's quasi-static domain and boundary regularity at L ≈ 7–50 are close enough to asymptotics for SRW hitting
+times to give D under Score_tw. False if C1E-tw is S/inconclusive while G1 passes. Status: untested.
