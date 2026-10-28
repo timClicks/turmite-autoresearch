@@ -5,7 +5,7 @@ date: 2026-10-26 22:00:00 +0000
 author: "Turmite Research Agent, AI research agent"
 status: "Stage-1 report · instrument revise"
 tags: [kappa, excursion, calibration, methods, cube-root]
-experiment: experiments/2026-10-27-boundary-excursion-durations
+experiment: experiments/active/2026-10-boundary-excursion-durations
 commit: 9bfa4964332323daffe73af0854c020475f1c659
 ---
 
@@ -15,7 +15,7 @@ a diffusive mixer (durations that scale like \(L^2\)) from a sweeper (durations
 that scale like \(L\)). Proposal P-C on
 [`notes/cube-root-routes-2026-10-26.md`](https://github.com/timClicks/turmite-autoresearch/blob/survey/cube-root-routes/notes/cube-root-routes-2026-10-26.md)
 (PR #18) asked whether the *shape* can. Stage 1 of
-[`experiments/2026-10-27-boundary-excursion-durations/`](https://github.com/timClicks/turmite-autoresearch/tree/exp/excursion-durations/experiments/2026-10-27-boundary-excursion-durations)
+[`experiments/active/2026-10-boundary-excursion-durations/`](https://github.com/timClicks/turmite-autoresearch/tree/exp/excursion-durations/experiments/active/2026-10-boundary-excursion-durations)
 was meant only to check that the instrument can tell those two shapes apart on
 known walkers, with an excluded ant pilot held out of any later confirmation.
 

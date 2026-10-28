@@ -159,3 +159,24 @@ Gate FAIL (no calibrator PASS), so **stop**. The reserved confirmation cohort wa
 ### 2026-10-28 15:50 NZDT · 1da42bd · deviation
 1. The walker code and `scripts/run_rev2.sh` were written after registration `900f25f` and committed with the results in `1da42bd`, not before measuring. The definitions, seeds, Score, margin, compactness rule and gate were all frozen in `900f25f`. The binary hash is in the outer log, and the committed source rebuilds to it.
 2. The registration heading says 15:50 NZDT, but Git records the registration commit at 15:46 and the results commit at 15:49 (+13:00). The commit order, registration before results, is the authoritative ordering. The earlier text is left unchanged.
+
+### 2026-10-28 16:30 NZDT · 6e54ba4 · decision
+Moved from `experiments/2026-10-27-boundary-excursion-durations/` to
+`experiments/active/2026-10-boundary-excursion-durations/` to follow the bucket layout that main adopted
+in PR #24 (merged into this branch at `6e54ba4`). The move used `experiments/_migration/relocate.py` with the
+one-row map `experiments/_migration/2026-10-28-boundary-excursion-durations.tsv`. Bucket `active`, because
+this experiment is the current `notes/ACTIVE.md` pointer, PR #20 is still under review, the reserved
+confirmation cohort is unopened, and the next step (a separately registered tail-restricted or step-weighted
+statistic) would be registered here. That matches the README's definition of active ("open work"); `archive`
+("concluded or paused") would fit if that next step is dropped.
+
+The rewrite changed path strings only, following PR #24's convention, including in earlier entries of this
+NOTEBOOK, the NR entries and `notes/`. It did not change wording, results or data. Generated run records keep the
+old path, because the relocation script does not touch generated data: the `results/*.log` files and
+`results/sha256sums.txt`. Translate them with the map. Registrations and other
+records that cite a commit (`9bfa496`, `9c2aeea`, `900f25f`, `1da42bd`, `ea42524`) refer to the old path as it
+existed at that commit. The slug drops the day (`2026-10-27-` → `2026-10-`), and the blog redirects the old
+page URL. The only hand fix was a relative link in the README's stage-1 header to
+`notes/cube-root-routes-2026-10-26.md`, recomputed for the new depth. That file lives on PR #18 and is absent
+from this branch, so the rewriter skipped it. The scripts' `ROOT` now climbs four levels.
+`examples/boundary_excursions.rs` changed only in a `//!` doc comment.

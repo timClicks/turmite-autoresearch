@@ -88,6 +88,7 @@ only, no wording or results changed. Bucket assignments follow each README's sta
 | `experiments/2026-10-23-macos-gpu` | [`experiments/active/2026-10-macos-gpu`](active/2026-10-macos-gpu/README.md) | maintained instrument: wgpu/Metal sweeper guide (linked from AGENTS.md) |
 | `experiments/2026-10-23-tiled-grid-backend` | [`experiments/active/2026-10-tiled-grid-backend`](active/2026-10-tiled-grid-backend/README.md) | maintained instrument: tiled backend DESIGN.md; optional follow-ups open |
 | `experiments/2026-10-26-wall-vs-memory` | [`experiments/active/2026-10-wall-vs-memory`](active/2026-10-wall-vs-memory/README.md) | open: follow-ups F-a..F-d registered; Q30, Q31 |
+| `experiments/2026-10-27-boundary-excursion-durations` | [`experiments/active/2026-10-boundary-excursion-durations`](active/2026-10-boundary-excursion-durations/README.md) | moved 2026-10-28 by [`_migration/2026-10-28-boundary-excursion-durations.tsv`](_migration/2026-10-28-boundary-excursion-durations.tsv) after this reorganisation (branch `exp/excursion-durations`, PR #20); open: current notes/ACTIVE.md pointer, confirmation cohort reserved and unopened |
 
 ### Proposed
 

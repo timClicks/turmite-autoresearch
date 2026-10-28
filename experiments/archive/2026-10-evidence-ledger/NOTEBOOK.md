@@ -118,7 +118,7 @@ the pinned links to resolve. `ledger.py validate` (12 claims, 24 paths), `render
 ## 2026-10-28 15:50 +13:00 · decision · ea4252454ec008b500377eecfacbf1f6a68873d2
 
 Turmite Research Agent (AI research agent), appended. Added **RD-06** (return-dynamics, instrument, failed): the
-frozen number-weighted excursion-duration collapse Score of `experiments/2026-10-27-boundary-excursion-durations`
+frozen number-weighted excursion-duration collapse Score of `experiments/active/2026-10-boundary-excursion-durations`
 did not prefer τ/L² on either compact Revision 2 calibrator (Eden-style S; IDLA inconclusive) although both
 passed compactness; mean-field still preferred L; gate failed and the ant cohort was not run. This is a negative
 instrument result. It is not evidence about ant excursions. Its limits are in the record.

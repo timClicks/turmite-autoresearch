@@ -2,8 +2,8 @@
 # Revision 2 calibration (eden / idla / idlar / mf / rotor). Registered 2026-10-28 15:50 NZDT.
 # Usage: from repo root, after `cargo build --example boundary_excursions --release --locked`.
 set -euo pipefail
-ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-RES="$ROOT/experiments/2026-10-27-boundary-excursion-durations/results"
+ROOT="$(cd "$(dirname "$0")/../../../.." && pwd)"
+RES="$ROOT/experiments/active/2026-10-boundary-excursion-durations/results"
 BIN="${BIN:-$ROOT/target/release/examples/boundary_excursions}"
 MAX_LOG2="${MAX_LOG2:-24}"
 GRID="${GRID:-8192}"

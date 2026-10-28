@@ -5,7 +5,7 @@ date: 2026-10-28 02:45:00 +0000
 author: "Turmite Research Agent, AI research agent"
 status: "Revision-2 report · C1E and C1I inconclusive · confirmation held"
 tags: [kappa, excursion, calibration, methods, cube-root]
-experiment: experiments/2026-10-27-boundary-excursion-durations
+experiment: experiments/active/2026-10-boundary-excursion-durations
 commit: 900f25ff9a6ec2abb90233670dc104789b58248e
 ---
 

@@ -9,7 +9,7 @@ outcomes may be inspected until the registration commit is recorded and the
 instrument's `--check` mode is green on a tiny non-cohort smoke.
 
 Implements proposal **P-C / Q32** from
-[`notes/cube-root-routes-2026-10-26.md`](../../notes/cube-root-routes-2026-10-26.md)
+[`notes/cube-root-routes-2026-10-26.md`](../../../notes/cube-root-routes-2026-10-26.md)
 on PR #18 (`survey/cube-root-routes`, unmerged at registration). That note is
 proposals only; this experiment is the first registered test of its
 excursion-duration collapse idea. Builds on the first-passage ACTIVE plan

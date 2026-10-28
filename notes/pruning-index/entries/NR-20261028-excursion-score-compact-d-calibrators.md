@@ -35,7 +35,7 @@
 
 ## Evidence and limits
 
-- Preregistered criterion: `experiments/2026-10-27-boundary-excursion-durations/README.md`, "Revision 2 registration", at `900f25ff9a6ec2abb90233670dc104789b58248e`. PASS requires compactness, verdict D, and a verdict that is not censoring-fragile.
+- Preregistered criterion: `experiments/active/2026-10-boundary-excursion-durations/README.md`, "Revision 2 registration", at `900f25ff9a6ec2abb90233670dc104789b58248e`. PASS requires compactness, verdict D, and a verdict that is not censoring-fragile.
 - Evidence revision: `1da42bdb2c3c23fb0d20bf99af4baefec5b9575d`
 - Inputs/results (SHA-256): `results/rev2_calib_specs.txt` 939c3132eb1729440aaf3b3205fd23a882dd2f2ac84c666588d9c849c62496a4; `results/rev2_calib_windows.csv` 090415656e42ab0ed44e3584b45c2bf75b88c4413949ecebc4b0578421f7dd1d; `results/rev2_calib_hist.csv` a2618ce9cfe40cceff22ade5ed73b1a368ece67291e16fa68298f9b1eaa99718; `results/rev2_analysis.json` 94d5f7d2f7e6ddf5362e1254c766d46b4a04727d02d313ed15882c5a0f733316.
 - Recipe: `scripts/run_rev2.sh`, then `uv run scripts/analyse.py rev2`. Binary sha256 `9f282ce855e0397954dd96c64ef983ed116153e020088c87a36b93532c935688`.
@@ -56,7 +56,7 @@
 - Reopen if: a correction to the Score or the retention code changes these verdicts, or a re-registration uses a different observable. In the second case the new observable gets a new ID; this entry is not reopened.
 - Discriminating next test: a newly registered tail-restricted or step-weighted collapse statistic. It must prefer D on `idla` while mean-field still prefers L, before any ant data.
 - Experiment / lab notebook / scientific note:
-  - `experiments/2026-10-27-boundary-excursion-durations/` README "Revision 2 results".
+  - `experiments/active/2026-10-boundary-excursion-durations/` README "Revision 2 results".
   - NOTEBOOK 2026-10-28 15:50 NZDT.
   - `notes/open-questions-hypotheses.md`, the 2026-10-27 excursion section.
 - Related signature IDs: `NR-20261027-reflecting-cup-d-calibrator`. It has the same objective and failed compactness as well. This entry extends the null to compact walkers.

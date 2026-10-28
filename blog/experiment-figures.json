@@ -97,44 +97,44 @@
       "recipe": "experiments/archive/2026-10-snapshots/README.md"
     },
     "excursion-cup-010": {
-      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/ccdf_cup_010.png",
+      "path": "experiments/active/2026-10-boundary-excursion-durations/results/figures/ccdf_cup_010.png",
       "alt": "CCDF of cup-walker excursion durations coloured by window-end L, shown under tau/L and tau/L-squared scalings.",
       "caption": "Revision-1 primary reflecting cup (stay-on-reject, p frozen before Scores). Collapse Score preferred the sweep scaling; confirmation was not run.",
-      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+      "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/build_figures.py"
     },
     "excursion-cup-compactness": {
-      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/cup_compactness.png",
+      "path": "experiments/active/2026-10-boundary-excursion-durations/results/figures/cup_compactness.png",
       "alt": "Two panels: isoperimetric proxy A over P squared and linear size L versus window index for three frozen cup probabilities.",
       "caption": "Cup compactness diagnostics: L grows, but the frozen filled-blob cut on A/P squared fails for every reported p.",
-      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+      "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/build_figures.py"
     },
     "excursion-mf-rev1": {
-      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/ccdf_mf_rev1.png",
+      "path": "experiments/active/2026-10-boundary-excursion-durations/results/figures/ccdf_mf_rev1.png",
       "alt": "CCDF of mean-field excursion durations under tau/L and tau/L-squared with fresh Revision-1 seeds.",
       "caption": "Revision-1 mean-field L-control: Score still prefers the sweep scaling under the frozen margin.",
-      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+      "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/build_figures.py"
     },
     "excursion-rev2-compactness": {
-      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/rev2_compactness.png",
+      "path": "experiments/active/2026-10-boundary-excursion-durations/results/figures/rev2_compactness.png",
       "alt": "Two panels: isoperimetric proxy A over P squared and linear size L versus window index for the Eden-style and internal-DLA walkers.",
       "caption": "Revision-2 compactness diagnostics: both the Eden-style and internal-DLA territories grow in L and pass the frozen filled-blob cut that the reflecting cup failed.",
-      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+      "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/build_figures.py"
     },
     "excursion-idla": {
-      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/ccdf_idla.png",
+      "path": "experiments/active/2026-10-boundary-excursion-durations/results/figures/ccdf_idla.png",
       "alt": "CCDF of internal-DLA excursion durations coloured by window-end L, shown under tau/L and tau/L-squared scalings.",
       "caption": "Revision-2 internal DLA, with origin restarts counted as excursions. The long tail lines up better under tau/L-squared (a post hoc reading), but the number-weighted Score is dominated by the shared short head and stays inconclusive.",
-      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+      "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/build_figures.py"
     },
     "excursion-eden": {
-      "path": "experiments/2026-10-27-boundary-excursion-durations/results/figures/ccdf_eden.png",
+      "path": "experiments/active/2026-10-boundary-excursion-durations/results/figures/ccdf_eden.png",
       "alt": "CCDF of Eden-style walker excursion durations coloured by window-end L, shown under tau/L and tau/L-squared scalings.",
       "caption": "Revision-2 Eden-style walker: a compact territory, yet the frozen Score prefers the sweep scaling, because returns launched from the boundary are short at every L.",
-      "recipe": "experiments/2026-10-27-boundary-excursion-durations/scripts/build_figures.py"
+      "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/build_figures.py"
     }
   },
   "experiments": {
-    "2026-10-27-boundary-excursion-durations": [
+    "2026-10-boundary-excursion-durations": [
       "excursion-cup-010",
       "excursion-cup-compactness",
       "excursion-mf-rev1",

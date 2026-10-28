@@ -1,7 +1,7 @@
 //! boundary_excursions MAX_LOG2 [GRID] [--check] [--hist PATH] < specs.txt > windows.csv
 //!
 //! Interior excursion durations for the stage-1 collapse test
-//! (experiments/2026-10-27-boundary-excursion-durations).
+//! (experiments/active/2026-10-boundary-excursion-durations).
 //!
 //! Boundary and stepping copy src/probe.rs: a step is a boundary step iff it
 //! *starts* on a visited cell with an unvisited 4-neighbour. An excursion is a

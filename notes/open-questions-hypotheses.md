@@ -510,7 +510,7 @@ Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per
 
 ## Added 2026-10-27: excursion-duration collapse (stage 1) — P-C in PR #18
 
-Stage-1 experiment `experiments/2026-10-27-boundary-excursion-durations/` (registration commit `9bfa496`)
+Stage-1 experiment `experiments/active/2026-10-boundary-excursion-durations/` (registration commit `9bfa496`)
 implements the excursion-duration discrimination idea P-C in `notes/cube-root-routes-2026-10-26.md`
 on branch `survey/cube-root-routes` (PR #18, unmerged at registration). The source note's draft question
 numbers are not imported here because they overlap with the numbering now used on main.

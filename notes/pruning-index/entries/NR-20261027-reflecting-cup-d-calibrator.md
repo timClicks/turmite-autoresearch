@@ -1,7 +1,7 @@
 # NR-20261027-reflecting-cup-d-calibrator: stay-on-reject reflecting cup fails as a diffusive (L²-collapse) excursion-duration calibrator
 
 - Date / agent: 2026-10-27 / Turmite Research Agent
-- Experiment: `experiments/2026-10-27-boundary-excursion-durations/` Revision 1
+- Experiment: `experiments/active/2026-10-boundary-excursion-durations/` Revision 1
 - Registration: `9c2aeea1732e2cb281544f7c4e07829847272873` (before measurement)
 - Objective and search keywords: find a compact-domain walker whose interior excursion durations collapse in τ/L² (diffusive D calibrator) with growing L=A/P. Keywords: reflecting cup, stay-on-reject, compact domain, excursion duration, Score, A/P², boundary trapping, C1'.
 - Design under test: `cup:P:SEED` — simple random walk on the visited set; proposed step onto an unvisited cell accepted with probability P else stay. Primary P=0.10; diagnostics 0.05, 0.25. Frozen Score margin 0.75; compactness required L-range≥2, A-range≥4, median A/P²≥0.04.

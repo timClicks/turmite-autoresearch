@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Excluded development pilot. Do NOT run reserved_confirmation_specs.txt.
 set -euo pipefail
-ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-EXP="$ROOT/experiments/2026-10-27-boundary-excursion-durations"
+ROOT="$(cd "$(dirname "$0")/../../../.." && pwd)"
+EXP="$ROOT/experiments/active/2026-10-boundary-excursion-durations"
 RES="$EXP/results"
 BIN="${BIN:-$ROOT/target/release/examples/boundary_excursions}"
 MAX_LOG2="${MAX_LOG2:-24}"
