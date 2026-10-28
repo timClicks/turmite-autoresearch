@@ -54,8 +54,8 @@ stabilizes remain unresolved.
   These are existing saved results, not new estimates. Exclusions, near-stall
   tails, controls and the exploratory other-seed check remain explicit.
 - Prefix result: the manuscript loads
-  `research-outputs/cube-root-growth-paper/kappa_prediction.json`, extracted by
-  `uv run research-outputs/cube-root-growth-paper/kappa_prediction_numbers.py`
+  `research-outputs/scholarly-articles/cube-root-growth/kappa_prediction.json`, extracted by
+  `uv run research-outputs/scholarly-articles/cube-root-growth/kappa_prediction_numbers.py`
   from the recorded W3c results. On 162 stationary fresh rules, prefix-only
   strict R² is 0.633; adding prefix to early area improves R² by 0.240
   [0.148, 0.347], 2,000 rule bootstraps, seed 20261045. The training set is
@@ -86,7 +86,7 @@ Existing failed precision gates must be resolved rather than bypassed.
 
 ## Manuscript changes
 
-Edited `research-outputs/cube-root-growth-paper/main.typ`: subtitle,
+Edited `research-outputs/scholarly-articles/cube-root-growth/main.typ`: subtitle,
 contribution list, factor definitions and scaling assumptions, geometry
 prefactor, original P5 interpretation, prefix-score interpretation,
 future-window forecast scope, outlier caption, interior-mixing claims,
@@ -97,7 +97,7 @@ Verification commands (WSL, repository root):
 
 ```bash
 export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
-typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+typst compile --root . research-outputs/scholarly-articles/cube-root-growth/main.typ research-outputs/scholarly-articles/cube-root-growth/main.pdf
 cargo test --release
 ```
 

@@ -11,16 +11,18 @@ authors:
     orcid: "https://orcid.org/0000-0002-2494-2700"
     affiliation: "Accelerant Limited"
 # Copyright holder: Accelerant Limited. The author asserts the moral right of attribution.
-# Code is MIT OR Apache-2.0. Data under experiments/*/*/results/ is CC0-1.0 and writing and
-# figures are CC-BY-4.0; see LICENSE.md. CFF can only express the code license here.
+# Code is MIT OR Apache-2.0. Data under experiments/*/*/results/ and everything under
+# research-outputs/data-papers/ is CC0-1.0; writing and figures are CC-BY-4.0; see LICENSE.md.
+# CFF can only express the code license here.
 license:
   - MIT
   - Apache-2.0
 repository-code: "https://github.com/timClicks/turmite-autoresearch"
 url: "https://github.com/timClicks/turmite-autoresearch"
 # Add when known: version, date-released, and doi (Zenodo).
-# The manuscript in research-outputs/cube-root-growth-paper/ is the preferred citation. Update
-# type/status, and add doi, url and year/date-released, when it is posted or published.
+# The manuscript in research-outputs/scholarly-articles/cube-root-growth/ is the preferred citation. Update
+# type/status, and add doi and date-released, when it is posted or published. BibTeX for each
+# manuscript and dataset is in CITATION.bib in its research-outputs/ folder.
 preferred-citation:
   type: unpublished
   title: "Cube-root growth of most non-highway generalised Langton's ants of length up to 12"
@@ -30,4 +32,6 @@ preferred-citation:
       orcid: "https://orcid.org/0000-0002-2494-2700"
       affiliation: "Accelerant Limited"
   year: 2026
+  month: 10
+  url: "https://github.com/timClicks/turmite-autoresearch/tree/main/research-outputs/scholarly-articles/cube-root-growth"
   notes: "Draft manuscript; not yet posted or peer reviewed."

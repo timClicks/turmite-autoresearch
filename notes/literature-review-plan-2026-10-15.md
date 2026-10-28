@@ -21,8 +21,8 @@ The review must answer three questions:
 3. What comparisons are needed to interpret the wider ant boundary without
    prematurely assigning an interface universality class?
 
-Start from the current [manuscript](../research-outputs/cube-root-growth-paper/main.typ)
-and [bibliography](../research-outputs/cube-root-growth-paper/refs.bib), the original
+Start from the current [manuscript](../research-outputs/scholarly-articles/cube-root-growth/main.typ)
+and [bibliography](../research-outputs/scholarly-articles/cube-root-growth/refs.bib), the original
 [cube-root hypothesis](cube-root-hypothesis.md), and the current
 [research avenues](paper-gaps-research-avenues-2026-10-15.md). Preserve the original
 hypotheses and failed predictions; append corrections rather than rewriting them.

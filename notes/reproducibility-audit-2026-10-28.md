@@ -44,8 +44,8 @@ flagged count was 18 in the note, 20 in the committed file and 19-20 on fresh ru
 `kappa-matched-area` README and NOTEBOOK. The cached `hull-width` and `kappa-matched-area` notebooks were
 re-executed.
 
-**Paper numbers.** `research-outputs/cube-root-growth-paper/compute_numbers.py` was deterministic in both runs. No
-script under `research-outputs/` reads the affected results, except `focused-papers`, which cites
+**Paper numbers.** `research-outputs/scholarly-articles/cube-root-growth/compute_numbers.py` was deterministic in both runs. No
+script under `research-outputs/` reads the affected results, except `working-papers/`, which cites
 `kappa-prefix-family-holdout` (not affected).
 
 ### Not runnable in this checkout (26), and static review
@@ -58,7 +58,7 @@ script under `research-outputs/` reads the affected results, except `focused-pap
 - Needs arguments (2): `_lib/calib_kd.py`, `_lib/lawmod.py`.
 - Refuses to overwrite a differing committed design (3, a safety guard working as intended): c-law-renewal `prepare`,
   `analyse_native`; kappa-growth-clock `sample`.
-- Hard-coded machine path (1): `cube-root-growth-paper/textbook_figs.py` reads `/root/gal/...`.
+- Hard-coded machine path (1): `scholarly-articles/cube-root-growth/textbook_figs.py` reads `/root/gal/...`.
 - **Broken by the 2026-10-14 migration (1 here, 7 in the repository)**: `experiments/_migration/fixups.py` wrote the literal text
   `parents[2 if lib else 3]` into seven knockout-maps and patterns-fields scripts, which then raised `NameError` on start.
   Repaired at `cc75e51` (`parents[4]`, checked to resolve the repository root; `followup_stats.py` also needed

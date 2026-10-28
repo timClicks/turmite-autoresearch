@@ -152,18 +152,18 @@ nonstationary boundary occupancy prevent a cube-root universality claim.
 User requested trajectory plots and manuscript updates. Equal-step paths:
 `CARGO_TARGET_DIR=$HOME/turmite-target-memory cargo run --release --example memory_paths -- 301 16 > experiments/archive/2026-10-memory-walkers/dumps/memory_paths.csv`.
 Seed 301 selected before inspecting paths; 65,536 steps, ant RLR blank start.
-The raw path dump is gitignored. `uv run research-outputs/cube-root-growth-paper/memory_figures.py` creates
-`research-outputs/cube-root-growth-paper/fig/memory_paths.pdf` and `memory_growth.pdf` (plus PNG previews), with
-input/source hashes in `research-outputs/cube-root-growth-paper/fig/memory_recipe.json`. Panels use equal aspect
+The raw path dump is gitignored. `uv run research-outputs/scholarly-articles/cube-root-growth/memory_figures.py` creates
+`research-outputs/scholarly-articles/cube-root-growth/fig/memory_paths.pdf` and `memory_growth.pdf` (plus PNG previews), with
+input/source hashes in `research-outputs/scholarly-articles/cube-root-growth/fig/memory_recipe.json`. Panels use equal aspect
 except the labelled directional-cookie panels, whose transverse axis is
 expanded for legibility; cell coordinates show actual scales and extents.
 Growth plots show individual seeds and means; directional curves stop at
 censoring and terminal counts are labelled. No missing seeds are imputed.
-Manuscript `research-outputs/cube-root-growth-paper/main.typ` adds these figures, a pilot table and the radius
+Manuscript `research-outputs/scholarly-articles/cube-root-growth/main.typ` adds these figures, a pilot table and the radius
 refit, and weakens the inference that a failed memoryless control proves
 memory necessary. New typed numbers are traceable to the two summary JSONs.
 
-Final verification: `typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf`
+Final verification: `typst compile --root . research-outputs/scholarly-articles/cube-root-growth/main.typ research-outputs/scholarly-articles/cube-root-growth/main.pdf`
 succeeded; changed manuscript pages 11, 12 and 16 were rendered with Poppler
 and visually inspected, with no clipping or overlapping labels. The final
 full `cargo test --release` passed after the buffered illustration exporter

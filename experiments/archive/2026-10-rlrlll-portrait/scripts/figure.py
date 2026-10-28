@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 
 ROOT = Path(__file__).resolve().parents[4]
-sys.path.insert(0, str(ROOT / "research-outputs/cube-root-growth-paper"))
+sys.path.insert(0, str(ROOT / "research-outputs/scholarly-articles/cube-root-growth"))
 import style as st  # noqa: E402
 
 HERE = Path(__file__).resolve().parents[1]

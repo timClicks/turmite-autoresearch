@@ -94,7 +94,7 @@ changed, so walker calibration was not rerun. Synthetic controls pass.
 The executed `notebook.ipynb` reads the small versionable result files only;
 new files await a user-requested commit. No dependencies were added.
 The paper extracts results with
-`uv run research-outputs/cube-root-growth-paper/chirality_baseline_numbers.py`.
+`uv run research-outputs/scholarly-articles/cube-root-growth/chirality_baseline_numbers.py`.
 
 Target definition: the existing `probe_summary.csv` uses final-window
 `new_cells / boundary_steps` at k=26 (the octave from 2^25 to 2^26), as

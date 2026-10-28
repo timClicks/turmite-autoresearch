@@ -25,7 +25,7 @@ export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
 cd /mnt/f/Code/turmite
 uv run experiments/archive/2026-10-literature-review/scripts/build_notebook.py
 uv run --with nbconvert --with ipykernel --with nbformat jupyter nbconvert --to notebook --execute --inplace experiments/archive/2026-10-literature-review/notebook.ipynb
-typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+typst compile --root . research-outputs/scholarly-articles/cube-root-growth/main.typ research-outputs/scholarly-articles/cube-root-growth/main.pdf
 uv run --with pypdfium2 experiments/archive/2026-10-literature-review/scripts/verify_artifacts.py
 ```
 

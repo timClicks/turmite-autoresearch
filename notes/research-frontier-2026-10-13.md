@@ -1,6 +1,6 @@
 # Research frontier (2026-10-13)
 
-Open questions, research problems and areas to investigate, drawn from `notes/summary-2026-10-13.md`, `research-outputs/cube-root-growth-paper/main.typ`, `notes/frontier-status.md` and `notes/open-questions-hypotheses.md`. It follows the earlier `research-frontier.md` (items 1-32).
+Open questions, research problems and areas to investigate, drawn from `notes/summary-2026-10-13.md`, `research-outputs/scholarly-articles/cube-root-growth/main.typ`, `notes/frontier-status.md` and `notes/open-questions-hypotheses.md`. It follows the earlier `research-frontier.md` (items 1-32).
 
 Nothing here has been measured. Every prediction below is a proposal written on 2026-10-13 *before* any test; per AGENTS.md, don't edit a prediction after seeing data, append what happened. Predictions are guesses to make the experiments discriminate, not results.
 

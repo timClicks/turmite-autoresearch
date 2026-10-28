@@ -14,12 +14,13 @@ import struct
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
-PAPER = ROOT / "research-outputs/cube-root-growth-paper"
+PAPER = ROOT / "research-outputs/scholarly-articles/cube-root-growth"
 OUT = ROOT / "blog/_data/preliminary_results.json"
 IMAGES = ("exponents", "hero", "ck_time", "memory_paths", "late_switch")
-SOURCES = ["main.typ", "numbers.json", "recent_findings.json", "kappa_prediction.json",
-           "supplementary/rule-census/rule_census.build.json",
-           "supplementary/walker-reference/walker_reference.csv"]
+DATA = ROOT / "research-outputs/data-papers"
+SOURCES = [PAPER / "main.typ", PAPER / "numbers.json", PAPER / "recent_findings.json", PAPER / "kappa_prediction.json",
+           DATA / "rule-census/rule_census.build.json",
+           DATA / "walker-reference/walker_reference.csv"]
 FORECAST = "experiments/archive/2026-10-transport-forecast/results/transport_forecast.json"
 # Homepage-only figures drawn from experiment results rather than the manuscript: name -> committed source.
 PORTRAIT = "experiments/archive/2026-10-rlrlll-portrait/results"
@@ -45,19 +46,19 @@ def sweeper(frames_path, figure_path):
 def export():
     image_sources = {p: PAPER / f"fig/{p}.png" for p in IMAGES} | {k: ROOT / v for k, v in EXTRA_IMAGES.items()}
     portrait = [ROOT / PORTRAIT / "frames.json", ROOT / PORTRAIT / "figure.json"]
-    inputs = [PAPER / p for p in SOURCES] + [ROOT / FORECAST] + portrait + list(image_sources.values())
+    inputs = SOURCES + [ROOT / FORECAST] + portrait + list(image_sources.values())
     paths = [p.relative_to(ROOT).as_posix() for p in inputs]
     if git("status", "--porcelain", "--", *paths):
         raise SystemExit("Commit scientific inputs before exporting homepage results")
     n = json.loads((PAPER / "numbers.json").read_text())
     rf = json.loads((PAPER / "recent_findings.json").read_text())
     kp = json.loads((PAPER / "kappa_prediction.json").read_text())
-    census = json.loads((PAPER / SOURCES[4]).read_text())
+    census = json.loads(SOURCES[4].read_text())
     forecast = json.loads((ROOT / FORECAST).read_text())["cohorts"]["ants"]
     source = (PAPER / "main.typ").read_text().split('[Key results]', 1)[1].split('= The cube-root', 1)[0]
     titles = re.findall(r"^  - \*([^*]+)\*", source, re.M)
     assert len(titles) == 9, "Review homepage coverage when paper key results change"
-    walkers = list(csv.DictReader(io.StringIO((PAPER / SOURCES[5]).read_text())))
+    walkers = list(csv.DictReader(io.StringIO(SOURCES[5].read_text())))
     groups = []
     for name, window in (("rw", "k12-22"), ("rotor", "k20-26")):
         rows = [r for r in walkers if r["walker"] == name and r["window_set"] == window]

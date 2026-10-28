@@ -9,7 +9,7 @@ a status check, not a result. Nothing here changes a claim in the paper.
 |---|---|---|
 | `experiments/active/2026-10-gpu-probe` (P2, P4, script fixes) | engineering | P2 falsified at HEAD on its upper bound: 5.81x vs the registered 4.9x line. The earlier "3.84x, held" came from a stale binary and is superseded (not edited). P4 held (lane scaling). GPU output byte-identical to CPU `probe`; tests pass on a verified build. The 34% CPU slowdown against the old baseline is unexplained and unbisected. |
 | `experiments/archive/2026-10-kappa-walker-reference` | science | Finished; interpretation in its `NOTEBOOK.md`. |
-| `research-outputs/.../supplementary/rule-census` builder rewrite, `rebuild_figures.py`, `.githooks/pre-commit` | infrastructure | `build_rule_census.py --check` passes (4083 rows, 3512 census, 3055 analysed, blob median alpha_w 0.3326). |
+| `research-outputs/data-papers/rule-census` builder rewrite, `rebuild_figures.py`, `.githooks/pre-commit` | infrastructure | `build_rule_census.py --check` passes (4083 rows, 3512 census, 3055 analysed, blob median alpha_w 0.3326). |
 | Paper accounting-identity audit (2026-10-16 wording changes) | editorial | In the working tree, uncommitted. |
 
 ### The one new scientific result

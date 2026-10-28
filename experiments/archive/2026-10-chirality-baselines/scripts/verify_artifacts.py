@@ -32,7 +32,7 @@ notebook = json.loads((HERE / "notebook.ipynb").read_text())
 cells = [c for c in notebook["cells"] if c["cell_type"] == "code"]
 assert all(c["execution_count"] is not None for c in cells)
 assert not any(o["output_type"] == "error" for c in cells for o in c["outputs"])
-paper = ROOT / "research-outputs/cube-root-growth-paper/main.pdf"
+paper = ROOT / "research-outputs/scholarly-articles/cube-root-growth/main.pdf"
 doc = fitz.open(paper)
 pages = {0, 1}
 for i, page in enumerate(doc):
