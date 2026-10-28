@@ -107,12 +107,14 @@
         "2026-10-kappa-prefix-additive", "2026-10-kappa-rule-space",
         "2026-10-boundary-excursion-durations"],
       "posts": ["2026-10-20-making-kappa-a-consequence.md", "2026-10-20-where-kappa-is-not.md", "2026-10-20-the-wrong-waits-survive-a-change-of-clock.md", "2026-10-23-what-the-evidence-can-carry.md", "2026-10-23-the-turn-map-hides-a-clock.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-flat-edge-is-where-the-ant-goes-missing.md", "2026-10-20-joining-the-hunt-for-mechanisms.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-20-what-the-new-experiments-change-in-the-paper.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-23-learning-to-ask-the-ant.md", "2026-10-25-the-crawler-is-a-ceiling-not-a-blueprint.md",
-        "2026-10-27-when-the-diffusive-calibrator-refuses-to-grow.md", "2026-10-28-compact-is-not-enough.md"],
+        "2026-10-27-when-the-diffusive-calibrator-refuses-to-grow.md", "2026-10-28-compact-is-not-enough.md",
+        "2026-10-28-what-two-failed-calibrations-taught-the-instrument.md"],
       "open": [
         {"text": "Gate baseline eligibility is unknown, so the single-cell null does not reject gate mechanisms in general.", "source": "notes/evidence-ledger.md"},
         {"text": "What is the next test that has two explanations disagreeing on a time-weighted outcome, an excluded pilot, and a persistence comparator frozen in advance?", "source": "notes/ACTIVE.md"},
         {"text": "Why does the interior return time track the territory's size, and why does the typical ant sit below every walker's own reference?", "source": "notes/ACTIVE.md"},
-        {"text": "Exposure classes are counts of unvisited neighbours, not shapes; does a shape-resolved classifier change where the deficit lives?", "source": "experiments/archive/2026-10-exposure-classifier-check/README.md"}
+        {"text": "Exposure classes are counts of unvisited neighbours, not shapes; does a shape-resolved classifier change where the deficit lives?", "source": "experiments/archive/2026-10-exposure-classifier-check/README.md"},
+        {"text": "Does a time-weighted excursion statistic, or the scaling of excursion duration with excursion depth, separate compact diffusive walkers from a ballistic control, and pass planted short-return mixtures, before any ant data?", "source": "experiments/active/2026-10-boundary-excursion-durations/README.md"}
       ],
       "turns": [
         {"ref": "2026-10-kappa-uniform-baseline", "change": "The uniform reference is corrected away from one."},

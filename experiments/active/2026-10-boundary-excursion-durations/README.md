@@ -743,3 +743,24 @@ Retire Eden-style (`q1 = 1/64`) and IDLA as D calibrators *for this Score*
 a newly registered observable that is calibrated against the same walkers
 before any ant data. One example is a tail-restricted collapse statistic. Do
 not tune `q1`, the margin, the u-grid or the mask on these results.
+
+## Next steps proposal (appended 2026-10-28 16:39 NZDT; post hoc, not registered)
+
+Post hoc and exploratory (NOTEBOOK plan `f466101`, observation `e726ae1`; `results/rev2_short_share.txt`). In the retained Rev2
+windows, short excursions (τ ≤ 3) are about 52% of completed excursions for Eden, 34% for IDLA, 73% for the rotor and 8% for
+mean-field. They are under 2% of off-boundary time for all four. The number-weighted Score gives each of them a full vote.
+Proposed for a future registration (nothing below is frozen):
+
+1. **Time-weighted collapse:** the fraction of off-boundary time spent in excursions longer than s, compared across windows in
+   s/L and s/L². This is the time-weighted outcome that `notes/ACTIVE.md` asks for.
+2. **Depth–duration scaling:** record each excursion's maximum boundary distance d. Diffusive excursions give τ ~ d², sweeping
+   ones give τ ~ d. The slope near 2 versus near 1 can be read within one run, with no fit of L across windows.
+3. **Standing calibration panel:** Eden-style, IDLA, and the RW-in-compact-domain where valid on the diffusive side. Use a slope-1
+   positive control. The square-ring fillers crawl a three-row edge profile, so they are expected to have almost no deep excursions
+   (unchecked). A ballistic walker inside the visited set is the proposed slope-1 candidate and needs its own definition and checks.
+4. **Synthetic-mixture gate:** before any walker calibration, a statistic must classify planted mixtures correctly, for example
+   about 90% short returns with a diffusive or a sweep tail.
+5. **Earlier estimator:** the first-passage C6 fit used only τ ≥ 64 and calibrated on mixtures with a geometric short
+   component. It failed on ln-cutoff bias, coverage and identifiability, not on short-return swamping.
+
+Write-up: `blog/_posts/2026-10-28-what-two-failed-calibrations-taught-the-instrument.md`.

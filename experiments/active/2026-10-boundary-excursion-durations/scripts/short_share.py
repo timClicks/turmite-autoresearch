@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Post hoc, exploratory (NOTEBOOK 2026-10-28 16:50 plan): share of completed
+"""Post hoc, exploratory (NOTEBOOK plan entry, commit f466101): share of completed
 excursions and of off-boundary time contributed by short excursions in the
 Rev2 calibration data. Not a gate. Cutoff fixed before computing: tau <= 3
 (log2 bins 0-1); tau <= 7 (bins 0-2) reported as sensitivity only.

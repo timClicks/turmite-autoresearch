@@ -534,3 +534,11 @@ numbers are not imported here because they overlap with the numbering now used o
 - **Open (unnumbered, supersedes the item above):** can a newly registered tail-restricted or step-weighted
   collapse statistic prefer D on IDLA (and Eden) while mean-field still prefers L? Calibrate before any ant
   data; do not retune the retired Score.
+- **Added 2026-10-28 (post hoc, exploratory; proposal, not registered):** in the Rev2 calibration data, short excursions
+  (τ ≤ 3) are a third to three quarters of the completed-excursion count for Eden, IDLA and the rotor. They are a few
+  percent or less of off-boundary time for every walker (`experiments/active/2026-10-boundary-excursion-durations/results/rev2_short_share.txt`).
+  **Open (unnumbered):** does a time-weighted collapse statistic, or the slope of log τ on log (maximum depth)
+  (≈2 diffusive, ≈1 sweep), separate the calibration panel? The panel is Eden, IDLA and a slope-1 ballistic control.
+  The statistic should also pass a synthetic-mixture gate (mostly short returns plus a tail) before any ant data. The square-ring fillers are
+  expected to be a no-deep-excursion control rather than a slope-1 control (unchecked). Proposals are in the experiment README's
+  "Next steps proposal".

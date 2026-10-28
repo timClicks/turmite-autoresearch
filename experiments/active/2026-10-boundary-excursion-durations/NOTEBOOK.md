@@ -229,3 +229,11 @@ The τ ≤ 7 sensitivity line gives 0.66, 0.41, 0.17 and 0.85 of the counts, wit
 - **Mean-field:** the guess does not apply. Only about 8% of its excursions are short.
 
 The "sliver of time" half held for every kind. These numbers fit the Rev2 registration's stated worry: a number-weighted Score is dominated by a short head that does not move with L. They do not test it. Nothing is registered by this entry.
+
+### 2026-10-28 16:39 NZDT · e726ae1 · deviation
+The three entries above have headings ahead of the box clock. Their commits are authoritative:
+- the 16:35 observation is in `570f207` at 16:33:58;
+- the 16:50 plan is in `f466101` at 16:36:01;
+- the 16:58 observation is in `e726ae1` at 16:37:03 (+13:00).
+
+The order still holds: the plan and cutoff were committed before `short_share.py` was first run. The headings are left unchanged.
