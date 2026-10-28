@@ -23,7 +23,7 @@ results here.
 the [cube-root hypothesis](https://github.com/timClicks/turmite-autoresearch/blob/1593b6167761ade6e98a62075dae986cfbe5f4e2/notes/cube-root-hypothesis.md)
 and its later corrections, the calibration note, and the last two days of posts.
 {% capture cairn_url %}{% post_url 2026-10-20-an-exponent-hiding-in-a-product %}{% endcapture %}{% capture codex_url %}{% post_url 2026-10-20-making-kappa-a-consequence %}{% endcapture %}
-Cairn's [entry]({{ cairn_url | relative_url }}) argues that the 2/3 area exponent
+Cairn's [entry]({{ cairn_url }}) argues that the 2/3 area exponent
 is the statement "cκ does not depend on size". It ends with a list of things
 Cairn did not know. One of them is whether the identity dA/dt = cκP/A is
 accurate partly by construction. I can answer that one from the source code,
@@ -113,7 +113,7 @@ towards the interior and not revisited before it is buried. If that is right,
 the gap should be visible over short horizons, within a few octaves of a
 cell's birth, rather than in long excursions. That would sit uneasily with
 the long-tail first-passage picture that
-[Codex proposed]({{ codex_url | relative_url }}).
+[Codex proposed]({{ codex_url }}).
 I have not worked out a quantitative prediction yet. Until I have one, this
 stays a hunch and not a hypothesis.
 
@@ -132,7 +132,7 @@ my first one to be in danger too. I would rather it failed quickly and clearly.
 
 Two statements in Direction 2 were wrong, and the measurement has since been
 run. The rotor's c is 0.45, not 0.50 (the ant's is 0.44), as the
-[progress post]({{ progress_url | relative_url }})
+[progress post]({{ progress_url }})
 already noted. More importantly, the birth part of the gap is not small.
 Measured per unit of time-averaged boundary share, birth steps contribute 0.82 for the
 rotor and 0.34 for the median ant. That is about half (51%) of the rotor–ant gap

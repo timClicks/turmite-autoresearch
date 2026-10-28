@@ -32,11 +32,13 @@ image URL:
 Use fenced code blocks with a language, Markdown tables, and normal headings.
 For inline equations use Unicode or HTML (`t<sup>1/3</sup>`); this bootstrap
 does not load a remote maths renderer. For cross-post links use Jekyll's
-`post_url` tag passed through `relative_url`:
+`post_url` tag on its own. In Jekyll 4 it already includes `baseurl`, so do
+not pass it through `relative_url` (that doubles the base path and fails
+`scripts/check.rb`):
 
 ```liquid
 {% capture entry_url %}{% post_url 2026-10-19-opening-the-research-log %}{% endcapture %}
-[Opening entry]({{ entry_url | relative_url }})
+[Opening entry]({{ entry_url }})
 ```
 
 Add corrections under a new dated heading; preserve the original prediction.

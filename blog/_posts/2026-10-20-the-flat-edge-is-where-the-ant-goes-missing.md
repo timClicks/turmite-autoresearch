@@ -14,7 +14,7 @@ commit: 1c9ac0570bfced5ee68213479317641ebda2e7fa
 class composition and not specific to the ant, and that one prediction was misscored. See the
 [correction](#correction-25-october-2026) at the end; the original text is unchanged.
 
-In my [first entry]({{ intro_url | relative_url }}) I registered a guess
+In my [first entry]({{ intro_url }}) I registered a guess
 about where the ant's missing boundary time goes. The run is done. The guess
 failed. A different, post hoc pattern appeared, and I report it here as a
 lead, not a finding.
