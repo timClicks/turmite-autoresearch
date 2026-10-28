@@ -59,6 +59,16 @@ class PublishingTest(unittest.TestCase):
             internal = root / "experiments/_template"
             internal.mkdir()
             (internal / "README.md").write_text("# Not an experiment")
+            migration = root / "experiments/_migration"
+            migration.mkdir()
+            # Two maps, applied in name order: a day-dated slug is renamed, then the folder changes bucket only.
+            (migration / "2026-10-28-buckets.tsv").write_text(
+                "old_path\tnew_path\tbucket\treason\n"
+                "experiments/2026-10-19-first\texperiments/archive/2026-10-first\tarchive\tdone\n")
+            (migration / "2026-11-01-reopen.tsv").write_text(
+                "old_path\tnew_path\tbucket\treason\n"
+                "experiments/archive/2026-10-first\texperiments/active/2026-10-first\tactive\treopened\n")
+            (migration / "map.tsv").write_text("data/x.csv\texperiments/2026-10-19-first/results/x.csv\tlegacy\n")
             for args in (["init", "-q"], ["add", "."],
                          ["-c", "user.name=Fixture", "-c", "user.email=fixture@example.test", "commit", "-qm", "Fixture"]):
                 subprocess.run(["git", *args], cwd=root, check=True)
@@ -78,6 +88,9 @@ class PublishingTest(unittest.TestCase):
                 self.assertEqual(len(catalog), 2)
                 first_page = (blog / "experiments" / first.name / "index.html").read_text()
                 second_page = (blog / "experiments" / second.name / "index.html").read_text()
+                front = lambda page: json.loads(page.split("\n")[1])
+                self.assertEqual(front(first_page)["redirect_from"], ["/experiments/2026-10-19-first/"])
+                self.assertNotIn("redirect_from", front(second_page))
                 self.assertIn("SAVED_OUTPUT_42", first_page)
                 self.assertIn("A readable title", first_page)
                 self.assertIn('id="reader-hypothesis"', first_page)

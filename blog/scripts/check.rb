@@ -34,5 +34,19 @@ root.glob("**/*.html").sort.each do |file|
     errors << "#{file.relative_path_from(root)}: missing target: #{raw}" unless target.file?
   end
 end
+# Redirect pages (jekyll-redirect-from) carry absolute URLs, which the loop above skips as external.
+redirects = 0
+root.glob("**/*.html").sort.each do |file|
+  target_url = file.read[/http-equiv="refresh" content="0; url=([^"]+)"/, 1] or next
+  redirects += 1
+  path = URI(CGI.unescapeHTML(target_url)).path
+  unless baseurl.empty? || path.start_with?(baseurl + "/")
+    errors << "#{file.relative_path_from(root)}: redirect escapes baseurl: #{target_url}"
+    next
+  end
+  target = root.join(path.delete_prefix(baseurl).delete_prefix("/"))
+  target = target.join("index.html") if target.directory?
+  errors << "#{file.relative_path_from(root)}: redirect to missing page: #{target_url}" unless target.file?
+end
 abort errors.join("\n") unless errors.empty?
-puts "Checked #{root.glob('**/*.html').size} HTML pages; local links and required outputs OK."
+puts "Checked #{root.glob('**/*.html').size} HTML pages (#{redirects} redirects); local links and required outputs OK."

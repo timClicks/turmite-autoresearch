@@ -20,7 +20,8 @@ experiments/
 
 - **The bucket is status; the slug is identity.** `YYYY-MM` is the month the work started and does not
   change when the folder moves. Slugs are unique across buckets. Blog pages are keyed by slug
-  (`/experiments/<slug>/`), so a bucket move does not change a published URL.
+  (`/experiments/<slug>/`), so a bucket move does not change a published URL; old
+  slugs from the maps in `_migration/` redirect to the new pages (see `blog/README.md`).
 - **Archive is not deprecation.** Archived experiments hold finished datasets that live work still reads
   (for example the census in `archive/2026-10-census-sweeps/`). Reopening one means moving it back to
   `active/`, with a new dated NOTEBOOK entry saying why.

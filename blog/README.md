@@ -231,7 +231,13 @@ files (buckets `active`, `archive`, `proposed`), excluding internal `_` folders.
 Every experiment gets an entry in `/experiments/` and a page at
 `/experiments/<slug>/`. The URL omits the bucket, so moving an experiment from
 `active/` to `archive/` does not break links to its page; slugs must therefore
-be unique across buckets (the script checks). The searchable
+be unique across buckets (the script checks). Renamed slugs keep working: the
+script reads every `experiments/_migration/*.tsv` map and gives each page a
+`redirect_from` list of its former slugs, and `jekyll-redirect-from` writes a
+redirect page at each old URL (`_layouts/redirect.html`: keeps the `#fragment`,
+replaces the history entry, meta refresh without JavaScript). GitHub Pages cannot
+send HTTP 301s, so this is the closest equivalent. `scripts/check.rb` verifies
+every redirect target exists. The searchable
 index remains usable without JavaScript; JavaScript adds filtering.
 
 Each page opens with an editorial reader guide: an approachable title, the
