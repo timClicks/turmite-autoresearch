@@ -129,7 +129,7 @@ under the repository's normal experiment conventions.
 
 ## Homepage
 
-The **Preliminary results** section gives each of the manuscript's nine key-result
+The preliminary results section (**What we have found so far**) gives each of the manuscript's nine key-result
 bullets a card in a responsive masonry layout. Existing figures link to full-size
 copies; native details preserve caveats without JavaScript. Two sliders illustrate
 the stated cube-root scaling and the fitted opening-run law, and a toggle compares
@@ -331,6 +331,6 @@ screens stack the cards for readable trails.
 ## Home-page widgets
 
 `assets/ant-explainer.js` ("How an ant works") and `assets/walker-compare.js`
-("Four walkers, one start") are dependency-free and hidden until they load.
+("How fast does each walker spread?") are dependency-free and hidden until they load.
 `node blog/scripts/test_widgets.js` checks them against `web/sim.js` and sparse
 oracles, then drives their controls in jsdom; CI runs it with `test_ants.js`.
