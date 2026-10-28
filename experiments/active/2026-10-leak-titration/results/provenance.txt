@@ -1,0 +1,10 @@
+commit 7608a6ffb4c83b9e26206e41dc4824ba28198a0a
+dirty 0 tracked files
+rustc rustc 1.97.0 (2d8144b78 2026-07-07)
+probe_sha256 a0615a0514150ab73d25727eb691b0fdcddee86af2459def45098d751aea87bc
+specs_sha256 c0ee07fe87fa70c0f20887a4c3efbc55b52fdfe9a52e13b542a5db31d528b731
+command probe 27 16384 < experiments/active/2026-10-leak-titration/results/specs.txt
+RAYON_NUM_THREADS 3
+start 2026-10-28T08:00:44Z
+end 2026-10-28T08:14:58Z
+probe_csv_sha256 9f81f18cf3592903e9b5e47121b5d9e19ebceef6e9eaefebd9a74a2c77e9fc96
