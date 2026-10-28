@@ -180,3 +180,15 @@ page URL. The only hand fix was a relative link in the README's stage-1 header t
 `notes/cube-root-routes-2026-10-26.md`, recomputed for the new depth. That file lives on PR #18 and is absent
 from this branch, so the rewriter skipped it. The scripts' `ROOT` now climbs four levels.
 `examples/boundary_excursions.rs` changed only in a `//!` doc comment.
+
+### 2026-10-28 16:35 NZDT · e0e657a · observation
+1. After the merge, the instrument binary built from this tree hashes to
+`cfa9c7d4fc339e359f34dddc7bad4f23949e062a65e3d45ef95393e272b34e62`, not the `9f282ce…` recorded in the Rev2 outer
+log. Sources at `d8ca95f` still rebuild to exactly `9f282ce…`. Main's `src/` changes alone give `d6f64cb…`
+(comment-only for this binary), and the `//!` path change in the example gives `cfa9c7d…`. So the difference
+comes from source text and build metadata, not code. Rerunning the Rev2 calibration at the registered settings
+with the new binary, in a scratch worktree, gave byte-identical `rev2_calib_windows.csv` and `rev2_calib_hist.csv`, and
+`analyse.py rev2` gave byte-identical `rev2_analysis.json` and `.txt`. The committed results were not touched.
+2. Deviation: the headings of the 16:30 move entry above and the 16:40 ledger re-pin entry in
+`experiments/archive/2026-10-evidence-ledger/NOTEBOOK.md` are later than the commits that carry them. Git records `581f203` at 16:29:00
+and `e0e657a` at 16:29:38 (+13:00). The commit times are authoritative, and the headings are left unchanged.
