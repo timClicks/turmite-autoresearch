@@ -1,11 +1,11 @@
-# kappa matched-area; commit 797704a2988ea8d958df39ac96e3ece27bec0980
+# kappa matched-area; commit 4fd558bf93177bfeb5461e2a2ae7e3206450fdf9
 # input sha256[:16] e813c6f21f63421c
 windows 1399, rules 44
 M1 pooled slope 0.835; ICC(ln kappa) 0.674; ICC(area-adjusted residual) 0.286
    k=22: ICC raw 0.684, adjusted 0.561, n=349
    k=25: ICC raw 0.626, adjusted 0.467, n=350
-M2 between-rule slope 1.271 [1.107, 1.403]; within-rule 0.420 [0.152, 0.652]; within - between = -0.851 (needs >= 0.3)
-M3 [all seeds] k=22 rules=44: partial rho -0.560, rule-boot95 [-0.743, -0.333]
-M3 [all seeds] k=25 rules=44: partial rho -0.695, rule-boot95 [-0.827, -0.526]
-M3 [open share <= 0.10] k=22 rules=44: partial rho -0.551, rule-boot95 [-0.762, -0.315]
-M3 [open share <= 0.10] k=25 rules=44: partial rho -0.693, rule-boot95 [-0.825, -0.514]
+M2 between-rule slope 1.271 [1.090, 1.395]; within-rule 0.420 [0.159, 0.645]; within - between = -0.851 (needs >= 0.3)
+M3 [all seeds] k=22 rules=44: partial rho -0.560, rule-boot95 [-0.742, -0.338]
+M3 [all seeds] k=25 rules=44: partial rho -0.695, rule-boot95 [-0.827, -0.508]
+M3 [open share <= 0.10] k=22 rules=44: partial rho -0.551, rule-boot95 [-0.752, -0.312]
+M3 [open share <= 0.10] k=25 rules=44: partial rho -0.693, rule-boot95 [-0.823, -0.512]
