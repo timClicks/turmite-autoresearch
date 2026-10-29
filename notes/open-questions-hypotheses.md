@@ -602,3 +602,9 @@ concern the instrument for Q36.
   The statistic should also pass a synthetic-mixture gate (mostly short returns plus a tail) before any ant data. The square-ring fillers are
   expected to be a no-deep-excursion control rather than a slope-1 control (unchecked). Proposals are in the experiment README's
   "Next steps proposal".
+
+## Added 2026-10-29: Q33 active-cap design (proposed, unrun)
+
+[Q33 cap crossover](../experiments/proposed/2026-10-q33-cap-crossover/README.md) develops a gated experiment rather than a new growth result. A uniform R/L/U policy almost never reaches a large hard cap, while the rule's own colour-zero turn closes a square; neither provides the proposed active dose across large m. The replacement holds a straight-biased fresh-turn distribution fixed, varies only the cap, and pairs each arm with its uncapped control. A flat-plane calculation provides an order-m penetration scale; in-ant exposure and usable regime coverage remain excluded-pilot gates.
+
+The old porous exponent band is retained as a separately scored conjecture rather than assumed to transfer to persistent motion. Compact late growth, crossover width and nontrivial collapse have separate decision rules; ordered outcomes and resource censoring remain explicit. The design, derivation, implementation handoff and narrative notebook are in proposed/. No new walker, calibration, pilot or confirmation has run; actual inputs, executable commands and gate reports must be frozen before confirmation. Q38 and Q39 remain deferred.
