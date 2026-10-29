@@ -313,3 +313,19 @@ Not tuned: margin, grid, mask, n_eff threshold, laws.
 Does the rotor's cliff at τ ≈ A/5 reflect a deterministic Eulerian sweep of the territory interior (rotor circuits),
 and does the cliff position stay fixed as A/P² drifts? If so, a per-window τ/A collapse should beat τ/L² for the rotor
 but tie for Eden. That is a cheap discriminator to register next to the depth–duration readout.
+
+### 2026-10-29 17:58 NZDT · 8904956 · intent
+Revision 4: depth–duration readout, calibration only, **no ant data**. Per completed excursion, record max depth d
+(L1 distance to the frozen boundary) and distinct cells N. The exponent β is the median per-window OLS slope of
+ln mean τ on ln mean d over d ∈ [4, L]. Calls: area ≥ 1.70, line ≤ 1.30. Gates: G0, G1 synthetic (SD, SDL, SA → area;
+SB, SC → line), eden and idla → area, new `bal` straight-line walker → line. Fresh seeds 2026102961..64 (walkers) and
+2026102981 (synthetic), grepped unused. Full rules: README "Revision 4 registration".
+
+### 2026-10-29 17:58 NZDT · 8904956 · interpretation
+Correction to my Rev3 remark, made before any data: depth alone cannot separate diffusion from area-filling sweeps,
+because a raster or Eulerian tour of the depth-≤d region also takes ~d². What depth separates is area-filling vs
+line-like. A revisit ratio τ/N is registered as a report-only hint for the diffusion-vs-sweep question.
+
+### 2026-10-29 17:58 NZDT · 8904956 · question
+Pruning preflight: 4 entries hit the words depth/sweep/excursion. Only the compact-D calibrator entry is in this
+observable family, and it retires the number-weighted Score only. Decision: RUN.

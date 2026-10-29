@@ -946,3 +946,127 @@ was **not run**. It needs its own registration (ant rule list, excluded seeds, a
 **Retain Score_tw** as the calibrated excursion observable. **Do not run** the reserved confirmation. Next step: register an
 excluded ant pilot under Score_tw. Before that, either add a registered depth–duration readout, or restrict the pilot claim to
 "L vs L²/A scaling of time-weighted excursions".
+
+## Revision 4 registration: depth–duration readout (calibration only)
+
+Registered 2026-10-29 17:58 NZDT. Base commit `8904956` (main after PR #29 merged). This section is written and
+committed **before** any Revision 4 measurement, including the instrument smoke and the synthetic gate. **No ant data**
+(pilot or confirmation) is run under this revision. The reserved confirmation rules,
+`results/reserved_confirmation_specs.txt` and seeds 20261027901..908 are untouched.
+
+### Why, and a correction to the Rev3 remark
+
+Rev3 showed that Score_tw separates τ ∝ L from τ ∝ L² ~ A, but cannot tell diffusion from area-filling sweeps.
+The Rev3 write-up suggested that the depth–duration law (τ vs maximum boundary distance d) would separate "d²
+(diffusive)" from "d (sweep)". **That remark is only half right, and this registration corrects it before
+measuring:** a systematic sweep that covers the region of depth ≤ d (a raster, or a rotor's Eulerian-like tour)
+also takes τ ∝ d². The depth exponent therefore separates **area-filling** excursions (diffusive *or* systematic
+sweep; τ ∝ d²) from **line-like** excursions (ballistic radial runs, τ ≈ 2d; straight chords, τ ∝ √(Rd); boundary-
+parallel runs). A separate report-only readout, the revisit ratio τ/N (N = distinct cells), is registered to say
+something about diffusion vs sweep. It is not gated.
+
+Pruning-index preflight (`8904956`): `rg -n -i -e depth -e ballistic -e sweep -e revisit -e distinct -e excursion
+notes/pruning-index/entries/` hit 4 files. Only `NR-20261028-excursion-score-compact-d-calibrators` concerns this
+observable family. It retires the **number-weighted** Score on Eden/IDLA and explicitly excludes other statistics. The
+other three (`crawler-window`, `wall-vs-memory-no-wall-porous`, `kappa-exposure-classes`) match on words only
+(`kappa-exposure` lists "depth-resolved" observables as *not excluded*). None covers a depth–duration exponent.
+Decision: **RUN**.
+
+### Statistic (frozen)
+
+Region and boundary are as before: a visited cell is a *boundary cell* if it has an unvisited 4-neighbour. An
+*excursion* is a maximal run of consecutive steps that start on interior cells.
+- **The region is frozen during an excursion.** An interior step starts on a cell whose 4 neighbours are all visited,
+  so it cannot create a cell. The boundary at excursion start is the boundary for the whole excursion. `--check`
+  asserts this.
+- **Depth** δ(x) of an interior cell is its L1 distance to the nearest boundary cell (δ ≥ 1). It is computed by
+  expanding L1 rings, using 1-Lipschitz continuity for consecutive cells (unit steps) and a full search after a
+  teleport (mf every step, IDLA restart).
+- **Per completed excursion:** τ = number of steps (as before); d = max δ over the excursion's step-start cells;
+  N = number of distinct step-start cells. The excursion is attributed to the window in which it completes.
+  Censored (open at window end) excursions are excluded; their count is in the windows file as before.
+- **Output** (`--dhist`): per window, two marginal histograms with fine log bins (`fine_index`, exact below 16,
+  8 per octave above). Axis `d` bins by d; axis `tau` bins by τ. Each row has count, Σ τ, Σ d and Σ N.
+
+### Estimator (frozen)
+
+Window retention is the Rev2/3 filter with a larger L floor: k ∈ 16..24, not escaped, n_completed ≥ 200,
+censored_step_share ≤ 0.20, and **L ≥ 12** (L = A/P at window end; the floor gives room for d ∈ [4, L]).
+- **Per window,** take the d-bins with d_lo ≥ 4, d_hi ≤ ⌊L⌋ and count ≥ 20. If there are ≥ 4 such bins
+  and their mean-d span (max/min) is ≥ 3, β_w is the unweighted OLS slope of ln(mean τ) on ln(mean d) over those bins.
+  Otherwise the window is not fittable and is dropped.
+- **Kind exponent** β = median of β_w over all retained windows, pooled across seeds. Also reported: per-seed medians,
+  the between-seed SD of those medians, and the share of completed off-boundary time in excursions with d ∈ [4, L].
+- **Calls:** **area** if β ≥ 1.70; **line** if β ≤ 1.30; inconclusive otherwise. *Uninformative* if there are fewer than
+  3 retained windows.
+- **Why d ≥ 4:** lattice corrections. For a 1D simple random walk E[τ | max = d] ≈ (2d² + 2d − 1)/3, with local
+  slope 1.75 at d = 3, 1.8 at d = 4 and ≈1.9 by d = 8–15. Ballistic τ = 2d − 1 has local slope 2d/(2d−1) = 1.14
+  at d = 4. The thresholds 1.70 and 1.30 sit between these with margin.
+- **Revisit readout (report-only, not gated):** per retained window, take the τ-bins with τ_lo ≥ 16, τ_hi ≤ L² and
+  count ≥ 20 (≥ 4 bins). γ_w is the OLS slope of ln(Σ τ / Σ N) on ln(mean τ). The kind value γ is the median over windows.
+
+### Calibrators and predicted calls (written before any data)
+
+**G1 synthetic gate** (`examples/boundary_excursions_depth_synth.rs`, SplitMix64, base seed **2026102981**, grepped
+unused). The panel matches Rev3: 4 pseudo-seeds × windows k = 16..24, L_k = 6·2^{3(k−16)/8}, depth cap M = round(2L);
+excursions are drawn until Σ τ ≥ 2^{k−2}. The output goes through the same binning and estimator code. Only k ≥ 19
+(L ≥ 12) can be retained.
+
+| law | construction | truth | predicted call |
+|---|---|---|---|
+| SD | 1D SRW from depth 1, absorbed at 0, reflecting at M | diffusive | area |
+| SDL | 40% lazy SRW (stay ½); 60% shallow atom: d uniform in {1,2,3}, τ ~ Geom(mean L) | diffusive + boundary crawl | area |
+| SA | area sweep: d with P(d ≥ x) = 1/x capped at M, τ = d² + U{0..d} | systematic area sweep | **area** (the stated limitation) |
+| SB | ballistic: same d law, τ = 2d − 1 + Σ_{2d−1} Geom(½) pauses | line | line |
+| SC | chord: same d law, τ = ⌈2√(d(2R − d))⌉, R = 2L | line (β ≈ 0.4) | line |
+
+20 replicates per law. **G1 PASS** if every law gets the correct call in ≥ 18/20 and the opposite call in 0/20.
+
+**Walker calibration:** fresh seeds **2026102961..64** (grepped unused at `8904956`), 4 seeds × {eden, idla, idlar, mf,
+rotor, bal} = 24 specs (`results/rev4_calib_specs.txt`). Board 8192, max_log2 24, `--check` on, RAYON_NUM_THREADS=4.
+
+New control walker **`bal:SEED`** (line-like by construction). On a boundary cell it draws a uniform heading.
+It then proposes one step along that heading: to a visited cell it moves; to an unvisited cell it applies the Eden
+birth rule (accept if the target has ≥ 2 visited neighbours; if it has 1, accept with probability 1/64; otherwise stay).
+On interior cells it keeps its heading, so every excursion is a straight segment between boundary cells, and N = τ
+exactly (asserted under `--check`).
+
+| kind | prediction | confidence | role |
+|---|---|---|---|
+| eden | area (local SRW in a compact domain) | ~90% | **gate C1E-d** |
+| idla | area. Restart excursions start at depth ≈ 2L > L, so they fall outside the fit range. | ~85% | **gate C1I-d** |
+| bal | line (chords; axis-faceted domain may give β near 0–0.6) | ~85% | **gate C-line** |
+| idlar | area | ~80% | report-only |
+| mf | not line; probably β ≥ 1.7. The readout assumes spatially continuous motion and mf teleports every step, so its d is the max of ~τ independent depth draws. | low (~55%) | report-only |
+| rotor | **area** is my honest guess (Rev3 cliff at τ ≈ A/5 looks like Eulerian sweeps). Inconclusive is the main alternative. | ~55–60% | report-only |
+
+Revisit readout predictions (report-only, low confidence): eden γ > 0.05 (2D SRW recurrence, τ/N ~ ln τ); bal γ = 0
+exactly; rotor |γ| < 0.05 (sweeps rarely revisit); mf ≈ 0 (teleports rarely revisit). If the rotor reads area *and*
+γ ≈ 0 while eden has γ > 0.05, that is consistent with "area-filling sweep, not diffusion". It is not a test.
+
+### Gates and failure criteria
+
+- **G0 instrument:** windows, `--hist` and `--fhist` output byte-identical to the `8904956` binary on the 7-spec smoke
+  (seed 7, max_log2 14, grid 512). The `--check` additions pass: brute-force depth (min L1 to any boundary cell in the
+  bounding box) equals incremental depth on every interior step with t < 2^13 and every t ≡ 0 mod 2^16; no birth during an
+  excursion; bal N = τ. A new `--depth-mutant` (Chebyshev rings instead of L1) must panic under `--check`, and the
+  existing `--mutant` and `--fine-mutant` must still panic. `PROPTEST_RNG_SEED=20261019 cargo test --release --locked` passes.
+- **G1 synthetic** as above. If G1 fails, stop before walkers.
+- **C1E-d:** eden → area. **C1I-d:** idla → area. **C-line:** bal → line.
+- **Overall:** the depth readout counts as calibrated for an *excluded ant pilot* only if G0, G1, C1E-d, C1I-d and C-line
+  all pass. If any fails: record it, do not tune thresholds, d range, bin counts, filters or laws on these results, stop,
+  and add a pruning entry if warranted. Even if all pass, **no ant data are run under this revision**. A proposed
+  (unregistered) pilot plan is written instead.
+
+### What this readout cannot distinguish
+
+1. Diffusion vs systematic area-filling sweeps: both give τ ∝ d² (SA is the planted demonstration). The revisit readout
+   is a hint, not a test.
+2. Ballistic radial runs vs chords vs boundary-parallel runs: all read line.
+3. Shallow behaviour: excursions with d < 4 are not fitted. Their time share is reported, and β says nothing about it.
+4. Non-local movers (mf): depth then measures where the teleports land, not how motion is organised.
+5. Asymptotics: d ≤ L ≤ ~50 here. This is a finite-window readout, and lattice corrections (local SRW slope ≈1.8–1.9)
+   are part of what the thresholds absorb.
+
+Budget: under 60 CPU-minutes. If mf's full depth search per step makes a single mf spec exceed 20 CPU-minutes, mf
+(report-only) is dropped and this is recorded as a deviation.
