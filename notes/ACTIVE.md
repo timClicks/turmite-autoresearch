@@ -1,6 +1,6 @@
 # Active work and open items
 
-Living index, last updated 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-10-30 (leak titration write-up done: notebook, post, homepage card; no new data); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
@@ -20,8 +20,6 @@ none registered for running; each needs its own dated registration first (questi
 - Q41 Stage C: fresh-run length distribution vs EF (probe addition + oracle test), collapse on run length / territory radius.
 - Q42: arm L on non-highway rules from the Stage 3b cohort (replaces the 3-rule P4); window drift needs more rules and a longer horizon.
 - Q40: Stage B fine grid only if a later result gives M >= 0.34 or a sharp reading.
-- Housekeeping owed by that experiment: `notebook.ipynb` (AGENTS.md; not yet written), blog post/draft and `blog/index.html` and `blog/atlas.json` entry
-  (file under a topic or `unfiled`), `experiments/README.md` index line if one is kept there.
 
 ## Next phase: boundary access, regime validation, closure
 

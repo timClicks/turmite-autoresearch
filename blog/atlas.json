@@ -27,7 +27,7 @@
         {"ref": "2026-10-a3-background-cone-control"},
         {"ref": "2026-10-b3-long-rules", "why": "Registered extension: sampled rules much longer than the census keep the width exponent near a third."},
         {"ref": "2026-10-wall-vs-memory", "why": "Registered interventions: removing the forced turn on fresh ground makes every tested ant porous; forced L, reversal and random bounded turns keep growth compact unless the ant crystallises, while unbounded random turns go porous (registered readings unresolved)."},
-        {"ref": "2026-10-leak-titration", "why": "Dose curve for fresh-ground randomness: compactness is lost gradually through an intermediate band rather than at a sharp threshold, though the registered shape reading is unresolved."}
+        {"ref": "2026-10-leak-titration", "why": "Registered dose curve for fresh-ground randomness: compactness is lost over a range of leak through an intermediate band, with no sharp threshold visible on the registered grid; the shape reading is unresolved and the handedness prediction failed."}
       ],
       "counter": [
         {"ref": "2026-10-memory-walkers", "why": "Mechanism test: adding memory to a simple walker does not recover the ant."},
@@ -45,7 +45,8 @@
         "2026-10-c2-arrow-bias", "2026-10-literature-review", "2026-10-kappa-uniform-baseline",
         "2026-10-boundary-excursion-durations"],
       "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-26-the-wall-was-doing-the-work.md",
-        "2026-10-27-when-the-diffusive-calibrator-refuses-to-grow.md", "2026-10-28-compact-is-not-enough.md", "2026-10-26-four-constants-that-came-before-their-theories.md"],
+        "2026-10-27-when-the-diffusive-calibrator-refuses-to-grow.md", "2026-10-28-compact-is-not-enough.md", "2026-10-26-four-constants-that-came-before-their-theories.md",
+        "2026-10-30-turning-up-the-leak.md"],
       "open": [
         {"text": "Is the shared exponent exact asymptotically, or only within the windows we can reach?", "source": "notes/cube-root-hypothesis.md"},
         {"text": "Which factor of the growth identity carries the amplitude, and why does the area exponent move when the width exponent does not?", "source": "notes/open-questions-hypotheses.md"},
@@ -54,6 +55,7 @@
         {"text": "Proposal, not registered: is there a class-independent reason for stationary edge access, or does every definition of tether and edge lock reduce to kappa?", "source": "notes/cube-root-routes-2026-10-26.md"},
         {"text": "Does the repelling fresh ground alone give a cube root in the long run, and what does the interior memory add on top of it?", "source": "notes/open-questions-hypotheses.md"},
         {"text": "Does a larger cap on fresh runs delay compact growth until the territory outgrows it, and why does the bounded regime grow slightly faster than the ant?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Is the length of the ant's runs of fresh steps what the fresh-ground leak tunes, so that the dose curves collapse on that length over the territory radius (Stage C of the leak titration, not registered)?", "source": "notes/open-questions-hypotheses.md"},
         {
           "text": "Eden-style growth and internal DLA are compact yet the number-weighted collapse score still misses their diffusion; can a separately registered tail-restricted or step-weighted statistic see it before any ant reading?",
           "source": "experiments/active/2026-10-boundary-excursion-durations/README.md"

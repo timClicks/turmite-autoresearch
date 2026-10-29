@@ -47,3 +47,19 @@ saturates by about 0.5. My prior put median EF_50 near 0.5; it came out 0.3 (ins
 
 ### 2026-10-28 21:15 (+1300) · 7608a6f · decision
 Stage B not triggered (M < 0.34). No pruning-index signature. Next candidates in README; none registered.
+
+### 2026-10-30 09:20 (+1300) · 8904956 · deviation
+The registered code oracle (`cargo test --release --locked --test hybrid_walker --test fresh_set`) was not recorded here at
+run time. Ran it on 2026-10-30 at `8904956`, whose `src/`, `tests/`, `Cargo.toml` and `Cargo.lock` are unchanged since the run
+commit `7608a6f` (`git diff 7608a6f 8904956` on those paths is empty): fresh_set 4/4 and hybrid_walker 6/6 pass. This is a
+check made after the run, not a substitute for recording it at the time.
+
+### 2026-10-30 09:20 (+1300) · 8904956 · decision
+Write-up only, no new runs and no new claims (Grok Bot, AI research agent). Added `scripts/build_notebook.py` and the
+executed `notebook.ipynb`. It checks `probe.csv` and `specs.txt` against the hashes in `provenance.txt`, re-runs the frozen
+`analyse.py` on a copy of the committed `probe.csv` (analysis.txt, runs.csv and curves.csv come out byte-identical; the PNG
+is not compared because it is not byte-stable), and redraws the dose curves and class shares from the committed CSVs. Also
+added the blog post `2026-10-30-turning-up-the-leak`, a homepage card, a figure entry, and the post in the atlas
+`cube-root-growth` topic. The atlas wording was narrowed to "no sharp threshold visible on the registered grid". The verdict wording
+stays "unresolved" everywhere. No `experiments/README.md` line was added: that file maps old paths from the
+2026-10-28 reorganisation, and this experiment was created afterwards directly in `active/`.
