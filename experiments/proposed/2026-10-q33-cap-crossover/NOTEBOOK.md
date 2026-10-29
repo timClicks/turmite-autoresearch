@@ -21,3 +21,16 @@ Pruning preflight: GitHub connector inspection of all seven entry scopes and ame
 ## 2026-10-29 UTC · same base · assumption
 
 Fixed-q persistent-fresh policy may have a useful non-ordered late regime. It may instead crystallise or lack early/late scale coverage. G2/G3 decide adequacy on excluded data; their failure stops confirmation under this design. Budget: eight-rule excluded pilot through 2^24, then only after a new freeze 200 rules x ten arms through 2^31 with a 24-hour production stop. No changes to Q38/Q39 or deferred programmes.
+
+
+## 2026-10-29 UTC · proposal head feb6b96c622d0b38d46532eef2975e5f4c47348a · intent
+
+User suggested Python simulation tools for machines without Rust. Add a reusable stdlib sparse simulator, experiment-local PEP 723 CLI and independent visit-count/vector-turn oracle tests. Preserve all registered predictions and gates; no registered calibration, pilot or confirmation is run.
+
+## 2026-10-29 UTC · same parent · observation
+
+Technical checks: `UV_CACHE_DIR=/tmp/q33-uv-cache uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py` passed all 14 tests under Python 3.12.14 and uv 0.12.23. Cases include RNG fixtures, small-rule/seeded oracle comparisons, colour-zero revisits, origin and cap bounds, incremental/rescan geometry, synthetic exponents, incomplete windows, checkpoint resume and CLI resource handling. CLI subprocess runs are disposable correctness fixtures, not growth evidence; no outputs are added to results/.
+
+## 2026-10-29 UTC · same parent · decision
+
+PEP 723 dependencies=[] avoids installing the heavy root analysis environment. New runs write only inside this experiment and never overwrite an existing run directory. Record source/output hashes and explicit resource statuses. Rust execution remains unavailable, so Rust/Python equivalence, production throughput, crystallisation detection, pre-entry depth and Rev3 boundary-excursion instrumentation are not claimed. The independent RLRLLL checker is unchanged. Proposal remains in proposed/.
