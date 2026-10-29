@@ -1,4 +1,4 @@
-//! boundary_excursions MAX_LOG2 [GRID] [--check] [--hist PATH] [--fhist PATH] < specs.txt > windows.csv
+//! boundary_excursions MAX_LOG2 [GRID] [--check] [--hist PATH] [--fhist PATH] [--dhist PATH] < specs.txt > windows.csv
 //!
 //! Interior excursion durations for the stage-1 collapse test
 //! (experiments/active/2026-10-boundary-excursion-durations).
@@ -31,6 +31,16 @@
 //! power of two up to 2^39), and per window: sum counts = n_completed, sum of
 //! sum_tau = completed time, fine->coarse rederive = the log2 hist.
 //! `--fine-mutant` files each tau into fine bin f^1; `--check` must panic.
+//! Revision 4: `--dhist PATH` records, per completed excursion, the max depth d
+//! (L1 distance of a step-start cell to the nearest boundary cell of the region,
+//! which is frozen during an excursion) and N = distinct step-start cells, and
+//! writes two marginal fine histograms per window (axis d and axis tau; columns
+//! spec,k,axis,bin,lo,hi,count,sum_tau,sum_d,sum_distinct). Under `--check`:
+//! no birth may happen on an interior-start step; incremental depth equals a
+//! brute-force bounding-box scan on every interior step with t < 2^13 or
+//! t % 2^16 == 0; the tau axis equals the fine histogram; bal has N = tau.
+//! `--depth-mutant` measures Chebyshev (L-inf) rings instead of L1; `--check`
+//! must panic. New spec bal:SEED (straight-line control walker, see `Ballistic`).
 use rayon::prelude::*;
 use std::io::Write;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -42,6 +52,10 @@ static MUTANT: AtomicBool = AtomicBool::new(false);
 /// Rev3 C0 mutant: mis-file completed taus into the neighbouring fine bin (f ^ 1).
 static FINE_MUTANT: AtomicBool = AtomicBool::new(false);
 static CHECK: AtomicBool = AtomicBool::new(false);
+/// Rev4: record depth / distinct cells per excursion (set by `--dhist`).
+static DEPTH: AtomicBool = AtomicBool::new(false);
+/// Rev4 C0 mutant: Chebyshev rings instead of L1 rings in the depth search.
+static DEPTH_MUTANT: AtomicBool = AtomicBool::new(false);
 
 const UNV: u8 = u8::MAX;
 const MAX_BIN: usize = 40; // floor(log2(tau)) in 0..MAX_BIN
@@ -133,6 +147,86 @@ struct Win {
     bins: [u64; MAX_BIN],
     fine_n: Vec<u64>,
     fine_sum: Vec<u64>,
+    /// Rev4 marginal histograms: [axis][stat][fine bin]; axis 0 = d, 1 = tau;
+    /// stat 0 = count, 1 = sum_tau, 2 = sum_d, 3 = sum_distinct.
+    dh: Vec<[Vec<u64>; 4]>,
+}
+
+impl Win {
+    fn file_depth(&mut self, tau: u64, d: u64, n: u64) {
+        for (axis, key) in [(0usize, d), (1usize, tau)] {
+            let f = fine_index(key);
+            let h = &mut self.dh[axis];
+            h[0][f] += 1;
+            h[1][f] += tau;
+            h[2][f] += d;
+            h[3][f] += n;
+        }
+    }
+}
+
+#[inline(always)]
+fn native_boundary(region: &Region, i: usize) -> bool {
+    let u = region.unv[i];
+    u != UNV && u > 0
+}
+
+/// True if some cell at distance exactly r from `at` (L1 ring; Chebyshev ring
+/// under the depth mutant) is a boundary cell.
+fn ring_has_boundary(region: &Region, size: usize, at: usize, r: isize) -> bool {
+    let s = size as isize;
+    let a = at as isize;
+    let cell = |dx: isize, dy: isize| native_boundary(region, (a + dy * s + dx) as usize);
+    if DEPTH_MUTANT.load(Ordering::Relaxed) {
+        for i in -r..r {
+            if cell(i, -r) || cell(r, i) || cell(-i, r) || cell(-r, -i) {
+                return true;
+            }
+        }
+        return false;
+    }
+    for i in 0..r {
+        if cell(r - i, i) || cell(-i, r - i) || cell(-r + i, -i) || cell(i, -r + i) {
+            return true;
+        }
+    }
+    false
+}
+
+/// Depth of an interior cell by ring expansion from r = 1.
+fn full_depth(region: &Region, size: usize, at: usize) -> u64 {
+    let mut r = 1isize;
+    while !ring_has_boundary(region, size, at, r) {
+        r += 1;
+    }
+    r as u64
+}
+
+/// Depth of `at`, a 4-neighbour of a cell of depth `prev` in the same frozen
+/// region (1-Lipschitz: the answer is prev-1, prev or prev+1).
+fn step_depth(region: &Region, size: usize, at: usize, prev: u64) -> u64 {
+    if prev >= 2 && ring_has_boundary(region, size, at, prev as isize - 1) {
+        return prev - 1;
+    }
+    if ring_has_boundary(region, size, at, prev as isize) {
+        return prev;
+    }
+    prev + 1
+}
+
+/// Brute-force depth: min L1 distance to any boundary cell in the bounding box.
+fn brute_depth(region: &Region, size: usize, bb: (usize, usize, usize, usize), at: usize) -> u64 {
+    let (ax, ay) = ((at % size) as i64, (at / size) as i64);
+    let mut best = u64::MAX;
+    for y in bb.2..=bb.3 {
+        for x in bb.0..=bb.1 {
+            if native_boundary(region, y * size + x) {
+                let d = ((x as i64 - ax).abs() + (y as i64 - ay).abs()) as u64;
+                best = best.min(d);
+            }
+        }
+    }
+    best
 }
 
 struct Out {
@@ -159,6 +253,10 @@ trait Mover {
     }
     /// End-of-run invariant hook (check mode only).
     fn finish(&self, _: &Region) {}
+    /// Rev4: every excursion is a straight segment (bal), so N = tau.
+    fn straight_line(&self) -> bool {
+        false
+    }
 }
 
 struct WalkerMover<W: Walker> {
@@ -366,6 +464,63 @@ impl Mover for EdenWalker {
     }
 }
 
+/// Revision 4 line-like control (`bal:SEED`). On a boundary cell (native
+/// predicate) draw a uniform heading; on interior cells keep it. Propose one
+/// step along the heading: onto a visited cell, move; onto an unvisited cell,
+/// apply the Eden birth rule (>= 2 visited neighbours: accept; exactly 1:
+/// accept with probability 1/64; else stay). Interior cells have all four
+/// neighbours visited, so every excursion is a straight segment.
+struct Ballistic {
+    st: u64,
+    h: usize,
+    x: i64,
+    y: i64,
+    births: u64,
+}
+
+impl Mover for Ballistic {
+    fn start_cell(&mut self, cur: usize, _: &Region) -> usize {
+        cur
+    }
+    fn advance(
+        &mut self,
+        at: usize,
+        _: &mut [u8],
+        size: usize,
+        region: &Region,
+    ) -> (usize, i64, i64) {
+        if region.unv[at] > 0 {
+            self.h = (splitmix_next(&mut self.st) & 3) as usize;
+        }
+        let (dx, dy) = DIRS[self.h];
+        let s = size as isize;
+        let j = (at as isize + dy as isize * s + dx as isize) as usize;
+        if !region.visited(j) {
+            let n = region
+                .nbr
+                .iter()
+                .filter(|&&d| region.visited((j as isize + d) as usize))
+                .count();
+            if n < 2 {
+                let r = splitmix_next(&mut self.st);
+                if (r >> 32) >= EDEN_Q1_Q32 {
+                    return (at, self.x, self.y);
+                }
+            }
+            self.births += 1;
+        }
+        self.x += dx as i64;
+        self.y += dy as i64;
+        (j, self.x, self.y)
+    }
+    fn finish(&self, region: &Region) {
+        assert_eq!(self.births + 1, region.area, "bal births = area - 1");
+    }
+    fn straight_line(&self) -> bool {
+        true
+    }
+}
+
 /// Revision 2 C1I: internal DLA. Each particle starts at the origin and takes
 /// simple random-walk steps; its first step onto an unvisited cell births that
 /// cell, and the next step starts back at the origin (zero-time teleport).
@@ -475,6 +630,12 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
     let check = CHECK.load(Ordering::Relaxed);
     let cu = c as usize;
     let mut bb = (cu, cu, cu, cu);
+    // Rev4 depth state.
+    let depth_on = DEPTH.load(Ordering::Relaxed);
+    let mut stamp: Vec<u32> = if depth_on { vec![0; size * size] } else { vec![] };
+    let mut exc_id: u32 = 0;
+    let (mut exc_d, mut exc_n, mut prev_at, mut prev_depth) = (0u64, 0u64, usize::MAX, 0u64);
+    let s_i = size as isize;
 
     for k in 0..max_log2 {
         let t_end = 1u64 << (k + 1);
@@ -492,6 +653,13 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
             bins: [0; MAX_BIN],
             fine_n: vec![0; MAX_FINE],
             fine_sum: vec![0; MAX_FINE],
+            dh: if depth_on {
+                (0..2)
+                    .map(|_| std::array::from_fn(|_| vec![0u64; MAX_FINE]))
+                    .collect()
+            } else {
+                vec![]
+            },
         };
         // Steps of an excursion that began before this window and are still open
         // contribute to unresolved_steps if still open at window end; completed
@@ -507,7 +675,38 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
                 w.interior_steps += 1;
             }
 
+            // Rev4: depth of this step's start cell (interior steps only).
+            let native_interior = depth_on && !native_boundary(&region, at);
+            if native_interior {
+                if !in_exc {
+                    exc_id += 1;
+                    exc_d = 0;
+                    exc_n = 0;
+                }
+                let diff = at as isize - prev_at as isize;
+                let adjacent = in_exc && (diff == 1 || diff == -1 || diff == s_i || diff == -s_i);
+                let dep = if adjacent {
+                    step_depth(&region, size, at, prev_depth)
+                } else {
+                    full_depth(&region, size, at)
+                };
+                if check && (t < (1 << 13) || t % (1 << 16) == 0) {
+                    let bf = brute_depth(&region, size, bb, at);
+                    assert_eq!(dep, bf, "depth incremental vs brute force at t={t}");
+                }
+                exc_d = exc_d.max(dep);
+                if stamp[at] != exc_id {
+                    stamp[at] = exc_id;
+                    exc_n += 1;
+                }
+                prev_at = at;
+                prev_depth = dep;
+            }
+
             let (j, x, y) = mv.advance(at, &mut colour, size, &region);
+            if check && depth_on && native_interior {
+                assert!(region.visited(j), "birth during an excursion at t={t}");
+            }
             idx = j;
             t += 1;
             if !region.visited(idx) {
@@ -562,6 +761,15 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
                         );
                     }
                 }
+                if depth_on {
+                    if check {
+                        assert!(exc_d >= 1 && exc_n >= 1 && exc_n <= exc_len, "depth/distinct bounds");
+                        if mv.straight_line() {
+                            assert_eq!(exc_n, exc_len, "bal: distinct cells must equal tau");
+                        }
+                    }
+                    w.file_depth(exc_len, exc_d, exc_n);
+                }
                 w.n_completed += 1;
                 w.sum_tau += exc_len;
                 in_exc = false;
@@ -606,6 +814,25 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32) -> 
                         w.fine_sum[f] >= lo * w.fine_n[f] && w.fine_sum[f] <= hi * w.fine_n[f],
                         "fine sum bounds f={f}"
                     );
+                }
+            }
+        }
+        if check && depth_on {
+            for axis in 0..2 {
+                let h = &w.dh[axis];
+                assert_eq!(h[0].iter().sum::<u64>(), w.n_completed, "dhist count axis {axis}");
+                assert_eq!(h[1].iter().sum::<u64>(), w.sum_tau, "dhist sum_tau axis {axis}");
+            }
+            assert_eq!(w.dh[0][2].iter().sum::<u64>(), w.dh[1][2].iter().sum::<u64>(), "sum_d axes");
+            assert_eq!(w.dh[0][3].iter().sum::<u64>(), w.dh[1][3].iter().sum::<u64>(), "sum_N axes");
+            assert_eq!(w.dh[1][0], w.fine_n, "tau axis counts vs fine hist");
+            assert_eq!(w.dh[1][1], w.fine_sum, "tau axis sum_tau vs fine hist");
+            for f in 0..MAX_FINE {
+                let n = w.dh[0][0][f];
+                if n > 0 {
+                    let (lo, hi) = fine_range(f);
+                    let sd = w.dh[0][2][f];
+                    assert!(sd >= lo * n && sd <= hi * n, "d bin sum bounds f={f}");
                 }
             }
         }
@@ -655,6 +882,17 @@ fn run_idla(seed: u64, drop_restart: bool, size: usize, max_log2: u32) -> Out {
         size,
         max_log2,
     )
+}
+
+fn run_bal(seed: u64, size: usize, max_log2: u32) -> Out {
+    let mv = Ballistic {
+        st: seed,
+        h: 0,
+        x: 0,
+        y: 0,
+        births: 0,
+    };
+    run(mv, vec![0u8; size * size], size, max_log2)
 }
 
 fn check_budget(out: &Out, what: &str) {
@@ -714,6 +952,24 @@ fn check_against_probe<W: Walker>(w: W, out: &Out, size: usize, max_log2: u32) {
             b.k
         );
     }
+}
+
+fn format_dhist(spec: &str, out: &Out) -> String {
+    let mut s = String::new();
+    for w in &out.wins {
+        for (axis, name) in w.dh.iter().zip(["d", "tau"]) {
+            for f in 0..MAX_FINE {
+                if axis[0][f] > 0 {
+                    let (lo, hi) = fine_range(f);
+                    s += &format!(
+                        "{spec},{},{name},{f},{lo},{hi},{},{},{},{}\n",
+                        w.k, axis[0][f], axis[1][f], axis[2][f], axis[3][f]
+                    );
+                }
+            }
+        }
+    }
+    s
 }
 
 fn format_block(spec: &str, out: &Out) -> (String, String, String) {
@@ -777,6 +1033,13 @@ fn format_block(spec: &str, out: &Out) -> (String, String, String) {
 }
 
 fn run_spec(s: &str, size: usize, max_log2: u32, check: bool) -> Out {
+    if let Some(seed) = s.strip_prefix("bal:") {
+        let out = run_bal(seed.parse().expect("bal SEED"), size, max_log2);
+        if check {
+            check_budget(&out, "bal");
+        }
+        return out;
+    }
     if let Some(seed) = s.strip_prefix("eden:") {
         let out = run_eden(seed.parse().expect("eden SEED"), size, max_log2);
         if check {
@@ -921,7 +1184,7 @@ fn main() {
     let a: Vec<String> = std::env::args().collect();
     let max_log2: u32 = a
         .get(1)
-        .expect("usage: boundary_excursions MAX_LOG2 [GRID] [--check] [--hist PATH] [--fhist PATH]")
+        .expect("usage: boundary_excursions MAX_LOG2 [GRID] [--check] [--hist PATH] [--fhist PATH] [--dhist PATH]")
         .parse()
         .unwrap();
     let size: usize = a
@@ -934,6 +1197,9 @@ fn main() {
     if check {
         CHECK.store(true, Ordering::Relaxed);
         check_fine_bins();
+    }
+    if a.iter().any(|s| s == "--depth-mutant") {
+        DEPTH_MUTANT.store(true, Ordering::Relaxed);
     }
     if a.iter().any(|s| s == "--fine-mutant") {
         FINE_MUTANT.store(true, Ordering::Relaxed);
@@ -952,6 +1218,14 @@ fn main() {
         .position(|s| s == "--fhist")
         .and_then(|i| a.get(i + 1))
         .cloned();
+    let dhist_path = a
+        .iter()
+        .position(|s| s == "--dhist")
+        .and_then(|i| a.get(i + 1))
+        .cloned();
+    if dhist_path.is_some() {
+        DEPTH.store(true, Ordering::Relaxed);
+    }
     let specs: Vec<String> = std::io::stdin()
         .lines()
         .map(|l| l.unwrap().trim().to_string())
@@ -961,11 +1235,14 @@ fn main() {
         "{} specs, max_log2 {max_log2}, grid {size}, check {check}",
         specs.len()
     );
-    let blocks: Vec<(String, String, String)> = specs
+    let blocks: Vec<(String, String, String, String)> = specs
         .par_iter()
         .map(|s| {
+            let started = std::time::Instant::now();
             let out = run_spec(s, size, max_log2, check);
-            format_block(s, &out)
+            eprintln!("spec {s} done in {:.1}s", started.elapsed().as_secs_f64());
+            let (w, h, f) = format_block(s, &out);
+            (w, h, f, format_dhist(s, &out))
         })
         .collect();
 
@@ -977,10 +1254,16 @@ fn main() {
     .unwrap();
     let mut hist_buf = String::from("spec,k,log2_tau,count\n");
     let mut fhist_buf = String::from("spec,k,fine,lo,hi,count,sum_tau\n");
-    for (w, h, fh) in &blocks {
+    let mut dhist_buf = String::from("spec,k,axis,bin,lo,hi,count,sum_tau,sum_d,sum_distinct\n");
+    for (w, h, fh, dh) in &blocks {
         out.write_all(w.as_bytes()).unwrap();
         hist_buf.push_str(h);
         fhist_buf.push_str(fh);
+        dhist_buf.push_str(dh);
+    }
+    if let Some(path) = dhist_path {
+        std::fs::write(&path, &dhist_buf).unwrap();
+        eprintln!("wrote dhist {}", path);
     }
     if let Some(path) = fhist_path {
         std::fs::write(&path, &fhist_buf).unwrap();

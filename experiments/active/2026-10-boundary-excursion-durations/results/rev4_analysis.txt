@@ -1,0 +1,49 @@
+Rev4 walker calibration: depth–duration exponent beta (area >= 1.70, line <= 1.30)
+
+eden: gate C1E-d (predict area)
+  retained 25 windows, dropped {'L<12': 11}; L [12.269663, 50.168894]
+  beta median 1.994  range 1.928..2.104  call AREA
+  per-seed medians 2026102961: 1.990, 2026102962: 1.996, 2026102963: 1.986, 2026102964: 2.004; between-seed SD 0.008
+  time share in fitted d-range (median over windows) 0.346
+  revisit gamma median 0.13259770382877692 over 25 windows (report-only)
+
+idla: gate C1I-d (predict area)
+  retained 6 windows, dropped {'L<12': 16, 'not fittable': 14}; L [22.072727, 27.44]
+  beta median 1.997  range 1.923..2.097  call AREA
+  per-seed medians 2026102961: 2.025, 2026102962: 2.043, 2026102963: 1.923, 2026102964: 1.976; between-seed SD 0.054
+  time share in fitted d-range (median over windows) 0.011
+  revisit gamma median 0.09130002478587139 over 6 windows (report-only)
+
+bal: gate C-line (predict line)
+  retained 25 windows, dropped {'L<12': 11}; L [12.136905, 51.49815]
+  beta median 0.413  range 0.072..0.681  call LINE
+  per-seed medians 2026102961: 0.478, 2026102962: 0.303, 2026102963: 0.464, 2026102964: 0.344; between-seed SD 0.087
+  time share in fitted d-range (median over windows) 0.306
+  revisit gamma median 0.0 over 25 windows (report-only)
+
+idlar: report-only (predict area)
+  retained 6 windows, dropped {'L<12': 16, 'not fittable': 14}; L [22.072727, 27.44]
+  beta median 1.997  range 1.923..2.097  call AREA
+  per-seed medians 2026102961: 2.025, 2026102962: 2.043, 2026102963: 1.923, 2026102964: 1.976; between-seed SD 0.054
+  time share in fitted d-range (median over windows) 0.274
+  revisit gamma median 0.15838503534591147 over 6 windows (report-only)
+
+mf: report-only (predict not line (probably area))
+  retained 32 windows, dropped {'L<12': 4}; L [12.821596, 68.722062]
+  beta median 0.492  range 0.337..0.758  call LINE
+  per-seed medians 2026102961: 0.487, 2026102962: 0.486, 2026102963: 0.504, 2026102964: 0.485; between-seed SD 0.009
+  time share in fitted d-range (median over windows) 0.003
+  revisit gamma median 0.0013661809392465614 over 32 windows (report-only)
+
+rotor: report-only (predict area (~55-60%))
+  retained 20 windows, dropped {'L<12': 5, 'not fittable': 11}; L [21.25242, 60.737024]
+  beta median 1.901  range 1.838..2.085  call AREA
+  per-seed medians 2026102961: 1.902, 2026102962: 1.905, 2026102963: 1.900, 2026102964: 1.879; between-seed SD 0.012
+  time share in fitted d-range (median over windows) 0.155
+  revisit gamma median 0.1846020320399363 over 20 windows (report-only)
+
+Gates:
+  C1E-d: eden -> area (need area) PASS
+  C1I-d: idla -> area (need area) PASS
+  C-line: bal -> line (need line) PASS
+  walker gates overall: PASS
