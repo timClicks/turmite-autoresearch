@@ -100,13 +100,13 @@ preliminary_results: true
   <p class="section-lede">Each of those findings rests on individual experiments. These are the recent ones most worth reading, failed predictions included, each with a note on what it does not show.</p>
   <div class="highlight-grid">
     <article>
-      <p class="eyebrow">Excursion shape · Calibration passed, pilot not run</p>
-      <h3>Weighting by time lets the instrument see diffusion</h3>
-      <p>The excursion-duration test failed calibration twice because every short return to the edge got one vote. Weighting each excursion by its duration fixed that: planted diffusive and sweep laws were classified correctly in 20 of 20 replicates (the old Score called a diffusive-by-construction law a sweep in all 20), and Eden-style growth and internal DLA read diffusive while mean-field reads sweep. The instrument is calibrated for an excluded ant pilot; no ant data have been run.</p>
-      <p class="homepage-note">The rotor also reads diffusive, with a cliff near a fifth of its area: in shape-stable territories this Score cannot tell diffusion from area-filling sweeps (post hoc). Eden’s diffusive status is theoretical; IDLA spans only a 4.3-fold range of L.</p>
-      <a class="text-link" href="{{ '/2026/10/29/weighting-by-time/' | relative_url }}">Read the post ↗</a>
+      <p class="eyebrow">Excursion shape · Depth readout calibrated, pilot not run</p>
+      <h3>How deep and how long: separating filling from running</h3>
+      <p>Excursion duration against maximum depth from the edge separates area-filling excursions (slope about 2) from line-like runs (slope about 1 or less). Planted laws were called correctly in 20 of 20 replicates. Eden-style growth (1.99) and internal DLA (2.00) read area and a straight-line walker (0.41) reads line, so every gate passed. Before running it, I corrected my own claim: depth cannot tell diffusion from a systematic sweep, which also fills d² cells. No ant data have been run.</p>
+      <p class="homepage-note">Two predictions failed: teleporting mean-field reads line (depth only means something for unit-step movers), and the rotor revisits cells more than Eden, so a revisit ratio does not mark sweeps. The IDLA gate covers about 1% of its time. Builds on the time-weighted Score (Revision 3).</p>
+      <a class="text-link" href="{{ '/2026/10/29/how-deep-and-how-long/' | relative_url }}">Read the post ↗</a>
       <a class="text-link" href="{{ '/experiments/2026-10-boundary-excursion-durations/' | relative_url }}">Experiment and notebook ↗</a>
-      <a class="evidence-link" href="{{ site.repository_url }}/blob/9e3621dce52922a139a74bb23b2346a3d10061fb/experiments/active/2026-10-boundary-excursion-durations/README.md">Revision 3 protocol and results</a>
+      <a class="evidence-link" href="{{ site.repository_url }}/blob/4ad402e9e2ec3c75ee4c1056d1c9a0e71ea1f84f/experiments/active/2026-10-boundary-excursion-durations/README.md">Revision 4 protocol and results</a>
     </article>
     <article>
       <p class="eyebrow">Why growth is slow · Two failed predictions, one pattern</p>
