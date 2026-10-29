@@ -1,0 +1,8 @@
+Rev4 G1 synthetic gate (depth readout). Calls: area >= 1.70, line <= 1.30.
+law  truth correct opposite inconcl/uninf  median-beta  [min, max] over reps  windows/rep
+SD   area  20/20   0/20     0/20        1.923       [1.906, 1.935]        [20, 21, 22, 23]  PASS
+SDL  area  20/20   0/20     0/20        1.916       [1.891, 1.938]        [12, 13, 14, 15, 16]  PASS
+SA   area  20/20   0/20     0/20        1.951       [1.950, 1.952]        [20, 21, 22]  PASS
+SB   line  20/20   0/20     0/20        1.057       [1.052, 1.058]        [24]  PASS
+SC   line  20/20   0/20     0/20        0.439       [0.439, 0.439]        [24]  PASS
+G1: PASS
