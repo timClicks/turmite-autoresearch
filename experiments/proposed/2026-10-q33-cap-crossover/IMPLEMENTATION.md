@@ -1,6 +1,6 @@
 # Implementation handoff and acceptance checks
 
-No walker implementation is included in this proposal. Do not paste the pseudocode into a large sweep without the acceptance checks.
+A dependency-free Python sparse implementation and independently written Python oracle tests are now included; see [PYTHON.md](PYTHON.md). The Rust/tiled implementation, complete gate instruments, and cross-language execution checks remain outstanding. The Python tools support short diagnostic runs and resumable state; do not treat those technical checks as passed Q33 confirmation gates.
 
 ## Integration plan
 
