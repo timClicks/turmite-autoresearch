@@ -22,7 +22,7 @@ echo "git=$(git -C "$ROOT" rev-parse HEAD)"
 mkdir -p "$EXP/scratch"
 "$SYN" 2026102981 20 > "$EXP/scratch/rev4_synth_dhist.csv"
 echo "synth csv sha256=$(sha256sum "$EXP/scratch/rev4_synth_dhist.csv" | awk '{print $1}')"
-uv run --frozen --script "$EXP/scripts/synth_rev4.py" "$EXP/scratch/rev4_synth_dhist.csv"
+uv run --frozen python "$EXP/scripts/synth_rev4.py" "$EXP/scratch/rev4_synth_dhist.csv"
 grep -q '^G1: PASS' "$RES/rev4_synth.txt" || { echo "G1 failed: stop before walkers" >&2; exit 2; }
 
 start=$(date +%s)
@@ -31,4 +31,4 @@ start=$(date +%s)
   < "$RES/rev4_calib_specs.txt" > "$RES/rev4_calib_windows.csv" 2>"$RES/rev4_calib_run.log"
 echo "rev4 calib wall seconds: $(( $(date +%s) - start ))"
 echo "windows: $(wc -l < "$RES/rev4_calib_windows.csv") dhist rows: $(wc -l < "$RES/rev4_calib_dhist.csv")"
-uv run --frozen --script "$EXP/scripts/analyse_rev4.py"
+uv run --frozen python "$EXP/scripts/analyse_rev4.py"
