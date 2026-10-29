@@ -1,16 +1,17 @@
 # Active work and open items
 
-Living index, last updated 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
-## Pointer (2026-10-28): excursion-duration collapse stage 1 + Revisions 1–2
+## Pointer (2026-10-29): excursion-duration collapse stage 1 + Revisions 1–3
 
-`experiments/active/2026-10-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`, each before its measurement).
+`experiments/active/2026-10-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`; Revision 3 registration `3d87d8b`, instrument `a8a93b1`, each before its measurement).
 Implements P-C / Q32 from `notes/cube-root-routes-2026-10-26.md` on PR #18 (reference by branch/PR; do not mint colliding Q numbers here).
 Stage-1: **revise** (RW D calibrator never grows L). Revision 1 reflecting cup: L grows but compactness (A/P²) fails and Score prefers S (frontier trapping); C1' **inadequate**; confirmation **not run**; cup-as-D design **retired** (`NR-20261027-reflecting-cup-d-calibrator`). MF L-control still passes; rotor inconclusive. Revision 2: Eden-style and IDLA both pass compactness but the frozen number-weighted Score does not prefer D (Eden S, IDLA inconclusive); gate **fail**, confirmation **not run**; both retired as D calibrators for this Score (`NR-20261028-excursion-score-compact-d-calibrators`). Instrument limitation, not an ant result. Paused: any next step needs a newly registered observable (e.g. tail-restricted collapse) calibrated on these walkers before ant data.
+Revision 3 (2026-10-29, results `9e3621d`): time-weighted survival Score_tw. Synthetic laws classified correctly in 20/20 replicates (old Score called a D-by-construction law S in 20/20); Eden D, IDLA D, mean-field S; **C1E-tw, C1I-tw, C2-tw PASS**. Calibrated for an excluded pilot; **pilot not run, confirmation not run**, reserved seeds untouched. Caveat (post hoc): the rotor also reads D (cliff near τ ≈ A/5), so Score_tw cannot separate diffusion from area-filling sweeps. **Next:** register the excluded ant pilot under Score_tw, scoped to "L vs area-scale", or first register a depth–duration or τ/A readout on the same walkers.
 
 ## Pointer (2026-10-28): leak titration follow-ups
 

@@ -1,0 +1,8 @@
+Revision 3 G0 instrument checks — 2026-10-29 09:20 NZDT
+old binary: built from 9701882 (git worktree, CARGO_TARGET_DIR=/tmp/oldtarget) sha256 b568d6775a2b1fc8bd6996861e7718d3307d38664367ac1e859c2871ccf29fe3
+new binary: working tree on exp/excursion-rev3-time-weighted sha256 1c85ded940206f4d5d9f0e0e0c8ab799579c5b2698101993bd99830c1d5dcca7
+smoke: specs rw:7 rotor:7 cup:1.0:7 eden:7 idla:7 idlar:7 mf:7; max_log2 14, grid 512, --check
+windows csv sha256 old=9977d5775a7b59a8796631f4c8d5e1dd062b067ad2dddde4367beb1de4a8e32c new=9977d5775a7b59a8796631f4c8d5e1dd062b067ad2dddde4367beb1de4a8e32c -> BYTE-IDENTICAL
+hist csv sha256    old=c73adb3adf0df4a2142a884e3b2da2e8d6069c48e6ce3e98afbad3427ef7dc29 new=c73adb3adf0df4a2142a884e3b2da2e8d6069c48e6ce3e98afbad3427ef7dc29 -> BYTE-IDENTICAL
+new --check (fine self-check, per-window fine consistency) exit 0; fhist rows 806; python fine_range == Rust lo/hi on all rows; fine->coarse == hist
+--mutant under --check: exit 101 (panic) ; --fine-mutant under --check: exit 101 (panic)

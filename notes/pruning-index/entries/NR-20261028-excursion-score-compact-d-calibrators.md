@@ -62,3 +62,13 @@
 - Related signature IDs: `NR-20261027-reflecting-cup-d-calibrator`. It has the same objective and failed compactness as well. This entry extends the null to compact walkers.
 
 ## Amendments (append only)
+
+### 2026-10-29 amendment 1 (Revision 3 calibration): status stays `active`
+
+- Evidence revision: `9e3621dce52922a139a74bb23b2346a3d10061fb`. Registration `3d87d8b` and instrument `a8a93b1` were both committed before measuring. Results are in `results/rev3_synth.{txt,json}` and `results/rev3_analysis.{txt,json}`; hashes are in `results/sha256sums.txt`.
+- Reason: the "discriminating next test" above has now been run, as a new observable (time-weighted survival, Score_tw). As this entry's reopening rule requires for a different observable, this claim is not reopened.
+- Outcome:
+  - Score_tw calls Eden D and IDLA D, and mean-field S. All Rev3 gates pass.
+  - On fresh seeds 2026102951..54, the number-weighted Score replicates this entry's verdicts (Eden S, IDLA inconclusive).
+  - On synthetic laws that are D by construction, the number-weighted Score calls them S in 20/20 replicates. This strengthens the "instrument bias" confound above.
+- What this entry still prunes: using the **number-weighted** Score to certify D on these walkers. Score_tw is not covered by this entry.

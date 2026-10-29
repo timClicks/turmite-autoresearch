@@ -764,3 +764,185 @@ Proposed for a future registration (nothing below is frozen):
    component. It failed on ln-cutoff bias, coverage and identifiability, not on short-return swamping.
 
 Write-up: `blog/_posts/2026-10-28-what-two-failed-calibrations-taught-the-instrument.md`.
+
+## Revision 3 registration: time-weighted survival (calibration only)
+
+Registered 2026-10-29 09:17 NZDT. Base commit `9701882`. This section is written and committed
+**before** any Revision 3 measurement, including the synthetic gate. No ant data (pilot or confirmation)
+is run under this revision. The reserved confirmation rules, `results/reserved_confirmation_specs.txt`
+and seeds 20261027901..908 are untouched.
+
+### Why a new observable
+
+Revision 2 showed that the number-weighted Score cannot certify D on compact walkers. Post hoc,
+short returns (τ ≤ 3) are 34–73% of completed excursions but under 2% of off-boundary time
+(`results/rev2_short_share.txt`). The pruning entry `NR-20261028-excursion-score-compact-d-calibrators`
+retires Eden/IDLA only *for the number-weighted Score*. It explicitly does not exclude time-weighted
+or tail-restricted statistics. Preflight decision: **RUN** (NOTEBOOK 2026-10-29 09:17).
+
+### Observable (frozen)
+
+For a retained window w with completed excursion durations τ_i, the **time-weighted survival** is
+
+  S_tw(s) = Σ_{τ_i > s} τ_i / Σ_i τ_i,
+
+the fraction of completed off-boundary time spent in excursions longer than s. Equivalently, it is
+the survival function of the duration of the excursion containing a uniformly chosen completed
+off-boundary step (size-biased law). Each window is compared on u = s/L and on u = s/L², with
+L = A/P at window end as before.
+
+*Why time-weighted and not tail-restricted (decided before data).* Under D, the number-weighted density is
+≈ c·s^{-3/2} for 1 ≪ s ≪ L², with a cutoff at s ~ L². The number-weighted head is
+L-independent. Conditioning on τ ≥ τ0 (fixed τ0) leaves the head shape √(τ0/s) unscaled.
+Conditioning on τ ≥ cL is not a pure L² scaling under D, and conditioning on τ ≥ cL² is circular.
+Time weighting multiplies by s: S_tw(s) ≈ 1 − √s/(c'L) + … which is a function of s/L² alone,
+while the short head contributes mass O(√τ0 / L) → 0. Under S (geometric or sweep-like laws with
+a scale ∝ L), size biasing preserves s/L collapse. Tail-restricted survival is therefore **not** used.
+
+### Instrument change (frozen definition, implemented after this commit, before any measurement)
+
+`examples/boundary_excursions.rs` gains a **fine histogram**, which adds data and changes nothing existing:
+- For completed τ ≥ 1, set b = floor(log2 τ), sub = ((τ << 3) >> b) − 8 ∈ {0..7}, and fine index f = 8b + sub. This
+  is 8 sub-bins per octave and exact for τ < 16.
+- Per (window, f), record count and Σ τ (exact integer sums). Write them with a new flag `--fhist PATH`:
+  columns `spec,k,fine,lo,hi,count,sum_tau`, where [lo, hi] is the inclusive integer τ range of bin f.
+- Existing outputs (`windows` CSV, `--hist`) must be **byte-identical** to the pre-change binary on a smoke run
+  (grid 512, max_log2 14, specs rw/rotor/cup/eden/idla/idlar/mf seed 7), with the old binary built from `9701882`
+  in a separate target directory.
+- `--check` gains these consistency checks per window: Σ fine counts = n_completed; Σ fine sum_tau = Σ completed τ;
+  re-deriving coarse log2 bins from the fine bins (f >> 3) reproduces the `--hist` counts; and every recorded τ lies in [lo, hi].
+  The existing `--mutant` must still panic under `--check`. `cargo test --release --locked` must pass.
+
+### Evaluation of S_tw (frozen)
+
+The complementary mass M(s) = Σ_{τ>s} τ is exact at every fine-bin upper edge hi_f. Between consecutive
+upper edges, M is linearly interpolated in s (mass spread evenly over the integers of a bin). Below
+the first edge, M(s) = total for s < 1. Above the last non-empty bin, M = 0. S_tw = M/total.
+The u-grid is u_j = 2^{-8 + j/2}, j = 0..32 (1/256 .. 256), exactly as in the `analyse.py` code
+(see the note on the grid comment in NOTEBOOK 2026-10-29 09:17). The mask keeps grid points where at
+least one window has S_tw in (0.05, 0.95). If fewer than 3 points remain, the Score is NaN.
+
+### Score and decision rule (frozen, unchanged in form)
+
+Score_tw(L) and Score_tw(L²) are mean pairwise mean |S_tw,w1(u) − S_tw,w2(u)| over masked grid points across all retained windows
+of a kind (all seeds pooled). The verdict is **D** if Score_tw(L²) ≤ 0.75·Score_tw(L); **S** if Score_tw(L) ≤ 0.75·Score_tw(L²);
+else **inconclusive**. The kind is **uninformative** if L_max/L_min < 2 among retained windows.
+
+### Retention (frozen)
+
+The Revision 2 filters are unchanged: k ∈ 16..24, not escaped, n_completed ≥ 200, censored_step_share ≤ 0.20, L ≥ 4. One filter is added:
+the **effective sample size** n_eff = (Σ τ)² / Σ τ² ≥ 30, where Σ τ² is approximated per fine bin by sum_tau_f² / count_f
+(exact for single-integer bins).
+
+### Censoring sensitivity (frozen)
+
+Recompute Score_tw with each retained window's open excursion (if `n_censored` > 0 and `unresolved_steps` > 0) added
+as one more excursion of length `unresolved_steps` (a lower bound) to that window's mass. If this verdict differs
+from the primary verdict, the kind is **censoring-fragile**, which counts as INADEQUATE for any gate.
+
+### Calibrators and what each must show
+
+The D status of the walker calibrators is **theoretical, not by construction**:
+- **Eden** (`eden`, q1 = 1/64): every neighbour of an interior (non-boundary) cell is visited, so interior steps are
+  always accepted, and the walker is an exact simple random walk until it starts a step on a boundary cell.
+  An excursion is therefore an SRW hitting time of the boundary-cell set inside a compact, slowly changing domain.
+  That is D asymptotically, *if* the boundary is regular enough and the shape is stable across windows.
+  Neither is guaranteed at L ≈ 7–50.
+- **IDLA** (`idla`): restart-launched excursions are exit times of SRW from the centre, ~R² ∝ L², and should dominate
+  the time weight. Same caveats; its L range was only about 4 in Rev2.
+- Hence a **synthetic calibrator with a duration law known by construction** comes first (G1).
+
+**G0 instrument:** this is the change list above (byte-identical smoke, new `--check` consistency, mutant panics, cargo tests).
+
+**G1 synthetic discrimination (Python, `scripts/synth_rev3.py`, PEP 723 numpy).** Durations are fed through the same
+fine binning and the same Score_tw code. The panel is 4 pseudo-seeds × 9 windows k = 16..24, with L_k = 6·2^{3(k−16)/8} (6 → 48).
+Each window draws iid durations until the cumulative Σ τ first reaches 2^{k−2}, keeping the last draw. Laws:
+- **SD** (D by construction): gambler's-ruin absorption time from 1 on {0..M}, with M = round(2L).
+- **SD2** (D, heavy head): a mixture of 0.7 short atom P(τ = j) = 2^{−j} (j ≥ 1) and 0.3 SD.
+- **SS1** (S): 0.6 short atom as above, else τ = ceil(L·V) with V ~ U(0.5, 3).
+- **SS2** (S, diffusive shape, cutoff ∝ L): gambler's ruin from 1 on {0..M}, with M = round(4√L).
+- **SG** (S): geometric on {1, 2, …} with mean L.
+
+Gambler's-ruin times are sampled exactly from their pmf (computed by iterating the transition matrix
+until survival < 1e−12; the residual is put on the cap). There are 20 replicates per law. Seeds come from
+`numpy.random.SeedSequence(2026102971).spawn(...)` in the fixed order (law alphabetical, replicate 0..19).
+**PASS** if every law gets its correct verdict in ≥ 18/20 replicates and the opposite verdict in 0/20.
+If G1 fails, **stop** before any walker run. The number-weighted Score on the same synthetic data is reported only;
+the expectation, not gated, is that it fails on SD/SD2.
+
+**Walker calibration (fresh seeds 2026102951..2026102954; unused per grep at `9701882`).** Kinds eden, idla,
+idlar, mf and rotor make 20 specs in `results/rev3_calib_specs.txt`. Board 8192, max_log2 24, `RAYON_NUM_THREADS=4`, `--check`.
+- **C1E-tw:** eden passes compactness (Rev1 rule: L range ≥ 2, A range ≥ 4, median A/P² ≥ 0.04), its Score_tw verdict is **D**,
+  and it is not censoring-fragile.
+- **C1I-tw:** idla, with the same requirements.
+- **C2-tw:** mf Score_tw verdict is **S**, and the number-weighted mean τ/L (bin-midpoint, as in Rev2) is in [0.5, 2.0].
+- **idlar:** a diagnostic only, predicted D, not gated.
+- **rotor:** reported only. Unscored guess on record: S.
+- **Replication line (not gated):** the frozen number-weighted Rev2 Score on the fresh seeds. Expected, replicating
+  Rev2: eden S, idla inconclusive, mf S.
+
+**Overall:** the Score_tw instrument counts as calibrated for an *excluded pilot* only if G0, G1, C1E-tw, C1I-tw and C2-tw
+all PASS. If any fails, record the negative result, do not tune the margin, grid, mask, weighting, filters
+or laws on these results, and add a pruning entry if warranted. If all pass, the next step is a **separately
+registered** excluded pilot. It is not run under this revision.
+
+Budget: under 15 CPU-minutes total (walker run similar to Rev2; synthetic sampling is pmf-based).
+
+## Revision 3 results (calibration only; 2026-10-29 09:22–09:23 NZDT)
+
+Registration `3d87d8b` (09:16:57 +13:00). Instrument and scripts `a8a93b1` (09:21:57), both committed before any
+Revision 3 measurement. Binary sha256 `1c85ded9…dcca7`; full outputs below are in `results/`.
+
+**G0 instrument: PASS** (`results/rev3_g0.txt`). Windows and `--hist` output are byte-identical to the `9701882` binary on
+the 7-spec smoke. The new `--check` passes. `--mutant` and the new `--fine-mutant` both panic.
+`cargo test --release --locked` passed 227 tests, 0 failed.
+
+**G1 synthetic discrimination: PASS** (`scripts/synth_rev3.py` → `results/rev3_synth.{txt,json}`; 12 s CPU).
+
+| law (truth) | Score_tw correct / opposite | median Score_tw(L) vs (L²) | number-weighted (report only) correct / opposite |
+|---|---|---|---|
+| SD (D) | 20/20 / 0/20 | 0.1070 vs 0.0189 | **0/20 / 20/20** |
+| SD2 (D, 70% short head) | 20/20 / 0/20 | 0.1201 vs 0.0446 | **0/20 / 20/20** |
+| SG (S) | 20/20 / 0/20 | 0.0162 vs 0.1516 | 20/20 / 0/20 |
+| SS1 (S, 60% short head) | 20/20 / 0/20 | 0.0373 vs 0.1624 | 20/20 / 0/20 |
+| SS2 (S, ruin shape, cutoff ∝ L) | 20/20 / 0/20 | 0.0161 vs 0.1258 | 20/20 / 0/20 |
+
+All 36 synthetic windows were retained in every replicate. The number-weighted Score calls a law that is D by construction
+**S in 20/20 replicates**. So the number-weighted Score mislabels a known-D law. This is consistent with the Rev2 failures being a bias of that Score rather than a property of the walkers, which the walker replication line below also suggests.
+
+**Walker calibration** (`scripts/run_rev3.sh` → `results/rev3_calib_*`; `scripts/analyse_rev3.py` → `results/rev3_analysis.{txt,json}`;
+seeds 2026102951..54; 2 s wall):
+
+| kind | retained | L range | Score_tw(L) | Score_tw(L²) | verdict | censored-incl verdict | compactness | number-weighted (replication) |
+|---|---|---|---|---|---|---|---|---|
+| eden | 36 | 6.28–50.7 (8.09×) | 0.1078 | 0.0252 | **D** | D | pass (A/P² 0.0662) | S (0.1037 vs 0.1666) |
+| idla | 36 | 6.43–27.5 (4.28×) | 0.1427 | 0.0404 | **D** | D | pass (A/P² 0.0709) | inconclusive (0.0627 vs 0.0742) |
+| idlar | 31 (5 dropped, n_eff<30) | 8.14–27.5 (3.38×) | 0.0776 | 0.0401 | D | D | pass | S |
+| mf | 36 | 10.7–66.1 (6.19×) | 0.0163 | 0.1421 | **S** | S | fails (0.0317; not required) | S; mean τ/L 0.9999 |
+| rotor | 35 (1 dropped, n_eff<30) | 8.53–60.3 (7.07×) | 0.0897 | 0.0483 | **D** | D | fails (0.0092) | inconclusive |
+
+Gates: **C1E-tw PASS, C1I-tw PASS, C2-tw PASS** (mf S, number-weighted mean τ/L = 0.9999 ∈ [0.5, 2]). idlar
+(diagnostic) gave D as predicted. **Rotor gave D, against the unscored guess S.** The replication line reproduced
+Rev2 exactly in kind: eden S, idla inconclusive, mf S. No verdict is censoring-fragile. The largest censored
+share of window mass was 2.4%.
+
+**Overall: the Score_tw instrument is calibrated for an excluded pilot** under this registration. The pilot
+was **not run**. It needs its own registration (ant rule list, excluded seeds, and what the D/S verdict may and may not be read as; see below).
+
+### Interpretation and an important limit (post hoc, not registered)
+
+- The rotor D verdict is not evidence that the rotor diffuses. Its time-weighted curves collapse in s/L² with a sharp
+  cliff at s/L² ≈ 2^4–2^5 (`results/figures/rev3_tw_rotor.png`). A/P² is roughly constant (≈ 0.009), so A ≈ 110 L²,
+  and the cliff sits at τ ≈ 0.15–0.3·A. That looks like **sweeps of a sizeable fraction of the whole territory**.
+- In any shape-stable domain A ∝ L², so **Score_tw cannot tell "τ ∝ L² (diffusive)" from "τ ∝ A (area-filling sweep)"**.
+  It *can* tell both apart from boundary-local sweeps with τ ∝ L. For the ant question, a D verdict under
+  Score_tw must therefore be read as "time is dominated by excursions scaling like the area". It must not be
+  read as "diffusive".
+- The post hoc depth–duration idea (τ vs maximum boundary distance d; d² vs d) would separate the two. It should be
+  part of, or precede, the pilot registration.
+
+### Retain / revise / stop (Revision 3)
+
+**Retain Score_tw** as the calibrated excursion observable. **Do not run** the reserved confirmation. Next step: register an
+excluded ant pilot under Score_tw. Before that, either add a registered depth–duration readout, or restrict the pilot claim to
+"L vs L²/A scaling of time-weighted excursions".

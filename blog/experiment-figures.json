@@ -131,6 +131,18 @@
       "alt": "CCDF of Eden-style walker excursion durations coloured by window-end L, shown under tau/L and tau/L-squared scalings.",
       "caption": "Revision-2 Eden-style walker: a compact territory, yet the frozen Score prefers the sweep scaling, because returns launched from the boundary are short at every L.",
       "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/build_figures.py"
+    },
+    "excursion-rev3-eden": {
+      "path": "experiments/active/2026-10-boundary-excursion-durations/results/figures/rev3_tw_eden.png",
+      "alt": "Time-weighted survival of Eden-style excursion durations against s/L and s/L-squared, coloured by window-end L.",
+      "caption": "Revision-3 Eden-style walker under time weighting: the curves overlie under s/L-squared and the frozen Score_tw calls it diffusive (C1E-tw pass).",
+      "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/figures_rev3.py"
+    },
+    "excursion-rev3-rotor": {
+      "path": "experiments/active/2026-10-boundary-excursion-durations/results/figures/rev3_tw_rotor.png",
+      "alt": "Time-weighted survival of rotor-walker excursion durations against s/L and s/L-squared, with a sharp cliff under s/L-squared.",
+      "caption": "Revision-3 rotor (reported only): Score_tw calls it diffusive, but the cliff at about a fifth of the visited area suggests territory sweeps. Score_tw cannot tell area-scale sweeps from diffusion (post hoc).",
+      "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/figures_rev3.py"
     }
   },
   "experiments": {
@@ -140,7 +152,9 @@
       "excursion-mf-rev1",
       "excursion-rev2-compactness",
       "excursion-idla",
-      "excursion-eden"
+      "excursion-eden",
+      "excursion-rev3-eden",
+      "excursion-rev3-rotor"
     ],
     "2026-10-hidden-phase-return": ["hidden-phase"],
     "2026-10-knockout-maps": ["occupancy-home"],

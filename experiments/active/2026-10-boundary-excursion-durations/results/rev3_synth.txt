@@ -1,0 +1,6 @@
+SD   expect D: Score_tw correct 20/20 opposite 0/20 -> PASS; median Score_tw(L) 0.1070 vs (L^2) 0.0189; number-weighted (report only) correct 0/20 opposite 20/20, median 0.1158 vs 0.1756; retained >= 36/36
+SD2  expect D: Score_tw correct 20/20 opposite 0/20 -> PASS; median Score_tw(L) 0.1201 vs (L^2) 0.0446; number-weighted (report only) correct 0/20 opposite 20/20, median 0.1515 vs 0.2093; retained >= 36/36
+SG   expect S: Score_tw correct 20/20 opposite 0/20 -> PASS; median Score_tw(L) 0.0162 vs (L^2) 0.1516; number-weighted (report only) correct 20/20 opposite 0/20, median 0.0586 vs 0.1663; retained >= 36/36
+SS1  expect S: Score_tw correct 20/20 opposite 0/20 -> PASS; median Score_tw(L) 0.0373 vs (L^2) 0.1624; number-weighted (report only) correct 20/20 opposite 0/20, median 0.1118 vs 0.1929; retained >= 36/36
+SS2  expect S: Score_tw correct 20/20 opposite 0/20 -> PASS; median Score_tw(L) 0.0161 vs (L^2) 0.1258; number-weighted (report only) correct 20/20 opposite 0/20, median 0.1222 vs 0.1864; retained >= 36/36
+G1 synthetic discrimination: PASS
