@@ -1070,3 +1070,104 @@ exactly; rotor |γ| < 0.05 (sweeps rarely revisit); mf ≈ 0 (teleports rarely r
 
 Budget: under 60 CPU-minutes. If mf's full depth search per step makes a single mf spec exceed 20 CPU-minutes, mf
 (report-only) is dropped and this is recorded as a deviation.
+
+## Revision 4 results (calibration only; appended after registration `e066256`)
+
+Run 2026-10-29 18:02–18:04 NZDT at `acefd81` (`scripts/run_rev4.sh`; G0 via `scripts/g0_rev4.sh`, record in
+`results/rev4_g0.txt`). Binary sha256 `43e16570…70fe8`, synthetic generator `06b21ee5…bcaf`; all files hashed in
+`results/sha256sums.txt`. **No ant data were run.**
+
+### Gates
+
+| gate | result |
+|---|---|
+| G0 instrument | **PASS.** Windows, hist and fhist are byte-identical to the `8904956` binary (with and without `--dhist`). `--check` exits 0 on the 7-spec smoke and on `bal:7`. `--mutant`, `--fine-mutant` and `--depth-mutant` each panic (exit 101). `cargo test --release --locked`: 227 passed, 0 failed. |
+| G1 synthetic | **PASS.** 20/20 correct and 0/20 opposite for every law. Median β: SD 1.923, SDL 1.916, SA 1.951 (area); SB 1.057, SC 0.439 (line). |
+| C1E-d (eden → area) | **PASS**, β = 1.994 |
+| C1I-d (idla → area) | **PASS**, β = 1.997 (thin: see below) |
+| C-line (bal → line) | **PASS**, β = 0.413 |
+
+The depth readout therefore counts as **calibrated for an excluded ant pilot**, with the caveats below.
+
+### Walkers
+
+| kind | retained (dropped) | β median (range) | between-seed SD | call | prediction | time share in fit range | γ (revisit, report-only) |
+|---|---|---|---|---|---|---|---|
+| eden | 25 (11 L<12) | 1.994 (1.928–2.104) | 0.008 | area | area ✓ | 0.346 | 0.133 |
+| idla | 6 (16 L<12, 14 not fittable) | 1.997 (1.923–2.097) | 0.054 | area | area ✓ | **0.011** | 0.091 |
+| bal | 25 (11 L<12) | 0.413 (0.072–0.681) | 0.087 | line | line ✓ | 0.306 | 0 (exact) |
+| idlar | 6 (same as idla) | 1.997 | 0.054 | area | area ✓ | 0.274 | 0.158 |
+| mf | 32 (4 L<12) | **0.492** (0.337–0.758) | 0.009 | **line** | not line ✗ | 0.003 | 0.001 |
+| rotor | 20 (5 L<12, 11 not fittable) | 1.901 (1.838–2.085) | 0.012 | area | area ✓ (~55–60%) | 0.155 | **0.185** |
+
+Figure: `results/figures/rev4_depth_duration.png` (mean τ against mean d per retained window, normalised to the first
+fitted bin, with slope-2 and slope-1 guides).
+
+Revisit predictions: eden γ > 0.05 ✓, bal γ = 0 ✓, mf ≈ 0 ✓, **rotor |γ| < 0.05 ✗**. The rotor has the *largest* γ of
+any kind (0.185, above eden's 0.133). So the "area plus γ ≈ 0 means sweep, not diffusion" pattern did not appear, and
+the hint cannot be used as registered.
+
+### Reading
+
+- **Area vs line works on the walkers it was built for.** Eden, IDLA and the rotor sit near slope 2; the straight-line
+  walker sits far below slope 1. The between-seed spread is small next to the 1.30–1.70 gap.
+- **IDLA's pass is thin.** Only 6 windows (L 22–27) were fittable, and they cover ~1% of IDLA's off-boundary time. As
+  registered, restart excursions start at depth ≈ 2L, outside d ≤ L. idlar (restart excursions dropped) has exactly
+  the same retained windows and β, which confirms the fit range contains no restart excursions. The gate checks that
+  IDLA's *local* motion is area-like, and nothing more.
+- **mf reads line, against my low-confidence prediction.** For a teleporting mover, d is the maximum of τ independent
+  depth draws. Given its maximum, τ grows only slowly with d, so the slope is shallow whatever the motion. This is
+  limitation 4 in action: **a line call is not evidence of line-like motion unless the mover is spatially continuous.**
+  Ant rules are continuous (unit steps), so this does not affect the ant pilot's interpretation, but it does rule out mf
+  as a sanity control for this readout. Its fit range also covers only 0.3% of its time.
+- **The rotor revisits a lot.** γ = 0.185 means τ/N grows with τ faster than for eden. A plausible (untested) reason: a
+  rotor walker inside a frozen region cycles through its rotor configurations and retraces cells many times. "Systematic sweep" does
+  not imply "few revisits", so the γ hint is retired for this purpose (post hoc reading; nothing was tuned).
+
+### Deviations
+
+1. The registration heading says 17:58 NZDT, but commit `e066256` is stamped 17:55:58 NZDT. I wrote the heading time
+   ahead of the commit by about 2 minutes. The commit precedes every Rev4 measurement either way.
+2. `run_rev4.sh` first called `uv run --frozen --script`, which fails without a script lockfile. It was switched to
+   `uv run --frozen python` (the project env already has numpy) in `acefd81`, before any walker run. The synthetic CSV
+   had been generated but not scored. It is deterministic and was regenerated and scored by the fixed script.
+3. Under `--dhist`, the old `--mutant` panics at the new depth/distinct bounds check rather than its original window
+   probe. `g0_rev4.sh` therefore runs `--mutant` and `--fine-mutant` without `--dhist`, where they panic at their
+   original checks ("window k=9", the fine bin range), as registered.
+4. mf ran ~100 s per spec (budget limit 20 CPU-min), so it was not dropped.
+
+### Limitations
+
+Those registered still hold: depth does not separate diffusion from sweeps, d ≤ L ≤ ~50, and nothing below d = 4 is
+fitted. Added after the data: IDLA's gate rests on ~1% of its time; mf shows that non-local movers read line; and the
+revisit ratio does not mark sweeps.
+
+### Compute
+
+About 8 CPU-minutes for the calibration (mf 4 × ~102 s; the other 20 specs ~1 min total; G1 and Python a few
+seconds), plus ~2 CPU-minutes for the seed-7 timing smoke and G0, and the cargo test build. That is well under the
+60 CPU-minute budget.
+
+## Proposed ant pilot (not registered; nothing run)
+
+This needs a separate registration commit before any data.
+- **Rules:** the excluded development rules already used in the stage-1 pilot (`results/pilot_specs.txt`, RLLR / RLLRL /
+  RLLLRR / RLLLLRLL), on **new seeds**. Not the reserved confirmation rules, and not seeds 20261027901..908.
+- **Readouts per rule:**
+  - Score_tw (Rev3, frozen) for τ ∝ L vs τ ∝ L²;
+  - β (Rev4, frozen) for area vs line;
+  - the d < 4 time share, reported alongside.
+- **Interpretation grid (to register):**
+
+  | Score_tw | β | reading |
+  |---|---|---|
+  | D | area | area-filling interior excursions (diffusion and sweep not separated) |
+  | S | line | boundary-local or straight runs |
+  | D | line, or S with area | registered as "readouts disagree"; no claim |
+
+- **No γ claim.** The rotor shows revisits do not mark diffusion.
+- **Gate:** require ≥ 3 fittable windows per rule. A rule with < 5% of time in the fit range is reported as "β covers
+  little of the time" rather than read.
+- **Open question:** a diffusion-vs-sweep discriminator that the rotor fails differently from eden. Candidates are the
+  rotor τ/A collapse (Rev3 question) or the spread of τ at fixed d (deterministic sweeps should be tighter). This would
+  need its own synthetic gate.
