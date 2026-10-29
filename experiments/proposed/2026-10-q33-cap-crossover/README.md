@@ -2,7 +2,7 @@
 
 ## Status, question and registration
 
-**Proposed; no walker, pilot or confirmation runs.** Prepared 2026-10-29 UTC against `8904956fbb5a0e3bce676a39e92f4543f3774c5f`. This commit registers the design and gates below. It does not certify an implemented instrument or authorize skipping those gates. Move to active with the migration helper when calibration starts. Confirmation requires a separate freeze commit containing actual input lists, executable commands, hashes and passed gate reports.
+**Proposed; no registered calibration, excluded-pilot or confirmation runs.** A small Python fallback is available for technical checks; see [PYTHON.md](PYTHON.md). Prepared 2026-10-29 UTC against `8904956fbb5a0e3bce676a39e92f4543f3774c5f`. This commit registers the design and gates below. It does not certify an implemented instrument or authorize skipping those gates. Move to active with the migration helper when calibration starts. Confirmation requires a separate freeze commit containing actual input lists, executable commands, hashes and passed gate reports.
 
 Question: when a cap actually changes fresh penetration, does increasing it move the crossover to compact growth in proportion to its size? This follows Q33 and wall-vs-memory Stages 3–3c; those stages did not meet all their registered thresholds. We separate three claims: bounded fresh runs preserve compactness absent crystallisation; the active spatial penetration scale sets crossover width; and its late exponent equals 2/3. This experiment tests the first two. Q38 (crystallisation mechanism) and Q39 (why about 0.70) remain deferred.
 
@@ -102,6 +102,6 @@ Before execution, repeat the documented full-index rg workflow on a real checkou
 
 ## Reproduction and current limits
 
-No new code, commands, measurements or detector performance are claimed here. Implementation targets and acceptance checks are in IMPLEMENTATION.md. Use existing Rust/tiled census/probe infrastructure; CPU first, Metal only after equivalent instrument support and oracle checks. Run locked release builds and uv-managed analysis. There is no new dependency justified by this documentation proposal.
+A dependency-free Python sparse simulator, CLI, checkpoint format and independent-oracle tests are now available; commands and limits are in [PYTHON.md](PYTHON.md). Its technical tests do not establish the complete Q33 gates, detector performance or Rust/Python cross-execution equivalence. Production implementation targets and remaining acceptance checks are in IMPLEMENTATION.md. Use existing Rust/tiled census/probe infrastructure; CPU first, Metal only after equivalent instrument support and oracle checks. Run locked release builds and uv-managed analysis. There is no new dependency justified by this documentation proposal.
 
 This supersedes the *design*, not the historical observations, of the local-only 2026-10-29 cap feasibility memo. That memo's analytic union bound motivated changing the intervention; its C arithmetic is not a run of this proposed walker and is not imported as empirical results. No confirmation has started, so this investigation belongs in proposed/.
