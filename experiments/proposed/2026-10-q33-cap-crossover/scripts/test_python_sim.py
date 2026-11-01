@@ -162,6 +162,26 @@ class SimulationTests(unittest.TestCase):
             if turns == "RLU":
                 self.assertGreater(longest, 5)
 
+    def test_cap_intervention_counters_against_independent_oracle(self):
+        # The G3 exposure gate excludes the initial fresh run.
+        # Compute expected interventions from an independent visit-count oracle.
+        for cap in (1, 4, 16, 32):
+            config = sim.Config("RLL", "persistent-fresh", 7, cap)
+            walker, reference = sim.SparseWalker(config), Oracle(config)
+            total = nonorigin = 0
+            for _ in range(512):
+                fresh = reference.pos not in reference.visits
+                forced = fresh and reference.run + 1 >= cap
+                if forced:
+                    total += 1
+                    nonorigin += not reference.origin
+                walker.step()
+                reference.step()
+                self.assertEqual(walker.cap_turns, total)
+                self.assertEqual(walker.cap_turns_nonorigin, nonorigin)
+            self.assertGreater(total - nonorigin, 0)
+            self.assertGreater(nonorigin, 0)
+
     def test_resource_stop_does_not_advance_state(self):
         w = sim.SparseWalker(sim.Config("RL", "persistent-fresh", cap=128))
         w.step()
