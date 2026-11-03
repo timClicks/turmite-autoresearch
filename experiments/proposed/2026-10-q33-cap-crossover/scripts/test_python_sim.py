@@ -33,6 +33,7 @@ class Oracle:
         self.origin = True
         self.kappa = 0.0
         self.defined = self.boundary_reads = 0
+        self.cap_turns = self.cap_turns_nonorigin = 0
 
     def step(self):
         occupied = set(self.visits)
@@ -57,6 +58,8 @@ class Oracle:
         if not count and self.config.policy == "persistent-fresh":
             if self.config.cap is not None and self.run >= self.config.cap:
                 turn = "U"
+                self.cap_turns += 1
+                self.cap_turns_nonorigin += not self.origin
             else:
                 u = draw // (2**32)
                 turn = "S" if u % 128 else ("L" if (u // 128) % 2 else "R")
@@ -99,6 +102,8 @@ class SimulationTests(unittest.TestCase):
                     self.assertEqual(walker.origin_run, reference.origin)
                     self.assertAlmostEqual(walker.kappa_sum, reference.kappa)
                     self.assertEqual(walker.boundary_reads, reference.boundary_reads)
+                    self.assertEqual(walker.cap_turns, reference.cap_turns)
+                    self.assertEqual(walker.cap_turns_nonorigin, reference.cap_turns_nonorigin)
                 self.assert_geometry(walker)
 
     def assert_geometry(self, walker):
@@ -163,24 +168,24 @@ class SimulationTests(unittest.TestCase):
                 self.assertGreater(longest, 5)
 
     def test_cap_intervention_counters_against_independent_oracle(self):
-        # The G3 exposure gate excludes the initial fresh run.
-        # Compute expected interventions from an independent visit-count oracle.
-        for cap in (1, 4, 16, 32):
-            config = sim.Config("RLL", "persistent-fresh", 7, cap)
-            walker, reference = sim.SparseWalker(config), Oracle(config)
-            total = nonorigin = 0
-            for _ in range(512):
-                fresh = reference.pos not in reference.visits
-                forced = fresh and reference.run + 1 >= cap
-                if forced:
-                    total += 1
-                    nonorigin += not reference.origin
-                walker.step()
-                reference.step()
-                self.assertEqual(walker.cap_turns, total)
-                self.assertEqual(walker.cap_turns_nonorigin, nonorigin)
-            self.assertGreater(total - nonorigin, 0)
-            self.assertGreater(nonorigin, 0)
+        # G3 (README:47) counts only non-origin cap interventions; check that
+        # classification step by step. Expected counts come from the Oracle's own
+        # U branch, not from a restatement of the cap rule here.
+        for seed, cap in itertools.product((7, 1729), (None, 1, 4, 16, 32)):
+            with self.subTest(seed=seed, cap=cap):
+                config = sim.Config("RLL", "persistent-fresh", seed, cap)
+                walker, reference = sim.SparseWalker(config), Oracle(config)
+                for _ in range(512):
+                    walker.step()
+                    reference.step()
+                    self.assertEqual(walker.cap_turns, reference.cap_turns)
+                    self.assertEqual(walker.cap_turns_nonorigin, reference.cap_turns_nonorigin)
+                if cap is None:
+                    self.assertEqual(reference.cap_turns, 0)
+                else:
+                    # Both classes must be exercised, or the check is vacuous.
+                    self.assertGreater(reference.cap_turns - reference.cap_turns_nonorigin, 0)
+                    self.assertGreater(reference.cap_turns_nonorigin, 0)
 
     def test_resource_stop_does_not_advance_state(self):
         w = sim.SparseWalker(sim.Config("RL", "persistent-fresh", cap=128))
