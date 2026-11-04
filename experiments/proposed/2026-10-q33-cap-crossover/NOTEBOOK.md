@@ -34,3 +34,7 @@ Technical checks: `UV_CACHE_DIR=/tmp/q33-uv-cache uv run --offline --script expe
 ## 2026-10-29 UTC · same parent · decision
 
 PEP 723 dependencies=[] avoids installing the heavy root analysis environment. New runs write only inside this experiment and never overwrite an existing run directory. Record source/output hashes and explicit resource statuses. Rust execution remains unavailable, so Rust/Python equivalence, production throughput, crystallisation detection, pre-entry depth and Rev3 boundary-excursion instrumentation are not claimed. The independent RLRLLL checker is unchanged. Proposal remains in proposed/.
+
+## 2026-11-04 20:03 UTC · base 21c9092 · intent
+
+Daily progress session. Address the mechanical "should fix" items of the 2026-10-31 PR #31 review in a stacked PR, without changing any prediction band or gate: pin sample lists from the committed frame, state the probe area mapping, register an integer sub-octave schedule, add git provenance, and answer the reviewer's origin-exception question with a stated prediction (README Amendment A1, item 5) before running its test. P3 discrimination and the D metric need a design decision and are left open. No walker growth data will be produced.
