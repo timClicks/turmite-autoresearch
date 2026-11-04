@@ -240,5 +240,43 @@ class SimulationTests(unittest.TestCase):
             self.assertEqual(json.loads(resumed.stdout)["steps"], 1024)
 
 
+    def test_origin_run_bound_amendment_a1(self):
+        """README Amendment A1 item 5: origin run <= m for m >= 2; m = 1 can reach 2."""
+        seen_two_at_m1 = False
+        for rule, m, seed in itertools.product(("RLL", "RLLR"), range(1, 17), range(64)):
+            w = sim.SparseWalker(sim.Config(rule=rule, policy="persistent-fresh", seed=seed, cap=m))
+            for _ in range(4 * (m + 2)):
+                if not w.origin_run:
+                    break
+                w.step()
+            self.assertFalse(w.origin_run, (rule, m, seed))
+            if m >= 2:
+                self.assertLessEqual(w.origin_run_length, m, (rule, m, seed))
+            else:
+                self.assertLessEqual(w.origin_run_length, 2, (rule, m, seed))
+                seen_two_at_m1 |= w.origin_run_length == 2
+        self.assertTrue(seen_two_at_m1)
+
+    def test_schedule_matches_pinned_integer_table(self):
+        """README Amendment A1 item 4: floor(2^(k+j/8)) as an exact integer 8th root."""
+        def iroot8(n):
+            lo, hi = 0, 1 << (n.bit_length() // 8 + 2)
+            while lo < hi:
+                mid = (lo + hi + 1) // 2
+                lo, hi = (mid, hi) if mid ** 8 <= n else (lo, mid - 1)
+            return lo
+        rows = [line.split("\t") for line in (EXPERIMENT / "inputs/schedule.tsv").read_text().splitlines()
+                if not line.startswith("#")]
+        table = sorted({int(t) for _, _, t in rows})
+        self.assertEqual([int(t) for k, j, t in rows], [iroot8(1 << (8 * int(k) + int(j))) for k, j, _ in rows])
+        self.assertEqual(sim.sample_steps(1 << 31, 1, suboctaves=True), sorted({1, *(t for t in table if t <= 1 << 31), 1 << 31}))
+
+    def test_pinned_sample_lists_regenerate(self):
+        """README Amendment A1 item 2: committed lists equal the registered hash ranking."""
+        out = subprocess.run([sys.executable, str(EXPERIMENT / "scripts/pin_samples.py"), "--check"],
+                             capture_output=True, text=True)
+        self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

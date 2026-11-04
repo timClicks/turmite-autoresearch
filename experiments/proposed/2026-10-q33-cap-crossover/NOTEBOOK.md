@@ -38,3 +38,15 @@ PEP 723 dependencies=[] avoids installing the heavy root analysis environment. N
 ## 2026-11-04 20:03 UTC · base 21c9092 · intent
 
 Daily progress session. Address the mechanical "should fix" items of the 2026-10-31 PR #31 review in a stacked PR, without changing any prediction band or gate: pin sample lists from the committed frame, state the probe area mapping, register an integer sub-octave schedule, add git provenance, and answer the reviewer's origin-exception question with a stated prediction (README Amendment A1, item 5) before running its test. P3 discrimination and the D metric need a design decision and are left open. No walker growth data will be produced.
+
+## 2026-11-04 20:04 UTC · parent 7e9feb4 · observation
+
+`uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`: 17/17 OK (uv-managed Python, Linux box). New tests: (a) origin-run bound, Amendment A1 item 5: prediction **held**: origin run <= m for all m in 2..16, seeds 0..63, rules RLL and RLLR; m = 1 reached length 2 in at least one trajectory. So the m + 1 exception is only reachable at m = 1, and tests of it should target m = 1. (b) Sub-octave schedule equals the integer 8th-root table `inputs/schedule.tsv` for every time up to 2^31; the floating-point formula agreed with the exact integers for all k < 32, j < 8. (c) `pin_samples.py --check` regenerates the committed lists. The excluded-pilot list matches, in order, the eight rules the 2026-10-31 reviewer derived independently; confirmation lengths are 3 (1 rule) and 7-12 (199 rules), also as the reviewer reported. Frame sha256 `c76c7927…32cb5d`, 3055 rows, 2630 blob, 2630 unique.
+
+## 2026-11-04 20:04 UTC · same parent · deviation
+
+The first run of test (b) failed because the test compared against table entries above 2^31 (k = 31, j >= 1); a test bug, not a schedule mismatch. Fixed by restricting the table to times <= 2^31, then 17/17 passed. CLI provenance now records `git_commit` and `git_dirty`; checked on a disposable 4096-step run whose output was deleted.
+
+## 2026-11-04 20:04 UTC · same parent · decision
+
+Open, needing a design choice by the user or the proposal's author: review item 3 (P3 may not discriminate H-scale from H-local; reviewer suggests a registered uncapped-arm alpha_A expectation and/or a between-cap contrast at fixed W/m) and item 6 (metric and reference point for depth D). Also still owed before G0: overlap record with previously studied rules, a full local pruning-index rg audit, items 10-12 of the review. No walker growth data were produced.
