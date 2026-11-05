@@ -67,3 +67,16 @@ Record as Amendment A2. Default uncapped memory plan is sequential + fail-loud u
 
 Daily progress run. Address the mechanical "should fix" items of the 2026-11-05 PR #34 review as Amendment A3, without changing any prediction band or gate and without deciding open items 3 (P3 discrimination) or 6 (D metric). Fix git_dirty sampling, commit regeneratable overlap.py with crystallisation-relevant cohorts and onset columns, correct A1 item-5 timing wording and the claims-to-predictions mapping, sharpen the origin-run assertions (registered in A3 before the test edit), and record the literal pruning rule-string query.
 
+## 2026-11-06 09:11 NZDT · parent 21b3b22 · observation
+
+`uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`: **18/18 OK** (uv-managed Python, Linux box). Includes sharpened origin-run assertions (A3 item 5 **held**: m=1 always 2; max origin run == m for each m in 2..16 over the A1 grid) and `overlap.py --check`. Overlap summary:
+```
+rows=115 pilot_distinct=5/8 confirm_distinct=78/200 distinct=83 onset_lt_2_31_distinct=1
+overlap.tsv: OK
+```
+`git_dirty` check: disposable 4096-step persistent-fresh runs with `--output-dir` under `results/` and under `scratch/` on a clean tracked tree both recorded `git_dirty: false`; outputs deleted afterwards. Literal pruning rule-string query `rg -w -F -f <208 Q33 rules> notes/pruning-index/entries` → 0 matches. Index files last changed at `cc7a885`.
+
+## 2026-11-06 09:11 NZDT · same parent · decision
+
+Record checks as Amendment A3 fulfilment on PR #34. Leave P3 discrimination and D metric for the user. Do not start G0, pilot or confirmation. No walker growth data.
+
