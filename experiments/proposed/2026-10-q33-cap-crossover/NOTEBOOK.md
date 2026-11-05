@@ -50,3 +50,16 @@ The first run of test (b) failed because the test compared against table entries
 ## 2026-11-04 20:04 UTC · same parent · decision
 
 Open, needing a design choice by the user or the proposal's author: review item 3 (P3 may not discriminate H-scale from H-local; reviewer suggests a registered uncapped-arm alpha_A expectation and/or a between-cap contrast at fixed W/m) and item 6 (metric and reference point for depth D). Also still owed before G0: overlap record with previously studied rules, a full local pruning-index rg audit, items 10-12 of the review. No walker growth data were produced.
+
+## 2026-11-05 ~13:50 NZDT · parent ec20c3a · intent
+
+Periodic proactive session. Complete G0 hygiene still owed after A1: overlap record, full local pruning-index rg audit, and the remaining mechanical review items that need no design choice (memory budget plan, "first two" wording, draft blog commit-pinned URL). Items 3 and 6 stay open. No walker growth data.
+
+## 2026-11-05 ~13:50 NZDT · same parent · observation
+
+Local `rg -il` over `notes/pruning-index/entries/` with concepts cap|fresh|crossover|penetration|persistent|bound|porous|compact|excursion matched six of seven entries; additive-laws missed (invariant scope only). Each matched membership predicate was read; none covers the new S/R/L + finite-cap policy. Overlap script against curated study cohorts (not the blob census): 5/8 pilot and 58/200 confirm rules appear in at least one prior study; written to `inputs/overlap.tsv` (74 data rows).
+
+## 2026-11-05 ~13:50 NZDT · same parent · decision
+
+Record as Amendment A2. Default uncapped memory plan is sequential + fail-loud until pilot A(t) exists. Do not invent P3 or D-metric choices. Still open before a scientific run: items 3 and 6, and G0 instrument/oracle completeness beyond this hygiene.
+
