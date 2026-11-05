@@ -183,9 +183,9 @@ md("""## What this shows
   0.5), and there is no rule and EF where at least two compact and two porous runs sit together. The steepest 0.1 step carries
   22-42% of the rise, depending on the rule. Most of the rise happens between EF 0.1 and about 0.5; above 0.6 a changes by
   only a few hundredths, so there is no jump at the endpoint.
-- **The registered shape verdict is unresolved,** not smooth: M = 0.289 missed the frozen smooth cut of 0.28 by 0.009. The
-  other indicators (no coexistence, no peak in the between-seed sd, the intermediate band) all point the smooth way, but
-  they were not the registered test, and the verdict stays "unresolved".
+- **The registered shape verdict is unresolved,** not smooth: M = 0.289 missed the frozen smooth cut of 0.28 by 0.009. No
+  coexistence and the intermediate band still read smooth; the between-seed sd rises to a plateau (largest 0.031 at EF
+  0.5) and does not discriminate. Those were not the registered test, and the verdict stays "unresolved".
 - **Median EF_50 is 0.30** on arm R, inside the registered interval at its lower edge (P2), and 5 of 6 curves are monotone
   within noise (P3).
 - **The handedness prediction failed** (P4): on the three rules scoreable in both arms, EF_50 agreed within 0.1 in only one.
@@ -205,10 +205,13 @@ md("""## What this shows
 
 ## Post hoc observations (not registered, not scored)
 - In arm L, the two rules that build a highway under forced L at EF = 0 (`RLRLLRRLRLR`, `RLRLLRRRRRRR`) are already porous
-  at EF = 0.1 (early a 0.88-0.90; 16 of the 48 arm-L runs at that EF, all from those two rules).
-- The other arm-L rules reach half their rise later than in arm R (EF_50 0.4-0.7 against 0.3-0.5 for the same rules); this
-  is what makes P4 fail. Three rules.
-- In two rules (`RRLLLRLRRRLL`, `RRLLRLLRLR`) EF_50 moves up by 0.2-0.3 as the fit window lengthens; in three it does not.
+  at EF = 0.1 (early a 0.88-0.90; 16 of the 48 arm-L runs at that EF, all from those two rules). `RLRLLRRRRRRR` later dips
+  to about 0.83 at EF 0.6-0.7, below the porous cut.
+- Per-rule EF_50 (arm L vs arm R) on the three scoreable rules: `RRLLLRLRRRLL` 0.7 vs 0.4, `RRRLLLLR` 0.5 vs 0.3,
+  `RRLLRLLRLR` 0.4 vs 0.5. So arm L needs more leak in two of three; the third goes the other way and is the one that
+  agreed within 0.1. That split is what makes P4 fail.
+- As the fit window lengthens (arm R P5), two rules move EF_50 up by 0.2-0.3 (`RRLLLRLRRRLL` +0.30, `RRLLRLLRLR` +0.20),
+  three move by at most 0.1 (+0.00, -0.10, +0.10), and one (`RLRLLRRRRRRR`) is undefined at the shortest window.
 - `RRRRLLLLLLLR` in arm L starts at a = 0.777 under forced L and rises only 0.07, so it is not scoreable.
 
 ## Caveats

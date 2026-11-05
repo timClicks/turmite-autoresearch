@@ -63,3 +63,12 @@ added the blog post `2026-10-30-turning-up-the-leak`, a homepage card, a figure 
 `cube-root-growth` topic. The atlas wording was narrowed to "no sharp threshold visible on the registered grid". The verdict wording
 stays "unresolved" everywhere. No `experiments/README.md` line was added: that file maps old paths from the
 2026-10-28 reorganisation, and this experiment was created afterwards directly in `active/`.
+
+## 2026-11-06 11:27 +1300 — respond to PR #32 review wording (no new data)
+
+Addressed the 2026-10-31 automated review "should fix" items on branch `docs/leak-titration-writeup`:
+- Blog and notebook: arm-L vs arm-R EF_50 is two of three later (third `RRLLRLLRLR` earlier); named per-rule table.
+- Between-seed sd described as rise-to-plateau (max 0.031 at EF 0.5), dropped as a smooth-pointing discriminator.
+- Board size corrected to 16384 × 16384; alt text no longer says highway rules "stay" near 0.88–0.90.
+- P5 window drift: two up by 0.2–0.3, three by at most 0.1, one undefined.
+No scores, gates, or results files changed. Notebook rebuilt from `scripts/build_notebook.py`.
