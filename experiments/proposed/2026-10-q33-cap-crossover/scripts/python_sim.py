@@ -50,6 +50,11 @@ def main(argv=None) -> int:
     destination = args.output_dir.resolve()
     if not destination.is_relative_to(EXPERIMENT):
         parser.error("output-dir must be inside " + str(EXPERIMENT))
+    # Capture git provenance before any writes so untracked output dirs do not
+    # mark the tree dirty. Ignore untracked files (--untracked-files=no).
+    git_commit = _git(["rev-parse", "HEAD"])
+    porcelain = _git(["status", "--porcelain", "--untracked-files=no"])
+    git_dirty = None if porcelain is None else bool(porcelain)
     try:
         if args.resume:
             if any(v is not None for v in (args.rule, args.policy, args.cap, args.seed, args.fresh_set)):
@@ -102,8 +107,8 @@ def main(argv=None) -> int:
         "source_sha256": {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in source_files},
         "resume_sha256": hashlib.sha256(raw_checkpoint).hexdigest() if raw_checkpoint is not None else None,
         "output_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(destination.glob("*.json"))},
-        "git_commit": _git(["rev-parse", "HEAD"]),
-        "git_dirty": None if _git(["status", "--porcelain"]) is None else bool(_git(["status", "--porcelain"])),
+        "git_commit": git_commit,
+        "git_dirty": git_dirty,
         "elapsed_seconds": elapsed,
         "limits": ["no crystallisation detector", "no time-weighted excursion instrument",
                    "no pre-entry depth instrument", "no Rust cross-execution check yet"],
