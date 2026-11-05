@@ -241,8 +241,8 @@ class SimulationTests(unittest.TestCase):
 
 
     def test_origin_run_bound_amendment_a1(self):
-        """README Amendment A1 item 5: origin run <= m for m >= 2; m = 1 can reach 2."""
-        seen_two_at_m1 = False
+        """README A1 item 5 / A3 sharpening: m=1 always 2; for m>=2 bound <=m and tight."""
+        maxima = {m: 0 for m in range(1, 17)}
         for rule, m, seed in itertools.product(("RLL", "RLLR"), range(1, 17), range(64)):
             w = sim.SparseWalker(sim.Config(rule=rule, policy="persistent-fresh", seed=seed, cap=m))
             for _ in range(4 * (m + 2)):
@@ -250,12 +250,14 @@ class SimulationTests(unittest.TestCase):
                     break
                 w.step()
             self.assertFalse(w.origin_run, (rule, m, seed))
-            if m >= 2:
-                self.assertLessEqual(w.origin_run_length, m, (rule, m, seed))
+            if m == 1:
+                self.assertEqual(w.origin_run_length, 2, (rule, m, seed))
             else:
-                self.assertLessEqual(w.origin_run_length, 2, (rule, m, seed))
-                seen_two_at_m1 |= w.origin_run_length == 2
-        self.assertTrue(seen_two_at_m1)
+                self.assertLessEqual(w.origin_run_length, m, (rule, m, seed))
+            maxima[m] = max(maxima[m], w.origin_run_length)
+        self.assertEqual(maxima[1], 2)
+        for m in range(2, 17):
+            self.assertEqual(maxima[m], m, f"bound not tight at m={m}")
 
     def test_schedule_matches_pinned_integer_table(self):
         """README Amendment A1 item 4: floor(2^(k+j/8)) as an exact integer 8th root."""
@@ -276,6 +278,18 @@ class SimulationTests(unittest.TestCase):
         out = subprocess.run([sys.executable, str(EXPERIMENT / "scripts/pin_samples.py"), "--check"],
                              capture_output=True, text=True)
         self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
+
+    def test_overlap_record_regenerates(self):
+        """README Amendment A3: overlap.tsv equals scripts/overlap.py --check."""
+        out = subprocess.run([sys.executable, str(EXPERIMENT / "scripts/overlap.py"), "--check", "--summary"],
+                             capture_output=True, text=True)
+        self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
+        self.assertIn("overlap.tsv: OK", out.stdout)
+        # In-horizon crystallisation control flagged by the #34 review.
+        rows = [ln for ln in (EXPERIMENT / "inputs/overlap.tsv").read_text().splitlines()
+                if ln.startswith("RRLRLRL	")]
+        self.assertTrue(rows)
+        self.assertTrue(any(ln.split("	")[5] == "yes" for ln in rows))
 
 
 if __name__ == "__main__":

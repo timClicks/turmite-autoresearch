@@ -63,3 +63,7 @@ Local `rg -il` over `notes/pruning-index/entries/` with concepts cap|fresh|cross
 
 Record as Amendment A2. Default uncapped memory plan is sequential + fail-loud until pilot A(t) exists. Do not invent P3 or D-metric choices. Still open before a scientific run: items 3 and 6, and G0 instrument/oracle completeness beyond this hygiene.
 
+## 2026-11-06 09:10 NZDT · parent 9dabfd9 · intent
+
+Daily progress run. Address the mechanical "should fix" items of the 2026-11-05 PR #34 review as Amendment A3, without changing any prediction band or gate and without deciding open items 3 (P3 discrimination) or 6 (D metric). Fix git_dirty sampling, commit regeneratable overlap.py with crystallisation-relevant cohorts and onset columns, correct A1 item-5 timing wording and the claims-to-predictions mapping, sharpen the origin-run assertions (registered in A3 before the test edit), and record the literal pruning rule-string query.
+

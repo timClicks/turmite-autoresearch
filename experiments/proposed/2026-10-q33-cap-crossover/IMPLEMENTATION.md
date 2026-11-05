@@ -41,3 +41,7 @@ Exact build/run/analyse commands and executable schemas must be committed with t
 ## Amendment A2 memory default (2026-11-05)
 
 The 1 GiB process-wide pool above is insufficient if an uncapped arm approaches A ~ t near 2^31 (~2e9 cells). Until excluded-pilot A(t) is measured, run uncapped arms sequentially, fail loud on allocation failure, and log peak RSS per arm. After the pilot, either keep that schedule or register a resized pool before confirmation. This is a resource plan, not a growth prediction.
+
+## Amendment A3 memory detail (2026-11-06)
+
+Sequential uncapped arms avoid cross-arm pool contention; each arm still faces the 1 GiB process-wide pool alone. Planning figure until pilot A(t): ~24–32 bytes per departed cell for the tiled backend (exact layout frozen at G0). A resource-censored uncapped partner removes that rule from P3/P5 paired support and can bias those scores toward slowly growing rules; report the resource-censor fraction with P3/P5 and do not impute.
