@@ -37,3 +37,7 @@ Write run spec, source/binary/input hashes, machine/OS/toolchain, thread count, 
 Proposed output tables (schema frozen before confirmation): specs, checkpoints, octave_fits, fresh_runs, cap_exposure, excursions_tw, ordered_candidates, run_outcomes, gate_report and provenance. Primary keys include rule, arm, seed and step/window. Status columns distinguish complete, left/right censored, ordered, uncertain and resource incomplete. Raw traces go in experiment scratch/dumps; small committed summaries belong in results only after measurement. No empty CSV is presented as a zero result.
 
 Exact build/run/analyse commands and executable schemas must be committed with the implementation. They are deliberately not fabricated in this documentation-only proposal.
+
+## Amendment A2 memory default (2026-11-05)
+
+The 1 GiB process-wide pool above is insufficient if an uncapped arm approaches A ~ t near 2^31 (~2e9 cells). Until excluded-pilot A(t) is measured, run uncapped arms sequentially, fail loud on allocation failure, and log peak RSS per arm. After the pilot, either keep that schedule or register a resized pool before confirmation. This is a resource plan, not a growth prediction.

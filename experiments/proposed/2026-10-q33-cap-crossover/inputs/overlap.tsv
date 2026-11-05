@@ -1,0 +1,78 @@
+# rule	role	study_id	source_path	note
+# Overlap of pinned Q33 pilot/confirm rules with previously *studied* experiment cohorts.
+# The sampling frame itself (probe_summary.csv blob class) is not listed: every rule is in it by construction.
+# Inclusion is retained (README sampling rule); this record is for interpretation, not exclusion.
+RLLRLLRLLLR	pilot	wall-vs-memory-stage3b	experiments/active/2026-10-wall-vs-memory/results/stage3b_specs.txt	experiments/active/2026-10-wall-vs-memory Stages 3b (bounded fresh policies)
+RLLRLRLRLL	confirm	wall-vs-memory-stage3b	experiments/active/2026-10-wall-vs-memory/results/stage3b_specs.txt	experiments/active/2026-10-wall-vs-memory Stages 3b (bounded fresh policies)
+RLRRLLLLRLLL	confirm	wall-vs-memory-stage3b	experiments/active/2026-10-wall-vs-memory/results/stage3b_specs.txt	experiments/active/2026-10-wall-vs-memory Stages 3b (bounded fresh policies)
+RRRLRLRLRLRL	confirm	wall-vs-memory-stage3b	experiments/active/2026-10-wall-vs-memory/results/stage3b_specs.txt	experiments/active/2026-10-wall-vs-memory Stages 3b (bounded fresh policies)
+RRRLRLRLRRRR	confirm	wall-vs-memory-stage3b	experiments/active/2026-10-wall-vs-memory/results/stage3b_specs.txt	experiments/active/2026-10-wall-vs-memory Stages 3b (bounded fresh policies)
+RLLRLLRLLLR	pilot	wall-vs-memory-stage3c	experiments/active/2026-10-wall-vs-memory/results/stage3c_specs.txt	experiments/active/2026-10-wall-vs-memory Stages 3c
+RLLRLRLRLL	confirm	wall-vs-memory-stage3c	experiments/active/2026-10-wall-vs-memory/results/stage3c_specs.txt	experiments/active/2026-10-wall-vs-memory Stages 3c
+RLRRLLLLRLLL	confirm	wall-vs-memory-stage3c	experiments/active/2026-10-wall-vs-memory/results/stage3c_specs.txt	experiments/active/2026-10-wall-vs-memory Stages 3c
+RRRLRLRLRLRL	confirm	wall-vs-memory-stage3c	experiments/active/2026-10-wall-vs-memory/results/stage3c_specs.txt	experiments/active/2026-10-wall-vs-memory Stages 3c
+RRRLRLRLRRRR	confirm	wall-vs-memory-stage3c	experiments/active/2026-10-wall-vs-memory/results/stage3c_specs.txt	experiments/active/2026-10-wall-vs-memory Stages 3c
+RLLLLLRLRRLR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLLLLLRRRLRR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLLLLRLLRLRR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLLLLRLRRRRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLLLLRRLRLRR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLLLRLLRRLLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLLLRRLLRLLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLLRRRLRRLLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLLRRRRLLLRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLRLLLLLRLRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLRLRRLLRLLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLRLRRLRLLLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLRLRRLRRLRR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLRLRRRRRRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLRRLLRLLRRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLRRLLRRLLLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLLLLRLLLR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLLLLRRLLRR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLLLRLRLLR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLLRLLLLLLR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLLRLLLLRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLLRRRLLRLR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRLLLLLRLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRLLRLLRLR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRLRLRLLRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRLRLRRLRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRLRLRRRLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRLRRRLRRR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRRRLRRRLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRRRLRRRRR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRRRRLRL	pilot	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRRRRRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRRRRRLRRR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRLRRRRRR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLLLLLRLLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLLRLLRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLLRLRLRLL	pilot	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLLRRLRRLR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLLRRRLLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLRLLRRLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLRLRLRLLR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLRLRLRLRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLRLRLRRRR	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLRLRRLRLL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRLRRRRRLRR	pilot	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RRRRRRRLRRRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv	experiments/archive/2026-10-crawler-cost-chaotic-edge mutant/parent cohorts
+RLRLLLLLLRLR	confirm	kappa-exposure-classes	experiments/archive/2026-10-kappa-exposure-classes/results/specs.txt	experiments/archive/2026-10-kappa-exposure-classes 64-rule cohort
+RLRLRRLRRLRR	confirm	kappa-exposure-classes	experiments/archive/2026-10-kappa-exposure-classes/results/specs.txt	experiments/archive/2026-10-kappa-exposure-classes 64-rule cohort
+RLRRLRRRRLRR	confirm	kappa-exposure-classes	experiments/archive/2026-10-kappa-exposure-classes/results/specs.txt	experiments/archive/2026-10-kappa-exposure-classes 64-rule cohort
+RRLLRLLL	confirm	kappa-exposure-classes	experiments/archive/2026-10-kappa-exposure-classes/results/specs.txt	experiments/archive/2026-10-kappa-exposure-classes 64-rule cohort
+RRLLRLLRRLRR	confirm	kappa-exposure-classes	experiments/archive/2026-10-kappa-exposure-classes/results/specs.txt	experiments/archive/2026-10-kappa-exposure-classes 64-rule cohort
+RRLRLRLRRL	confirm	kappa-exposure-classes	experiments/archive/2026-10-kappa-exposure-classes/results/specs.txt	experiments/archive/2026-10-kappa-exposure-classes 64-rule cohort
+RRRLRLRLRRRR	confirm	kappa-exposure-classes	experiments/archive/2026-10-kappa-exposure-classes/results/specs.txt	experiments/archive/2026-10-kappa-exposure-classes 64-rule cohort
+RLLLLRRLRRRR	pilot	kappa-rule-space-pool	experiments/archive/2026-10-kappa-rule-space/results/rules_pool.csv	experiments/archive/2026-10-kappa-rule-space rules_pool
+RLLLRRLRRR	confirm	kappa-rule-space-pool	experiments/archive/2026-10-kappa-rule-space/results/rules_pool.csv	experiments/archive/2026-10-kappa-rule-space rules_pool
+RLLRLLRLLLR	pilot	kappa-rule-space-pool	experiments/archive/2026-10-kappa-rule-space/results/rules_pool.csv	experiments/archive/2026-10-kappa-rule-space rules_pool
+RLLRLRLRL	confirm	kappa-rule-space-pool	experiments/archive/2026-10-kappa-rule-space/results/rules_pool.csv	experiments/archive/2026-10-kappa-rule-space rules_pool
+RLLRLRRRR	confirm	kappa-rule-space-pool	experiments/archive/2026-10-kappa-rule-space/results/rules_pool.csv	experiments/archive/2026-10-kappa-rule-space rules_pool
+RLRRLLLLL	confirm	kappa-rule-space-pool	experiments/archive/2026-10-kappa-rule-space/results/rules_pool.csv	experiments/archive/2026-10-kappa-rule-space rules_pool
+RLRRLRLLLRR	confirm	kappa-rule-space-pool	experiments/archive/2026-10-kappa-rule-space/results/rules_pool.csv	experiments/archive/2026-10-kappa-rule-space rules_pool
+RLRRLRRRRLL	confirm	kappa-rule-space-pool	experiments/archive/2026-10-kappa-rule-space/results/rules_pool.csv	experiments/archive/2026-10-kappa-rule-space rules_pool
+RRLRRRLRLLR	confirm	kappa-rule-space-pool	experiments/archive/2026-10-kappa-rule-space/results/rules_pool.csv	experiments/archive/2026-10-kappa-rule-space rules_pool
+RRRLRLLLLL	confirm	kappa-rule-space-pool	experiments/archive/2026-10-kappa-rule-space/results/rules_pool.csv	experiments/archive/2026-10-kappa-rule-space rules_pool
+RLLLRRLRRR	confirm	kappa-return-gates	experiments/archive/2026-10-kappa-return-gates/results/cohort.csv	experiments/archive/2026-10-kappa-return-gates cohort
