@@ -1,24 +1,25 @@
 # Active work and open items
 
-Living index, last updated 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-11-06 (weekly wrap-up; Q33 stack and Rev4 still on open PRs); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
-## Handoff (2026-11-01): Q33 intervention-counter regression — PR #33
+## Handoff (2026-11-06): weekly wrap-up — review queue, not a new pilot
 
-**Status:** PR [#33](https://github.com/timClicks/turmite-autoresearch/pull/33) is open and ready for review, stacked on [#31](https://github.com/timClicks/turmite-autoresearch/pull/31) (base `exp/q33-cap-crossover-proposal`), branch `agent/q33-cap-counter-regression`, commit `e414f09cc6fe86dcacacb4ef1fe17c51973335ec`. The change adds `test_cap_intervention_counters_against_independent_oracle` in `experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`. No scientific measurements or hypothesis changes.
+**Status:** Week of 2026-10-30…2026-11-06: one commit on `main` (`6fba1c8`, the now-superseded 2026-11-01 #33 handoff); no merges; no new ant data; no new pruning-index signatures. Material work is on open PRs #30–#34 (all CI green). Full narrative: [`notes/summary-2026-11-06.md`](summary-2026-11-06.md). Phase priorities below are **unchanged** (this week's evidence is registration hygiene and walker calibration, not a new discriminating transport result).
 
-**Why:** An independent review of PR #31 found a surviving mutation that increments `cap_turns_nonorigin` on origin interventions. That counter is used in the G3 exposure gate, so its correctness matters to experimental validity. The new test compares both cap counters against a separate visit-count oracle after each of 512 steps, for caps 1, 4, 16 and 32 (rule RLL, seed 7), and asserts that origin and non-origin interventions are both exercised.
+**Open PR stack (do not merge without the user's human review):**
+- [#30](https://github.com/timClicks/turmite-autoresearch/pull/30) — Excursions Rev4 depth–duration calibration (**DO NOT MERGE without review**); all registered gates PASS; no ant data; currently **merge-conflicting** with `main`.
+- [#31](https://github.com/timClicks/turmite-autoresearch/pull/31) — Q33 active-cap crossover proposal + Python sim tools (base for #33/#34).
+- [#32](https://github.com/timClicks/turmite-autoresearch/pull/32) — Leak-titration notebook / blog / homepage (no new data); covers the housekeeping owed below once merged.
+- [#33](https://github.com/timClicks/turmite-autoresearch/pull/33) — Cap-counter regression vs independent oracle; **validated** (`083280c`; suite OK; mutants killed). The 2026-11-01 handoff asking to run that test is superseded.
+- [#34](https://github.com/timClicks/turmite-autoresearch/pull/34) — Q33 Amendments A1–A3 (pins, overlap, pruning audit, memory default, claim corrections); suite **18/18 OK**. No walker growth data; no prediction-band or gate changes.
 
-**Next session (do this before new work):**
-1. Run `uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py` on PR #33; fix any failures. This test has **not yet been executed** in this contribution.
-2. Mutation-check the original reviewer finding by temporarily replacing `cap_turns_nonorigin += not self.origin_run` with `cap_turns_nonorigin += 1` in a disposable checkout, confirming the new test fails; revert the mutation. Record exact commands, environment, and outcome on PR #33.
-3. Check CI and request independent review. Do not merge until independently approved, required checks pass, blocking comments are resolved, and branch protection allows it. Coordinate stacking: PR #31 should land before retargeting/merging #33.
-4. Review other PR #31 findings (provenance of P2, pinned samples, P3 discrimination) separately; do not present this counter test as addressing those scientific issues.
+**Still open (user design choice; do not invent):** PR #31 review items 3 (whether P3 discriminates H-scale from H-local) and 6 (metric/reference for depth D). Also: whether/when to land #30 after conflict resolution, and the #31→#33→#34 stack.
 
-**Provenance:** PR #31 review dated 2026-10-31; parent head at review `21c909250510a5fb4c89bf01ae8bda2bf73b3369`. PR #33 commit above. No seed-dependent scientific run or negative scientific finding; validation remains outstanding. This is a task handoff, not a registered experiment.
+**Next unblocked work after user decisions:** settle P3/D before Q33 G0; then G0 instrument/oracle completeness. Until then prefer consolidation or other unblocked calibration — **do not start the Q33 pilot**. An excluded excursion ant pilot under Score_tw + Rev4 β also needs its own registration after #30 review (scoped to area-filling vs line-like / L vs area-scale; no diffusion claim).
 
 ## Pointer (2026-10-29): excursion-duration collapse stage 1 + Revisions 1–3
 
@@ -34,8 +35,7 @@ none registered for running; each needs its own dated registration first (questi
 - Q41 Stage C: fresh-run length distribution vs EF (probe addition + oracle test), collapse on run length / territory radius.
 - Q42: arm L on non-highway rules from the Stage 3b cohort (replaces the 3-rule P4); window drift needs more rules and a longer horizon.
 - Q40: Stage B fine grid only if a later result gives M >= 0.34 or a sharp reading.
-- Housekeeping owed by that experiment: `notebook.ipynb` (AGENTS.md; not yet written), blog post/draft and `blog/index.html` and `blog/atlas.json` entry
-  (file under a topic or `unfiled`), `experiments/README.md` index line if one is kept there.
+- Housekeeping owed by that experiment: shareable `notebook.ipynb`, blog post, homepage card and atlas/guides updates are on open PR [#32](https://github.com/timClicks/turmite-autoresearch/pull/32) (no new data); land with that PR. No `experiments/README.md` per-experiment line is required (that file is a layout index).
 
 ## Next phase: boundary access, regime validation, closure
 
