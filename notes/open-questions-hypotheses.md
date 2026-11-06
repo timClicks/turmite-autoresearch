@@ -602,3 +602,12 @@ concern the instrument for Q36.
   The statistic should also pass a synthetic-mixture gate (mostly short returns plus a tail) before any ant data. The square-ring fillers are
   expected to be a no-deep-excursion control rather than a slope-1 control (unchecked). Proposals are in the experiment README's
   "Next steps proposal".
+- **Added 2026-10-29 (Revisions 3–4, calibration only, no ant data):** the time-weighted Score_tw (Rev3) and the
+  depth–duration exponent β (Rev4, registration `e066256`) both pass their walker gates. β reads Eden 1.99, IDLA 2.00,
+  rotor 1.90 (area) and the straight-line `bal` walker 0.41 (line). Depth separates area-filling from line-like excursions,
+  **not** diffusion from systematic sweeps (corrected before data). Two observations change the "≈1 sweep" wording above:
+  teleporting mean-field also reads line (β 0.49), so line means line-like only for spatially continuous movers; and the
+  rotor has the highest revisit slope (γ 0.185 vs Eden 0.133), so few revisits do not mark sweeps.
+  **Open (unnumbered):** what readout separates diffusion from area-filling sweeps and fails the rotor differently from
+  Eden? Candidates: a per-window τ/A collapse, or the spread of τ at fixed d. Each needs a synthetic gate (SA vs SD)
+  before any ant data.

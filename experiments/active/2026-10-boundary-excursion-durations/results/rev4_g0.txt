@@ -1,0 +1,10 @@
+Revision 4 G0 instrument checks — 2026-10-29 18:05 NZDT, branch exp/excursion-rev4-depth @ acefd81, base binary built from 8904956 (worktree /tmp/be_base)
+bin sha256=43e16570ed4ec525b41f32ffb29d1028835e590c2e54135efd8b6473a8e70fe8 base sha256=1c85ded940206f4d5d9f0e0e0c8ab799579c5b2698101993bd99830c1d5dcca7
+smoke --check --dhist: exit 0
+windows, hist, fhist byte-identical to base (with and without --dhist)
+bal:7 --check (N = tau, births, budget): exit 0
+mutant --mutant panicked (exit 101): assertion `left == right` failed: window k=9
+mutant --fine-mutant panicked (exit 101): fine bin 1 range [2,1] vs tau 1
+mutant --depth-mutant --dhist /dev/null panicked (exit 101): assertion `left == right` failed: depth incremental vs brute force at t=120
+timing smoke (bal/eden/idla/rotor/mf :7, 2^24, grid 8192, --check --dhist): bal 1.6s eden 1.6s idla 3.3s rotor 5.0s mf 98.6s (all --check exit 0)
+cargo: PROPTEST_RNG_SEED=20261019 cargo test --release --locked -> 227 passed, 0 failed

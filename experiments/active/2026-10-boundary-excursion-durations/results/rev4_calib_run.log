@@ -1,0 +1,28 @@
+24 specs, max_log2 24, grid 8192, check true
+spec eden:2026102961 done in 1.5s
+spec eden:2026102962 done in 1.5s
+spec idla:2026102963 done in 3.1s
+spec eden:2026102963 done in 1.5s
+spec rotor:2026102963 done in 5.0s
+spec eden:2026102964 done in 1.6s
+spec idla:2026102964 done in 3.3s
+spec idla:2026102961 done in 3.3s
+spec idlar:2026102961 done in 3.4s
+spec rotor:2026102964 done in 5.1s
+spec bal:2026102961 done in 1.6s
+spec idla:2026102962 done in 3.2s
+spec idlar:2026102962 done in 3.1s
+spec bal:2026102962 done in 1.4s
+spec bal:2026102963 done in 1.5s
+spec bal:2026102964 done in 1.5s
+spec idlar:2026102963 done in 3.1s
+spec idlar:2026102964 done in 3.2s
+spec mf:2026102961 done in 101.7s
+spec rotor:2026102961 done in 4.9s
+spec rotor:2026102962 done in 4.8s
+spec mf:2026102964 done in 99.4s
+spec mf:2026102963 done in 103.0s
+spec mf:2026102962 done in 103.9s
+wrote dhist /workspace/turmite-autoresearch/experiments/active/2026-10-boundary-excursion-durations/results/rev4_calib_dhist.csv
+wrote fhist /workspace/turmite-autoresearch/experiments/active/2026-10-boundary-excursion-durations/results/rev4_calib_fhist.csv
+wrote hist /workspace/turmite-autoresearch/experiments/active/2026-10-boundary-excursion-durations/results/rev4_calib_hist.csv
