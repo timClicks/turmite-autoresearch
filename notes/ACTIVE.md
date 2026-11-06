@@ -6,8 +6,21 @@ the retained backlog is context, not a list of simultaneous commitments. Remove 
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
-## Pointer (2026-10-29): excursion-duration collapse stage 1 + Revisions 1–4
+## Handoff (2026-11-01): Q33 intervention-counter regression — PR #33
 
+**Status:** PR [#33](https://github.com/timClicks/turmite-autoresearch/pull/33) is open and ready for review, stacked on [#31](https://github.com/timClicks/turmite-autoresearch/pull/31) (base `exp/q33-cap-crossover-proposal`), branch `agent/q33-cap-counter-regression`, commit `e414f09cc6fe86dcacacb4ef1fe17c51973335ec`. The change adds `test_cap_intervention_counters_against_independent_oracle` in `experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`. No scientific measurements or hypothesis changes.
+
+**Why:** An independent review of PR #31 found a surviving mutation that increments `cap_turns_nonorigin` on origin interventions. That counter is used in the G3 exposure gate, so its correctness matters to experimental validity. The new test compares both cap counters against a separate visit-count oracle after each of 512 steps, for caps 1, 4, 16 and 32 (rule RLL, seed 7), and asserts that origin and non-origin interventions are both exercised.
+
+**Next session (do this before new work):**
+1. Run `uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py` on PR #33; fix any failures. This test has **not yet been executed** in this contribution.
+2. Mutation-check the original reviewer finding by temporarily replacing `cap_turns_nonorigin += not self.origin_run` with `cap_turns_nonorigin += 1` in a disposable checkout, confirming the new test fails; revert the mutation. Record exact commands, environment, and outcome on PR #33.
+3. Check CI and request independent review. Do not merge until independently approved, required checks pass, blocking comments are resolved, and branch protection allows it. Coordinate stacking: PR #31 should land before retargeting/merging #33.
+4. Review other PR #31 findings (provenance of P2, pinned samples, P3 discrimination) separately; do not present this counter test as addressing those scientific issues.
+
+**Provenance:** PR #31 review dated 2026-10-31; parent head at review `21c909250510a5fb4c89bf01ae8bda2bf73b3369`. PR #33 commit above. No seed-dependent scientific run or negative scientific finding; validation remains outstanding. This is a task handoff, not a registered experiment.
+
+## Pointer (2026-10-29): excursion-duration collapse stage 1 + Revisions 1–4
 `experiments/active/2026-10-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`; Revision 3 registration `3d87d8b`, instrument `a8a93b1`; Revision 4 registration `e066256`, each before its measurement).
 Implements P-C / Q32 from `notes/cube-root-routes-2026-10-26.md` on PR #18 (reference by branch/PR; do not mint colliding Q numbers here).
 Stage-1: **revise** (RW D calibrator never grows L). Revision 1 reflecting cup: L grows but compactness (A/P²) fails and Score prefers S (frontier trapping); C1' **inadequate**; confirmation **not run**; cup-as-D design **retired** (`NR-20261027-reflecting-cup-d-calibrator`). MF L-control still passes; rotor inconclusive. Revision 2: Eden-style and IDLA both pass compactness but the frozen number-weighted Score does not prefer D (Eden S, IDLA inconclusive); gate **fail**, confirmation **not run**; both retired as D calibrators for this Score (`NR-20261028-excursion-score-compact-d-calibrators`). Instrument limitation, not an ant result. Paused: any next step needs a newly registered observable (e.g. tail-restricted collapse) calibrated on these walkers before ant data.
