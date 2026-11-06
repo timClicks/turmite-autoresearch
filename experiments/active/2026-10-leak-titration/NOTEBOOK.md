@@ -72,3 +72,7 @@ Addressed the 2026-10-31 automated review "should fix" items on branch `docs/lea
 - Board size corrected to 16384 × 16384; alt text no longer says highway rules "stay" near 0.88–0.90.
 - P5 window drift: two up by 0.2–0.3, three by at most 0.1, one undefined.
 No scores, gates, or results files changed. Notebook rebuilt from `scripts/build_notebook.py`.
+
+## 2026-11-06 14:45 +1300 — leftover PR #32 guide wording (no new data)
+
+The 11:27 review-wording pass missed `blog/experiment-guides.tsv`. Replaced the finding claim "no peak in between-seed sd" with the same rise-to-plateau / non-diagnostic wording as the post and notebook. No scores, gates, or results changed.
