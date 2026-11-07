@@ -161,3 +161,16 @@ Registration hygiene in response to the 2026-11-06 follow-up review of PR #34. *
 
 1. **Census onset source missing from `ONSET_SOURCES`.** A3's overlap record flagged confirmation rule `RRLRLRL` as the sole in-horizon onset (`onset_lt_2_31_distinct=1`). The 2026-11-06 review found confirmation rule `RRRRRRRLR` has a confirmed census highway onset of **756,289,068** steps (< 2^31) in `experiments/archive/2026-10-census-sweeps/results/confirmed_1B.csv` (`confirmed=true`, period 452), and the same onset appears in column 5 of `highway-preconditions/results/highway_specs.txt`. A3 left both files out of `ONSET_SOURCES`, so `known_onset` / `onset_lt_2_31` for `RRRRRRRLR` stayed blank. Fix (registered before regenerating): add those two committed tables to `ONSET_SOURCES` in `scripts/overlap.py` (census rows only when `confirmed=true`; highway-preconditions via the existing whitespace table: rule, period, dx, dy, onset). Inclusion of the rule in the Q33 sample is **unchanged**; the flag is for interpretation and crystallisation-control design. Expected after regeneration: `onset_lt_2_31_distinct=2` (both `RRLRLRL` and `RRRRRRRLR`). Cohort membership lists are unchanged.
 
+## Amendment A5 (2026-11-07, before any calibration, pilot or confirmation run)
+
+Registration hygiene for the remaining mechanical items of the 2026-11-06 follow-up review of PR #34 after A4. **No walker growth data; no change to any prediction band, gate threshold or decision rule.** Review items 3 (P3 discrimination) and 6 (D metric) remain **open**.
+
+1. **`overlap.py` rewrite gate.** A3's default path rewrote a differing committed `inputs/overlap.tsv` without being asked. Fix: write only when the file is absent, or when `--write` is passed; otherwise print `DIFFERS` and exit 1. `--check` still compares only. Docstring updated to match.
+
+2. **`git_dirty` and untracked helpers.** A3 sampled status before writes with `--untracked-files=no`, which also hid an untracked helper or input the run imports. Fix: keep untracked files in the check (`--untracked-files=normal`) and still sample **before** `destination.mkdir`, so this run's new output directory is not yet present. Tracked modifications and pre-existing untracked paths mark dirty; the run's own new directory does not.
+
+3. **Per-cell memory figure source.** A3 attributed "~24–32 bytes per departed cell" to the tiled backend. That figure does not come from `tiled-grid-backend/DESIGN.md` (about **1 B per resident/packed cell**, lines 44–51). Correction in IMPLEMENTATION.md Amendment A5: use ~1 B/cell for the tiled Rust backend (so 1 GiB holds order 1e9 cells; ballistic uncapped arms still resource-censor before 2^31), and treat ~24–32 B/cell only as a planning guess for the Python `dict` sparse simulator until measured. Exact layouts freeze at G0.
+
+4. **A3 item 5 origin assertions are observations, not registered predictions.** The sharper m=1 "== 2" and m≥2 "max == m" statements were written in the same commit as the test that asserts them (`21b3b22`), and the facts were already reported in the 2026-11-05 review. Call them **observations the test now asserts**, not blind registered predictions (same correction class as A3 item 3 for A1). The test remains; the epistemic label changes.
+
+P3 discrimination and the D metric remain open for the user.

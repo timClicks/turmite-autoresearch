@@ -1,17 +1,17 @@
 # Active work and open items
 
-Living index, last updated 2026-11-06 (Q33 A3 registration hygiene on PR #34); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-11-07 (Q33 A5 registration hygiene on PR #34); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
 
-## Handoff (2026-11-06): Q33 registration hygiene — PR #34 (Amendment A3)
+## Handoff (2026-11-07): Q33 registration hygiene — PR #34 (Amendments A1–A5)
 
-**Status:** PR [#34](https://github.com/timClicks/turmite-autoresearch/pull/34) (branch `agent/q33-registration-pins`, stacked on [#31](https://github.com/timClicks/turmite-autoresearch/pull/31)) carries Amendments A1–A3. A3 (2026-11-06) addresses the mechanical "should fix" items from the 2026-11-05 review: `git_dirty` sampled before writes with `--untracked-files=no`; regeneratable `scripts/overlap.py` with crystallisation-relevant cohorts and `onset_lt_2_31`; A1 item-5 timing correction; claims-to-predictions mapping correction; sharper origin-run assertions (held); pruning literal rule-string query (0 matches). Suite **18/18 OK**. No walker growth data; no prediction-band or gate changes.
+**Status:** PR [#34](https://github.com/timClicks/turmite-autoresearch/pull/34) (branch `agent/q33-registration-pins`, stacked on [#31](https://github.com/timClicks/turmite-autoresearch/pull/31)) carries Amendments A1–A5. A4 (2026-11-07) added census / highway-preconditions onset sources (`onset_lt_2_31_distinct=2`). A5 (2026-11-07) finishes the remaining 2026-11-06 mechanical review items: `overlap.py` requires `--write` to rewrite; `git_dirty` keeps untracked files (still sampled before mkdir); per-cell memory figure cites tiled DESIGN ≈1 B/cell and treats 24–32 B as a Python-dict planning guess; A3 origin sharpening relabelled observation-not-prediction. No walker growth data; no prediction-band or gate changes.
 
-**Still open (user design choice; do not invent):** PR #31 review items 3 (whether P3 discriminates H-scale from H-local) and 6 (metric/reference for depth D). Also waiting on the user: whether to merge/stack [#31](https://github.com/timClicks/turmite-autoresearch/pull/31) / [#33](https://github.com/timClicks/turmite-autoresearch/pull/33) / [#34](https://github.com/timClicks/turmite-autoresearch/pull/34); human review of [#30](https://github.com/timClicks/turmite-autoresearch/pull/30) (Rev4, "Do not merge without review").
+**Still open (user design choice; do not invent):** PR #31 review items 3 (whether P3 discriminates H-scale from H-local) and 6 (metric/reference for depth D). Also waiting on the user: whether to merge/stack [#31](https://github.com/timClicks/turmite-autoresearch/pull/31) / [#33](https://github.com/timClicks/turmite-autoresearch/pull/33) / [#34](https://github.com/timClicks/turmite-autoresearch/pull/34); human review of [#30](https://github.com/timClicks/turmite-autoresearch/pull/30) (Rev4, "Do not merge without review"; live state MERGEABLE/CLEAN as of 2026-11-07).
 
 **Related:** PR #33 (cap-counter regression) was validated earlier (`083280c`, CI green) and remains stacked on #31. Do not merge any of these without the user's human review. The 2026-11-01 handoff asking to run #33's new test is superseded by that validation.
 
