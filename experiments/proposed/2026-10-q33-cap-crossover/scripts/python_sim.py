@@ -52,9 +52,15 @@ def main(argv=None) -> int:
         parser.error("output-dir must be inside " + str(EXPERIMENT))
     # Capture git provenance before any writes so this run's new output dir
     # is not yet present and cannot mark the tree dirty. Keep untracked files
-    # in the check so an untracked helper or input the run imports still counts.
+    # in the check so an untracked helper or input the run imports still counts,
+    # but exclude this experiment's results/ and scratch/ so a chunked --resume
+    # under results/ does not mark every later chunk dirty (A6).
     git_commit = _git(["rev-parse", "HEAD"])
-    porcelain = _git(["status", "--porcelain", "--untracked-files=normal"])
+    rel = EXPERIMENT.relative_to(ROOT).as_posix()
+    porcelain = _git([
+        "status", "--porcelain", "--untracked-files=normal", "--",
+        ".", f":!{rel}/results", f":!{rel}/scratch",
+    ])
     git_dirty = None if porcelain is None else bool(porcelain)
     try:
         if args.resume:

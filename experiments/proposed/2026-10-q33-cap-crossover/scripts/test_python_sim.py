@@ -285,11 +285,17 @@ class SimulationTests(unittest.TestCase):
                              capture_output=True, text=True)
         self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
         self.assertIn("overlap.tsv: OK", out.stdout)
-        # In-horizon crystallisation control flagged by the #34 review.
-        rows = [ln for ln in (EXPERIMENT / "inputs/overlap.tsv").read_text().splitlines()
-                if ln.startswith("RRLRLRL	")]
-        self.assertTrue(rows)
-        self.assertTrue(any(ln.split("	")[5] == "yes" for ln in rows))
+        # In-horizon crystallisation controls flagged by the #34 review (A4/A6).
+        text = (EXPERIMENT / "inputs/overlap.tsv").read_text()
+        rows_rrl = [ln for ln in text.splitlines() if ln.startswith("RRLRLRL	")]
+        rows_rr8 = [ln for ln in text.splitlines() if ln.startswith("RRRRRRRLR	")]
+        self.assertTrue(rows_rrl, "RRLRLRL missing from overlap.tsv")
+        self.assertTrue(rows_rr8, "RRRRRRRLR missing from overlap.tsv")
+        self.assertTrue(any(ln.split("	")[5] == "yes" for ln in rows_rrl),
+                        "RRLRLRL should be onset_lt_2_31=yes")
+        self.assertTrue(any(ln.split("	")[5] == "yes" for ln in rows_rr8),
+                        "RRRRRRRLR should be onset_lt_2_31=yes")
+        self.assertIn("onset_lt_2_31_distinct=2", out.stdout)
 
 
 if __name__ == "__main__":

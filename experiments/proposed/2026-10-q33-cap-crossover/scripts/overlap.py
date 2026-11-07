@@ -17,6 +17,7 @@ Usage:
   uv run --offline --script .../scripts/overlap.py --check   # compare only (exit 1 on DIFFERS)
   uv run --offline --script .../scripts/overlap.py           # write only if absent; refuse rewrite
   uv run --offline --script .../scripts/overlap.py --write   # create or rewrite committed file
+  --check and --write are mutually exclusive
 """
 from __future__ import annotations
 
@@ -256,9 +257,10 @@ def build_text() -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--check", action="store_true", help="compare with committed file; write nothing")
-    ap.add_argument("--write", action="store_true",
-                    help="create or rewrite inputs/overlap.tsv; without this, refuse to overwrite")
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument("--check", action="store_true", help="compare with committed file; write nothing")
+    mode.add_argument("--write", action="store_true",
+                      help="create or rewrite inputs/overlap.tsv; without this, refuse to overwrite")
     ap.add_argument("--summary", action="store_true", help="print overlap counts to stdout")
     args = ap.parse_args()
     text = build_text()
