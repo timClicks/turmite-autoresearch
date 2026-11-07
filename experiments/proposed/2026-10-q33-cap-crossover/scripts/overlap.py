@@ -79,6 +79,8 @@ ONSET_SOURCES: list[tuple[str, str]] = [
     ("experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/results/h1e10_stats.txt", "h1e10"),
     ("experiments/archive/2026-10-b5-late-highways/results/b5_stats_chunks20-60.txt", "b5"),
     ("experiments/archive/2026-10-late-highway-board-check/results/recheck", "recheck"),
+    ("experiments/archive/2026-10-census-sweeps/results/confirmed_1B.csv", "confirmed_csv"),
+    ("experiments/archive/2026-10-highway-preconditions/results/highway_specs.txt", "highway_specs"),
 ]
 
 
@@ -201,6 +203,22 @@ def load_onsets() -> dict[str, int]:
                     for row in csv.DictReader(fh):
                         if row.get("onset"):
                             put(row["rule"].strip(), int(float(row["onset"])))
+        elif kind == "confirmed_csv":
+            with path.open(newline="") as fh:
+                for row in csv.DictReader(fh):
+                    if (row.get("confirmed") or "").strip().lower() != "true":
+                        continue
+                    if not row.get("onset"):
+                        continue
+                    put(row["rule"].strip(), int(float(row["onset"])))
+        elif kind == "highway_specs":
+            for ln in path.read_text().splitlines():
+                ln = ln.strip()
+                if not ln or ln.startswith("#"):
+                    continue
+                parts = ln.split()
+                if len(parts) >= 5 and _is_rule(parts[0]):
+                    put(parts[0], int(float(parts[4])))
     return onsets
 
 

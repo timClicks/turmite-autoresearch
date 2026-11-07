@@ -117,5 +117,5 @@ RRRRLLRRRRL	confirm	c-law-mechanism-sample	experiments/archive/2026-10-c-law-mec
 RRRRLRRLLLLR	confirm	c-law-mechanism-band	experiments/archive/2026-10-c-law-mechanism/results/lists/band.txt			c-law-mechanism band list
 RRRRLRRLRRRL	confirm	c-law-mechanism-band	experiments/archive/2026-10-c-law-mechanism/results/lists/band.txt			c-law-mechanism band list
 RRRRLRRRLRL	confirm	c-law-mechanism-sample	experiments/archive/2026-10-c-law-mechanism/results/lists/sample.txt			c-law-mechanism sample list
-RRRRRRRLR	confirm	highway-preconditions	experiments/archive/2026-10-highway-preconditions/results/highway_specs.txt			highway-preconditions highway_specs
+RRRRRRRLR	confirm	highway-preconditions	experiments/archive/2026-10-highway-preconditions/results/highway_specs.txt	756289068	yes	highway-preconditions highway_specs
 RRRRRRRLRRRL	confirm	crawler-cost-chaotic-edge	experiments/archive/2026-10-crawler-cost-chaotic-edge/results/lists/cohorts.csv			crawler-cost-chaotic-edge mutant/parent cohorts

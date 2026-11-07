@@ -84,3 +84,16 @@ Record checks as Amendment A3 fulfilment on PR #34. Leave P3 discrimination and 
 
 Periodic proactive session. Address the remaining mechanical "should fix" from the 2026-11-06 follow-up review of PR #34 as Amendment A4: add the census `confirmed_1B.csv` and highway-preconditions `highway_specs.txt` onset tables to `ONSET_SOURCES` so confirmation rule `RRRRRRRLR` (onset 756289068 < 2^31) is flagged. No prediction/gate changes; items 3 and 6 stay open for the user. No walker growth data.
 
+## 2026-11-07 15:08 NZDT · parent 4842f0b · observation
+
+`uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`: **18/18 OK**. `overlap.py --check --summary`:
+```
+rows=115 pilot_distinct=5/8 confirm_distinct=78/200 distinct=83 onset_lt_2_31_distinct=2
+overlap.tsv: OK
+```
+`RRRRRRRLR` now has `known_onset=756289068` and `onset_lt_2_31=yes` on its highway-preconditions overlap row (earliest onset from census `confirmed_1B.csv` and `highway_specs.txt`, both 756289068). `RRLRLRL` remains the other in-horizon onset. Cohort membership row counts unchanged (115). Inclusion unchanged.
+
+## 2026-11-07 15:08 NZDT · same parent · decision
+
+Record as Amendment A4 fulfilment on PR #34. Leave P3 discrimination and D metric for the user. Do not start G0, pilot or confirmation. No walker growth data.
+
