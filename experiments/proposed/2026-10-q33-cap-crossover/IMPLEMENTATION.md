@@ -44,4 +44,11 @@ The 1 GiB process-wide pool above is insufficient if an uncapped arm approaches 
 
 ## Amendment A3 memory detail (2026-11-06)
 
-Sequential uncapped arms avoid cross-arm pool contention; each arm still faces the 1 GiB process-wide pool alone. Planning figure until pilot A(t): ~24–32 bytes per departed cell for the tiled backend (exact layout frozen at G0). A resource-censored uncapped partner removes that rule from P3/P5 paired support and can bias those scores toward slowly growing rules; report the resource-censor fraction with P3/P5 and do not impute.
+Sequential uncapped arms avoid cross-arm pool contention; each arm still faces the 1 GiB process-wide pool alone. Planning figure until pilot A(t): see Amendment A5 for the corrected per-cell cost sources. A resource-censored uncapped partner removes that rule from P3/P5 paired support and can bias those scores toward slowly growing rules; report the resource-censor fraction with P3/P5 and do not impute.
+
+## Amendment A5 memory sources (2026-11-07)
+
+Two different backends, two different figures (neither is a growth prediction):
+
+- **Tiled Rust backend** (`experiments/active/2026-10-tiled-grid-backend/DESIGN.md` lines 44–51): about **1 byte per resident/packed cell** (lean colour byte; packed can be ≤1 B/cell). Under a 1 GiB process-wide pool that is order 1e9 cells, so a near-ballistic uncapped arm toward A ~ 2e9 at N=2^31 is still resource-censored well before the horizon.
+- **Python sparse simulator** (`experiments/_lib/turmite_sim.py`): cells live in a `dict[(x,y), colour]`. Hash-map overhead is much larger than 1 B/cell; until measured, treat **~24–32 B per departed cell** as a planning guess for that dict (not for the tiled backend). Exact layout is frozen with G0.

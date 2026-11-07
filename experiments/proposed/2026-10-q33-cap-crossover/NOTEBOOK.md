@@ -97,3 +97,14 @@ overlap.tsv: OK
 
 Record as Amendment A4 fulfilment on PR #34. Leave P3 discrimination and D metric for the user. Do not start G0, pilot or confirmation. No walker growth data.
 
+## 2026-11-07 19:00 NZDT · parent 8a74ef2 · intent
+
+Periodic proactive session. Finish the remaining mechanical "should fix" items from the 2026-11-06 follow-up review of PR #34 as Amendment A5: require `--write` to rewrite `overlap.tsv`, keep untracked files in the `git_dirty` check (still sampled before mkdir), correct the 24–32 B/cell attribution (tiled DESIGN ≈1 B/cell; Python dict is the larger guess), and relabel A3 item-5 origin sharpening as observation-not-prediction. No prediction/gate changes; items 3 and 6 stay open. No walker growth data.
+
+## 2026-11-07 19:00 NZDT · parent 8a74ef2 · observation
+
+Checks pending in the same session after the A5 registration commit.
+
+## 2026-11-07 19:00 NZDT · parent 8a74ef2 · decision
+
+Record as Amendment A5 on PR #34 once the suite and `overlap.py --check` pass. Leave P3 discrimination and D metric for the user. Do not start G0, pilot or confirmation.
