@@ -108,3 +108,15 @@ Periodic proactive session. Finish the remaining mechanical "should fix" items f
 ## 2026-11-07 19:00 NZDT · parent 8a74ef2 · decision
 
 Record as Amendment A5 on PR #34 once the suite and `overlap.py --check` pass. Leave P3 discrimination and D metric for the user. Do not start G0, pilot or confirmation.
+
+## 2026-11-08 11:27 NZDT · parent 8010f19 · deviation
+
+The 2026-11-07 follow-up review of PR #34 found that the A5 checks commit (`8010f19`) rewrote a NOTEBOOK entry already committed in the A5 registration (`1c9d04f`). Original placeholder text at that entry (quoted, not restored): "Checks pending in the same session after the A5 registration commit." AGENTS.md requires corrections as new entries; this deviation records the edit. Pattern going forward: commit only `intent` (and `decision` if needed) with the registration, then append the observation after the check. The A5 `decision` entry timed 19:00 NZDT also sat after the 19:01 observation; leave historical order as committed.
+
+## 2026-11-08 11:27 NZDT · parent 8010f19 · intent
+
+Periodic proactive session. Address the remaining mechanical "should fix" items from the 2026-11-07 follow-up review of PR #34 as Amendment A6: (1) this deviation entry for the A5 NOTEBOOK rewrite; (2) correct tiled and Python memory planning figures (tiled = tiles_touched × bytes_per_tile; Python dict measured ~162 B/cell); (3) exclude this experiment's `results/` and `scratch/` from `git_dirty` so chunked `--resume` under `results/` stays informative; plus minors: assert `RRRRRRRLR` / `onset_lt_2_31_distinct=2` in the unit test, make `overlap.py --check` and `--write` mutually exclusive, refresh the PR title/body through A6. No prediction/gate changes; items 3 and 6 stay open for the user. No walker growth data.
+
+## 2026-11-08 11:27 NZDT · parent 8010f19 · decision
+
+Record as Amendment A6 on PR #34 once the suite and overlap check pass. Leave P3 discrimination and D metric for the user. Do not start G0, pilot or confirmation. Do not resolve `notes/ACTIVE.md` three-way conflicts here.

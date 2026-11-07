@@ -52,3 +52,24 @@ Two different backends, two different figures (neither is a growth prediction):
 
 - **Tiled Rust backend** (`experiments/active/2026-10-tiled-grid-backend/DESIGN.md` lines 44–51): about **1 byte per resident/packed cell** (lean colour byte; packed can be ≤1 B/cell). Under a 1 GiB process-wide pool that is order 1e9 cells, so a near-ballistic uncapped arm toward A ~ 2e9 at N=2^31 is still resource-censored well before the horizon.
 - **Python sparse simulator** (`experiments/_lib/turmite_sim.py`): cells live in a `dict[(x,y), colour]`. Hash-map overhead is much larger than 1 B/cell; until measured, treat **~24–32 B per departed cell** as a planning guess for that dict (not for the tiled backend). Exact layout is frozen with G0.
+
+## Amendment A6 memory measurement (2026-11-08)
+
+Supersedes the numeric planning figures in Amendment A5 for both backends (resource plan unchanged: sequential uncapped arms, fail loud, log peak RSS; no growth prediction):
+
+- **Tiled Rust backend** (`experiments/active/2026-10-tiled-grid-backend/DESIGN.md` lines 44–51): memory is **`tiles_touched × bytes_per_tile`**. Resident tile `(T+2)^2` bytes; packed `T^2·w/8 + T^2/8`. One byte per departed cell is only a lower bound for compact interiors. Thin or near-ballistic arms (few cells per touched tile) cost up to about **T bytes per departed cell**; at T=64 that is ~64 B/cell, so a 1 GiB pool censors far earlier than a compact fill. Even at 1 B/cell, 1 GiB holds ~1.07e9 cells against A≈2e9 at N=2^31.
+
+- **Python sparse simulator** (`experiments/_lib/turmite_sim.py`): measured with CPython 3.13.5 and `tracemalloc` on 2026-11-08:
+
+  ```
+  python3 - <<'PY'
+  import tracemalloc
+  n, base = 10**6, 10**9
+  tracemalloc.start()
+  d = {(base + i, base + (i % 997)): (i % 256) for i in range(n)}
+  current, peak = tracemalloc.get_traced_memory()
+  print(current / n, peak / n)
+  PY
+  ```
+
+  Result: **~162 B/cell** at 10^6 cells (coordinates outside the small-int cache); ~172 B/cell at 10^5. Treat that as the planning figure until G0 freezes the layout. At 162 B/cell, 1 GiB holds only ~6.6e6 departed cells.
