@@ -101,9 +101,9 @@ Record as Amendment A4 fulfilment on PR #34. Leave P3 discrimination and D metri
 
 Periodic proactive session. Finish the remaining mechanical "should fix" items from the 2026-11-06 follow-up review of PR #34 as Amendment A5: require `--write` to rewrite `overlap.tsv`, keep untracked files in the `git_dirty` check (still sampled before mkdir), correct the 24–32 B/cell attribution (tiled DESIGN ≈1 B/cell; Python dict is the larger guess), and relabel A3 item-5 origin sharpening as observation-not-prediction. No prediction/gate changes; items 3 and 6 stay open. No walker growth data.
 
-## 2026-11-07 19:00 NZDT · parent 8a74ef2 · observation
+## 2026-11-07 19:01 NZDT · parent 1c9d04f · observation
 
-Checks pending in the same session after the A5 registration commit.
+`uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`: **18/18 OK**. `overlap.py --check --summary`: rows=115, onset_lt_2_31_distinct=2, overlap.tsv OK. Manual gate: differing committed file without `--write` exits 1 with "refuse rewrite"; with `--write` rewrites. Disposable 4096-step persistent-fresh run under `scratch/` on a tree with only the A5 script edits staged recorded `git_dirty: true` as expected (tracked modifications); outputs deleted. No walker growth data.
 
 ## 2026-11-07 19:00 NZDT · parent 8a74ef2 · decision
 

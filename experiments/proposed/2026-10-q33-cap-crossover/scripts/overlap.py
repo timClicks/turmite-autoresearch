@@ -14,8 +14,9 @@ ONSET_SOURCES; missing onset is left blank. onset_lt_2_31 is "yes" when a known 
 is strictly below 2^31 (the Q33 main horizon), else "no" when onset is known, else blank.
 
 Usage:
-  uv run --offline --script .../scripts/overlap.py          # write if absent / match
-  uv run --offline --script .../scripts/overlap.py --check  # compare only
+  uv run --offline --script .../scripts/overlap.py --check   # compare only (exit 1 on DIFFERS)
+  uv run --offline --script .../scripts/overlap.py           # write only if absent; refuse rewrite
+  uv run --offline --script .../scripts/overlap.py --write   # create or rewrite committed file
 """
 from __future__ import annotations
 
@@ -256,6 +257,8 @@ def build_text() -> str:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--check", action="store_true", help="compare with committed file; write nothing")
+    ap.add_argument("--write", action="store_true",
+                    help="create or rewrite inputs/overlap.tsv; without this, refuse to overwrite")
     ap.add_argument("--summary", action="store_true", help="print overlap counts to stdout")
     args = ap.parse_args()
     text = build_text()
@@ -264,22 +267,28 @@ def main() -> int:
     pilots = {r.split("\t")[0] for r in data_rows if r.split("\t")[1] == "pilot"}
     confirms = {r.split("\t")[0] for r in data_rows if r.split("\t")[1] == "confirm"}
     in_horizon = {r.split("\t")[0] for r in data_rows if r.split("\t")[5] == "yes"}
-    if args.summary or args.check:
+    if args.summary or args.check or args.write or not target.exists():
         print(f"rows={len(data_rows)} pilot_distinct={len(pilots)}/8 "
               f"confirm_distinct={len(confirms)}/200 distinct={len(pilots|confirms)} "
               f"onset_lt_2_31_distinct={len(in_horizon)}")
-    if args.check or target.exists():
+    if args.check:
         same = target.exists() and target.read_text() == text
         print(f"overlap.tsv: {'OK' if same else 'DIFFERS'}")
-        if args.check:
-            return 0 if same else 1
-        if not same:
-            target.write_text(text)
-            print("overlap.tsv: rewritten")
+        return 0 if same else 1
+    if not target.exists():
+        target.parent.mkdir(exist_ok=True)
+        target.write_text(text)
+        print("overlap.tsv: written")
         return 0
-    target.parent.mkdir(exist_ok=True)
+    same = target.read_text() == text
+    print(f"overlap.tsv: {'OK' if same else 'DIFFERS'}")
+    if same:
+        return 0
+    if not args.write:
+        print("overlap.tsv: refuse rewrite without --write")
+        return 1
     target.write_text(text)
-    print("overlap.tsv: written")
+    print("overlap.tsv: rewritten")
     return 0
 
 
