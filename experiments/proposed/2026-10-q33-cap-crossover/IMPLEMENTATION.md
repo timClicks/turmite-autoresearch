@@ -37,3 +37,18 @@ Write run spec, source/binary/input hashes, machine/OS/toolchain, thread count, 
 Proposed output tables (schema frozen before confirmation): specs, checkpoints, octave_fits, fresh_runs, cap_exposure, excursions_tw, ordered_candidates, run_outcomes, gate_report and provenance. Primary keys include rule, arm, seed and step/window. Status columns distinguish complete, left/right censored, ordered, uncertain and resource incomplete. Raw traces go in experiment scratch/dumps; small committed summaries belong in results only after measurement. No empty CSV is presented as a zero result.
 
 Exact build/run/analyse commands and executable schemas must be committed with the implementation. They are deliberately not fabricated in this documentation-only proposal.
+
+## Amendment A2 memory default (2026-11-05)
+
+The 1 GiB process-wide pool above is insufficient if an uncapped arm approaches A ~ t near 2^31 (~2e9 cells). Until excluded-pilot A(t) is measured, run uncapped arms sequentially, fail loud on allocation failure, and log peak RSS per arm. After the pilot, either keep that schedule or register a resized pool before confirmation. This is a resource plan, not a growth prediction.
+
+## Amendment A3 memory detail (2026-11-06)
+
+Sequential uncapped arms avoid cross-arm pool contention; each arm still faces the 1 GiB process-wide pool alone. Planning figure until pilot A(t): see Amendment A5 for the corrected per-cell cost sources. A resource-censored uncapped partner removes that rule from P3/P5 paired support and can bias those scores toward slowly growing rules; report the resource-censor fraction with P3/P5 and do not impute.
+
+## Amendment A5 memory sources (2026-11-07)
+
+Two different backends, two different figures (neither is a growth prediction):
+
+- **Tiled Rust backend** (`experiments/active/2026-10-tiled-grid-backend/DESIGN.md` lines 44–51): about **1 byte per resident/packed cell** (lean colour byte; packed can be ≤1 B/cell). Under a 1 GiB process-wide pool that is order 1e9 cells, so a near-ballistic uncapped arm toward A ~ 2e9 at N=2^31 is still resource-censored well before the horizon.
+- **Python sparse simulator** (`experiments/_lib/turmite_sim.py`): cells live in a `dict[(x,y), colour]`. Hash-map overhead is much larger than 1 B/cell; until measured, treat **~24–32 B per departed cell** as a planning guess for that dict (not for the tiled backend). Exact layout is frozen with G0.
