@@ -154,3 +154,10 @@ Registration hygiene in response to the 2026-11-05 review of PR #34. **No walker
 8. **Review item numbering.** The draft-blog commit-pin was item 12 of the #31 review, not item 11. Item 11 (NOTEBOOK entries with time-of-day and own short hash) is addressed by this amendment's NOTEBOOK entries and by using exact NZDT timestamps below.
 
 P3 discrimination and the D metric remain open for the user.
+
+## Amendment A4 (2026-11-07, before any calibration, pilot or confirmation run)
+
+Registration hygiene in response to the 2026-11-06 follow-up review of PR #34. **No walker growth data; no change to any prediction band, gate threshold or decision rule.** Review items 3 (P3 discrimination) and 6 (D metric) remain **open**.
+
+1. **Census onset source missing from `ONSET_SOURCES`.** A3's overlap record flagged confirmation rule `RRLRLRL` as the sole in-horizon onset (`onset_lt_2_31_distinct=1`). The 2026-11-06 review found confirmation rule `RRRRRRRLR` has a confirmed census highway onset of **756,289,068** steps (< 2^31) in `experiments/archive/2026-10-census-sweeps/results/confirmed_1B.csv` (`confirmed=true`, period 452), and the same onset appears in column 5 of `highway-preconditions/results/highway_specs.txt`. A3 left both files out of `ONSET_SOURCES`, so `known_onset` / `onset_lt_2_31` for `RRRRRRRLR` stayed blank. Fix (registered before regenerating): add those two committed tables to `ONSET_SOURCES` in `scripts/overlap.py` (census rows only when `confirmed=true`; highway-preconditions via the existing whitespace table: rule, period, dx, dy, onset). Inclusion of the rule in the Q33 sample is **unchanged**; the flag is for interpretation and crystallisation-control design. Expected after regeneration: `onset_lt_2_31_distinct=2` (both `RRLRLRL` and `RRRRRRRLR`). Cohort membership lists are unchanged.
+
