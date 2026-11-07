@@ -174,3 +174,24 @@ Registration hygiene for the remaining mechanical items of the 2026-11-06 follow
 4. **A3 item 5 origin assertions are observations, not registered predictions.** The sharper m=1 "== 2" and m≥2 "max == m" statements were written in the same commit as the test that asserts them (`21b3b22`), and the facts were already reported in the 2026-11-05 review. Call them **observations the test now asserts**, not blind registered predictions (same correction class as A3 item 3 for A1). The test remains; the epistemic label changes.
 
 P3 discrimination and the D metric remain open for the user.
+
+## Amendment A6 (2026-11-08, before any calibration, pilot or confirmation run)
+
+Registration hygiene for the remaining mechanical items of the 2026-11-07 follow-up review of PR #34 after A5. **No walker growth data; no change to any prediction band, gate threshold or decision rule.** Review items 3 (P3 discrimination) and 6 (D metric) remain **open**.
+
+1. **NOTEBOOK append-only.** A5's checks commit rewrote a committed placeholder observation. Recorded as a `deviation` entry (quotes the original placeholder). Future amendments: commit only `intent`/`decision` with the registration, then append the observation after the check.
+
+2. **Memory planning figures (both backends).** A5 still understated both costs.
+   - **Tiled Rust backend:** cost is `tiles_touched × bytes_per_tile`, not 1 B per departed cell. A resident tile is `(T+2)^2` bytes; packed is `T^2·w/8 + T^2/8` (`DESIGN.md` lines 44–51). "1 B/cell" is a lower bound for compact interiors only. A thin or near-ballistic arm (the uncapped case of interest) can approach about T bytes per departed cell. At T=64 that is up to ~64 B/departed cell, so a 1 GiB pool censors much earlier than A5 said; even the compact 1 B/cell case holds only ~1.07e9 cells against A≈2e9.
+   - **Python `dict` sparse simulator:** replace the 24–32 B/cell guess with a measured figure. CPython 3.13, `tracemalloc`, `dict[(x,y)] = colour` with 10^6 cells whose coordinates lie outside the small-int cache: **~162 B/cell** (at 10^5 cells, ~172 B/cell). Command recorded in IMPLEMENTATION.md Amendment A6. Exact layout still freezes at G0.
+   - Resource plan unchanged in kind: sequential uncapped arms, fail loud, log peak RSS; decide after the excluded pilot whether 1 GiB remains the right per-arm pool. Report resource-censor fraction with P3/P5.
+
+3. **`git_dirty` under chunked `--resume`.** Sampling before `mkdir` hides only *this* run's directory. Earlier uncommitted chunk directories under `results/` still mark every later chunk dirty. Fix: exclude this experiment's `results/` and `scratch/` trees from the porcelain check while still counting other untracked files:
+
+   `git status --porcelain --untracked-files=normal -- . ':!<exp>/results' ':!<exp>/scratch'`
+
+4. **Unit-test pin for A4 onset.** Assert `RRRRRRRLR` is flagged `onset_lt_2_31=yes` and that `onset_lt_2_31_distinct=2`, so the A4 regression fails with a clear message rather than only through `--check` byte comparison.
+
+5. **`overlap.py --check` vs `--write`.** Make them a mutually exclusive argparse group so both flags cannot be passed at once.
+
+P3 discrimination and the D metric remain open for the user. `notes/ACTIVE.md` three-way conflicts are left for a landing-order decision.
