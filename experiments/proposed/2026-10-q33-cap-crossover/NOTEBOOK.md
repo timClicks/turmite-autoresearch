@@ -120,3 +120,7 @@ Periodic proactive session. Address the remaining mechanical "should fix" items 
 ## 2026-11-08 11:27 NZDT · parent 8010f19 · decision
 
 Record as Amendment A6 on PR #34 once the suite and overlap check pass. Leave P3 discrimination and D metric for the user. Do not start G0, pilot or confirmation. Do not resolve `notes/ACTIVE.md` three-way conflicts here.
+
+## 2026-11-08 11:28 NZDT · parent d76c1e1 · observation
+
+`uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`: **18/18 OK**. `overlap.py --check --summary`: rows=115, onset_lt_2_31_distinct=2, overlap.tsv OK. `--check --write` now errors as mutually exclusive. `tracemalloc` on CPython 3.13.5: 161.9 B/cell at 10^6 (coords outside small-int cache). Pathspec exclude verified: untracked under `results/` invisible with `:!…/results` / `:!…/scratch`; untracked helper under `scripts/` still visible. No walker growth data.
