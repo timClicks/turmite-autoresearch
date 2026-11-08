@@ -1,0 +1,8 @@
+{
+ "backend": "tiled", "grid": 1048576, "max_steps": 10000000000, "rules": 1, "threads": 1, "wall_s": 49.439, "peak_rss_kb": 2485664,
+ "dense_logical_bytes_per_worker": 1099515822084,
+ "tile_log2": 6, "cache_tiles": null, "inactive": "Packed",
+ "per_rule": [
+  {"rule": "RLLRRLRLR", "transitions": 156251283, "hits": 155683582, "misses": 0, "creations": 567701, "evictions": 0, "blank_drops": 0, "packed_stores": 0, "raw_stores": 0, "compressed_stores": 0, "bytes_encoded": 0, "bytes_decoded": 0, "peak_resident_tiles": 567701, "peak_inactive_bytes": 0, "peak_total_bytes": 2528162032, "end_tiles": 567701, "end_resident_tiles": 567701, "end_packed_bytes": 0, "end_raw_inactive_bytes": 0, "end_compressed_bytes": 0, "end_resident_bytes": 2472905556, "end_directory_bytes": 30277632, "end_cache_meta_bytes": 24978844, "onset_peak_total_bytes": null}
+ ]
+}
