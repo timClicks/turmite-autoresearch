@@ -2,6 +2,7 @@
 
 Created 2026-11-09 09:11 +13:00 on branch `agent/late-highway-1e8-board-check`, base `6fba1c80227eebfcd3f27fee78087dd6c973e0e8`.
 Status: **REGISTERED, nothing run yet** (the recheck runs start only after this registration is committed).
+Status update (2026-11-09 09:16 +13:00, appended): **done**; P1 and P2 held; see Results.
 
 ## Question and registered prediction
 
@@ -96,6 +97,53 @@ No seeds (blank-board deterministic runs; no random draws). Binary sha256 and co
 
 (Appended below after the runs; the registration above is not edited.)
 
+### Results (appended 2026-11-09 09:16 +13:00; data commit `00fee4a4d76c904002ebd71904621bb44f399d8b`)
+
+Runs: `scripts/recheck.sh` at registration commit `214377a`, `sweep_lean` built with `--locked` into a separate target dir,
+binary sha256 `1ecc3e8d6bcbe351980fe98aaf72090cda39e4ea6fc427fc6bc0d51bf2ac7e0e` (`results/recheck_{65536,32768}/recheck.log`).
+Every rule ran uninterrupted from a blank board, one per process. Wall time: 21 s for the 13 tiled 65536 runs (4 in
+parallel), 2 min for the 13 dense 32768 runs (serial). Scored by the frozen `scripts/classify.py` -> `results/classify.txt`.
+
+- **Control / oracle.** `RRLRLR` on the tiled 65536 board reproduces the dense 65536 row of the earlier experiment exactly
+  (period 220, drift (2, -2), onset 1,076,356,698, footprint 33549 x 33401), and the dense 32768 run agrees too: tiled = dense
+  at this board size, as the backend tests say. `cargo test --release --locked`: 227 passed, 0 failed (includes
+  `tests/ant.rs`, `tests/probe.rs`, `tests/tiled.rs` oracle tests).
+- **P1 held (11 of 11).** Every rule that `confirm` had confirmed on 8192/16384 reproduces period, drift and onset exactly on
+  the 65536 board, and also on the dense 32768 board. The escape footprints are now ~33,000 (65536) and ~17,000 (32768) wide,
+  i.e. the highway arm simply runs further on the bigger board.
+- **P2 held.** `RLLRRLRLR` does **not** reproduce: on both new boards it has no highway by the budget (onset + 1e8 =
+  922,854,955 steps; stop `budget`, footprint 12831 x 11947, identical on both boards). It is board-dependent and is removed
+  from the count.
+- **Bookkeeping as registered:** 0 board fillers (frozen footprint criterion).
+
+**Corrected (1e8, 1e9] count** (`scripts/yields.py` -> `results/yields.txt`): **11/854 = 1.29%** in the "found by the 1e9
+rerun" binning (was 12/854 = 1.41%), **10/854 = 1.17%** by onset binning (was 11). Against (1e9, 1e10] at 16/807 = 1.98%:
+Fisher exact p = 0.33 (0.24 by onset binning); against (1e10, 1e11] at 12/732 = 1.64%: p = 0.67. The flat-yield reading of
+Q19 is unchanged; one event moves within the Poisson error (sd ~3 per decade). The registered competing explanation
+(H-real-RLLRRLRLR) is rejected.
+
+**Exploratory (registered: `RLLRRLRLR` to 1e10 on tiled 65536)** (`results/explore/RLLRRLRLR_1e10_65536.csv`): it escapes
+at 2,118,888,449 steps with "highway" period 4, drift (-2, 0), **onset 2,118,845,739**, footprint 33446 x 32563. So the census
+onsets are 763,443,858 (8192), 822,854,955 (16384) and 2,118,845,739 (65536): the "highway" is a fast straight run (speed 1/2,
+axis-aligned) that is detected only when it ends at the board edge; the reported onset is the start of the last run before
+the edge. **Deviation (unregistered, exploratory, decided after seeing the 65536 escape):** the same rule on tiled 262144 and
+1048576 boards to 1e10 steps (`results/explore/RLLRRLRLR_1e10_{262144,1048576}.csv`, about 50 s each) does not escape; both stop at
+the budget with footprint 84683 x 83799 (identical on both boards) and `tail_period` 4 at the end, i.e. it is in a period-4 run
+at that moment but the run does not continue indefinitely. Reading (interpretation, not tested): `RLLRRLRLR` is a ray emitter,
+a growing structure that repeatedly launches period-4 straight runs which terminate, like `RLLLRLRRR` in the earlier check.
+Its bounding box grows quickly (12.8k at 9.2e8 steps, 84.7k at 1e10, an apparent exponent near 0.8 from two points), so it
+is not a cube-root blob either. Not classified further here.
+
+**Limitations.** One board size beyond the census (65536) for the score, plus 32768 as a cross-check; a rule whose onset
+depended on the board only above 65536 would pass. The B5-style `confirm` (two boards, fast ant) already existed for this
+decade, so this check mostly adds a bigger board; the change in the count comes from the yield bookkeeping having ignored
+`confirmed_1B.csv`, not from a new artefact class. `RLLRRLRLR` is not a highway on any board tested, but "never a highway" is
+not shown.
+
 ## Pruning-index outcome and next question
 
-(Appended after the results.)
+No signature: nothing here is a dead end; the result is a corrected count and one rule reclassified as not-a-highway on
+finite boards (a finite observation that cannot exclude a later highway). Next questions (not registered): what are
+`RLLRRLRLR`'s period-4 runs (what do they run over, why do they stop), and is it the same class as `RLLLRLRRR`? Q19's
+fourth-decade experiment (`experiments/proposed/2026-10-late-highway-fourth-decade/`) should use 11 (or 10 by onset) for this
+decade.

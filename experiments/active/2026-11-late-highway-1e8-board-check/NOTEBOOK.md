@@ -31,3 +31,31 @@ on this machine at this board size.
 Free RAM is ~2.5 GB (15 GB total, ~13 GB used outside this job), too little for dense 65536 (4.3 GB). Primary run uses
 `TURMITE_GRID=tiled` (unlimited cache, tile 2^6) instead of dense as in B2. Registered in the README before running.
 Throughput check on a rule outside the study (`echo RLR | ... sweep_lean - - 200000000 65536`, tiled): 2e8 steps in 0.85 s.
+
+### 2026-11-09 09:11 (+13:00) · 214377a · decision
+Registration committed and pushed (`214377a`) before any recheck. Launched `scripts/recheck.sh` (background) and
+`cargo test --release --locked` in parallel.
+
+### 2026-11-09 09:13 (+13:00) · 214377a · observation
+Recheck finished (tiled 65536: 09:11:01-09:11:22; dense 32768: to 09:12:58; binary sha256 1ecc3e8d...). `scripts/classify.py`
+-> `results/classify.txt`: control RRLRLR confirmed on both boards (tiled 65536 equals the earlier dense 65536 row); 11 of 12
+census rules confirmed on both boards; RLLRRLRLR stops at budget 922,854,955 with no highway (footprint 12831 x 11947, same
+on both boards). cargo test: 227 passed, 0 failed.
+
+### 2026-11-09 09:13 (+13:00) · 214377a · interpretation
+P1 and P2 held as registered. The decade's count is 11/854 (1.29%), or 10/854 by onset binning. Q19's flat reading is
+unaffected (Fisher p = 0.33 vs the next decade). The one artefact was already flagged by the 2026-10 `confirm` run; the
+error was in the bookkeeping that ignored it.
+
+### 2026-11-09 09:14 (+13:00) · 214377a · observation
+Registered exploratory run, RLLRRLRLR to 1e10 on tiled 65536: escapes at 2,118,888,449, period 4, drift (-2, 0), onset
+2,118,845,739 (third different onset on a third board). `results/explore/RLLRRLRLR_1e10_65536.csv`.
+
+### 2026-11-09 09:15 (+13:00) · 214377a · deviation
+Unregistered exploratory follow-up after seeing that escape: same rule on tiled 262144 and 1048576 to 1e10 (~50 s each).
+Neither escapes; identical footprint 84683 x 83799 and tail_period 4 at the budget. Not scored; counts unchanged.
+
+### 2026-11-09 09:16 (+13:00) · 00fee4a · surprise
+RLLRRLRLR looks like a ray emitter: period-4 speed-1/2 straight runs that end, read as a highway only when one hits the
+board edge. Bounding box 12.8k at 9.2e8 and 84.7k at 1e10 steps (apparent exponent ~0.8 from two points): fast, not a
+cube-root blob. Question (not registered): what do the runs travel over and why do they stop? Same class as RLLLRLRRR?
