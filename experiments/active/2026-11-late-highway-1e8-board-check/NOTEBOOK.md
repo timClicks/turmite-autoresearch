@@ -59,3 +59,11 @@ Neither escapes; identical footprint 84683 x 83799 and tail_period 4 at the budg
 RLLRRLRLR looks like a ray emitter: period-4 speed-1/2 straight runs that end, read as a highway only when one hits the
 board edge. Bounding box 12.8k at 9.2e8 and 84.7k at 1e10 steps (apparent exponent ~0.8 from two points): fast, not a
 cube-root blob. Question (not registered): what do the runs travel over and why do they stop? Same class as RLLLRLRRR?
+
+### 2026-11-09 09:19 (+13:00) · 1892db7 · decision
+Closing the session. Notebook written and executed (`scripts/build_notebook.py`; agrees with README). Notes updated:
+Q19 update (open-questions), correction lines in `notes/frontier-2026-10-13-results.md` and `notes/frontier-results.md`,
+ACTIVE.md open item removed. Atlas: evidence, open question, turn, reviewed date; guide row in `blog/experiment-guides.tsv`;
+blog post 2026-11-09. Not changed (left for the owner): the paper sentence "1.4% in (10^8, 10^9]"
+(`research-outputs/scholarly-articles/cube-root-growth/main.typ`), the fourth-decade registration's 12/854 figure, and the
+archived `highway_stats.txt` (generated data). The experiment stays in `active/` until the owner reviews.
