@@ -1,0 +1,2 @@
+rule,n,stop,steps,period,dx,dy,onset,width,height,tail_period
+RRRRLR,6,escaped,186717477,988,-4,4,178739152,33223,32918,988

@@ -1,0 +1,2 @@
+rule,n,stop,steps,period,dx,dy,onset,width,height,tail_period
+RLLRRLRLR,9,budget,10000000000,,,,,84683,83799,4
