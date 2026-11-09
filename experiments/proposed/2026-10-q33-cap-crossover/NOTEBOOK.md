@@ -124,3 +124,11 @@ Record as Amendment A6 on PR #34 once the suite and overlap check pass. Leave P3
 ## 2026-11-08 11:28 NZDT · parent d76c1e1 · observation
 
 `uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`: **18/18 OK**. `overlap.py --check --summary`: rows=115, onset_lt_2_31_distinct=2, overlap.tsv OK. `--check --write` now errors as mutually exclusive. `tracemalloc` on CPython 3.13.5: 161.9 B/cell at 10^6 (coords outside small-int cache). Pathspec exclude verified: untracked under `results/` invisible with `:!…/results` / `:!…/scratch`; untracked helper under `scripts/` still visible. No walker growth data.
+
+## 2026-11-09 20:38 NZDT · parent 00647e3 · intent
+
+Periodic proactive session. Address the remaining mechanical "should fix" and minor items from the 2026-11-08 follow-up review of PR #34 (head `00647e3`) as Amendment A7: (1) restate the tiled memory model with the resident/inactive split and trail, and state that the "1 GiB pool" is a planning assumption the tiled backend does not enforce; (2) pin the exact pruning-index revision that A3 left as "see NOTEBOOK"; (3) commit the `tracemalloc` dict-cell measure as `scripts/measure_dict_cell_bytes.py` under `uv run --offline --script`, and note the Python dict simulator is not a candidate for uncapped arms at N=2^31; (4) fix `git_dirty` so pathspec excludes do not hide tracked modifications under `results/`/`scratch/` (two status calls); (5) keep registration and checks as separate commits with distinct timestamps. No prediction/gate changes; items 3 and 6 stay open for the user. No walker growth data. Do not resolve `notes/ACTIVE.md` conflicts.
+
+## 2026-11-09 20:38 NZDT · parent 00647e3 · decision
+
+Record as Amendment A7 on PR #34 once the suite and overlap check pass. Leave P3 discrimination and D metric for the user. Do not start G0, pilot or confirmation. Do not resolve `notes/ACTIVE.md` three-way conflicts here. Leave the reviewer's open questions on in-horizon crystallisation pairing and census `sweep_*.csv` COHORTS membership for a design answer.

@@ -195,3 +195,28 @@ Registration hygiene for the remaining mechanical items of the 2026-11-07 follow
 5. **`overlap.py --check` vs `--write`.** Make them a mutually exclusive argparse group so both flags cannot be passed at once.
 
 P3 discrimination and the D metric remain open for the user. `notes/ACTIVE.md` three-way conflicts are left for a landing-order decision.
+
+## Amendment A7 (2026-11-09, before any calibration, pilot or confirmation run)
+
+Registration hygiene for the remaining mechanical items of the 2026-11-08 follow-up review of PR #34 after A6. **No walker growth data; no change to any prediction band, gate threshold or decision rule.** Review items 3 (P3 discrimination) and 6 (D metric) remain **open**.
+
+1. **Tiled memory model (should-fix 1).** A6 treated every touched tile as if it were resident and quoted "up to about T bytes per departed cell" as if it were an upper bound. Per `experiments/active/2026-10-tiled-grid-backend/DESIGN.md` lines 79–83, logical grid memory is:
+
+   `cache_tiles · (T+2)^2 + n_tiles · payload(n,T) + directory + cache_meta`
+
+   plus the trail (`history · 24` bytes) outside `TiledGrid::memory()`, with RSS above all of these. Only `cache_tiles` tiles are resident at `(T+2)^2`; every other touched tile costs its packed payload `T^2·w/8 + T^2/8` (or `T^2` raw). Worked example at T=64, w=4 (`RRRRRRRLR`, 9 colours): packed payload **2560 B/tile** ≈ **40 B per departed cell** for a line that crosses the tile; a tile an arm only clips still costs the whole 2560 B for one cell, so "T B/cell" is **not** an upper bound. Restated in IMPLEMENTATION.md Amendment A7.
+
+2. **"1 GiB pool" is a planning assumption, not an instrument.** `cache_tiles` limits the *number of resident tiles*. Nothing in `src/tiled.rs` enforces a 1 GiB byte budget; an ordinary Rust allocation failure aborts rather than returning a resource-censored outcome. Until G0, keep "1 GiB process-wide pool … fail loud" as the **planning** default under the sequential uncapped schedule (A2–A6), and log peak RSS. G0 acceptance (registered here, not implemented in this amendment): a byte-budget check on `TiledGrid::memory()` totals (plus trail) that ends the run as *resource-censored* with step and A recorded, so P3/P5 support counts can use it. No enforcement code is added to the shared tiled backend in A7.
+
+3. **Pruning-index revision pin (older #4).** A3 item 7 said "see NOTEBOOK for `git rev-parse HEAD`" but no NOTEBOOK entry recorded it. Pin:
+   - Index entries last changed on main at **`cc7a885`** (excursion Rev3 merge; still the tip of `notes/pruning-index/entries/` at this amendment).
+   - A3 audit registration head: **`21b3b22`** (A3 registration); A3 checks head: **`1128767`**.
+   - A7 re-confirmation head: recorded in the A7 NOTEBOOK observation after this registration commit (`git rev-parse HEAD` of the registration). Concept `rg -il` and literal rule-string query are re-run at that head; decision remains **propose** unless the observation says otherwise.
+
+4. **`tracemalloc` under `uv` (minor 2).** Replace the bare `python3` one-liner in IMPLEMENTATION.md A6 with `scripts/measure_dict_cell_bytes.py`, run as `uv run --offline --script …`. The Python `dict` sparse simulator is **not** a candidate backend for uncapped arms at N=2^31 (at ~162 B/cell that needs ~300 GiB); README scopes it to technical checks.
+
+5. **`git_dirty` tracked modifications under excluded paths (minor 3).** A6's `:!…/results` / `:!…/scratch` pathspec also hid *tracked* modifications under those trees. Fix: two status calls. (a) `git status --porcelain --untracked-files=no` with no exclusion (all tracked changes). (b) `git status --porcelain --untracked-files=normal` with the results/scratch exclusion (untracked helpers outside those trees). Dirty iff either is non-empty. Still sampled before `destination.mkdir`. A unit test covers the clean → resume → still-clean chain so A6's resume fix does not regress.
+
+6. **Registration vs checks timestamps (minor 4).** Commit the registration alone; append the NOTEBOOK observation in the checks commit at a later clock time so a zero-second gap cannot hide registration-before-measurement order on future G0/pilot registrations.
+
+P3 discrimination and the D metric remain open for the user. `notes/ACTIVE.md` three-way conflicts are left for a landing-order decision. The reviewer's questions on in-horizon crystallisation pairing for P3/P5 and on census `sweep_*.csv` COHORTS membership are left open.
