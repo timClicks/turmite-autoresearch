@@ -240,6 +240,34 @@ class SimulationTests(unittest.TestCase):
             self.assertEqual(json.loads(resumed.stdout)["steps"], 1024)
 
 
+
+    def test_git_dirty_resume_chain_stays_clean(self):
+        """A7 minor 3: clean → chunk under results/scratch → resume still git_dirty false."""
+        # Only meaningful on a clean tracked tree; skip if the checkout is already dirty.
+        status = subprocess.run(["git", "-C", str(ROOT), "status", "--porcelain"],
+                                capture_output=True, text=True, check=True)
+        if status.stdout.strip():
+            self.skipTest("working tree already dirty")
+        scratch = EXPERIMENT / "scratch"
+        scratch.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=scratch) as tmp:
+            first = Path(tmp) / "chunk1"
+            second = Path(tmp) / "chunk2"
+            cmd1 = [sys.executable, str(Path(__file__).with_name("python_sim.py")),
+                    "--steps", "256", "--policy", "persistent-fresh", "--cap", "4",
+                    "--output-dir", str(first)]
+            r1 = subprocess.run(cmd1, capture_output=True, text=True)
+            self.assertEqual(r1.returncode, 0, r1.stderr)
+            prov1 = json.loads((first / "provenance.json").read_text())
+            self.assertIs(prov1["git_dirty"], False, prov1)
+            r2 = subprocess.run([sys.executable, str(Path(__file__).with_name("python_sim.py")),
+                                 "--resume", str(first / "checkpoint.json"), "--steps", "512",
+                                 "--output-dir", str(second)],
+                                capture_output=True, text=True)
+            self.assertEqual(r2.returncode, 0, r2.stderr)
+            prov2 = json.loads((second / "provenance.json").read_text())
+            self.assertIs(prov2["git_dirty"], False, prov2)
+
     def test_origin_run_bound_amendment_a1(self):
         """README A1 item 5 / A3 sharpening: m=1 always 2; for m>=2 bound <=m and tight."""
         maxima = {m: 0 for m in range(1, 17)}
