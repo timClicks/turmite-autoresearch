@@ -73,3 +73,40 @@ Supersedes the numeric planning figures in Amendment A5 for both backends (resou
   ```
 
   Result: **~162 B/cell** at 10^6 cells (coordinates outside the small-int cache); ~172 B/cell at 10^5. Treat that as the planning figure until G0 freezes the layout. At 162 B/cell, 1 GiB holds only ~6.6e6 departed cells.
+
+## Amendment A7 memory model and pool (2026-11-09)
+
+Supersedes the tiled numeric planning figure in Amendment A6 (Python ~162 B/cell figure unchanged; resource *schedule* unchanged: sequential uncapped arms, log peak RSS; no growth prediction). Clarifies what is resident vs planning-only.
+
+### Tiled Rust backend — what is actually resident
+
+Per `experiments/active/2026-10-tiled-grid-backend/DESIGN.md` lines 79–83 and `TiledGrid::memory()`:
+
+- **Resident** (bounded by `cache_tiles`): `cache_tiles · (T+2)^2` bytes of live buffers (including free-listed ones).
+- **Inactive** (grows with tiles ever touched): `n_tiles · payload(n,T)`, where `payload = min(T^2·w/8 + T^2/8, T^2)` with `w = ceil(log2 n)` (0 for one colour).
+- **Directory + cache meta**: hash-table capacity × (key + slot + control) plus pool bookkeeping (`MemoryReport::{directory_bytes,cache_meta_bytes}`).
+- **Trail** (outside `TiledGrid::memory()`): about `history · 24` bytes.
+- **RSS**: above all logical figures (allocator overhead, OS).
+
+Logical total ≈ `cache_tiles·(T+2)^2 + n_tiles·payload(n,T) + directory + cache_meta + 24·history`.
+
+Worked example at default T=64, w=4 (e.g. `RRRRRRRLR`, 9 colours): packed payload **2560 B/tile** (`packed_len` = 2048+512). A line that crosses a tile (~T departed cells) costs about **40 B/departed cell** for that tile's payload, not 64. A tile an arm only clips still costs the whole 2560 B for one cell, so neither "1 B/cell" nor "T B/cell" is a safe upper bound for a thin arm; cost tracks **tiles touched**, not cells.
+
+`cache_tiles` limits only the resident count. It does **not** bound inactive payload growth or total bytes.
+
+### "1 GiB pool" status
+
+The "1 GiB process-wide pool … fail loud" line in the runtime contract above is a **planning assumption** for this experiment's sequential uncapped schedule. The shared tiled backend does not enforce a byte budget today: allocation failure aborts rather than returning a censored outcome. A7 does **not** add enforcement to `src/tiled.rs`.
+
+**G0 acceptance item (registered, not implemented here):** before freezing the resource plan, add a byte-budget check (for example on `TiledGrid::memory().total_bytes()` plus trail) that ends the run as *resource-censored* with step and A recorded, so P3/P5 paired-support counts can treat it as a censoring event rather than a crash. Until then, keep sequential uncapped arms, treat 1 GiB as the planning ceiling, and log peak RSS per arm.
+
+### Python dict measure script
+
+The A6 bare `python3` one-liner is replaced by:
+
+```
+UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy \
+  uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/measure_dict_cell_bytes.py
+```
+
+Script: `scripts/measure_dict_cell_bytes.py` (PEP 723, `requires-python >= 3.12`, no deps). It prints B/cell at 10^5 and 10^6 with coordinates outside the small-int cache. Expected order: **~162 B/cell** at 10^6 (interpreter-dependent; record the script's stdout in the NOTEBOOK observation). The Python dict simulator is **not** a candidate backend for uncapped arms at N=2^31 (~300 GiB at 162 B/cell); it remains scoped to technical short runs.
