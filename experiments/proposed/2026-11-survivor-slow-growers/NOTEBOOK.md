@@ -14,3 +14,15 @@ Exploratory look (stated in README): g11 over the 702 is bimodal; 143 below 0.2,
 ### 2026-11-10 09:15 (+13:00) · 251100a · decision
 Pruning preflight (README): no signature covers the cohort; run. Registered P1-P3 and the consequence before reading the 1e8/1e9
 boxes, the highway list against the class, or running P3. Budget ~40 min wall on 4 cores; stop after P3.
+
+### 2026-11-10 09:12 (+13:00) · 8fae18c · deviation
+corrects: 2026-11-10 09:15. The README says "Registered 09:15"; the registration commit is 8fae18c at 09:08:22 (+13:00), which is
+the binding time (I wrote the README time ahead). Also: classes.csv was written with CRLF and git normalises it to LF, so the
+sha256 in the README is of the working-copy CRLF file, not the committed blob. analyse.py lost its PEP 723 header (uv --frozen
+needs a lock for script headers); it is stdlib-only and runs in the project env.
+
+### 2026-11-10 09:12 (+13:00) · 8fae18c · observation
+`uv run --frozen experiments/proposed/2026-11-survivor-slow-growers/scripts/analyse.py` -> results/analysis.txt. P1 HOLD: 143/143 slow rules were slow in (1e9,1e10]; 558/559
+growing rules were growing. P2 HOLD: 0/28 genuine late highways were slow in the decade before onset (all g 0.30-0.47).
+Pools: (1e9,1e10] 143 slow of 807 (17.7%); (1e10,1e11] 144 of 732. Growing-only genuine yields 16/664 = 2.41%, 12/588 = 2.04%.
+P3 runs started 09:09, 4 at a time.
