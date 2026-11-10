@@ -1,6 +1,6 @@
 """P1, P2 and growing-only yields for the slow-grower registration (stdlib; reads committed CSVs only).
 
-uv run --frozen experiments/proposed/2026-11-survivor-slow-growers/scripts/analyse.py
+uv run --frozen experiments/active/2026-11-survivor-slow-growers/scripts/analyse.py
 """
 import csv, glob, math, os, re
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

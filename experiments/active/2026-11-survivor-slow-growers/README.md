@@ -1,7 +1,7 @@
 # Do the 702 late survivors include slow or bounded growers, and do highways come from them?
 
 Registered 2026-11-10 09:15 NZDT (+13:00), base `251100a2f99f81099954ebd147dea11ea173e337`, branch `agent/survivor-slow-growers`.
-Status: **REGISTERED; nothing measured beyond the exploratory look stated below.**
+Status: **MEASURED** (P1, P2 held; P3 failed on 1 of 8). Registered with nothing measured beyond the exploratory look stated below; moved from `proposed/` to `active/` on 2026-11-11 once results existed.
 Phase priority 2 (regime validation: censoring and selection bias in the late-highway hazard cohort). Answers the open item in
 `notes/ACTIVE.md` ("whether the 702 include bounded rules (RLLLLLR is 42x42 at 1e11)") and feeds Q19.
 
@@ -67,10 +67,10 @@ very small power. The deliverable is "slow class persists and is not the source 
 ## Reproduction
 
 ```bash
-python3 experiments/proposed/2026-11-survivor-slow-growers/scripts/classes.py
+python3 experiments/active/2026-11-survivor-slow-growers/scripts/classes.py
 cargo build --release --locked --bin sweep_lean
-bash experiments/proposed/2026-11-survivor-slow-growers/scripts/p3_run.sh
-uv run --frozen experiments/proposed/2026-11-survivor-slow-growers/scripts/analyse.py
+bash experiments/active/2026-11-survivor-slow-growers/scripts/p3_run.sh
+uv run --frozen experiments/active/2026-11-survivor-slow-growers/scripts/analyse.py
 ```
 
 ## Results, uncertainty and limitations

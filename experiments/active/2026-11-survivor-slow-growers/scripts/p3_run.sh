@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # P3: re-run the 8 sampled slow survivors from blank to 2e11 steps on a 32768 board (the census board), tiled grid, 4 at a time.
 set -euo pipefail
-E=experiments/proposed/2026-11-survivor-slow-growers
+E=experiments/active/2026-11-survivor-slow-growers
 cargo build --release --locked --bin sweep_lean
 B=${CARGO_TARGET_DIR:-target}/release/sweep_lean
 mkdir -p $E/results/p3

@@ -44,3 +44,10 @@ Bounded vs slowly-growing remains unresolved: 3/8 did not move at all over the h
 separate "bounded with late transients" from "very slow growth" (local exponents 0-0.12). The Q19 consequence from P1/P2
 (growing-only denominator) is unaffected by P3 in kind, but the slow class should not be called bounded. Any exact-recurrence
 bounded check or 1e12 run needs its own registration (README). Stopping here as budgeted.
+
+### 2026-11-11 08:51 (+13:00) · 169c908 · housekeeping
+CI "Research blog" failed on PR #37: the atlas validator found this experiment neither filed nor in `blog/experiment-guides.tsv`.
+Fixed with no new measurement: folder moved `proposed/` -> `active/` (results exist; README status line and script/README self-paths
+updated; earlier NOTEBOOK entries keep the old path as written), reader-guide row added, filed under the atlas `late-highways` topic
+(evidence, open question on bounded vs slow, turning point), and the `notes/ACTIVE.md` open item updated. Local checks:
+`python3 blog/scripts/test_atlas.py` (8 OK), `blog/scripts/test_experiments.py` (OK), `export_results.py --check` (OK).
