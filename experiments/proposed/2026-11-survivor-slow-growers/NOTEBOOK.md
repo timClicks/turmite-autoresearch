@@ -26,3 +26,21 @@ needs a lock for script headers); it is stdlib-only and runs in the project env.
 growing rules were growing. P2 HOLD: 0/28 genuine late highways were slow in the decade before onset (all g 0.30-0.47).
 Pools: (1e9,1e10] 143 slow of 807 (17.7%); (1e10,1e11] 144 of 732. Growing-only genuine yields 16/664 = 2.41%, 12/588 = 2.04%.
 P3 runs started 09:09, 4 at a time.
+
+### 2026-11-11 08:03 (+13:00) · 67ba451 · observation
+P3 runs all finished (run.log end 2026-11-11T01:13:42+13:00); every rule stopped on budget at 2e11 steps, no highway, no escape.
+`uv run --frozen experiments/proposed/2026-11-survivor-slow-growers/scripts/p3_eval.py` -> results/p3_analysis.txt. P3 **FAIL**: 7/8 within the registered bound
+(ratios 1.000-1.050; RRRLLRLL sits exactly on 1.05), RLRLRRRR at 1.086 (side 140 -> 152). All 8 are far below the cube-root
+1.26, so the slow class is still slow, but the registered claim "stays put (<= 1.05)" does not hold for every rule.
+
+### 2026-11-11 08:03 (+13:00) · 67ba451 · deviation
+Provenance gap: run.log has one start line (09:08:33 on 11-10) and the second batch of four finished about 15 h after the first,
+while per-run wall_s is 1700-3300 s. The relaunch (or pause) of the second batch is not logged; outputs are complete CSVs and
+the script skips finished rules, so results are usable, but the timing is unexplained. The four `.tmp` files committed in 67ba451
+were in-flight outputs and are removed here.
+
+### 2026-11-11 08:03 (+13:00) · 67ba451 · interpretation
+Bounded vs slowly-growing remains unresolved: 3/8 did not move at all over the half-decade, 5/8 grew a few cells. P3 cannot
+separate "bounded with late transients" from "very slow growth" (local exponents 0-0.12). The Q19 consequence from P1/P2
+(growing-only denominator) is unaffected by P3 in kind, but the slow class should not be called bounded. Any exact-recurrence
+bounded check or 1e12 run needs its own registration (README). Stopping here as budgeted.

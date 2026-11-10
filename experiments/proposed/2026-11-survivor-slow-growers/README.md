@@ -75,4 +75,8 @@ uv run --frozen experiments/proposed/2026-11-survivor-slow-growers/scripts/analy
 
 ## Results, uncertainty and limitations
 
-Not yet measured.
+* **P1 HOLD**, **P2 HOLD** (`results/analysis.txt`).
+* **P3 FAIL** (`results/p3_analysis.txt`, `scripts/p3_eval.py`): 7 of 8 slow rules had `side(2e11)/side(1e11) <= 1.05`; RLRLRRRR
+  reached 1.086 (140 -> 152). None escaped or formed a highway; all stayed far below the cube-root 1.26.
+* Limitation: 8 rules over half a decade cannot tell bounded rules from very slow growth; the slow class is "slow", not "bounded".
+  The second P3 batch's start time is unlogged (see NOTEBOOK).
