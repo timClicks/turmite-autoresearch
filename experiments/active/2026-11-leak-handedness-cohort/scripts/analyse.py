@@ -1,6 +1,6 @@
 """Score the leak-handedness cohort test exactly as registered in the README.
 
-usage (repo root): uv run --frozen python experiments/proposed/2026-11-leak-handedness-cohort/scripts/analyse.py [RESULTS_DIR]
+usage (repo root): uv run --frozen python experiments/active/2026-11-leak-handedness-cohort/scripts/analyse.py [RESULTS_DIR]
 Reads RESULTS_DIR/probe.csv (default: the committed results/), the committed spec_roles.csv and the committed
 wall-vs-memory Stage 3b probe rows (gate G1); writes runs.csv, rules.csv and analysis.txt into RESULTS_DIR.
 `fit` and `classify` are wall-vs-memory Stage 1's, `stalled` Stage 3's and `filler` Stage 3c's, copied unchanged

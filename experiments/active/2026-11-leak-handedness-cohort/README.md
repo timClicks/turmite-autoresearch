@@ -124,13 +124,68 @@ beyond the readings above, and no statement about EF_50 location (two EF points 
 
 ## Reproduction
 
-To be written with the run (`scripts/run.sh`, `scripts/analyse.py`). Environment: `UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy`,
-`uv run --frozen`; Rust toolchain from `~/.cargo`, `cargo build --release --locked` into a fresh target dir.
+From the repository root (Linux; `UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy`, Rust from `~/.cargo`):
+
+```sh
+uv run --frozen python experiments/active/2026-11-leak-handedness-cohort/scripts/select_specs.py   # specs, roles, cohorts
+uv run --frozen python experiments/active/2026-11-leak-handedness-cohort/scripts/calibrate.py      # results/calibration.txt
+RAYON_NUM_THREADS=3 sh experiments/active/2026-11-leak-handedness-cohort/scripts/run.sh scratch/rerun  # fresh dir; compare bytes
+uv run --frozen python experiments/active/2026-11-leak-handedness-cohort/scripts/analyse.py        # runs.csv, rules.csv, analysis.txt
+uv run --script experiments/active/2026-11-leak-handedness-cohort/scripts/posthoc.py               # POST HOC, results/posthoc.txt
+cargo test --release --locked --test fresh_set                                                     # code oracle
+```
+
+The run (`results/provenance.txt`): commit `19e4aa0` (registration; `run.sh` was not yet committed, it is `add989a`), rustc 1.99.1,
+probe sha256 `3f5416b7...`, 2708 specs on 3 threads, 2026-11-12 08:59-09:20 NZDT (21.5 min), `probe.csv` sha256 `e09b8ea6...`.
+The folder was registered in `proposed/` and moved to `active/` after the run (`experiments/_migration/2026-11-12-leak-handedness-cohort.tsv`),
+so the command recorded in `provenance.txt` names the old path. `analyse.py` gives byte-identical output on re-run and under `PYTHONHASHSEED=7`.
 
 ## Results, uncertainty and limitations
 
-Not run at registration.
+Scored output: `results/analysis.txt` (per run `results/runs.csv`, per rule `results/rules.csv`).
+
+**Gates.** G1 PASS: all 172 EF = 0 rows are identical to the committed Stage 3b rows (built with rustc 1.97.0; this run 1.99.1).
+G2 PASS: at EF = 1 the two arms agree, mean d = -0.0015 and |d| <= 0.06 in 77/77 rules. Code oracle: `fresh_set` 4/4 passed.
+All 77 cohort-C rules were scoreable.
+
+**P1 (handedness lag): UNRESOLVED.** Median Lambda = +0.023, rule-bootstrap 95% [-0.158, +0.186], n = 77; Lambda > 0 in 41/77.
+Descriptive: median rise fraction at EF 0.3 is 0.35 (arm R) against 0.30 (arm L); at EF 0.5, 0.64 against 0.63.
+So the cohort shows no consistent lag in either direction, but the interval is far too wide for the registered "no lag" verdict
+(the calibration expected a half-width near 0.02).
+
+Why the interval is wide is the main finding, and it was not anticipated by the calibration. The calibration assumed every rule
+shares one lag with a rule-level spread of 0.05. In the data the spread of Lambda across rules is **sd 0.38** (quartiles -0.29 / +0.30;
+|Lambda| > 0.4 in 24 of 77 rules), while seed noise on one rule's Lambda is only about 0.05 (`results/posthoc.txt`). The handedness of
+the base turn changes leak tolerance strongly **rule by rule**, in both directions, and the effects cancel in the median.
+This is a defect of the registered design (a cohort-median test cannot see a rule-dependent sign), stated here rather than repaired.
+
+**P2 (ordered-L collapse): FAIL.** Arm L at EF 0.1: cohort E porous 9/36 = 0.25 (needed >= 0.50; 3 further runs escaped), cohort C
+porous 0/308 (needed <= 0.10, held). The E half failed. Within-rule control: arm R at EF 0.1 on cohort E gave 0 porous of 36.
+The collapse is all-or-nothing by rule: three E rules (`RLLLRLLLL`, `RLLRLLLRLRL`, `RLLRLLLRRRL`) are porous or escaping in every
+arm-L run (mean a 0.90-0.95) and compact in every arm-R run; the other six stay compact or intermediate (mean a 0.69-0.77).
+So the six-rule observation (forced-L highway rules go straight to porous at a 10% leak) generalises to 3 of 9 forced-L escaping rules,
+not to escaping rules as a class.
+
+**Post hoc, not registered** (`scripts/posthoc.py`, written after P1 came out unresolved; one of several possible looks, uncorrected):
+Lambda tracks rule composition. Spearman(Lambda, fraction of R letters) = +0.40 (p = 0.0003). Rules with fewer than 45% R have median
+Lambda -0.21 (base R tolerates the leak better); rules with more than 55% R have +0.18 (base L tolerates it better). The extremes are
+the prefixes: all 7 `RRRR...` rules have Lambda > 0 (median +0.54) and 12 of 14 `RLLL...` rules have Lambda < 0 (median -0.38). Read
+literally, the leak does less damage when the forced fresh-ground turn is the *minority* turn of the rule's own table. That is a
+pattern to test, not a finding: it was found by looking, composition and prefix are confounded, and the three P2 collapse rules
+also start `RLL` (a forced-L base on an L-heavy rule), which fits the same reading.
+
+**Limitations.** Finite window (early a over k = 12..22, board 16384); 4 seeds; the two-point rise fraction is not an EF_50; the
+cohort is the Stage 3b sample of core-class rules, so nothing transfers to other classes. Escapes at EF = 1 (62 of 616 runs) and
+EF = 0.5 (2) have no early fit; every rule kept >= 3 of 4 fits where required.
 
 ## Pruning-index outcome and next question
 
-Not run at registration.
+No dead-end signature. P1 is unresolved (not a controlled null), and the P2 failure is a failed generalisation of a descriptive
+observation, not a disproved mechanism.
+
+Next question (Q42 update in `notes/open-questions-hypotheses.md`; not registered): **does a forced fresh-ground turn tolerate
+leak better when it is the rule's minority turn?** A registered test should fix the sign prediction per rule from its table
+(e.g. sign of Lambda = sign of (#R - #L), or of the second-run letter), test it on rules outside cohort B, and use a per-rule
+sign-agreement statistic rather than a cohort median. A mechanism would have to say why the forced turn's agreement with the
+interior turn statistics sets how much leaked fresh ground the boundary can absorb; the fresh-run length distribution (Q41,
+Stage C) is identical in law for the two arms, so a lag of either sign is evidence against the bound being the whole story.

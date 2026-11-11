@@ -1,6 +1,6 @@
 """Write the run specs for the leak-handedness cohort test (no random draw).
 
-usage (repo root): uv run --frozen python experiments/proposed/2026-11-leak-handedness-cohort/scripts/select_specs.py
+usage (repo root): uv run --frozen python experiments/active/2026-11-leak-handedness-cohort/scripts/select_specs.py
 Writes results/specs.txt (one probe spec per line), results/spec_roles.csv (spec, cohort, arm, EF, role) and
 results/cohorts.csv (rule -> cohort, from the committed wall-vs-memory Stage 3b classes).
 

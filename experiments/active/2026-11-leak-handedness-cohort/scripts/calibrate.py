@@ -1,6 +1,6 @@
 """Synthetic calibration of the P1 decision rule (no ant data).
 
-usage (repo root): uv run --frozen python experiments/proposed/2026-11-leak-handedness-cohort/scripts/calibrate.py
+usage (repo root): uv run --frozen python experiments/active/2026-11-leak-handedness-cohort/scripts/calibrate.py
 Writes results/calibration.txt.
 
 Model: per rule, early a at EF = 0 (one deterministic run per arm, no noise), EF = 1 pooled over 8 runs, and

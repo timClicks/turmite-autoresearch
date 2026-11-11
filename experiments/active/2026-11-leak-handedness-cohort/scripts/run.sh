@@ -1,12 +1,12 @@
 #!/bin/sh
-# usage (repo root): sh experiments/proposed/2026-11-leak-handedness-cohort/scripts/run.sh [OUTDIR]
+# usage (repo root): sh experiments/active/2026-11-leak-handedness-cohort/scripts/run.sh [OUTDIR]
 # OUTDIR (default: the committed results/) receives probe.csv, probe.log, provenance.txt and run.done.
 # The committed results/ carries run.done, so the default call skips; to re-simulate pass a fresh
-# directory (e.g. experiments/proposed/2026-11-leak-handedness-cohort/scratch/rerun) and compare byte for byte.
+# directory (e.g. experiments/active/2026-11-leak-handedness-cohort/scratch/rerun) and compare byte for byte.
 # Builds probe into a fresh target dir (stale-build trap, AGENTS.md), records provenance, runs every
 # spec in results/specs.txt once. Results do not depend on thread count.
 set -eu
-S=experiments/proposed/2026-11-leak-handedness-cohort/results   # specs are always the committed ones
+S=experiments/active/2026-11-leak-handedness-cohort/results   # specs are always the committed ones
 D=${1:-$S}
 mkdir -p "$D"
 if [ -e "$D/run.done" ]; then echo "already done: $D/run.done (pass a fresh OUTDIR to re-simulate)"; exit 0; fi
