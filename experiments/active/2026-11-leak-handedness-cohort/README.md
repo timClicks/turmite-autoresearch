@@ -3,7 +3,9 @@
 ## Question and registered prediction
 
 Registered 2026-11-12 09:05 (+1300) NZDT, base commit `251100a2f99f81099954ebd147dea11ea173e337`, **before any
-run of the specs below and before the run or analysis scripts were written**. Code that exists at registration:
+run of the specs below and before the run or analysis scripts were written**.
+*(Correction 2026-11-12 09:25: the minute above was written ahead of the clock; the registration commit `19e4aa0` is dated
+08:58:54 +1300, and the run started at 08:59:16 +1300.)* Code that exists at registration:
 `scripts/select_specs.py` (writes the specs from committed Stage 3b classes, no draw) and `scripts/calibrate.py`
 (synthetic, no ant data). Implements Q42 in `notes/open-questions-hypotheses.md` (follow-up 2 of the leak titration).
 

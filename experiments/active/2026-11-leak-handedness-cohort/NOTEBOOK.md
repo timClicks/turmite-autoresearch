@@ -45,3 +45,8 @@ The three P2 collapse rules all start `RLL`, consistent with it. Not registered;
 No dead-end signature (unresolved and failed-generalisation, not a controlled null). Moved the folder to `active/` with
 `relocate.py` (map `experiments/_migration/2026-11-12-leak-handedness-cohort.tsv`); `analyse.py` re-run from the new path is
 byte-identical, also under `PYTHONHASHSEED=7`. Next: notebook.ipynb, Q42 update, ACTIVE pointer, atlas and guide, blog post.
+
+### 2026-11-12 09:25 (+1300) · 81f5264 · deviation
+corrects: 2026-11-12 09:05 decision. The registration time written in that entry and in the README ("09:05") was entered ahead
+of the clock; the registration commit `19e4aa0` is dated 08:58:54 (+1300) and the probe started at 08:59:16 (+1300)
+(`provenance.txt`, 19:59:16Z). The order registration -> run holds; the stated minute was wrong. README carries a dated note.
