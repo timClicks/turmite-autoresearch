@@ -13,7 +13,7 @@ for rule in (R / "p3_sample.txt").read_text().split():
     s1 = int(cls[rule]["side_1e11"])
     ratio = s2 / s1
     hw = bool(row["period"]) or row["stop"] != "budget"
-    ok = ratio <= 1.05 and not hw
+    ok = 20 * s2 <= 21 * s1 and not hw  # exact integer form of ratio <= 1.05
     fails += not ok
     g = math.log10(ratio) / math.log10(2)
     out.append(f"{rule}: stop={row['stop']} steps={row['steps']} side 1e11 {s1} -> 2e11 {s2}, ratio {ratio:.4f}, "

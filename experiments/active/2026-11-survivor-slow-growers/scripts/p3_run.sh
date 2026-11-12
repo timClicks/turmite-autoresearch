@@ -9,8 +9,9 @@ echo "commit $(git rev-parse HEAD) binary_sha256 $(sha256sum $B | cut -d' ' -f1)
 run() {
   r=$1; [ -f $E/results/p3/$r.csv ] && return 0
   echo $r | TURMITE_GRID=tiled TURMITE_TILE_LOG2=6 TURMITE_CACHE_TILES=unlimited TURMITE_GRID_STATS=$E/results/p3/$r.json \
-    RAYON_NUM_THREADS=1 $B - - 200000000000 32768 > $E/results/p3/$r.tmp 2>/dev/null \
-    && mv $E/results/p3/$r.tmp $E/results/p3/$r.csv; echo "$r done $(date -Is)" >> $E/results/p3/run.log
+    RAYON_NUM_THREADS=1 $B - - 200000000000 32768 > $E/results/p3/$r.tmp 2> $E/results/p3/$r.err \
+    && mv $E/results/p3/$r.tmp $E/results/p3/$r.csv && echo "$r done $(date -Is)" >> $E/results/p3/run.log \
+    || { rc=$?; echo "$r FAILED rc=$rc $(date -Is)" >> $E/results/p3/run.log; }
 }
 export -f run; export E B
 xargs -P 4 -n 1 bash -c 'run "$0"' < $E/results/p3_sample.txt

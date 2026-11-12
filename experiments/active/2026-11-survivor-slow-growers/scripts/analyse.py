@@ -2,9 +2,10 @@
 
 uv run --frozen experiments/active/2026-11-survivor-slow-growers/scripts/analyse.py
 """
-import csv, glob, math, os, re
-HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ARCH = os.path.join(HERE, "../../archive")
+import csv, glob, math, os, pathlib, re
+ROOT = pathlib.Path(__file__).resolve().parents[4]
+HERE = str(pathlib.Path(__file__).resolve().parents[1])
+ARCH = str(ROOT / "experiments/archive")
 CUT = 0.2
 
 def chunks(d):
@@ -19,8 +20,6 @@ def flat(path):
 
 side = lambda r: max(int(r["width"]), int(r["height"]))
 s8, s9, s10, s11 = flat("sweep_v2.csv"), flat("sweep_1B.csv"), chunks("h1e10"), chunks("h1e11")
-for name, d, steps in [("1e8", s8, "100000000"), ("1e9", s9, "1000000000")]:
-    pass
 cls = {r["rule"]: r for r in csv.DictReader(open(os.path.join(HERE, "results/classes.csv")))}
 g = lambda a, b, k: math.log10(side(b[k]) / side(a[k]))
 
@@ -40,6 +39,9 @@ for c in ("slow", "growing"):
     if missing: P(f"  no 1e9 budget row: {' '.join(missing)}")
 P("  g10 of slow rules that were growing in (1e9,1e10]:")
 for k in sorted(k for k, v in cls.items() if v["cls"] == "slow" and budget_at(s9, k, "1000000000") and g(s9, s10, k) >= CUT):
+    P(f"    {k} side 1e9 {side(s9[k])} 1e10 {side(s10[k])} 1e11 {side(s11[k])} g10 {g(s9, s10, k):.3f} g11 {float(cls[k]['g11']):.3f}")
+P("  g10 of growing rules that were slow in (1e9,1e10]:")
+for k in sorted(k for k, v in cls.items() if v["cls"] == "growing" and budget_at(s9, k, "1000000000") and g(s9, s10, k) < CUT):
     P(f"    {k} side 1e9 {side(s9[k])} 1e10 {side(s10[k])} 1e11 {side(s11[k])} g10 {g(s9, s10, k):.3f} g11 {float(cls[k]['g11']):.3f}")
 
 txt = open(os.path.join(ARCH, "2026-10-late-highway-board-check/results/classify.txt")).read()

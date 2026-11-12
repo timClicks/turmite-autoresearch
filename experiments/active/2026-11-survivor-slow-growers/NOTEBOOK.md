@@ -51,3 +51,30 @@ Fixed with no new measurement: folder moved `proposed/` -> `active/` (results ex
 updated; earlier NOTEBOOK entries keep the old path as written), reader-guide row added, filed under the atlas `late-highways` topic
 (evidence, open question on bounded vs slow, turning point), and the `notes/ACTIVE.md` open item updated. Local checks:
 `python3 blog/scripts/test_atlas.py` (8 OK), `blog/scripts/test_experiments.py` (OK), `export_results.py --check` (OK).
+
+### 2026-11-12 18:25 (+13:00) · b3394bf · deviation
+Fixes from the automated review on PR #37 (no new measurement). `classes.py` writes LF (`lineterminator="\n"`) and both
+scripts resolve the archive from the repo root (`parents[4]`); `analyse.py` loses a dead loop and now also prints growing rules
+that were slow in (1e9,1e10]: one, RLLLRLRRRR (side 6578 -> 6578 -> 11412, g11 0.239), the rule in the histogram gap. This adds
+two lines to `results/analysis.txt`; every P1/P2/yield number is unchanged. `p3_eval.py` compares `20*s2 <= 21*s1` (exact);
+`results/p3_analysis.txt` is byte-identical, RRRLLRLL (126/120) is exactly on the bound. `p3_run.sh` now logs failures and keeps
+stderr in `<rule>.err`. Regenerated `classes.csv` and `p3_sample.txt` are byte-identical to the committed files (LF sha256
+9d867159...827da8a6; the README's registered hash was of a CRLF write).
+
+### 2026-11-12 18:25 (+13:00) · b3394bf · decision
+Correction to the 2026-11-11 08:51 entry: its tag should be `decision`, not `housekeeping`. Also, entry timestamps in this
+notebook were written ahead of their commits on 11-10 and 11-11, so commit times are the reliable clock.
+
+### 2026-11-12 18:25 (+13:00) · b3394bf · observation
+P3 timing gap, likely explained: each of the four second-batch rules finished 14 h 36 min after slot-free time + `wall_s`, in the
+predicted order (reviewer's arithmetic). A constant offset fits one suspension of the whole process (`wall_s` uses `Instant`,
+which does not count suspended time on Linux), not a relaunch, which would have logged a second start line. Not re-derived here.
+
+### 2026-11-12 18:25 (+13:00) · b3394bf · interpretation
+Post hoc, from committed census boxes: all 143 slow rules have non-decreasing sides over 1e8, 1e9, 1e10, 1e11; 127 grew in all
+three decades, and in 106 of those the largest increment is at most twice the smallest. All 8 P3 rules grew every decade
+(RLRLRRRR 98, 111, 127, 140, then 152). This points to roughly logarithmic growth, `side ~ a + b log10 t`, under which one
+doubling adds about 0.3b cells (ratio about 1.01-1.04), so the 1.05 bound sat inside integer-cell noise. P2's zero is an upper
+bound (about 1.0% per decade at 95%), not a zero hazard. A registered log-versus-power test on all 143 boxes is the sharper next
+step; not run here.
+

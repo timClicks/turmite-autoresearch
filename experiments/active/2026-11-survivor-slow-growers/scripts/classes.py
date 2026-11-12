@@ -4,11 +4,12 @@ side(t) = max(width, height) of the bounding box at t steps (32768 board census 
 g11 = log10(side(1e11) / side(1e10)). Class "slow" if g11 < 0.2, else "growing".
 Cube-root growth of the side predicts g11 = 1/3; a bounded rule gives 0.
 Writes results/classes.csv and results/p3_sample.txt (first 8 slow rules by sha256("survivor-slow:" + rule)).
-Stdlib only:  python3 experiments/active/2026-11-survivor-slow-growers/scripts/classes.py
+Stdlib only:  uv run --frozen experiments/active/2026-11-survivor-slow-growers/scripts/classes.py
 """
-import csv, glob, hashlib, math, os
-HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(HERE, "../../archive/2026-10-highways-unresolved-rules-1e10-1e11/results")
+import csv, glob, hashlib, math, os, pathlib
+ROOT = pathlib.Path(__file__).resolve().parents[4]
+HERE = str(pathlib.Path(__file__).resolve().parents[1])
+SRC = str(ROOT / "experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/results")
 CUT = 0.2
 
 def load(d):
@@ -28,7 +29,7 @@ for k in surv:
     g = math.log10(s1 / s0)
     out.append((k, s0, s1, round(g, 4), "slow" if g < CUT else "growing"))
 with open(os.path.join(HERE, "results/classes.csv"), "w", newline="") as f:
-    w = csv.writer(f); w.writerow(["rule", "side_1e10", "side_1e11", "g11", "cls"]); w.writerows(out)
+    w = csv.writer(f, lineterminator="\n"); w.writerow(["rule", "side_1e10", "side_1e11", "g11", "cls"]); w.writerows(out)
 slow = [r[0] for r in out if r[4] == "slow"]
 order = sorted(slow, key=lambda r: hashlib.sha256(("survivor-slow:" + r).encode()).hexdigest())
 open(os.path.join(HERE, "results/p3_sample.txt"), "w").write("\n".join(order[:8]) + "\n")

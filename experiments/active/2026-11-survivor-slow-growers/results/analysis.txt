@@ -2,6 +2,8 @@
 slow: n=143 with 1e9 box 143; same class in previous decade 143/143 = 1.000 (registered: >= 0.90) -> HOLD
 growing: n=559 with 1e9 box 559; same class in previous decade 558/559 = 0.998 (registered: >= 0.90) -> HOLD
   g10 of slow rules that were growing in (1e9,1e10]:
+  g10 of growing rules that were slow in (1e9,1e10]:
+    RLLLRLRRRR side 1e9 6578 1e10 6578 1e11 11412 g10 0.000 g11 0.239
 
 == P2: slow class in the decade before onset, genuine late highways
   (1e9,1e10] RRLRLR: side 765 -> 1592, g 0.318 

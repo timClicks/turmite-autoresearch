@@ -250,7 +250,7 @@
         {"ref": "2026-10-prefix-causal-horizon", "change": "Equal late onsets are traced to a shared fill rate, not shared trajectories."},
         {"ref": "2026-10-late-highway-fourth-decade", "change": "An exploratory refit finds a flat onset rate per decade, so onset times look log-uniform."},
         {"ref": "2026-11-late-highway-1e8-board-check", "change": "The earliest late-highway decade passes the larger-board check, minus one ray emitter."},
-        {"ref": "2026-11-survivor-slow-growers", "change": "The survivors split into a growing pool and a persistent slow class that late highways do not come from."}
+        {"ref": "2026-11-survivor-slow-growers", "change": "The survivors split into a growing pool and a persistent slow class with a lower late-highway hazard, consistent with zero."}
       ]
     },
     {

@@ -67,7 +67,7 @@ very small power. The deliverable is "slow class persists and is not the source 
 ## Reproduction
 
 ```bash
-python3 experiments/active/2026-11-survivor-slow-growers/scripts/classes.py
+uv run --frozen experiments/active/2026-11-survivor-slow-growers/scripts/classes.py
 cargo build --release --locked --bin sweep_lean
 bash experiments/active/2026-11-survivor-slow-growers/scripts/p3_run.sh
 uv run --frozen experiments/active/2026-11-survivor-slow-growers/scripts/analyse.py
@@ -80,3 +80,13 @@ uv run --frozen experiments/active/2026-11-survivor-slow-growers/scripts/analyse
   reached 1.086 (140 -> 152). None escaped or formed a highway; all stayed far below the cube-root 1.26.
 * Limitation: 8 rules over half a decade cannot tell bounded rules from very slow growth; the slow class is "slow", not "bounded".
   The second P3 batch's start time is unlogged (see NOTEBOOK).
+* Correction (2026-11-12, after review on PR #37): P2's zero is an upper bound, not a zero hazard. 0 genuine late highways in
+  287 slow rule-decades (143 in (1e9,1e10], 144 in (1e10,1e11]) gives a 95% Poisson upper bound of about 3.0/287 = 1.0% per
+  decade, roughly half the growing-class rate (2.4%, 2.0%). So the slow class has a lower hazard, consistent with zero, and
+  "the at-risk pool is the growing class" is a modelling choice: Q19 should show yields on both the 702 and 559 denominators.
+* Correction (2026-11-12): `results/yields_growing.txt` was never written; the growing-only yields are in `results/analysis.txt`
+  ("Pools at decade start"). The committed `classes.csv` is LF, sha256 9d867159...827da8a6; the registered hash at line 21 is
+  of a CRLF file, and `classes.py` now writes LF.
+* Post hoc observation (2026-11-12, not evidence): all 8 P3 rules grew in every decade from 1e8 to 1e11 (for example RLLLR
+  44, 54, 62, 70, then 72 at 2e11), and no slow rule's box shrank. The "bounded vs very slow" framing is weak; the per-decade
+  increments look roughly constant, which suggests `side ~ a + b log10 t`. A registered log-versus-power test is the next step.
