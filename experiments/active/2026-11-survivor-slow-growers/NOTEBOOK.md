@@ -78,3 +78,49 @@ doubling adds about 0.3b cells (ratio about 1.01-1.04), so the 1.05 bound sat in
 bound (about 1.0% per decade at 95%), not a zero hazard. A registered log-versus-power test on all 143 boxes is the sharper next
 step; not run here.
 
+
+### 2026-11-12 22:15 (+13:00) · b1014be · intent
+Tim approved a registered log-versus-power test on the 143 slow rules (reading committed boxes only). Wrote README Amendment A1
+before any model was fitted: H-const, H-log, H-power (alpha in [0, 1/3]) and a H-cube control; sigma = max(1, 3%) cells; labels from
+chi2 and AIC; P1-P4 with thresholds; gates G1, G2; a parametric bootstrap for the aggregate; the 1e7 box of `sweep_2_10.csv` as the one unseen
+data set (out-of-sample backcast). Pruning index `cc7a885`: no matching entry, decision run.
+
+### 2026-11-12 22:15 (+13:00) · b1014be · assumption
+H-log came from the post hoc look at these same boxes, so a log fit is not independent evidence. The sigma scale is a guess. 4 points per
+rule cannot separate log from power at alpha below about 0.04 (synthetic calibration, below), and the registration says so.
+
+### 2026-11-12 22:15 (+13:00) · b1014be · deviation
+Before registering I ran a throw-away prototype (not committed, synthetic data only, `/workspace/scratch/proto.py`, `agg.py`) to choose the thresholds and the
+`D >= 4` rule. It read no box. This is stated in the registration; the committed script reruns the same synthetic calibration with seed 20261112.
+(Numbers quoted in the registration come from the prototype's seed, and the script's calibration differs by sampling noise only, with the same conclusions.)
+
+### 2026-11-12 22:16 (+13:00) · e357179 · observation
+`scripts/growth_fit.py` written and committed before it was run. Calibration shows per-rule 4-point labels `ambiguous` in about 99%+ for
+alpha <= 0.06 (any truth), backcast N_log/N 0.58 (log, b = 0.1 y8), 0.77 (b = 0.2 y8), 0.27-0.31 (power 0.06).
+
+### 2026-11-12 22:17 (+13:00) · efeae5b · observation
+Ran once (7 s), re-ran byte-identical. G1, G2 pass. P1 143/143, P2 123/143, P3 LOG favoured (S = +71.8; LOG arm mean +87.7, POWER arm -91.8;
+p_pow < 0.0005, p_log 0.194), P4 108 vs 35 (p = 7e-10). Per rule 135/143 ambiguous. alpha_hat median 0.059. Details in README "A1 results".
+
+### 2026-11-12 22:17 (+13:00) · efeae5b · interpretation
+Log growth describes the slow class over 1e7-1e11 better than a power law, in aggregate and out of sample. It is not shown to hold beyond
+1e11, and it does not make the class "unbounded": a log law is unbounded but with a doubling adding ~2.6 cells on a side of ~70. The 5% bound of
+P3 was a coin flip under it (predicted 1e11->2e11 ratios 1.03-1.05). Bootstrap p-values treat correlated rules as independent: optimistic.
+
+### 2026-11-12 22:17 (+13:00) · efeae5b · surprise
+Both fits slightly over-predict 2e11 for 6 of 8 rules and log over-predicts the 1e7 box by ~1 cell on average: the curve may be a touch flatter
+than log (post hoc, not tested). A quick candidate for a future registered check: a saturating form `a - c t^-beta`, which would need five or more points per rule.
+
+### 2026-11-12 22:30 (+13:00) · efeae5b · deviation
+Small misstatement in the registration's calibration paragraph: it says truth log is labelled `log` "in at most 2%"; the committed script's calibration
+gives up to 2.5% (75 of 3000 at y8 = 120, b = 0.2 y8; the prototype seed gave 2%). No threshold or verdict depends on it.
+
+### 2026-11-12 22:30 (+13:00) · efeae5b · question
+Open: would a 1e12 run of the 8 P3 rules distinguish log from a saturating law? Under the 4-point log fit a decade adds b = 8.7 cells (median); a saturating law adds
+less. It needs a registration. RLLLR took 55 min for 2e11 on the tiled backend, so about 4.5 h per rule for 1e12.
+
+### 2026-11-12 22:25 (+13:00) · efeae5b · decision
+Registered consequences applied (no new measurement): README "A1 results", reader-guide row, atlas wording, `notes/ACTIVE.md`, homepage note, blog post
+`2026-11-12-the-five-percent-bound-was-a-coin-flip`, `notebook.ipynb` (reads only `results/`, executed top to bottom with nbclient under `uv run --frozen`, asserts the README counts).
+Checks: `growth_fit.py` rerun byte-identical (sha256 csv 09659525..., txt c83df57d...); `blog/scripts/test_atlas.py` (8 OK, after shortening two atlas
+strings that the measurement guard rejected), `test_experiments.py` OK, `export_results.py --check` OK, `atlas.py` OK. No Ruby on this box, so the Jekyll strict build is left to CI.

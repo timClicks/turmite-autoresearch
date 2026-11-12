@@ -226,3 +226,40 @@ uv run --frozen experiments/active/2026-11-survivor-slow-growers/scripts/growth_
 
 Uses `numpy` (already in `pyproject.toml` and `uv.lock`), so no PEP 723 header and `uv.lock` is untouched. Writes `results/growth_fit.txt`
 and `results/growth_fit.csv`.
+
+### A1 results (2026-11-12, registration `b1014be`, script `e357179`, results `efeae5b`)
+
+`results/growth_fit.txt` and `results/growth_fit.csv`, from `scripts/growth_fit.py`; two runs byte-identical. 143 of 143 rules used (G2 pass);
+no 1e7 side exceeds its 1e8 side (136 smaller, 7 equal). G1 pass (median min chi2 0.485, nominal 1.39: the registered sigma is somewhat
+too wide, i.e. the staircase is smoother than modelled).
+
+* **P1 HOLD.** chi2_const > 7.815 in 143/143. The control H-cube (alpha = 1/3) is rejected in 143/143 (median chi2 1344). Constant sides are refuted for all 143 rules (over 1e8-1e11 at this noise model; this does not exclude a rule that is flat after a late transient).
+* **P2 HOLD.** chi2_log <= 5.991 in 123/143 = 0.860. For comparison chi2_power <= 5.991 in 122/143: both fit about equally well rule by rule.
+* **P3 HOLD (LOG favoured).** Per rule, 135 of 143 are `ambiguous`, 6 `log`, 2 `power`, 0 `const` (as the calibration said: per-rule 4-point
+  labels barely discriminate). In aggregate `S = sum D = +71.8` (median `D` +0.24). Bootstrap arms: LOG `S*` mean +87.7 (5-95%: +56.9 to +118.9),
+  POWER `S*` mean -91.8 (-123.5 to -59.7). `p_pow < 0.0005` (0 of 2000), `p_log = 0.194`. Power is rejected as the class description; log is not.
+* **P4 HOLD.** Backcast to 1e7 (not read before): `e_log < e_pow` in 108 rules, `e_pow < e_log` in 35, no ties, exact binomial p = 7.4e-10. Mean signed error (observed - predicted): log
+  -0.95 cells, power -8.3 cells (power predicts 1e7 sides too large); median absolute error 1.6 vs 3.3 cells; constant model 17.8.
+* **P5 (descriptive).** Median (d9+d10)/(d7+d8) = 1.000 over 142 rules (log predicts 1, power alpha 0.05 predicts 1.26).
+* **Fitted values.** Power alpha_hat (4 points) median 0.059 (quartiles 0.052-0.065; none at a bound): above the 0.04 below which the
+  calibration said the aggregate cannot separate the two families. Log slope b median 8.7 cells per decade (11% of the 1e11 side per decade).
+  Five points (descriptive): 29 `log`, 10 `power`, 104 `ambiguous`; `S` = +558; median alpha_hat 0.063; chi2_log <= 7.815 in 112/143, chi2_power in 101/143.
+* **Sigma-scale sensitivity (descriptive, 4 points).** Scale 0.5: 34 log / 13 power / 96 ambiguous, `S` +287, P2 fraction 0.72; scale 2: 1 log / 0 power, `S` +17.9, P2 fraction 0.99. The sign of `S` does not change; at scale 2 the aggregate would
+  be much weaker (the bootstrap was not rerun at other scales, so the P3 verdict is stated at the registered scale only).
+* **2e11 consistency check (not a test; sides already known).** The 4-point log fit predicts 2e11 sides within 1.2-7.5 cells of the observed
+  (RLRLRRRR: predicted 144.5, observed 152, the largest miss); the power fit overshoots more (RLRLRRRR 146.3). The log predictions give ratios to the
+  1e11 side of 1.03-1.05 for all 8 (RRRLLRLL exactly 1.05), so the registered 5% bound sat on the edge of what a log law gives. In 6 of 8 rules both fits
+  over-predict slightly (post hoc: the real curve may be a little flatter than log; the backcast bias of -0.95 cells points the same way).
+
+**Verdict.** At the registered noise model, four decades of box sides of the 143 slow survivors are better described as `side ~ a + b log10 t` than as a power law: the power alternative
+is rejected in aggregate (p < 0.0005) and loses the out-of-sample 1e7 backcast 108 to 35, while the log curve is not rejected in aggregate. Constant (bounded) boxes are
+refuted for all 143 over this window. Rule by rule the two families are not separable (135/143 ambiguous), so no individual rule is certified as log.
+
+**What this does not show.** (1) Nothing about t -> infinity: a log law and a power law with alpha below about 0.04 are not separable here, and a rule-by-rule label is `ambiguous` for 135 of 143. The power family is rejected in aggregate at the registered noise model, not rule by rule.
+(2) The test is partly confirmatory: H-log came from a look at the same four decades; only the 1e7 backcast is out of sample, and it was read once.
+(3) The sigma model (3% plus one cell) is a guess; G1 says it is somewhat wide, and a narrower sigma only strengthens the aggregate, while a wider one weakens it.
+(4) Rules are not independent draws (many share sub-structure), so the bootstrap p-values treat 143 correlated rules as independent and are optimistic;
+the sign test in P4 has the same issue. (5) No rule was tested for a transition to cube-root growth or a highway beyond 2e11.
+
+**Consequences, as registered.** The slow class wording changes from "slow, maybe bounded" to "logarithmic-looking growth over 1e7-1e11 (power disfavoured at the stated noise model)"; the 1.05
+bound of P3 is recorded as sitting inside the cell noise of that law. No change to P1, P2, P3 (original), Q19 or the 702/559 denominators.
