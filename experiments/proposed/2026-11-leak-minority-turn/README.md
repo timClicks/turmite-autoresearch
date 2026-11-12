@@ -110,9 +110,13 @@ From the repository root (Linux; `UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV
 ```sh
 uv run --frozen python experiments/proposed/2026-11-leak-minority-turn/scripts/select_specs.py   # rules, specs, roles
 uv run --frozen python experiments/proposed/2026-11-leak-minority-turn/scripts/calibrate.py      # results/calibration.txt (~6 min)
+
+RAYON_NUM_THREADS=3 sh experiments/proposed/2026-11-leak-minority-turn/scripts/run.sh scratch/rerun  # fresh dir; compare bytes
+uv run --frozen python experiments/proposed/2026-11-leak-minority-turn/scripts/analyse.py        # runs.csv, rules.csv, analysis.txt
+cargo test --release --locked --test fresh_set                                                    # code oracle
 ```
 
-Run and analysis commands are added when those scripts are committed (before the run).
+(`run.sh` and `analyse.py` were added in a second commit, after registration and before the run.)
 
 ## Results, uncertainty and limitations
 
