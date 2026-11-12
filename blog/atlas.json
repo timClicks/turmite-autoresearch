@@ -214,11 +214,12 @@
       "question": "Does apparent chaos end in a highway?",
       "state": "revised",
       "state_summary": "Late highways exist but about half of those first reported were the board; once those are removed the onset rate shows no clear fall per decade, an exploratory refit finds it flat, and whether every survivor eventually escapes is not known.",
-      "reviewed": "2026-11-09",
+      "reviewed": "2026-11-11",
       "claims": ["RG-01", "RG-02", "RG-03"],
       "evidence": [
         {"ref": "2026-10-late-highway-board-check"},
         {"ref": "2026-11-late-highway-1e8-board-check", "why": "Registered check of the earliest late-highway decade on a larger board: all but one reproduce, and the one that does not had already been flagged by an older two-board run."},
+        {"ref": "2026-11-survivor-slow-growers", "why": "Registered split of the survivors: a slow class stays slow across decades and no genuine late highway came from it, but one sampled slow rule still grew past the registered bound. A registered follow-up (A1) finds the slow boxes follow a log law better than a power law over four decades of run length, in aggregate and in an out-of-sample backcast; slow is still not shown bounded."},
         {"ref": "2026-10-highways-unresolved-rules-1e10-1e11"},
         {"ref": "2026-10-highway-decider"},
         {"ref": "2026-10-highway-preconditions"},
@@ -237,6 +238,7 @@
         {"text": "Is the set of late highways finite, or does a fixed fraction of survivors keep escaping every decade?", "source": "notes/open-questions-hypotheses.md"},
         {"text": "Q19: does the registered prediction for the next decade hold when the survivors are run on, with the second-board check?", "source": "experiments/proposed/2026-10-late-highway-fourth-decade/README.md"},
         {"text": "What are the straight runs of RLLRRLRLR that end before the board edge, and is it the same kind of ray emitter as RLLLRLRRR?", "source": "experiments/active/2026-11-late-highway-1e8-board-check/README.md"},
+        {"text": "Do the slow survivors keep growing like a log beyond the longest runs or saturate, and can an exact recurrence check or a longer run tell?", "source": "experiments/active/2026-11-survivor-slow-growers/README.md"},
         {"text": "Q25: why do cyclic rotations of a survivor share a bounding box though their trajectories separate early?", "source": "notes/open-questions-hypotheses.md"},
         {"text": "Q26: is the first-read time of a rule's last colour bounded for every rule, and can that be proved?", "source": "notes/open-questions-hypotheses.md"}
       ],
@@ -247,7 +249,8 @@
         {"ref": "2026-10-highway-decider", "change": "Highways are certified on the configuration, not just a repeating trace."},
         {"ref": "2026-10-prefix-causal-horizon", "change": "Equal late onsets are traced to a shared fill rate, not shared trajectories."},
         {"ref": "2026-10-late-highway-fourth-decade", "change": "An exploratory refit finds a flat onset rate per decade, so onset times look log-uniform."},
-        {"ref": "2026-11-late-highway-1e8-board-check", "change": "The earliest late-highway decade passes the larger-board check, minus one ray emitter."}
+        {"ref": "2026-11-late-highway-1e8-board-check", "change": "The earliest late-highway decade passes the larger-board check, minus one ray emitter."},
+        {"ref": "2026-11-survivor-slow-growers", "change": "Survivors split into a growing pool and a slow class with lower hazard; the slow boxes look logarithmic."}
       ]
     },
     {
