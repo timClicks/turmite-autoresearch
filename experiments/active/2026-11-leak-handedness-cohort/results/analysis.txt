@@ -1,0 +1,31 @@
+# leak-handedness cohort scoring; 2708 specs
+G1 replication: 172/172 EF = 0 rows identical to Stage 3b -> PASS
+classes by cohort/arm/EF (EF > 0):
+  C L EF 0.1: {'compact': 297, 'intermediate': 11}
+  C L EF 0.3: {'compact': 170, 'intermediate': 138}
+  C L EF 0.5: {'compact': 42, 'intermediate': 218, 'porous': 48}
+  C L EF 1.0: {'escape': 26, 'intermediate': 69, 'porous': 213}
+  C R EF 0.1: {'compact': 301, 'intermediate': 7}
+  C R EF 0.3: {'compact': 174, 'intermediate': 125, 'porous': 9}
+  C R EF 0.5: {'compact': 43, 'escape': 2, 'intermediate': 215, 'porous': 48}
+  C R EF 1.0: {'escape': 36, 'intermediate': 53, 'porous': 219}
+  E L EF 0.1: {'compact': 14, 'escape': 3, 'intermediate': 10, 'porous': 9}
+  E R EF 0.1: {'compact': 35, 'intermediate': 1}
+cohort C: 77 rules, scoreable 77
+  not scoreable: 
+G2 shared law at EF = 1: mean d -0.0015 (need |.| <= 0.02); |d| <= 0.06 in 1.000 of rules (need >= 0.90) -> PASS
+P1 handedness lag: median Lambda +0.0234, rule-bootstrap 95% [-0.1582, +0.1864], n = 77; Lambda > 0 in 41/77 -> UNRESOLVED
+  descriptive EF 0.3: median F_R 0.353, F_L 0.296, median F_R - F_L +0.062
+  descriptive EF 0.5: median F_R 0.637, F_L 0.626, median F_R - F_L +0.007
+  descriptive: median a0_R 0.682, a0_L 0.692, a1 0.879
+P2 ordered-L collapse at EF 0.1, arm L: E porous 9/36 = 0.250 (need >= 0.50), escapes 3; C porous 0/308 = 0.000 (need <= 0.10), escapes 0 -> FAIL
+  control arm R at EF 0.1, cohort E: porous 0/36, escapes 0
+  E RLLLRLLLL: L classes ['porous', 'porous', 'porous', 'porous'] mean a 0.904; R classes ['compact', 'compact', 'compact', 'compact'] mean a 0.713
+  E RLLRLLLRLRL: L classes ['escape', 'porous', 'porous', 'porous'] mean a 0.951; R classes ['compact', 'compact', 'compact', 'compact'] mean a 0.717
+  E RLLRLLLRRRL: L classes ['escape', 'escape', 'porous', 'porous'] mean a 0.942; R classes ['compact', 'compact', 'compact', 'compact'] mean a 0.701
+  E RLRRLRLLLRLR: L classes ['compact', 'compact', 'compact', 'compact'] mean a 0.691; R classes ['compact', 'compact', 'compact', 'compact'] mean a 0.717
+  E RLRRLRLRRLL: L classes ['compact', 'compact', 'compact', 'compact'] mean a 0.698; R classes ['compact', 'compact', 'compact', 'intermediate'] mean a 0.769
+  E RLRRRLRLRR: L classes ['intermediate', 'intermediate', 'intermediate', 'intermediate'] mean a 0.757; R classes ['compact', 'compact', 'compact', 'compact'] mean a 0.715
+  E RRLRLRLLLRR: L classes ['compact', 'intermediate', 'intermediate', 'intermediate'] mean a 0.744; R classes ['compact', 'compact', 'compact', 'compact'] mean a 0.698
+  E RRLRLRRLRRRL: L classes ['compact', 'intermediate', 'intermediate', 'intermediate'] mean a 0.766; R classes ['compact', 'compact', 'compact', 'compact'] mean a 0.716
+  E RRRLRLLRRLRL: L classes ['compact', 'compact', 'compact', 'compact'] mean a 0.719; R classes ['compact', 'compact', 'compact', 'compact'] mean a 0.734

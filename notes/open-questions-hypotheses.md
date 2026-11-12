@@ -567,6 +567,16 @@ Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per
   compactness (P4 failed on 3 rules)? Test: arm L on non-highway rules (78 of the 100 Stage 3b rules are non-escape under forced L)
   to replace the 3-rule comparison; register first. Also open: EF_50 rose with window length in 2 of 6 rules (P5 unresolved);
   needs more rules and a longer horizon (tiled probe port, wall-vs-memory F-c).
+- Q42 update (2026-11-12, `experiments/active/2026-11-leak-handedness-cohort/`, registered at `19e4aa0` before running): arm R vs arm L
+  leak on 77 Stage 3b rules compact under both forced turns, both arms through `fs:` (EF 0.1, 0.3, 0.5, 1; 4 seeds). Gates pass
+  (Stage 3b rows byte-identical; same law at EF = 1). **P1 unresolved**: median lag Lambda +0.023, 95% [-0.158, +0.186]. The interval
+  is wide because the per-rule lag has sd 0.38 against ~0.05 seed noise: the base turn's handedness changes leak tolerance strongly,
+  with a rule-dependent sign that cancels in the median (the registered calibration assumed one shared lag). **P2 failed**: at EF 0.1
+  only 3 of 9 forced-L escaping rules collapse to porous (9/36 runs; needed >= 50%), all-or-nothing by rule; 0/308 for the compact
+  cohort. Post hoc only: Lambda tracks composition (Spearman +0.40 with the R fraction; all 7 `RRRR...` rules tolerate leak better
+  under base L, 12/14 `RLLL...` rules under base R), i.e. the forced fresh turn may tolerate leak better when it is the rule's
+  minority turn. New question, not registered: test that sign rule per rule, fixed from the table, on rules outside cohort B.
+  Since the fresh-run law is the same in both arms, rule-level lags of either sign mean the bound is not the whole story.
 
 ## Added 2026-10-27: excursion-duration collapse (stage 1) — P-C in PR #18
 

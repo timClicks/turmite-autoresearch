@@ -1,6 +1,6 @@
 # Active work and open items
 
-Living index, last updated 2026-11-09 (1e8/1e9 late-highway board check done, PR pending review); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-11-12 (leak-handedness cohort run, PR pending review); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
@@ -32,7 +32,9 @@ Revision 3 (2026-10-29, results `9e3621d`): time-weighted survival Score_tw. Syn
 `experiments/active/2026-10-leak-titration/` ran (registration `5d70ec59`, results `8b2a72b2`): shape unresolved, gates pass. Open items,
 none registered for running; each needs its own dated registration first (questions in `notes/open-questions-hypotheses.md`):
 - Q41 Stage C: fresh-run length distribution vs EF (probe addition + oracle test), collapse on run length / territory radius.
-- Q42: arm L on non-highway rules from the Stage 3b cohort (replaces the 3-rule P4); window drift needs more rules and a longer horizon.
+- Q42: arm L on non-highway rules **ran 2026-11-12** (`experiments/active/2026-11-leak-handedness-cohort/`, PR pending review): P1 unresolved
+  (per-rule lags large, sign rule-dependent; post hoc it tracks R/L composition), P2 failed (3/9 escaping rules collapse). Open: a registered
+  per-rule sign test ("minority forced turn tolerates more leak") on new rules; window drift still needs more rules and a longer horizon.
 - Q40: Stage B fine grid only if a later result gives M >= 0.34 or a sharp reading.
 - Housekeeping owed by that experiment: `notebook.ipynb` (AGENTS.md; not yet written), blog post/draft and `blog/index.html` and `blog/atlas.json` entry
   (file under a topic or `unfiled`), `experiments/README.md` index line if one is kept there.

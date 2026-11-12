@@ -1,0 +1,9 @@
+# POST HOC, not registered. Cohort C, 77 rules.
+Lambda: mean +0.029, sd 0.383, quartiles -0.290 / +0.303, min -0.781, max +0.840; |Lambda| > 0.4 in 24 rules
+median within-rule per-seed sd of early a at EF 0.3/0.5: 0.0196; median Delta_R 0.196; implied seed noise on one rule's Lambda ~ 0.050 (sd/sqrt(4)/Delta, x sqrt(2) arms, / sqrt(2) EFs)
+Spearman(Lambda, fraction of R letters) = +0.404, p = 0.00027 (one of several looks; uncorrected)
+  R fraction in [0.00, 0.45): n 26, median Lambda -0.205, Lambda > 0 in 9
+  R fraction in [0.45, 0.55): n 17, median Lambda +0.123, Lambda > 0 in 10
+  R fraction in [0.55, 1.00): n 34, median Lambda +0.175, Lambda > 0 in 22
+  prefix RLLL: n 14, median Lambda -0.384, Lambda > 0 in 2
+  prefix RRRR: n 7, median Lambda +0.544, Lambda > 0 in 7

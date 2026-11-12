@@ -1,0 +1,12 @@
+# P1 decision-rule calibration, synthetic, seed 20261112, 70 rules, 1000 draws, 2000 bootstrap resamples
+# both arms share one EF = 1 level per rule (same law); EF = 0 levels differ by arm
+sd 0.025 true lag +0.00: no lag 0.953, reversed 0.024, unresolved 0.023
+sd 0.025 true lag +0.05: lag 0.516, no lag 0.029, unresolved 0.455
+sd 0.025 true lag +0.10: lag 1.000
+sd 0.025 true lag +0.20: lag 1.000
+sd 0.025 true lag -0.10: reversed 1.000
+sd 0.040 true lag +0.00: lag 0.003, no lag 0.699, reversed 0.026, unresolved 0.272
+sd 0.040 true lag +0.05: lag 0.466, no lag 0.025, unresolved 0.509
+sd 0.040 true lag +0.10: lag 1.000
+sd 0.040 true lag +0.20: lag 1.000
+sd 0.040 true lag -0.10: reversed 1.000
