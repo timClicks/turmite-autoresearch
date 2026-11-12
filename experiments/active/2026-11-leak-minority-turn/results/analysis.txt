@@ -1,0 +1,21 @@
+# leak minority-turn scoring; 3016 specs
+G1 replication: 156/156 anchor rows identical to leak-handedness -> PASS
+cohort H: 110 rules, eligible 84
+  ineligible: RLLLLRRLL (R intermediate, L compact), RLLLLRRLRLLR (R compact, L escape), RLLLLRRRLR (R compact, L escape), RLLLRLLLRRRL (R compact, L filler), RLLRLLLRRLLR (R compact, L escape), RLLRLLLRRLR (R compact, L escape), RLLRLRLLLLRR (R compact, L escape), RLRLLLLLRR (R compact, L filler), RLRLLLLRLLL (R compact, L filler), RLRLLLLRLRLL (R compact, L filler), RLRLLLRRRR (R compact, L intermediate), RLRLLRRRRLR (R compact, L escape), RLRRLRLRRL (R compact, L escape), RLRRLRRRRR (R compact, L intermediate), RLRRRLLLLRRL (R compact, L escape), RLRRRLRLLLLR (R compact, L escape), RRLLLLLRLR (R compact, L filler), RRLRLRLRRR (R compact, L intermediate), RRLRLRRL (R compact, L escape), RRLRLRRLRLLR (R compact, L escape), RRLRRRLLRLLL (R compact, L escape), RRLRRRLRRL (R compact, L escape), RRRLLLRLR (R compact, L intermediate), RRRLLRLLLLLL (R compact, L intermediate), RRRRLLRRRL (R compact, L intermediate), RRRRRRRRLLRL (R compact, L intermediate)
+classes, eligible H, EF > 0:
+  L EF 0.3: {'compact': 197, 'escape': 1, 'intermediate': 124, 'porous': 14}
+  L EF 0.5: {'compact': 39, 'escape': 3, 'intermediate': 221, 'porous': 73}
+  L EF 1.0: {'escape': 45, 'intermediate': 60, 'porous': 231}
+  R EF 0.3: {'compact': 193, 'intermediate': 141, 'porous': 2}
+  R EF 0.5: {'compact': 44, 'intermediate': 249, 'porous': 43}
+  R EF 1.0: {'escape': 36, 'intermediate': 80, 'porous': 220}
+eligible H: 84 rules, scoreable 81
+  not scoreable: RLLLRLLLRRLL (dR 0.197, dL 0.098), RLRLRRRLRLRR (dR 0.161, dL 0.096), RRRRLRRRLL (dR 0.092, dL 0.149)
+G2 shared law at EF = 1: mean d +0.0031 (need |.| <= 0.02); |d| <= 0.06 in 1.000 of rules (need >= 0.90) -> PASS
+P1 Spearman(Lambda, R fraction) -0.1137, rule-bootstrap 95% [-0.3286, +0.1078], n = 81 (0 degenerate resamples dropped) -> FAILS
+  descriptive: median Lambda -0.065, sd 0.381; Lambda > 0 in 37/81
+  fr in [0.00, 0.45): n 19, median Lambda -0.142, Lambda > 0 in 8
+  fr in [0.45, 0.55): n 21, median Lambda -0.061, Lambda > 0 in 10
+  fr in [0.55, 1.00): n 41, median Lambda -0.042, Lambda > 0 in 19
+P2 sign agreement 29/62 = 0.468, Wilson 95% [0.349, 0.590] -> FAILS
+P3 prefix: RRRR n 6, Lambda > 0 in 4; RLLL n 9, Lambda < 0 in 8 -> FAILS

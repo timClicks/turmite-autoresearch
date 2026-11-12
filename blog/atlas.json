@@ -28,7 +28,8 @@
         {"ref": "2026-10-b3-long-rules", "why": "Registered extension: sampled rules much longer than the census keep the width exponent near a third."},
         {"ref": "2026-10-wall-vs-memory", "why": "Registered interventions: removing the forced turn on fresh ground makes every tested ant porous; forced L, reversal and random bounded turns keep growth compact unless the ant crystallises, while unbounded random turns go porous (registered readings unresolved)."},
         {"ref": "2026-10-leak-titration", "why": "Dose curve for fresh-ground randomness: compactness is lost gradually through an intermediate band rather than at a sharp threshold, though the registered shape reading is unresolved."},
-        {"ref": "2026-11-leak-handedness-cohort", "why": "Registered cohort test of whether a forced-L base tolerates more leak than forced R: no cohort-wide lag can be resolved because the effect is large rule by rule with a sign that varies, and the forced-L highway collapse appears in 3 of 9 escaping rules, not most."}
+        {"ref": "2026-11-leak-handedness-cohort", "why": "Registered cohort test of whether a forced-L base tolerates more leak than forced R: no cohort-wide lag can be resolved because the effect is large rule by rule with a sign that varies, and the forced-L highway collapse appears in 3 of 9 escaping rules, not most."},
+        {"ref": "2026-11-leak-minority-turn", "why": "Registered held-out test of the post hoc composition pattern: on 81 new rules the R/L composition does not predict which forced turn tolerates the leak better, though the rule-by-rule effect replicates."}
       ],
       "counter": [
         {"ref": "2026-10-memory-walkers", "why": "Mechanism test: adding memory to a simple walker does not recover the ant."},
@@ -59,7 +60,7 @@
           "text": "Eden-style growth and internal DLA are compact yet the number-weighted collapse score still misses their diffusion; can a separately registered tail-restricted or step-weighted statistic see it before any ant reading?",
           "source": "experiments/active/2026-10-boundary-excursion-durations/README.md"
         },
-        {"text": "Does a forced fresh-ground turn tolerate more leak when it is the rule's minority turn, as the post hoc composition pattern suggests?", "source": "experiments/active/2026-11-leak-handedness-cohort/README.md"}],
+        {"text": "The forced turn's handedness changes leak tolerance strongly rule by rule, but composition does not predict the sign; what in the dynamics does?", "source": "experiments/active/2026-11-leak-minority-turn/README.md"}],
       "turns": [
         {"ref": "2026-10-probe-growth-census", "change": "The crowded peak near a third is measured."},
         {"ref": "2026-10-item4-exponent-rotor-calibrated", "change": "An uncalibrated extrapolation is withdrawn as too strong."},
@@ -70,7 +71,8 @@
           "ref": "2026-10-boundary-excursion-durations",
           "change": "Revision 2: Eden-style growth and internal DLA pass compactness, yet the collapse score misses diffusion; confirmation stays reserved."
         },
-        {"ref": "2026-11-leak-handedness-cohort", "change": "A cohort test finds the base turn's handedness matters rule by rule, in both directions, so the fresh-run bound is not the whole story."}]
+        {"ref": "2026-11-leak-handedness-cohort", "change": "A cohort test finds the base turn's handedness matters rule by rule, in both directions, so the fresh-run bound is not the whole story."},
+        {"ref": "2026-11-leak-minority-turn", "change": "The minority-turn reading of the sign fails on new rules; the per-rule effect stands unexplained."}]
     },
     {
       "slug": "boundary-return",

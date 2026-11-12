@@ -1,0 +1,10 @@
+commit 5ee269faf672c8fedcc83d2ea703d564700f8ffa
+dirty 0 tracked files
+rustc rustc 1.99.1 (58cf8f9c3 2026-10-13)
+probe_sha256 3f5416b79e22f73695b1fce2a6152054a32f82f000b51bf2659a9ea508bfccde
+specs_sha256 ccd365fd86aa00770e842e48f29fc3da8a20d2104abce95dc2425d84e8be92fd
+command probe 27 16384 < experiments/proposed/2026-11-leak-minority-turn/results/specs.txt
+RAYON_NUM_THREADS 3
+start 2026-11-12T20:11:01Z
+end 2026-11-12T20:35:01Z
+probe_csv_sha256 7bb92b3c698e65797fc55fdd6eba43906573c4c7252a8723cddbedf2d4d9dcad

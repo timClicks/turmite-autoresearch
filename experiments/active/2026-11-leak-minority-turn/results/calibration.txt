@@ -1,0 +1,11 @@
+# dev cohort C (n 77): b_dev +1.224 per unit R fraction, residual sd 0.350; dev Spearman +0.404
+# held-out R fractions from 110 drawn rules; 1000 draws, 2000 bootstrap resamples, seed 20261113
+n 50 slope b_dev: P1 replicates 0.812, unresolved 0.188 | P2 holds 0.686, unresolved 0.314
+n 50 slope b_dev/2: P1 fails 0.012, replicates 0.302, unresolved 0.686 | P2 fails 0.015, holds 0.235, unresolved 0.750
+n 50 slope 0: P1 fails 0.286, replicates 0.028, unresolved 0.686 | P2 fails 0.238, holds 0.029, unresolved 0.733
+n 70 slope b_dev: P1 replicates 0.935, unresolved 0.065 | P2 holds 0.828, unresolved 0.172
+n 70 slope b_dev/2: P1 fails 0.017, replicates 0.431, unresolved 0.552 | P2 fails 0.020, holds 0.327, unresolved 0.653
+n 70 slope 0: P1 fails 0.386, replicates 0.020, unresolved 0.594 | P2 fails 0.321, holds 0.017, unresolved 0.662
+n 90 slope b_dev: P1 replicates 0.969, unresolved 0.031 | P2 holds 0.900, unresolved 0.100
+n 90 slope b_dev/2: P1 fails 0.014, replicates 0.528, unresolved 0.458 | P2 fails 0.015, holds 0.395, unresolved 0.590
+n 90 slope 0: P1 fails 0.472, replicates 0.027, unresolved 0.501 | P2 fails 0.371, holds 0.030, unresolved 0.599
