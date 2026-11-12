@@ -1,6 +1,6 @@
 """Draw the held-out cohort for the leak minority-turn test and write its run specs (one seeded draw).
 
-usage (repo root): uv run --frozen python experiments/proposed/2026-11-leak-minority-turn/scripts/select_specs.py
+usage (repo root): uv run --frozen python experiments/active/2026-11-leak-minority-turn/scripts/select_specs.py
 Writes results/rules.txt, results/specs.txt and results/spec_roles.csv (spec, cohort, arm, ef, role).
 
 Held-out cohort H: 110 rules drawn uniformly without replacement (numpy default_rng(20261113)) from the census core

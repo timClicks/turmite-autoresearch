@@ -26,7 +26,7 @@
 
 ## Evidence and limits
 
-- Preregistered criterion: `experiments/proposed/2026-11-leak-minority-turn/README.md` at `fc60f7b` (P1-P3, gates, calibration), scripts at `5ee269f`, both before the run.
+- Preregistered criterion: `experiments/active/2026-11-leak-minority-turn/README.md` at `fc60f7b` (P1-P3, gates, calibration), scripts at `5ee269f`, both before the run.
 - Evidence revision: `eb7f41d93a7baf89d8501a059ea21b6ff6e4b838`
 - Inputs/results (SHA-256): see `results/provenance.txt` (`probe.csv` 7bb92b3c698e65797fc55fdd6eba43906573c4c7252a8723cddbedf2d4d9dcad); `results/analysis.txt`, `rules.csv`, `runs.csv` regenerate byte-identically.
 - Recipe: `scripts/select_specs.py`, `scripts/run.sh`, `scripts/analyse.py` (README Reproduction).
@@ -39,7 +39,7 @@
 
 - Reopen if: a scoring or classification error is found, or the test is run in another class, window or horizon (new ID in that case).
 - Discriminating next test: a dynamics-based sign predictor registered on the 77 + 81 rules and scored on a fresh draw, or a letter-permutation test at fixed composition.
-- Experiment / lab notebook / scientific note: `experiments/proposed/2026-11-leak-minority-turn/` README and NOTEBOOK 2026-11-13; `notes/open-questions-hypotheses.md` Q42.
+- Experiment / lab notebook / scientific note: `experiments/active/2026-11-leak-minority-turn/` README and NOTEBOOK 2026-11-13; `notes/open-questions-hypotheses.md` Q42.
 - Related signature IDs: `NR-20261028-wall-vs-memory-bounded-random-fresh-compact` (bounded fresh runs; different specs).
 
 ## Amendments (append only)

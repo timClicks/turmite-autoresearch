@@ -34,7 +34,7 @@ none registered for running; each needs its own dated registration first (questi
 - Q41 Stage C: fresh-run length distribution vs EF (probe addition + oracle test), collapse on run length / territory radius.
 - Q42: arm L on non-highway rules **ran 2026-11-12** (`experiments/active/2026-11-leak-handedness-cohort/`, PR pending review): P1 unresolved
   (per-rule lags large, sign rule-dependent; post hoc it tracks R/L composition), P2 failed (3/9 escaping rules collapse). Open: a registered
-  per-rule sign test ("minority forced turn tolerates more leak") on new rules **ran 2026-11-13** (`experiments/proposed/2026-11-leak-minority-turn/`,
+  per-rule sign test ("minority forced turn tolerates more leak") on new rules **ran 2026-11-13** (`experiments/active/2026-11-leak-minority-turn/`,
   stacked PR pending review): P1-P3 failed, composition does not predict the sign (`NR-20261113-leak-handedness-composition-sign`); the per-rule
   spread replicates. Open: a dynamics-based sign predictor; window drift still needs more rules and a longer horizon.
 - Q40: Stage B fine grid only if a later result gives M >= 0.34 or a sharp reading.

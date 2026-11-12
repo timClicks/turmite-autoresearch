@@ -1,6 +1,6 @@
 """Score the leak minority-turn test exactly as registered in the README.
 
-usage (repo root): uv run --frozen python experiments/proposed/2026-11-leak-minority-turn/scripts/analyse.py [RESULTS_DIR]
+usage (repo root): uv run --frozen python experiments/active/2026-11-leak-minority-turn/scripts/analyse.py [RESULTS_DIR]
 Reads RESULTS_DIR/probe.csv (default: the committed results/), the committed spec_roles.csv and the committed
 leak-handedness probe.csv (gate G1); writes runs.csv, rules.csv and analysis.txt into RESULTS_DIR.
 `fit`, `classify`, `stalled`, `filler` and the per-rule statistics (Delta, F, Lambda, scoreable) are copied unchanged

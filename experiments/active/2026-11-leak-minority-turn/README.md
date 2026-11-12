@@ -108,11 +108,11 @@ k = 12..22, board 16384); nothing outside the core class; composition and prefix
 From the repository root (Linux; `UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy`, Rust from `~/.cargo`):
 
 ```sh
-uv run --frozen python experiments/proposed/2026-11-leak-minority-turn/scripts/select_specs.py   # rules, specs, roles
-uv run --frozen python experiments/proposed/2026-11-leak-minority-turn/scripts/calibrate.py      # results/calibration.txt (~6 min)
+uv run --frozen python experiments/active/2026-11-leak-minority-turn/scripts/select_specs.py   # rules, specs, roles
+uv run --frozen python experiments/active/2026-11-leak-minority-turn/scripts/calibrate.py      # results/calibration.txt (~6 min)
 
-RAYON_NUM_THREADS=3 sh experiments/proposed/2026-11-leak-minority-turn/scripts/run.sh scratch/rerun  # fresh dir; compare bytes
-uv run --frozen python experiments/proposed/2026-11-leak-minority-turn/scripts/analyse.py        # runs.csv, rules.csv, analysis.txt
+RAYON_NUM_THREADS=3 sh experiments/active/2026-11-leak-minority-turn/scripts/run.sh scratch/rerun  # fresh dir; compare bytes
+uv run --frozen python experiments/active/2026-11-leak-minority-turn/scripts/analyse.py        # runs.csv, rules.csv, analysis.txt
 cargo test --release --locked --test fresh_set                                                    # code oracle
 ```
 
@@ -121,7 +121,8 @@ cargo test --release --locked --test fresh_set                                  
 ## Results, uncertainty and limitations
 
 Run 2026-11-13 09:11-09:35 NZDT (24 min, 3 threads), commit `5ee269f` (`results/provenance.txt`; probe sha256 `3f5416b7...`, the
-same binary hash as PR #38; `probe.csv` sha256 `7bb92b3c...`). Results commit `eb7f41d`. Scored output `results/analysis.txt`
+same binary hash as PR #38; `probe.csv` sha256 `7bb92b3c...`). Results commit `eb7f41d`. The folder was registered in `proposed/` and moved to `active/` after the run
+(`experiments/_migration/2026-11-13-leak-minority-turn.tsv`), so `provenance.txt` and the commits before the move name the old path. Scored output `results/analysis.txt`
 (per run `results/runs.csv`, per rule `results/rules.csv`); `analyse.py` gives byte-identical output on re-run and under
 `PYTHONHASHSEED=7`.
 

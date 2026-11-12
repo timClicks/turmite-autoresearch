@@ -1,6 +1,6 @@
 """Synthetic calibration of the P1 and P2 decision rules (no held-out ant data is read).
 
-usage (repo root): uv run --frozen python experiments/proposed/2026-11-leak-minority-turn/scripts/calibrate.py
+usage (repo root): uv run --frozen python experiments/active/2026-11-leak-minority-turn/scripts/calibrate.py
 Writes results/calibration.txt.
 
 Development data only: the committed leak-handedness cohort C (results/rules.csv there, 77 rules) gives the slope b_dev

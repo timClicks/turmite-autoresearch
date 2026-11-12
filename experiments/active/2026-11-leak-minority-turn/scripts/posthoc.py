@@ -1,6 +1,6 @@
 """POST HOC (not registered): is the rule-level spread of Lambda in cohort H real, as in the development cohort?
 
-usage (repo root): uv run --frozen python experiments/proposed/2026-11-leak-minority-turn/scripts/posthoc.py
+usage (repo root): uv run --frozen python experiments/active/2026-11-leak-minority-turn/scripts/posthoc.py
 Reads the committed results/rules.csv and runs.csv; writes results/posthoc.txt. Written after P1-P3 were scored.
 Same seed-noise estimate as the leak-handedness posthoc.py.
 """
