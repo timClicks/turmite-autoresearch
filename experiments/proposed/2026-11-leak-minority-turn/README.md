@@ -120,8 +120,42 @@ cargo test --release --locked --test fresh_set                                  
 
 ## Results, uncertainty and limitations
 
-Not run.
+Run 2026-11-13 09:11-09:35 NZDT (24 min, 3 threads), commit `5ee269f` (`results/provenance.txt`; probe sha256 `3f5416b7...`, the
+same binary hash as PR #38; `probe.csv` sha256 `7bb92b3c...`). Results commit `eb7f41d`. Scored output `results/analysis.txt`
+(per run `results/runs.csv`, per rule `results/rules.csv`); `analyse.py` gives byte-identical output on re-run and under
+`PYTHONHASHSEED=7`.
+
+**Gates.** G1 PASS: all 156 anchor rows identical to PR #38's rows. G2 PASS: mean d +0.0031, |d| <= 0.06 in 81/81 rules.
+Code oracle `fresh_set` 4/4. **Eligibility:** 84 of 110 H rules compact under both forced turns (26 ineligible: 15 escape
+under forced L, 5 filler, 5 intermediate under L, 1 intermediate under R; listed in `analysis.txt`); 81 scoreable.
+
+**P1 FAILS.** Spearman(Lambda, R fraction) = -0.114, rule-bootstrap 95% [-0.329, +0.108], n = 81. The development value was
++0.404; the held-out interval excludes it and excludes everything above +0.11. By composition band, median Lambda is -0.14
+(fr < 0.45, n 19), -0.06 (balanced, n 21), -0.04 (fr > 0.55, n 41): no positive trend.
+
+**P2 FAILS.** Sign agreement 29/62 = 0.47, Wilson 95% [0.35, 0.59] (upper end below 0.60).
+
+**P3 FAILS** on its `RRRR` half: 4 of 6 `RRRR...` rules have Lambda > 0 (needed >= 75%). The `RLLL...` half held (8 of 9 have
+Lambda < 0). Two small groups; the RLLL agreement alone is not evidence for a prefix rule and was not registered as a separate test.
+
+Calibration context: with the development slope the rule would have said "fails" in 0% of synthetic draws, and with half of it in
+about 1.5%. So this is a controlled failure of the composition reading on new rules, not a power problem.
+
+**Post hoc, not registered** (`scripts/posthoc.py`, `results/posthoc.txt`, written after scoring): the rule-level spread itself
+replicates. Lambda has sd 0.381 in H (0.383 in the development cohort), quartiles -0.36 / +0.23, |Lambda| > 0.4 in 27 of 81 rules,
+against seed noise near 0.057 per rule. The median is -0.065 (37/81 positive), close to zero as before. So handedness of the forced
+turn changes leak tolerance strongly rule by rule, in both directions, on new rules too; R/L composition does not say which way.
+
+**Limitations.** Finite window (early a, k = 12..22), board 16384, 4 seeds per cell, two leak levels in Lambda, core class only.
+"Fails" covers the composition-sign description and the two prefix groups as registered, not every function of the rule table.
 
 ## Pruning-index outcome and next question
 
-Pending.
+Dead-end signature `NR-20261113-leak-handedness-composition-sign` (well-controlled negative result within the stated scope:
+composition does not predict the sign of the handedness lag in the core class at this window). It does not exclude other
+predictors of the sign, other classes, or longer horizons.
+
+Next question (not registered): the per-rule effect is large and real but its sign is not set by composition. A predictor would have
+to come from the dynamics rather than the letter count, e.g. whether forced-L at EF = 0 is closer to the rule's own geometry
+(`a0_L` vs `a0_R`, or late-window behaviour), tested on these 81 + 77 rules with a fresh held-out draw. A cleaner mechanism test
+fixes composition and permutes letters within one rule's table.

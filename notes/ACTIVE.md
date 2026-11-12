@@ -1,6 +1,6 @@
 # Active work and open items
 
-Living index, last updated 2026-11-12 (leak-handedness cohort run, PR pending review); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-11-13 (leak minority-turn test failed, PR pending review); before that 2026-11-12 (leak-handedness cohort run, PR pending review); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
@@ -34,7 +34,9 @@ none registered for running; each needs its own dated registration first (questi
 - Q41 Stage C: fresh-run length distribution vs EF (probe addition + oracle test), collapse on run length / territory radius.
 - Q42: arm L on non-highway rules **ran 2026-11-12** (`experiments/active/2026-11-leak-handedness-cohort/`, PR pending review): P1 unresolved
   (per-rule lags large, sign rule-dependent; post hoc it tracks R/L composition), P2 failed (3/9 escaping rules collapse). Open: a registered
-  per-rule sign test ("minority forced turn tolerates more leak") on new rules; window drift still needs more rules and a longer horizon.
+  per-rule sign test ("minority forced turn tolerates more leak") on new rules **ran 2026-11-13** (`experiments/proposed/2026-11-leak-minority-turn/`,
+  stacked PR pending review): P1-P3 failed, composition does not predict the sign (`NR-20261113-leak-handedness-composition-sign`); the per-rule
+  spread replicates. Open: a dynamics-based sign predictor; window drift still needs more rules and a longer horizon.
 - Q40: Stage B fine grid only if a later result gives M >= 0.34 or a sharp reading.
 - Housekeeping owed by that experiment: `notebook.ipynb` (AGENTS.md; not yet written), blog post/draft and `blog/index.html` and `blog/atlas.json` entry
   (file under a topic or `unfiled`), `experiments/README.md` index line if one is kept there.

@@ -577,6 +577,12 @@ Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per
   under base L, 12/14 `RLLL...` rules under base R), i.e. the forced fresh turn may tolerate leak better when it is the rule's
   minority turn. New question, not registered: test that sign rule per rule, fixed from the table, on rules outside cohort B.
   Since the fresh-run law is the same in both arms, rule-level lags of either sign mean the bound is not the whole story.
+- Q42 update (2026-11-13, `experiments/proposed/2026-11-leak-minority-turn/`, registered at `fc60f7b` before running): the
+  composition reading tested on 81 new core-class rules (held-out draw, same instrument; gates pass). **P1 failed**: Spearman(Lambda,
+  R fraction) -0.11, 95% [-0.33, +0.11] (development +0.40). **P2 failed** (sign agreement 29/62), **P3 failed** (`RRRR` 4/6; `RLLL`
+  8/9). Dead end `NR-20261113-leak-handedness-composition-sign`. Post hoc: the per-rule spread replicates (sd 0.38, seed noise ~0.06),
+  so the handedness effect is real and rule-specific but its sign is not set by composition. Open: a dynamics-based sign predictor, or
+  a letter-permutation test at fixed composition.
 
 ## Added 2026-10-27: excursion-duration collapse (stage 1) — P-C in PR #18
 

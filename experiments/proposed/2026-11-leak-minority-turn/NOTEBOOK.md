@@ -19,3 +19,25 @@ line (n 50, b_dev) matched the loop version's output exactly on the same RNG str
 ### 2026-11-13 09:10 (+1300) · a2c9494 · decision
 Pruning preflight as in the README (no member signature); run. Predictions P1-P3, gates G1-G2 and calibration registered in the
 README before any held-out ant run and before `run.sh` / `analyse.py` exist. Budget about 25 min, stop at 90.
+
+### 2026-11-13 09:11 (+1300) · 5ee269f · observation
+Run started (3016 specs, 3 threads); `cargo test --release --locked --test fresh_set` 4/4 while it ran. Probe binary sha256 matches PR #38's.
+
+### 2026-11-13 09:36 (+1300) · eb7f41d · observation
+Run ended 09:35 (24 min). `analyse.py`: G1 156/156, G2 PASS; 84 eligible, 81 scoreable. P1 Spearman -0.114 [-0.329, +0.108] FAILS;
+P2 29/62 [0.35, 0.59] FAILS; P3 RRRR 4/6 (fail), RLLL 8/9 -> FAILS. Re-run and `PYTHONHASHSEED=7` give identical bytes.
+
+### 2026-11-13 09:38 (+1300) · eb7f41d · interpretation
+The composition reading from PR #38's post hoc look does not transfer: on new core-class rules the correlation is slightly negative
+and its interval excludes the development value. Calibration says the rule would almost never fail if the development slope were
+real, so I read this as a retired description, not a low-power miss. Confidence high within the class and window. Not excluded:
+other functions of the rule table, or dynamics-based predictors.
+
+### 2026-11-13 09:40 (+1300) · eb7f41d · surprise
+Post hoc (`posthoc.py`): the spread of Lambda replicates almost exactly (sd 0.381 vs 0.383) with seed noise ~0.057. The effect is
+real and rule-specific; only my explanation of its sign failed.
+
+### 2026-11-13 09:45 (+1300) · eb7f41d · dead-end
+Criterion: P1-P3 as registered at `fc60f7b`; evidence `eb7f41d`. Signature `NR-20261113-leak-handedness-composition-sign`. Limits:
+core class, k = 12..22, board 16384, 4 seeds, EF 0.3/0.5. Reopen if a scoring error is found or the test is run in another class
+or window.
