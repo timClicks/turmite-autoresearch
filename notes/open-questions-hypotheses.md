@@ -570,7 +570,7 @@ Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per
 - Q42 update (2026-11-12, `experiments/active/2026-11-leak-handedness-cohort/`, registered at `19e4aa0` before running): arm R vs arm L
   leak on 77 Stage 3b rules compact under both forced turns, both arms through `fs:` (EF 0.1, 0.3, 0.5, 1; 4 seeds). Gates pass
   (Stage 3b rows byte-identical; same law at EF = 1). **P1 unresolved**: median lag Lambda +0.023, 95% [-0.158, +0.186]. The interval
-  is wide because the per-rule lag has sd 0.38 against ~0.05 seed noise: the base turn's handedness changes leak tolerance strongly,
+  is wide because the per-rule lag has sd 0.38 against ~0.07 seed noise (split-half, PR #38 review): the base turn's handedness changes leak tolerance strongly,
   with a rule-dependent sign that cancels in the median (the registered calibration assumed one shared lag). **P2 failed**: at EF 0.1
   only 3 of 9 forced-L escaping rules collapse to porous (9/36 runs; needed >= 50%), all-or-nothing by rule; 0/308 for the compact
   cohort. Post hoc only: Lambda tracks composition (Spearman +0.40 with the R fraction; all 7 `RRRR...` rules tolerate leak better

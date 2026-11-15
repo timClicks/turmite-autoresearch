@@ -131,9 +131,9 @@ From the repository root (Linux; `UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV
 ```sh
 uv run --frozen python experiments/active/2026-11-leak-handedness-cohort/scripts/select_specs.py   # specs, roles, cohorts
 uv run --frozen python experiments/active/2026-11-leak-handedness-cohort/scripts/calibrate.py      # results/calibration.txt
-RAYON_NUM_THREADS=3 sh experiments/active/2026-11-leak-handedness-cohort/scripts/run.sh scratch/rerun  # fresh dir; compare bytes
+RAYON_NUM_THREADS=3 sh experiments/active/2026-11-leak-handedness-cohort/scripts/run.sh experiments/active/2026-11-leak-handedness-cohort/scratch/rerun  # fresh, gitignored dir; compare bytes
 uv run --frozen python experiments/active/2026-11-leak-handedness-cohort/scripts/analyse.py        # runs.csv, rules.csv, analysis.txt
-uv run --script experiments/active/2026-11-leak-handedness-cohort/scripts/posthoc.py               # POST HOC, results/posthoc.txt
+uv run --frozen python experiments/active/2026-11-leak-handedness-cohort/scripts/posthoc.py        # POST HOC, results/posthoc.txt
 cargo test --release --locked --test fresh_set                                                     # code oracle
 ```
 
@@ -157,7 +157,8 @@ So the cohort shows no consistent lag in either direction, but the interval is f
 
 Why the interval is wide is the main finding, and it was not anticipated by the calibration. The calibration assumed every rule
 shares one lag with a rule-level spread of 0.05. In the data the spread of Lambda across rules is **sd 0.38** (quartiles -0.29 / +0.30;
-|Lambda| > 0.4 in 24 of 77 rules), while seed noise on one rule's Lambda is only about 0.05 (`results/posthoc.txt`). The handedness of
+|Lambda| > 0.4 in 24 of 77 rules), while seed noise on one rule's Lambda is only about 0.06-0.07 (`results/posthoc.txt`: split-half across seeds, r = 0.93-0.96;
+*2026-11-16: this replaces a median-Delta back-of-envelope figure of ~0.05, see Review fixes below*). The handedness of
 the base turn changes leak tolerance strongly **rule by rule**, in both directions, and the effects cancel in the median.
 This is a defect of the registered design (a cohort-median test cannot see a rule-dependent sign), stated here rather than repaired.
 
@@ -179,6 +180,44 @@ also start `RLL` (a forced-L base on an L-heavy rule), which fits the same readi
 **Limitations.** Finite window (early a over k = 12..22, board 16384); 4 seeds; the two-point rise fraction is not an EF_50; the
 cohort is the Stage 3b sample of core-class rules, so nothing transfers to other classes. Escapes at EF = 1 (62 of 616 runs) and
 EF = 0.5 (2) have no early fit; every rule kept >= 3 of 4 fits where required.
+
+## Review fixes (2026-11-16, PR #38 review; no new data, no new runs)
+
+- **S1, write order (correction).** The registration line above says it came "before the run or analysis scripts were written",
+  and the NOTEBOOK says "before writing `run.sh` or `analyse.py`". That is false as written: both scripts were **drafted before**
+  the registration commit `19e4aa0` (08:58:54 +1300) and **committed after** it (`add989a`, 09:00:19 +1300), and `run.sh` was
+  already executing at 08:59:16. Accurate statement: drafted before, committed after; not run on cohort data before registration.
+  The statistics and thresholds were frozen in this README at `19e4aa0`, so the scoring is unaffected. The run's recorded
+  commit `19e4aa0` does not contain the `run.sh` that ran, and `dirty 0 tracked files` could not see an untracked script, so
+  nothing in `provenance.txt` ties `add989a`'s `run.sh` to the run. Future `run.sh` files record `sha256sum "$0"` and
+  `git status --porcelain` including untracked files under the experiment folder (process fix in `notes/ACTIVE.md`).
+- **S2, heterogeneity on a firmer footing.** `scripts/posthoc.py` now adds a reliability section (still post hoc, same committed
+  data): Lambda recomputed from disjoint seed halves correlates across the 77 rules at r = 0.933 / 0.940 / 0.959 for the three
+  splits, implying seed noise of 0.056-0.072 on full Lambda against a between-rule sd of 0.383. The unnormalised
+  abar_L - abar_R (EF 0.3/0.5 mean) has between-rule sd 0.065 against split-half noise 0.013, so the spread is not an
+  artefact of dividing by small Delta (Spearman(|Lambda|, min Delta) = -0.47, which is why the old median-Delta figure was
+  too low). Composition survives regressing out a0_R - a0_L (R^2 0.045; residual Spearman with R fraction +0.42, p = 1.5e-4).
+  The rule-dependent sign is therefore well above seed noise; the composition reading stays an untested post hoc pattern.
+- **S3, size of `results/probe.csv` (6.3 MB).** Kept, deliberately: it is the raw input from which `analyse.py` derives every
+  scored number, and gate G1 (and any re-simulation check) compares against it row by row. It can be regenerated from
+  `results/specs.txt` in about 21 min on 3 threads, and its sha256 (`e09b8ea6...`) is pinned in `provenance.txt`. The same
+  justification was used for the wall-vs-memory probe CSVs. If the owner prefers, it can move to a gitignored `dumps/` with
+  `runs.csv` and the hash retained.
+- **M1.** The re-simulation directory is now the experiment's own gitignored `scratch/rerun` (repository-root `scratch/` is not ignored).
+- **M2.** `posthoc.py` no longer carries a PEP 723 header; all its dependencies are locked project dependencies, so it runs
+  with `uv run --frozen python` and reproduces `results/posthoc.txt` offline.
+- **M3.** G1's "byte-identical" (registration text, left unchanged) is checked by `analyse.py` as parsed polars frames
+  (`DataFrame.equals`): read it as **identical field for field**, not raw bytes. The blog post now says so.
+- **M4.** `analyse.py` locates the Stage 3b CSV from the repository root (`parents[4]` plus a repository path) instead of a
+  sibling-relative path; re-running it gives byte-identical outputs.
+- **M5 (what I'd do differently).** The calibration assumed a rule-level lag spread of 0.05, but the only prior data (three
+  leak-titration rules, one P4 miss above 0.1 in EF_50) gave no basis for a value that small. The next registration should
+  calibrate against a heterogeneous-sign alternative, not just against one shared lag with small spread.
+- **M6.** The homepage card now names the condition in each sentence (compactness under forced turns at no leak did not depend
+  on handedness; under a partial leak handedness matters rule by rule).
+- **N1.** Commit `a2c9494` is an empty commit made only to re-trigger stuck CI; it is not a revision of the experiment record.
+- **Open review questions.** Whether the three P2 collapse rules share a forced-L highway type, and whether a follow-up sign
+  predictor is fixed from rules outside cohort B, are not answered here (the second is taken up by PR #39).
 
 ## Pruning-index outcome and next question
 

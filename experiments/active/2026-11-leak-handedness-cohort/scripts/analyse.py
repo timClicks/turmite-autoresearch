@@ -14,7 +14,8 @@ import polars as pl
 
 EXP = Path(__file__).resolve().parents[1]
 RES = Path(sys.argv[1]) if len(sys.argv) > 1 else EXP / "results"
-S3B = EXP.parents[1] / "active" / "2026-10-wall-vs-memory" / "results" / "stage3b_probe.csv"
+ROOT = Path(__file__).resolve().parents[4]
+S3B = ROOT / "experiments/active/2026-10-wall-vs-memory/results/stage3b_probe.csv"
 WINDOWS = {"early": (12, 22), "late": (20, 26)}
 
 

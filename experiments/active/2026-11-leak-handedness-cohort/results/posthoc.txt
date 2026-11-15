@@ -7,3 +7,10 @@ Spearman(Lambda, fraction of R letters) = +0.404, p = 0.00027 (one of several lo
   R fraction in [0.55, 1.00): n 34, median Lambda +0.175, Lambda > 0 in 22
   prefix RLLL: n 14, median Lambda -0.384, Lambda > 0 in 2
   prefix RRRR: n 7, median Lambda +0.544, Lambda > 0 in 7
+# reliability (added 2026-11-16 for review S2; post hoc, same committed data)
+split-half seeds [1, 2] vs [3, 4]: r = 0.933 (Spearman-Brown full-seed reliability 0.966); implied seed noise on full Lambda ~ 0.072 vs between-rule sd 0.383
+split-half seeds [1, 3] vs [2, 4]: r = 0.940 (Spearman-Brown full-seed reliability 0.969); implied seed noise on full Lambda ~ 0.067 vs between-rule sd 0.383
+split-half seeds [1, 4] vs [2, 3]: r = 0.959 (Spearman-Brown full-seed reliability 0.979); implied seed noise on full Lambda ~ 0.056 vs between-rule sd 0.383
+unnormalised abar_L - abar_R (EF 0.3/0.5 mean): between-rule sd 0.0646; split-half seed noise ~ 0.0132; Spearman with R fraction -0.406 (sign flips: L - R)
+Lambda regressed on a0_R - a0_L: R^2 0.045; Spearman(residual, R fraction) = +0.419, p = 0.00015
+Spearman(|Lambda|, min(Delta_R, Delta_L)) = -0.466 (noise is largest where Delta is small, so the median-Delta figure above understates it for those rules)

@@ -51,7 +51,7 @@ hist, edges = np.histogram(lam, bins=np.arange(-0.9, 1.0, 0.1))
 for h, e in zip(hist, edges):
     print(f"{e:+.1f} .. {e + 0.1:+.1f} | " + "#" * h)
 print((EXP / "results/calibration.txt").read_text())"""),
-    md("""Seed noise on one rule's Lambda is about 0.05 (see the post hoc file below), so a spread of 0.38 is real rule-to-rule
+    md("""Seed noise on one rule's Lambda is about 0.06-0.07 (split-half reliability across seeds, r = 0.93-0.96; see the post hoc file below), so a spread of 0.38 is real rule-to-rule
 variation. The calibration assumed one shared lag (spread 0.05) and therefore expected a narrow interval; that assumption
 was wrong, and a cohort median cannot see a lag whose sign depends on the rule. This does not show that handedness is
 irrelevant; it shows the opposite for most rules, with the sign varying.

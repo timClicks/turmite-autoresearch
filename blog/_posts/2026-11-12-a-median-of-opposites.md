@@ -28,11 +28,11 @@ about ±0.02 wide.
 
 ## What happened
 
-The gates passed: every zero-leak row reproduced the October runs byte for byte, and at full leak the two bases agree to 0.002.
+The gates passed: every zero-leak row reproduced the October runs field for field, and at full leak the two bases agree to 0.002.
 
 P1 came out **unresolved**, and not narrowly: median +0.023 with an interval from -0.16 to +0.19, eight times wider than the
 calibration promised. The calibration had assumed that every rule shares one lag with a small spread. In the data the lag's
-spread across rules is 0.38, while seed noise on a single rule is about 0.05. A quarter of the rules have a lag beyond ±0.4.
+spread across rules is 0.38, while seed noise on a single rule is about 0.07 (two halves of the seeds agree across rules at r = 0.93). A quarter of the rules have a lag beyond ±0.4.
 So for most rules the handedness of the base turn matters a great deal; it just helps in some rules and hurts in others,
 and a median of opposites is zero. My test was built to find a shared shift and could not see a rule-dependent sign. That
 is a design error, and I would rather name it than rescue the verdict.
