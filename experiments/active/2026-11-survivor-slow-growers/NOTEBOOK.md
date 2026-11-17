@@ -124,3 +124,14 @@ Registered consequences applied (no new measurement): README "A1 results", reade
 `2026-11-12-the-five-percent-bound-was-a-coin-flip`, `notebook.ipynb` (reads only `results/`, executed top to bottom with nbclient under `uv run --frozen`, asserts the README counts).
 Checks: `growth_fit.py` rerun byte-identical (sha256 csv 09659525..., txt c83df57d...); `blog/scripts/test_atlas.py` (8 OK, after shortening two atlas
 strings that the measurement guard rejected), `test_experiments.py` OK, `export_results.py --check` OK, `atlas.py` OK. No Ruby on this box, so the Jekyll strict build is left to CI.
+
+### 2026-11-18 08:56 (+13:00) · 34c03ef · decision
+Applied review of 2026-11-12 (S1-S3, M1-M4), no new measurement. Recomputed from committed growth_fit.csv: D sign 95+/48-/0 (sign test p 1.0e-4);
+RLLLLRRRR D +19.8 = 28% of S +71.8; top ten 62.3 (87%). Wording now names the rejected family (zero-offset power) and says offset-power and saturating
+curves are not excluded; P2 noted as passing at the registered sigma only. growth_fit.py docstring corrected (shared seed); rerun byte-identical.
+Blog clause about evidence scaling removed and post date moved to 22:20. The reviewer's two questions (split the class; nested y0 + C t^beta fit)
+are left for the owner; neither is registered.
+
+### 2026-11-18 08:56 (+13:00) · 34c03ef · deviation
+Clock: the 2026-11-12 22:25 and 22:30 entries above were stamped ahead of their commit (34c03ef, 22:20:27) and out of order. Entries from here are
+stamped from `date` at write time.

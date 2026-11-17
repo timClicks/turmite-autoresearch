@@ -263,3 +263,38 @@ the sign test in P4 has the same issue. (5) No rule was tested for a transition 
 
 **Consequences, as registered.** The slow class wording changes from "slow, maybe bounded" to "logarithmic-looking growth over 1e7-1e11 (power disfavoured at the stated noise model)"; the 1.05
 bound of P3 is recorded as sitting inside the cell noise of that law. No change to P1, P2, P3 (original), Q19 or the 702/559 denominators.
+
+### Review response to the A1 results (2026-11-18, no new measurement)
+
+Append-only; the registered A1 text, results and verdict above are unchanged. Responds to the automated review of 2026-11-12 on head
+`34c03ef` (S1-S3, M1-M4). The numbers below are recomputed from the committed `results/growth_fit.csv` (no fit rerun except to confirm
+`growth_fit.py` still writes byte-identical outputs: csv sha256 09659525..., txt c83df57d...).
+
+* **S1. Name the rejected family; "power rejected" is not "log supported".** H-power is `C t^alpha` with no additive offset, which is strictly
+  convex in `x = log10 t`; H-log is a line with a free intercept. With equal parameter counts, `D = chi2_power - chi2_log` rewards any curve that is
+  *not convex*, including concave and saturating ones. The aggregate is also concentrated: `RLLLLRRRR` (sides 70, 124, 124, 126 at 1e8-1e11, a jump
+  then a plateau, not a log law) contributes D = +19.8, 28% of S = +71.8; the top ten rules contribute 62.3 (87%). The more robust signals are P5
+  (median increment ratio 1.000) and the sign of D (95 positive, 48 negative, 0 zero; two-sided sign test p = 1.0e-4, rules treated as independent).
+  The P4 backcast partly re-measures the same curvature (a convex fit to near-linear data overshoots at the ends). **Corrected reading:** over
+  1e7-1e11 a zero-offset power law is rejected for the slow class, and per-decade increments are constant on average, as a log law predicts. An
+  offset power law `y0 + C t^beta` (which contains log as beta -> 0) and saturating forms are not excluded by these data. The registered
+  consequence wording ("logarithmic-looking growth ... power disfavoured") stands with "power" read as "zero-offset power". README, guide, atlas,
+  homepage, `notes/ACTIVE.md` and the blog post now say this.
+* **S2. P2 depends on the sigma scale.** P2 passes at the registered sigma (123/143 = 0.860) but would fail at sigma scale 0.5 (fraction 0.72 against
+  the registered 0.75; see "Sigma-scale sensitivity" above). G1 (median min chi2 0.485 against a nominal 1.39) says the registered sigma is too wide,
+  and scale 0.5 gives a median of 1.94, closer to nominal. The registered verdict P2 HOLD stands; its interpretation is that P2 passes at the registered
+  sigma and would fail at a better-calibrated one, so "the log law fits individual rules adequately" is weaker than the A1 results bullet suggests.
+* **S3. Write-order correction.** The registration says "the analysis script is written only after that commit". `growth_fit.py` (190 lines) was committed
+  67 s after `b1014be`, so it was drafted before the registration was committed, committed after it, and not run on any box data before it. The commit
+  order is as stated; the "written only after" sentence is not accurate.
+* **M1.** `rng` (calibration) and `rb` (bootstrap) are both `default_rng(20261112)`, so the LOG bootstrap arm reuses the calibration's first normals.
+  Harmless (the arms answer different questions); the docstring was wrong and is corrected. Code and outputs are unchanged, so no result moves.
+* **M2.** NOTEBOOK entries stamped 22:25 and 22:30 (2026-11-12) sit in commit `34c03ef` dated 22:20:27, and 22:30 precedes 22:25: those stamps are
+  not reliable to the minute. New entries are stamped from `date` at write time.
+* **M3.** The blog clause "at twice the scale the evidence is a quarter as large" is removed: S scales as 1/scale², but so does the bootstrap's
+  separation, so the evidence does not scale that way, and the bootstrap was not rerun at other scales.
+* **M4.** The blog post's `date` moved from 22:15 to 22:20, after the results commit (22:17) it reports.
+
+**Reviewer questions (not acted on; each needs owner approval and its own registration):** (1) whether to split the slow class (for example
+`RLLLLRR`, side 1320 to 2822, and jump-then-plateau rules such as `RLLLLRRRR`) before attributing any law to it; (2) a registered nested fit
+`y0 + C t^beta`, or the increment ratio `d_{k+1}/d_k = 10^beta` directly, from the committed sides, before any 1e12 run. (2) needs no new simulation.

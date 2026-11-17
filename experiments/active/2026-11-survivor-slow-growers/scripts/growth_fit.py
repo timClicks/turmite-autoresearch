@@ -5,7 +5,9 @@
 Registered in README "Amendment A1" (commit b1014be) before this script existed. Every threshold below is copied from there.
 Order of work: (1) synthetic calibration, which reads no box; (2) data and gate G2; (3) 4-point fits k = 8..11, labels, P1, P2, G1,
 P3 (parametric bootstrap), P4 (backcast to 1e7), P5; (4) supplementary stage (5 points, sigma-scale sensitivity, 2e11 check).
-Deterministic: all randomness from numpy Generators seeded 20261112 (calibration, then bootstrap LOG arm, then POWER arm).
+Deterministic: all randomness from two numpy Generators, each seeded 20261112: `rng` for the calibration and `rb` for the
+bootstrap (LOG arm, then POWER arm). The two share a seed, so the LOG arm reuses the calibration's first normals (harmless;
+docstring corrected 2026-11-18 after review, code and outputs unchanged).
 Writes results/growth_fit.txt and results/growth_fit.csv (LF)."""
 import csv, glob, math, os, pathlib
 import numpy as np
