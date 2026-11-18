@@ -148,3 +148,7 @@ The 2026-11-09 rebase-merge of #34 rewrote all 14 A1–A7 commits. Every `parent
 ## 2026-11-19 08:46 NZDT · parent d3224b8 · decision
 
 Work on branch `agent/q33-a8-provenance-repin` stacked on #31 (base `exp/q33-cap-crossover-proposal`) so #31's own head is not moved without review. Do not start G0, pilot or confirmation. Leave design items 3 and 6, merge method, and ACTIVE conflicts to the owner.
+
+## 2026-11-19 08:47 NZDT · parent af8c72b · observation
+
+A8 checks (registration `af8c72b` pushed first). `git_dirty(root, rel)` factored out of `main` in `scripts/python_sim.py`; returns None unless both status calls succeed. New `test_git_dirty_helper_on_throwaway_repo` builds a `git init` repo in a temp dir: clean → false; untracked `results/c1` and `scratch/c1` → false; tracked `results/x.csv` edit → true; untracked `scripts/helper.py` → true; non-repo → None; tracked call failing → None. Suite with edits uncommitted: 20 run, OK, 1 skipped (the dirty-tree resume test). Mutants applied in place one at a time, then restored: M3 (drop results/scratch exclusion) → FAILED; M4 (`tracked = ""`) → FAILED; M5 (A7 `and` rule) → FAILED. Blog draft link re-pinned `4f8d018` → `3509395`. SHA pairing checked with `git patch-id --stable` (14/14 equal). No walker growth data; no Rust changes.

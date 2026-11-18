@@ -30,6 +30,31 @@ def _git(args: list[str]) -> str | None:
         return None
 
 
+def git_dirty(root: Path, rel: str) -> bool | None:
+    """Dirty flag for provenance (A7 item 5, A8 items 2-3).
+
+    (1) tracked changes anywhere, no pathspec exclusion, so a hand-edit of a
+    committed results/ file marks dirty; (2) untracked files with this
+    experiment's results/ and scratch/ excluded, so chunked --resume output
+    stays clean while an untracked helper elsewhere still counts.
+    None unless both calls succeed: a half-checked tree is not clean.
+    """
+    def run(args: list[str]) -> str | None:
+        try:
+            return subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True,
+                                  check=True).stdout.strip()
+        except (OSError, subprocess.CalledProcessError):
+            return None
+    tracked = run(["status", "--porcelain", "--untracked-files=no"])
+    untracked = run([
+        "status", "--porcelain", "--untracked-files=normal", "--",
+        ".", f":!{rel}/results", f":!{rel}/scratch",
+    ])
+    if tracked is None or untracked is None:
+        return None
+    return bool(tracked) or bool(untracked)
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rule", default=None)
@@ -52,21 +77,8 @@ def main(argv=None) -> int:
         parser.error("output-dir must be inside " + str(EXPERIMENT))
     # Capture git provenance before any writes so this run's new output dir
     # is not yet present and cannot mark the tree dirty (A3/A5).
-    # Two status calls (A7): (1) tracked changes with no pathspec exclusion, so a
-    # hand-edit of a committed results/ file still marks dirty; (2) untracked
-    # files with results/scratch excluded, so chunked --resume under results/
-    # stays clean while an untracked helper elsewhere still counts (A6 intent).
     git_commit = _git(["rev-parse", "HEAD"])
-    rel = EXPERIMENT.relative_to(ROOT).as_posix()
-    tracked = _git(["status", "--porcelain", "--untracked-files=no"])
-    untracked = _git([
-        "status", "--porcelain", "--untracked-files=normal", "--",
-        ".", f":!{rel}/results", f":!{rel}/scratch",
-    ])
-    if tracked is None and untracked is None:
-        git_dirty = None
-    else:
-        git_dirty = bool(tracked) or bool(untracked)
+    git_dirty_flag = git_dirty(ROOT, EXPERIMENT.relative_to(ROOT).as_posix())
     try:
         if args.resume:
             if any(v is not None for v in (args.rule, args.policy, args.cap, args.seed, args.fresh_set)):
@@ -120,7 +132,7 @@ def main(argv=None) -> int:
         "resume_sha256": hashlib.sha256(raw_checkpoint).hexdigest() if raw_checkpoint is not None else None,
         "output_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(destination.glob("*.json"))},
         "git_commit": git_commit,
-        "git_dirty": git_dirty,
+        "git_dirty": git_dirty_flag,
         "elapsed_seconds": elapsed,
         "limits": ["no crystallisation detector", "no time-weighted excursion instrument",
                    "no pre-entry depth instrument", "no Rust cross-execution check yet"],
