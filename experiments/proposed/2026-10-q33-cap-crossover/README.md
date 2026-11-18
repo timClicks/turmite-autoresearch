@@ -220,3 +220,36 @@ Registration hygiene for the remaining mechanical items of the 2026-11-08 follow
 6. **Registration vs checks timestamps (minor 4).** Commit the registration alone; append the NOTEBOOK observation in the checks commit at a later clock time so a zero-second gap cannot hide registration-before-measurement order on future G0/pilot registrations.
 
 P3 discrimination and the D metric remain open for the user. `notes/ACTIVE.md` three-way conflicts are left for a landing-order decision. The reviewer's questions on in-horizon crystallisation pairing for P3/P5 and on census `sweep_*.csv` COHORTS membership are left open.
+
+## Amendment A8 (2026-11-19, before any calibration, pilot or confirmation run)
+
+Registration hygiene for the two "should fix" items and minors 2 and 4 of the 2026-11-09 follow-up review of PR #31 (head `d3224b8`). **No walker growth data; no change to any prediction band, gate threshold or decision rule.** Review items 3 (P3 discrimination) and 6 (D metric) remain **open** for the owner. The text below was drafted in this session before this commit and committed before the checks it describes were run.
+
+1. **Provenance hashes orphaned by the #34 rebase-merge (should-fix 1).** PR #34 was merged into this branch with "rebase and merge", so every commit cited in A1–A7 (README A3.3, A7.3, the NOTEBOOK `parent` fields, the blog draft link) has a new SHA here. The rewritten commits carry identical patches (`git patch-id --stable` equal for all 14 pairs) and their original author dates. Map, original (still reachable via `refs/pull/34/head` and the `agent/q33-registration-pins` branch, which is to be kept until #31 lands) → commit on this branch:
+
+   | cited (pre-rebase) | ancestor of #31 head |
+   |---|---|
+   | `7e9feb4` | `8a363d2` |
+   | `ec20c3a` | `750d59f` |
+   | `4f8d018` | `3509395` |
+   | `9dabfd9` | `a860284` |
+   | `21b3b22` | `3df4733` |
+   | `1128767` | `7c4a15a` |
+   | `4842f0b` | `3af3c4d` |
+   | `8a74ef2` | `64b5bef` |
+   | `1c9d04f` | `295af7a` |
+   | `8010f19` | `1ba408e` |
+   | `d76c1e1` | `e59b957` |
+   | `00647e3` | `2e38604` |
+   | `c9f6ca6` | `658bd25` |
+   | `11f854e` | `d3224b8` |
+
+   Earlier README and NOTEBOOK text is left as written (append-only); read every cited hash through this map. The blog draft link (`4f8d018`) is re-pinned to `3509395`. **Landing method:** #31 must land with a merge commit, not squash or rebase, or `36e6fba` (P2 registration) and the map's right-hand column are orphaned the same way; this is a request to the owner, who decides.
+
+2. **`git_dirty` regression test cannot fail (should-fix 2).** Factor the two status calls of A7 item 5 into a helper `git_dirty(root, rel)` in `scripts/python_sim.py` and test it against a throwaway `git init` repository in a temp directory with an experiment-shaped layout and a committed `results/x.csv`, so the test never depends on the state of this checkout. Required cases: clean → false; untracked `results/c1` → false; untracked `scratch/c1` → false; modified tracked `results/x.csv` → true; untracked `scripts/helper.py` → true; not a git repository → None. Acceptance: the reviewer's two mutants each make the suite fail — (M3) dropping the results/scratch pathspec exclusion; (M4) replacing the tracked call with `""`.
+
+3. **Half-checked tree reported clean (minor 4).** `git_dirty` returns `None` unless **both** status calls succeed (A7 returned `False` when one call failed and the other was empty). Covered by a test that makes one call fail. Mutant (M5): restoring the A7 `and` condition must fail the suite.
+
+4. **LZ4 inactive mode (minor 2).** The A7 payload formula `min(packed, T^2)` covers the packed and raw inactive modes only. Under `TURMITE_INACTIVE=lz4` (tiled DESIGN.md:52) the payload is data-dependent. G0 must freeze and record the `Inactive` mode; the A7 memory figures apply only if it is packed or raw.
+
+The G3 counter mutant (minor 1) is fixed by #33, which is stacked on #31; land #33 with or right after #31. Minor 3 (hand-written timestamps) is already the A7 item 6 practice. `notes/ACTIVE.md` conflicts are left for the landing-order decision.

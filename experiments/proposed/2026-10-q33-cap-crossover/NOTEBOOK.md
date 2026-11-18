@@ -136,3 +136,15 @@ Record as Amendment A7 on PR #34 once the suite and overlap check pass. Leave P3
 ## 2026-11-09 20:41 NZDT · parent c9f6ca6 · observation
 
 `uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`: **19/19 OK** (includes new `test_git_dirty_resume_chain_stays_clean`). `overlap.py --check --summary`: rows=115, onset_lt_2_31_distinct=2, overlap.tsv OK. `measure_dict_cell_bytes.py` under uv (CPython 3.12.15 from project venv): 172.4 B/cell at 10^5, **161.8 B/cell at 10^6**. Pruning re-confirm at A7 registration head `c9f6ca6`: index entries tip still `cc7a885`; concept `rg -il` matches 6/7; literal `rg -w -F -f <208 Q33 rules>` → 0 matches; decision remains **propose**. Two-call `git_dirty` pathspec check: clean tree → false; untracked under `results/` → false; untracked helper under `scripts/` → true. No walker growth data. No Rust changes (cargo test not re-run).
+
+## 2026-11-19 08:46 NZDT · parent d3224b8 · intent
+
+Daily progress session. ACTIVE (weekly review 2026-11-13) lists, as the next unblocked item, the #31 provenance re-pin and a `git_dirty` test that can fail. Register as Amendment A8 before touching code. No new experiment: other lines wait on owner decisions.
+
+## 2026-11-19 08:46 NZDT · parent d3224b8 · deviation
+
+The 2026-11-09 rebase-merge of #34 rewrote all 14 A1–A7 commits. Every `parent` hash in the entries above from 2026-11-04 onwards names the pre-rebase commit. The old→new map is in README Amendment A8 item 1; patches are identical for every pair (`git patch-id --stable`), so the registration-before-check order those entries record is unchanged. Entries are not edited.
+
+## 2026-11-19 08:46 NZDT · parent d3224b8 · decision
+
+Work on branch `agent/q33-a8-provenance-repin` stacked on #31 (base `exp/q33-cap-crossover-proposal`) so #31's own head is not moved without review. Do not start G0, pilot or confirmation. Leave design items 3 and 6, merge method, and ACTIVE conflicts to the owner.
