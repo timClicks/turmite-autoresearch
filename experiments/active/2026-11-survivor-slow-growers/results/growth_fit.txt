@@ -1,0 +1,52 @@
+== Calibration (synthetic; seed 20261112, 3000 draws per cell, x = 8..11, sigma model as registered)
+y8= 30 truth log   0.10: const 0 log 0 power 0 ambiguous 3000 (of 3000); mean D +0.05; backcast N_log/N 0.577; median chi2 best 1.27
+y8= 30 truth log   0.20: const 0 log 57 power 5 ambiguous 2938 (of 3000); mean D +0.60; backcast N_log/N 0.756; median chi2 best 0.98
+y8= 30 truth power 0.03: const 1 log 0 power 0 ambiguous 2999 (of 3000); mean D -0.02; backcast N_log/N 0.457; median chi2 best 1.26
+y8= 30 truth power 0.06: const 0 log 1 power 13 ambiguous 2986 (of 3000); mean D -0.39; backcast N_log/N 0.309; median chi2 best 1.04
+y8= 30 truth power 0.10: const 0 log 60 power 1155 ambiguous 1785 (of 3000); mean D -3.01; backcast N_log/N 0.089; median chi2 best 1.02
+y8= 30 truth power 0.15: const 0 log 18 power 2743 ambiguous 239 (of 3000); mean D -14.22; backcast N_log/N 0.000; median chi2 best 1.40
+y8= 60 truth log   0.10: const 0 log 0 power 0 ambiguous 3000 (of 3000); mean D +0.09; backcast N_log/N 0.587; median chi2 best 1.21
+y8= 60 truth log   0.20: const 0 log 68 power 11 ambiguous 2921 (of 3000); mean D +0.64; backcast N_log/N 0.770; median chi2 best 1.00
+y8= 60 truth power 0.03: const 0 log 0 power 0 ambiguous 3000 (of 3000); mean D -0.04; backcast N_log/N 0.452; median chi2 best 1.30
+y8= 60 truth power 0.06: const 0 log 5 power 14 ambiguous 2981 (of 3000); mean D -0.44; backcast N_log/N 0.268; median chi2 best 1.03
+y8= 60 truth power 0.10: const 0 log 67 power 1163 ambiguous 1770 (of 3000); mean D -3.10; backcast N_log/N 0.062; median chi2 best 1.04
+y8= 60 truth power 0.15: const 0 log 16 power 2750 ambiguous 234 (of 3000); mean D -14.57; backcast N_log/N 0.000; median chi2 best 1.40
+y8=120 truth log   0.10: const 0 log 0 power 0 ambiguous 3000 (of 3000); mean D +0.05; backcast N_log/N 0.578; median chi2 best 1.21
+y8=120 truth log   0.20: const 0 log 75 power 15 ambiguous 2910 (of 3000); mean D +0.59; backcast N_log/N 0.772; median chi2 best 0.96
+y8=120 truth power 0.03: const 0 log 0 power 0 ambiguous 3000 (of 3000); mean D -0.04; backcast N_log/N 0.450; median chi2 best 1.21
+y8=120 truth power 0.06: const 0 log 4 power 17 ambiguous 2979 (of 3000); mean D -0.42; backcast N_log/N 0.284; median chi2 best 1.07
+y8=120 truth power 0.10: const 0 log 74 power 1163 ambiguous 1763 (of 3000); mean D -3.07; backcast N_log/N 0.062; median chi2 best 1.01
+y8=120 truth power 0.15: const 0 log 23 power 2744 ambiguous 233 (of 3000); mean D -14.51; backcast N_log/N 0.000; median chi2 best 1.32
+
+== Data and G2: slow rules 143, used 143, dropped 0 ; G2 (>= 135 used) -> PASS
+instrument guard: rules with side(1e7) > side(1e8): 0 of 143 (0.000); rules with 1e7 side < 1e8 side: 136, equal: 7
+
+== Stage 1 (k = 8..11): labels const 0 log 6 power 2 ambiguous 135; sum D = +71.77, median D +0.236
+G1: median min(chi2_log, chi2_power) = 0.485, registered [0.3, 3.0] -> PASS
+P1: chi2_const > 7.815 in 143/143 = 1.000 (registered >= 0.80) -> HOLD
+P2: chi2_log <= 5.991 in 123/143 = 0.860 (registered >= 0.75) -> HOLD
+   adequacy of power: chi2_power <= 5.991 in 122/143; H-cube control (alpha = 1/3 fixed) is read below
+control H-cube (alpha = 1/3 fixed, 3 df): chi2 > 7.815 in 143/143 rules rejected; median chi2 1343.7
+alpha_hat (power fit, 4 points): median 0.0591, quartiles 0.0521 0.0646; at 0: 0, at 1/3: 0
+log slope b (cells per decade): median 8.73; relative b/y(1e11) median 0.1111
+P3: S_obs +71.77; LOG arm S* mean +87.73 (5-95%: +56.9 +118.9); POWER arm S* mean -91.75 (5-95%: -123.5 -59.7); p_pow 0.0000, p_log 0.1940 -> LOG favoured -> P3 HOLD
+P4: backcast to 1e7: e_log < e_pow in 108, e_pow < e_log in 35, ties 0; two-sided exact binomial p = 7.381e-10 -> HOLD (log wins the backcast)
+    mean signed error (observed - predicted): log -0.95, power -8.31; median |err|: log 1.64, power 3.25; const-model (weighted mean) median |err| 17.76; sum of squared standardised backcast errors: log 1378.6, power 2869.7
+P5 (descriptive): median (d9 + d10)/(d7 + d8) = 1.000 over 142 rules with d7 + d8 > 0 (1 excluded); H-log ~ 1, power alpha 0.05 ~ 1.26
+
+== Stage 2 (descriptive, k = 7..11): labels const 0 log 29 power 10 ambiguous 104; sum D = +558.21; median alpha_hat 0.0631; alpha at 0: 0, at 1/3: 0; chi2_const > 9.488 (4 df): 143/143; chi2_log <= 7.815 (3 df): 112/143; chi2_power <= 7.815: 101/143
+
+== Sigma-scale sensitivity (descriptive only; 4 points)
+scale 0.5: labels const 0 log 34 power 13 ambiguous 96; sum D +287.07; P1 frac 1.000; P2 frac 0.720; median min chi2 1.94
+scale 1.0: labels const 0 log 6 power 2 ambiguous 135; sum D +71.77; P1 frac 1.000; P2 frac 0.860; median min chi2 0.48
+scale 2.0: labels const 0 log 1 power 0 ambiguous 142; sum D +17.94; P1 frac 0.979; P2 frac 0.993; median min chi2 0.12
+
+== 2e11 consistency check, 8 P3 rules (the 2e11 sides were already known: not a test)
+RRRRLLLLLL: sides 1e8..1e11 58 72 78 92, observed 2e11 92; log predicts 94.5, power predicts 96.4 (alpha_hat 0.064)
+RRRLLRLL: sides 1e8..1e11 74 90 107 120, observed 2e11 126; log predicts 126.0, power predicts 128.5 (alpha_hat 0.070)
+RRLLRLLRRR: sides 1e8..1e11 47 55 60 68, observed 2e11 69; log predicts 69.8, power predicts 70.7 (alpha_hat 0.052)
+RRLLRRR: sides 1e8..1e11 29 33 38 42, observed 2e11 42; log predicts 43.4, power predicts 44.0 (alpha_hat 0.054)
+RLLLLLLRRR: sides 1e8..1e11 52 60 72 80, observed 2e11 80; log predicts 83.2, power predicts 84.9 (alpha_hat 0.064)
+RLLLR: sides 1e8..1e11 44 54 62 70, observed 2e11 72; log predicts 73.2, power predicts 74.8 (alpha_hat 0.067)
+RLRLRRRR: sides 1e8..1e11 98 111 127 140, observed 2e11 152; log predicts 144.5, power predicts 146.3 (alpha_hat 0.052)
+RLRLLLLLL: sides 1e8..1e11 57 65 75 84, observed 2e11 87; log predicts 86.5, power predicts 88.1 (alpha_hat 0.057)
