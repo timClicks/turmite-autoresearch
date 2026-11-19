@@ -143,6 +143,12 @@
       "alt": "Time-weighted survival of rotor-walker excursion durations against s/L and s/L-squared, with a sharp cliff under s/L-squared.",
       "caption": "Revision-3 rotor (reported only): Score_tw calls it diffusive, but the cliff at about a fifth of the visited area suggests territory sweeps. Score_tw cannot tell area-scale sweeps from diffusion (post hoc).",
       "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/figures_rev3.py"
+    },
+    "excursion-rev4-depth": {
+      "path": "experiments/active/2026-10-boundary-excursion-durations/results/figures/rev4_depth_duration.png",
+      "alt": "Mean excursion duration against mean maximum depth for six walkers on log axes, with slope-2 and slope-1 guides.",
+      "caption": "Revision-4 depth readout: Eden, IDLA and the rotor follow slope 2 (area-filling); the straight-line walker and teleporting mean-field lie below slope 1 (line). Depth cannot separate diffusion from sweeps.",
+      "recipe": "experiments/active/2026-10-boundary-excursion-durations/scripts/figures_rev4.py"
     }
   },
   "experiments": {
@@ -154,7 +160,8 @@
       "excursion-idla",
       "excursion-eden",
       "excursion-rev3-eden",
-      "excursion-rev3-rotor"
+      "excursion-rev3-rotor",
+      "excursion-rev4-depth"
     ],
     "2026-10-hidden-phase-return": ["hidden-phase"],
     "2026-10-knockout-maps": ["occupancy-home"],
