@@ -152,3 +152,11 @@ Work on branch `agent/q33-a8-provenance-repin` stacked on #31 (base `exp/q33-cap
 ## 2026-11-19 08:47 NZDT · parent af8c72b · observation
 
 A8 checks (registration `af8c72b` pushed first). `git_dirty(root, rel)` factored out of `main` in `scripts/python_sim.py`; returns None unless both status calls succeed. New `test_git_dirty_helper_on_throwaway_repo` builds a `git init` repo in a temp dir: clean → false; untracked `results/c1` and `scratch/c1` → false; tracked `results/x.csv` edit → true; untracked `scripts/helper.py` → true; non-repo → None; tracked call failing → None. Suite with edits uncommitted: 20 run, OK, 1 skipped (the dirty-tree resume test). Mutants applied in place one at a time, then restored: M3 (drop results/scratch exclusion) → FAILED; M4 (`tracked = ""`) → FAILED; M5 (A7 `and` rule) → FAILED. Blog draft link re-pinned `4f8d018` → `3509395`. SHA pairing checked with `git patch-id --stable` (14/14 equal). No walker growth data; no Rust changes.
+
+## 2026-11-20 08:52 NZDT · parent bb4e49c · intent
+
+Daily progress session. The 2026-11-19 review of #41 suggests changes (one should-fix, four minors). Register as Amendment A9 and push it alone before editing code, so the registration has an externally visible CI run ahead of the checks. No new experiment: other lines wait on owner decisions.
+
+## 2026-11-20 08:52 NZDT · parent bb4e49c · deviation
+
+A8 says it was committed before its checks were run. The record contradicts that for the patch-id check and probably for the code/test run (NOTEBOOK 2026-11-19 08:47 says "edits uncommitted"). Erratum in README A9 item 2; A8 and earlier entries are not edited.
