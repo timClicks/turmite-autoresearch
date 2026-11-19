@@ -1,0 +1,42 @@
+== P1: class persistence (g10 = log10 side(1e10)/side(1e9))
+slow: n=143 with 1e9 box 143; same class in previous decade 143/143 = 1.000 (registered: >= 0.90) -> HOLD
+growing: n=559 with 1e9 box 559; same class in previous decade 558/559 = 0.998 (registered: >= 0.90) -> HOLD
+  g10 of slow rules that were growing in (1e9,1e10]:
+  g10 of growing rules that were slow in (1e9,1e10]:
+    RLLLRLRRRR side 1e9 6578 1e10 6578 1e11 11412 g10 0.000 g11 0.239
+
+== P2: slow class in the decade before onset, genuine late highways
+  (1e9,1e10] RRLRLR: side 765 -> 1592, g 0.318 
+  (1e9,1e10] RRLRRRLLR: side 790 -> 1735, g 0.342 
+  (1e9,1e10] RRRRRLRLLR: side 647 -> 1415, g 0.340 
+  (1e9,1e10] RLLLLRLLL: side 729 -> 1521, g 0.319 
+  (1e9,1e10] RRLRLRL: side 788 -> 1694, g 0.332 
+  (1e9,1e10] RRRRRRRRLR: side 669 -> 1424, g 0.328 
+  (1e9,1e10] RRRRRLR: side 786 -> 1701, g 0.335 
+  (1e9,1e10] RRRRLLRL: side 761 -> 1524, g 0.302 
+  (1e9,1e10] RRRRRRLR: side 817 -> 1698, g 0.318 
+  (1e9,1e10] RRLRLLRLRL: side 772 -> 1677, g 0.337 
+  (1e9,1e10] RRRRRRLLRL: side 578 -> 1700, g 0.469 
+  (1e9,1e10] RRLRRRLRR: side 911 -> 1888, g 0.316 
+  (1e9,1e10] RLLRLRLRL: side 878 -> 1949, g 0.346 
+  (1e9,1e10] RRRLR: side 889 -> 1952, g 0.342 
+  (1e9,1e10] RLLLRLLR: side 770 -> 1598, g 0.317 
+  (1e9,1e10] RLRRLRLRRR: side 1007 -> 2394, g 0.376 
+  (1e10,1e11] RRLLLRLLRL: side 1571 -> 3416, g 0.337 
+  (1e10,1e11] RRRLLRLRRL: side 1351 -> 2852, g 0.324 
+  (1e10,1e11] RLRRRLRLRR: side 1711 -> 3860, g 0.353 
+  (1e10,1e11] RRLLLRLRRR: side 1406 -> 2894, g 0.314 
+  (1e10,1e11] RLLRLRRLLL: side 1738 -> 3729, g 0.332 
+  (1e10,1e11] RRLRLRLLR: side 1726 -> 3668, g 0.327 
+  (1e10,1e11] RLLLRLLLL: side 1549 -> 3350, g 0.335 
+  (1e10,1e11] RRRLRLLLLL: side 1419 -> 3010, g 0.327 
+  (1e10,1e11] RRRLLLRRL: side 1540 -> 3265, g 0.326 
+  (1e10,1e11] RRRLRRLRRL: side 1567 -> 3523, g 0.352 
+  (1e10,1e11] RRRRLRLLR: side 1478 -> 3233, g 0.340 
+  (1e10,1e11] RRLLLRLRL: side 3613 -> 7828, g 0.336 
+slow-before-onset X = 0/28 (registered: X <= 1) -> HOLD
+
+== Pools at decade start and growing-only genuine yields
+(1e9,1e10]: pool 807, slow 143 (17.7%), growing 664; genuine 16/807 = 1.98%; from growing 16/664 = 2.41%
+(1e10,1e11]: pool 732, slow 144 (19.7%), growing 588; genuine 12/732 = 1.64%; from growing 12/588 = 2.04%
+1e11 survivors: 702, slow 143, growing 559 (Q19 at-risk pool if P1 and P2 hold)

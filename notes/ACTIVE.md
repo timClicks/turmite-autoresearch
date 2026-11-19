@@ -1,25 +1,24 @@
 # Active work and open items
 
-Living index, last updated 2026-11-06 (weekly wrap-up; Q33 stack and Rev4 still on open PRs); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-11-12 (leak-handedness cohort run, PR pending review); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
-## Handoff (2026-11-06): weekly wrap-up — review queue, not a new pilot
+## Handoff (2026-11-01): Q33 intervention-counter regression — PR #33
 
-**Status:** Week of 2026-10-30…2026-11-06: one commit on `main` (`6fba1c8`, the now-superseded 2026-11-01 #33 handoff); no merges; no new ant data; no new pruning-index signatures. Material work is on open PRs #30–#34 (all CI green). Full narrative: [`notes/summary-2026-11-06.md`](summary-2026-11-06.md). Phase priorities below are **unchanged** (this week's evidence is registration hygiene and walker calibration, not a new discriminating transport result).
+**Status:** PR [#33](https://github.com/timClicks/turmite-autoresearch/pull/33) is open and ready for review, stacked on [#31](https://github.com/timClicks/turmite-autoresearch/pull/31) (base `exp/q33-cap-crossover-proposal`), branch `agent/q33-cap-counter-regression`, commit `e414f09cc6fe86dcacacb4ef1fe17c51973335ec`. The change adds `test_cap_intervention_counters_against_independent_oracle` in `experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`. No scientific measurements or hypothesis changes.
 
-**Open PR stack (do not merge without the user's human review):**
-- [#30](https://github.com/timClicks/turmite-autoresearch/pull/30) — Excursions Rev4 depth–duration calibration (**DO NOT MERGE without review**); all registered gates PASS; no ant data; currently **merge-conflicting** with `main`.
-- [#31](https://github.com/timClicks/turmite-autoresearch/pull/31) — Q33 active-cap crossover proposal + Python sim tools (base for #33/#34).
-- [#32](https://github.com/timClicks/turmite-autoresearch/pull/32) — Leak-titration notebook / blog / homepage (no new data); covers the housekeeping owed below once merged.
-- [#33](https://github.com/timClicks/turmite-autoresearch/pull/33) — Cap-counter regression vs independent oracle; **validated** (`083280c`; suite OK; mutants killed). The 2026-11-01 handoff asking to run that test is superseded.
-- [#34](https://github.com/timClicks/turmite-autoresearch/pull/34) — Q33 Amendments A1–A3 (pins, overlap, pruning audit, memory default, claim corrections); suite **18/18 OK**. No walker growth data; no prediction-band or gate changes.
+**Why:** An independent review of PR #31 found a surviving mutation that increments `cap_turns_nonorigin` on origin interventions. That counter is used in the G3 exposure gate, so its correctness matters to experimental validity. The new test compares both cap counters against a separate visit-count oracle after each of 512 steps, for caps 1, 4, 16 and 32 (rule RLL, seed 7), and asserts that origin and non-origin interventions are both exercised.
 
-**Still open (user design choice; do not invent):** PR #31 review items 3 (whether P3 discriminates H-scale from H-local) and 6 (metric/reference for depth D). Also: whether/when to land #30 after conflict resolution, and the #31→#33→#34 stack.
+**Next session (do this before new work):**
+1. Run `uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py` on PR #33; fix any failures. This test has **not yet been executed** in this contribution.
+2. Mutation-check the original reviewer finding by temporarily replacing `cap_turns_nonorigin += not self.origin_run` with `cap_turns_nonorigin += 1` in a disposable checkout, confirming the new test fails; revert the mutation. Record exact commands, environment, and outcome on PR #33.
+3. Check CI and request independent review. Do not merge until independently approved, required checks pass, blocking comments are resolved, and branch protection allows it. Coordinate stacking: PR #31 should land before retargeting/merging #33.
+4. Review other PR #31 findings (provenance of P2, pinned samples, P3 discrimination) separately; do not present this counter test as addressing those scientific issues.
 
-**Next unblocked work after user decisions:** settle P3/D before Q33 G0; then G0 instrument/oracle completeness. Until then prefer consolidation or other unblocked calibration — **do not start the Q33 pilot**. An excluded excursion ant pilot under Score_tw + Rev4 β also needs its own registration after #30 review (scoped to area-filling vs line-like / L vs area-scale; no diffusion claim).
+**Provenance:** PR #31 review dated 2026-10-31; parent head at review `21c909250510a5fb4c89bf01ae8bda2bf73b3369`. PR #33 commit above. No seed-dependent scientific run or negative scientific finding; validation remains outstanding. This is a task handoff, not a registered experiment.
 
 ## Pointer (2026-10-29): excursion-duration collapse stage 1 + Revisions 1–3
 
@@ -33,9 +32,12 @@ Revision 3 (2026-10-29, results `9e3621d`): time-weighted survival Score_tw. Syn
 `experiments/active/2026-10-leak-titration/` ran (registration `5d70ec59`, results `8b2a72b2`): shape unresolved, gates pass. Open items,
 none registered for running; each needs its own dated registration first (questions in `notes/open-questions-hypotheses.md`):
 - Q41 Stage C: fresh-run length distribution vs EF (probe addition + oracle test), collapse on run length / territory radius.
-- Q42: arm L on non-highway rules from the Stage 3b cohort (replaces the 3-rule P4); window drift needs more rules and a longer horizon.
+- Q42: arm L on non-highway rules **ran 2026-11-12** (`experiments/active/2026-11-leak-handedness-cohort/`, PR pending review): P1 unresolved
+  (per-rule lags large, sign rule-dependent; post hoc it tracks R/L composition), P2 failed (3/9 escaping rules collapse). Open: a registered
+  per-rule sign test ("minority forced turn tolerates more leak") on new rules; window drift still needs more rules and a longer horizon.
 - Q40: Stage B fine grid only if a later result gives M >= 0.34 or a sharp reading.
-- Housekeeping owed by that experiment: shareable `notebook.ipynb`, blog post, homepage card and atlas/guides updates are on open PR [#32](https://github.com/timClicks/turmite-autoresearch/pull/32) (no new data); land with that PR. No `experiments/README.md` per-experiment line is required (that file is a layout index).
+- Housekeeping owed by that experiment: `notebook.ipynb` (AGENTS.md; not yet written), blog post/draft and `blog/index.html` and `blog/atlas.json` entry
+  (file under a topic or `unfiled`), `experiments/README.md` index line if one is kept there.
 
 ## Next phase: boundary access, regime validation, closure
 
@@ -225,7 +227,7 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
   footprint-implies-family test failed (other integer-cost crawler families exist). Open: corner lemma, the reversed family `R^(k+1) L R^k`,
   why 40% of the right-turn rules never find the ring (Q27, Q29). Use the `Pi(k)` predicate (`experiments/archive/2026-10-square-ring-fillers/scripts/ring.py`)
   to exclude ring rules from transport cohorts rather than a steps-per-cell threshold. `experiments/archive/2026-10-square-ring-fillers/`.
-- **Late-highway counts corrected (final 2026-10-22):** 25 of the 54 reported late highways are board fillers (`R^k L R R...`, escape at ~(k+1)·2^31 on the 32768 board, x4 per board doubling) and `RLLLRLRRR` is a ray truncated by the board; the other 28 all reproduce on a 65536 board (B2 held, 26/26 rechecks). Genuine yields: 16/807 = 1.98% in (1e9,1e10] (was 4.7%), 12/732 = 1.64% in (1e10,1e11] (was 2.2%). With (1e8,1e9] at 1.4%, the per-decade rate is consistent with flat ~2%: the "thinning tail" is withdrawn. Open: apply the board-independence check to the 1e8/1e9 census; a fourth decade on the 702 survivors (Q19); whether the 702 include bounded rules (RLLLLLR is 42x42 at 1e11). `experiments/archive/2026-10-late-highway-board-check/`, `notes/frontier-2026-10-13-results.md` (Correction 2026-10-21).
+- **Late-highway counts corrected (final 2026-10-22):** 25 of the 54 reported late highways are board fillers (`R^k L R R...`, escape at ~(k+1)·2^31 on the 32768 board, x4 per board doubling) and `RLLLRLRRR` is a ray truncated by the board; the other 28 all reproduce on a 65536 board (B2 held, 26/26 rechecks). Genuine yields: 16/807 = 1.98% in (1e9,1e10] (was 4.7%), 12/732 = 1.64% in (1e10,1e11] (was 2.2%). With (1e8,1e9] at 1.4% (corrected 2026-11-09 to 11/854 = 1.29% after its own 65536-board check, `experiments/active/2026-11-late-highway-1e8-board-check/`; one ray emitter `RLLRRLRLR` removed), the per-decade rate is consistent with flat ~2%: the "thinning tail" is withdrawn. Open: a fourth decade on the 702 survivors (Q19); whether the 702 include bounded rules (RLLLLLR is 42x42 at 1e11). Update 2026-11-11 (`experiments/active/2026-11-survivor-slow-growers/`, PR #37, awaiting review): 143 of the 702 form a persistent slow class that no genuine late highway came from (P1, P2 held); a 2e11 re-run of 8 slow rules failed P3 (RLRLRRRR grew 8.6%), so the class is slow, not shown bounded. A bounded check by exact recurrence needs its own registration. Update 2026-11-12 (Amendment A1, registered `b1014be`, results `efeae5b`): over 1e7-1e11 a zero-offset power law is rejected for the 143 slow boxes and per-decade increments are constant on average, as side ~ a + b log10 t predicts (aggregate bootstrap p_pow < 0.0005, p_log 0.19; saturating or offset-power curves not excluded, review 2026-11-12 S1; unseen 1e7 box closer to the log backcast in 108 of 143, p ~ 7e-10); constants refuted for all 143; per rule 135 of 143 labels ambiguous; the P3 5% bound sat at the edge of what a log law gives (predicted 1.03-1.05). `experiments/archive/2026-10-late-highway-board-check/`, `notes/frontier-2026-10-13-results.md` (Correction 2026-10-21).
 - **Highway preconditions (done 2026-10-21):** the grid the future depends on (`D(tau)`, nonzero cells read again) collapses from 10^3-10^5 cells to the highway's own trail ~0.1 period before onset; the pre-onset seed is that trail plus a median 3 cells (406 independent events, transplant-verified 566/566; a sufficient set, not shown minimal), and ~0.25 period later the ant heads away from its territory (402/406). No seed is shared across unrelated rules (P4 held only within prefix families); P5 (seed excess predicts onset) failed. Post hoc: onset grows with highway size (self-overlap rho 0.45, speed -0.54), ~0.018 decades per cell. Open: knock-out of the "+3" cells; out-of-sample test on the 54 late highways. `experiments/archive/2026-10-highway-preconditions/`.
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/`, `experiments/archive/2026-10-g1-ribbon-breakout/README.md`,

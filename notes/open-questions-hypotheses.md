@@ -407,6 +407,7 @@ has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`.
 - Q24. The rectangle translated-cycler certificate (`decide.py`) certified 571/571 census highways at the first snapshot tried in 568 cases. It is conservative (it needs the
   untouched window cells to be shift-periodic). What is the smallest class of non-highway attractors it can be extended to (periodic ahead background: the side of a spiral)?
 - Q19 update (2026-10-25, `experiments/proposed/2026-10-late-highway-fourth-decade/`, exploratory): over the whole length <= 10 census the hazard per at-risk rule is flat, f = 0.97 [0.91, 1.03] per decade (onset decades 1e2..1e11, windows chosen post hoc), with 15-23 highways per decade (11-12 in 1e8-1e9 by two binnings); "halving per decade" is already excluded. Registered, un-run prediction for (1e11, 1e12]: about 12 of the 702 survivors (5 or fewer would reject flat). A full 702 rerun (~1,000-2,000 core-hours) would shrink the interval only from [0.92, 1.08] to about [0.93, 1.07], so it is not recommended. Open: does log-uniform onset persist, and does a finite pool (28% depleted) hide heterogeneity?
+- Q19 update (2026-11-09, `experiments/active/2026-11-late-highway-1e8-board-check/`, registered at `214377a` before running): the (1e8, 1e9] decade now has the 65536-board check. 11 of its 12 late highways reproduce period, drift and onset exactly (also on 32768); `RLLRRLRLR` (period 4, drift (-2, 0)) does not, as an older `confirm` run (`confirmed_1B.csv`, 8192 vs 16384) had already shown and the yield had ignored. Corrected: **11/854 = 1.29%** in the found-by-the-1e9-rerun binning (was 12/854 = 1.41%), **10** by onset binning (was 11). Fisher p = 0.33 against (1e9, 1e10] and 0.67 against (1e10, 1e11]: the flat reading is unchanged. The fourth-decade hazard refit used 11-12 here; it should use 10-11. `RLLRRLRLR` has a different period-4 onset on every board (7.63e8, 8.23e8, 2.12e9 on 8192, 16384, 65536) and none by 1e10 on 262144 or 1048576: a ray emitter whose straight runs end (interpretation, untested), like `RLLLRLRRR`.
 
 ## Added 2026-10-25: prefix causal horizon (`experiments/archive/2026-10-prefix-causal-horizon/`)
 
@@ -566,6 +567,16 @@ Registered at `086c1ac`; results at `3040a0b`. Six core-class rules, 8 seeds per
   compactness (P4 failed on 3 rules)? Test: arm L on non-highway rules (78 of the 100 Stage 3b rules are non-escape under forced L)
   to replace the 3-rule comparison; register first. Also open: EF_50 rose with window length in 2 of 6 rules (P5 unresolved);
   needs more rules and a longer horizon (tiled probe port, wall-vs-memory F-c).
+- Q42 update (2026-11-12, `experiments/active/2026-11-leak-handedness-cohort/`, registered at `19e4aa0` before running): arm R vs arm L
+  leak on 77 Stage 3b rules compact under both forced turns, both arms through `fs:` (EF 0.1, 0.3, 0.5, 1; 4 seeds). Gates pass
+  (Stage 3b rows byte-identical; same law at EF = 1). **P1 unresolved**: median lag Lambda +0.023, 95% [-0.158, +0.186]. The interval
+  is wide because the per-rule lag has sd 0.38 against ~0.07 seed noise (split-half, PR #38 review): the base turn's handedness changes leak tolerance strongly,
+  with a rule-dependent sign that cancels in the median (the registered calibration assumed one shared lag). **P2 failed**: at EF 0.1
+  only 3 of 9 forced-L escaping rules collapse to porous (9/36 runs; needed >= 50%), all-or-nothing by rule; 0/308 for the compact
+  cohort. Post hoc only: Lambda tracks composition (Spearman +0.40 with the R fraction; all 7 `RRRR...` rules tolerate leak better
+  under base L, 12/14 `RLLL...` rules under base R), i.e. the forced fresh turn may tolerate leak better when it is the rule's
+  minority turn. New question, not registered: test that sign rule per rule, fixed from the table, on rules outside cohort B.
+  Since the fresh-run law is the same in both arms, rule-level lags of either sign mean the bound is not the whole story.
 
 ## Added 2026-10-27: excursion-duration collapse (stage 1) — P-C in PR #18
 
