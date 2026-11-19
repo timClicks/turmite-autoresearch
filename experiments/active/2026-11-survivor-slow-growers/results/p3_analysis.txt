@@ -1,0 +1,10 @@
+== P3: side(2e11)/side(1e11), registered: all <= 1.05, no escape, no highway (cube root predicts 2^(1/3) = 1.26)
+RRRRLLLLLL: stop=budget steps=200000000000 side 1e11 92 -> 2e11 92, ratio 1.0000, local exponent 0.000, g11 0.0717, highway/escape False -> ok
+RRRLLRLL: stop=budget steps=200000000000 side 1e11 120 -> 2e11 126, ratio 1.0500, local exponent 0.070, g11 0.0498, highway/escape False -> ok
+RRLLRLLRRR: stop=budget steps=200000000000 side 1e11 68 -> 2e11 69, ratio 1.0147, local exponent 0.021, g11 0.0544, highway/escape False -> ok
+RRLLRRR: stop=budget steps=200000000000 side 1e11 42 -> 2e11 42, ratio 1.0000, local exponent 0.000, g11 0.0435, highway/escape False -> ok
+RLLLLLLRRR: stop=budget steps=200000000000 side 1e11 80 -> 2e11 80, ratio 1.0000, local exponent 0.000, g11 0.0458, highway/escape False -> ok
+RLLLR: stop=budget steps=200000000000 side 1e11 70 -> 2e11 72, ratio 1.0286, local exponent 0.041, g11 0.0527, highway/escape False -> ok
+RLRLRRRR: stop=budget steps=200000000000 side 1e11 140 -> 2e11 152, ratio 1.0857, local exponent 0.119, g11 0.0423, highway/escape False -> FAIL
+RLRLLLLLL: stop=budget steps=200000000000 side 1e11 84 -> 2e11 87, ratio 1.0357, local exponent 0.051, g11 0.0492, highway/escape False -> ok
+P3 -> FAIL (1 of 8 outside the registered bound)

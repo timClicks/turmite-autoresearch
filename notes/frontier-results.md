@@ -69,6 +69,7 @@ onset are counted as highways below.
   excluded); the 1e8..1e9 decade covers length<=10 only. Onset is "start of the
   final periodic tail", measured retrospectively. Item 17 extends this one
   more decade (below).
+  *Correction 2026-11-09:* one of the 12 (`RLLRRLRLR`) is not a highway: `confirmed_1B.csv` already marked it board-dependent and on a 65536 board it has none (`experiments/active/2026-11-late-highway-1e8-board-check/`). The 1e8..1e9 count is 11 of 854 (1.29%).
 - **H19 mixed.** 555 confirmed primitive highways: diagonal
   (|dx|=|dy|) 95.7% (predicted majority: yes); period always even (100%;
   forced: net heading change must be 0 mod 4, which needs an even number of

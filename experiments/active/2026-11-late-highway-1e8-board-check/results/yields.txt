@@ -1,0 +1,8 @@
+(1e8,1e9] found by 1e9 rerun: 11/854 = 1.29%
+(1e8,1e9] by onset: 10/854 = 1.17%
+(1e9,1e10]: 16/807 = 1.98%
+(1e10,1e11]: 12/732 = 1.64%
+Fisher exact (1e8,1e9] found by 1e9 rerun vs (1e9,1e10]: p = 0.33
+Fisher exact (1e8,1e9] by onset vs (1e9,1e10]: p = 0.24
+Fisher exact (1e9,1e10] vs (1e10,1e11]: p = 0.70
+Fisher exact (1e8,1e9] found by 1e9 rerun vs (1e10,1e11]: p = 0.67
