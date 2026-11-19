@@ -1,45 +1,45 @@
 # Active work and open items
 
-Living index, last updated 2026-11-13 (weekly wrap-up: focus section refreshed; phase priorities unchanged); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-11-20 (reviewed PRs integrated; phase priorities unchanged); before that 2026-11-13 (weekly wrap-up); before that 2026-11-12 (leak-handedness cohort); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-30 (leak titration write-up done, no new data); before that 2026-10-29 (excursion Revision 4 depth readout calibrated; ant pilot not run); earlier 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
-## Current focus (weekly review 2026-11-13)
+## Current focus
 
-Week summary: [`summary-2026-11-13.md`](summary-2026-11-13.md). Phase priorities below are unchanged.
+Weekly notes: [6 November](summary-2026-11-06.md), [13 November](summary-2026-11-13.md).
+These are dated snapshots. Phase priorities below are unchanged.
 
-- **Gates this week:** late-highway (1e8,1e9] board check P1/P2 held (merged, #36). Survivor slow growers P1/P2 held, P3
-  failed, A1 P1-P4 held (#37). Leak handedness cohort G1/G2 passed, P1 unresolved, P2 failed (#38). Leak minority turn
-  G1/G2 passed, P1-P3 failed, dead end `NR-20261113-leak-handedness-composition-sign` (#39). Q33 still unrun (#31/#33).
-- **First step next session:** no new experiment until the review queue moves. Apply the outstanding review fixes on #37
-  (S1-S3) and #38 (S1-S3, M1-M6); on #31 re-pin the provenance hashes orphaned by the #34 rebase-merge and strengthen the
-  `git_dirty` test so its two surviving mutants fail. #33's counter test is validated; it waits on #31 landing first.
-- **Next new experiment:** steer back to Priority 1. Once #30 is reviewed, register the excluded ant pilot read with
-  Score_tw + β (area vs line, no diffusion claim). Do not start another Q42 or survivor follow-up without owner approval.
-- **Process fix (all new registrations):** say "drafted before, committed after; not run on data before registration"
-  rather than "written after", and have `run.sh` record `sha256sum "$0"` and `git status --porcelain` (untracked files
-  under the experiment folder included) in `provenance.txt`.
-- **Waiting on the owner:** landing order for the open PRs (all conflict on this file); #37 wording ("zero-offset power
-  law rejected" vs "log favoured"); close Q42 or approve one dynamics-based sign predictor; Q33 design items 3 and 6.
+- **Review queue:** #37 and #38 are on main. #39 remains open for review of the
+  scope of its pruning predicate and the reliability analysis. Q33 is still
+  unrun: #33 and #41 are on the proposal branch, and #31 still has design
+  items 3 and 6 open.
+- **Next proposed experiment:** Priority 1. Rev4 calibration (#30) is on main.
+  The excluded ant pilot still needs a separate registration for Score_tw + β
+  (area vs line, no diffusion claim). No pilot or confirmation has run.
+- **Process fix (new registrations):** distinguish drafting, commit and first
+  execution times. For example, say “drafted before, committed after; not run
+  on data before registration” when that is what happened. Record
+  `sha256sum "$0"` and `git status --porcelain` (including untracked files
+  under the experiment folder) in `provenance.txt`.
 
-## Pointer (2026-10-29): excursion-duration collapse stage 1 + Revisions 1–3
-
-`experiments/active/2026-10-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`; Revision 3 registration `3d87d8b`, instrument `a8a93b1`, each before its measurement).
+## Pointer (2026-10-29): excursion-duration collapse stage 1 + Revisions 1–4
+`experiments/active/2026-10-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`; Revision 3 registration `3d87d8b`, instrument `a8a93b1`; Revision 4 registration `e066256`, each before its measurement).
 Implements P-C / Q32 from `notes/cube-root-routes-2026-10-26.md` on PR #18 (reference by branch/PR; do not mint colliding Q numbers here).
 Stage-1: **revise** (RW D calibrator never grows L). Revision 1 reflecting cup: L grows but compactness (A/P²) fails and Score prefers S (frontier trapping); C1' **inadequate**; confirmation **not run**; cup-as-D design **retired** (`NR-20261027-reflecting-cup-d-calibrator`). MF L-control still passes; rotor inconclusive. Revision 2: Eden-style and IDLA both pass compactness but the frozen number-weighted Score does not prefer D (Eden S, IDLA inconclusive); gate **fail**, confirmation **not run**; both retired as D calibrators for this Score (`NR-20261028-excursion-score-compact-d-calibrators`). Instrument limitation, not an ant result. Paused: any next step needs a newly registered observable (e.g. tail-restricted collapse) calibrated on these walkers before ant data.
 Revision 3 (2026-10-29, results `9e3621d`): time-weighted survival Score_tw. Synthetic laws classified correctly in 20/20 replicates (old Score called a D-by-construction law S in 20/20); Eden D, IDLA D, mean-field S; **C1E-tw, C1I-tw, C2-tw PASS**. Calibrated for an excluded pilot; **pilot not run, confirmation not run**, reserved seeds untouched. Caveat (post hoc): the rotor also reads D (cliff near τ ≈ A/5), so Score_tw cannot separate diffusion from area-filling sweeps. **Next:** register the excluded ant pilot under Score_tw, scoped to "L vs area-scale", or first register a depth–duration or τ/A readout on the same walkers.
+Revision 4 (2026-10-29, results `20afc60`/`4ad402e`): depth–duration exponent β (slope of log τ on log max depth). Registered correction: depth separates area-filling from line-like, **not** diffusion from sweeps. G0, G1 (20/20 all laws), Eden 1.99 area, IDLA 2.00 area (6 windows, ~1% of time), `bal` 0.41 line: **all gates PASS**; rotor area, mean-field line (teleports; failed prediction); rotor revisit slope highest, so the revisit hint is retired. **No ant data.** **Next:** register an excluded ant pilot (stage-1 rules, new seeds) read with Score_tw + β as area-filling / line-like / disagree, no diffusion claim; a diffusion-vs-sweep readout (τ/A collapse, τ spread at fixed d) needs its own synthetic gate.
 
 ## Pointer (2026-10-28): leak titration follow-ups
 
 `experiments/active/2026-10-leak-titration/` ran (registration `5d70ec59`, results `8b2a72b2`): shape unresolved, gates pass. Open items,
 none registered for running; each needs its own dated registration first (questions in `notes/open-questions-hypotheses.md`):
 - Q41 Stage C: fresh-run length distribution vs EF (probe addition + oracle test), collapse on run length / territory radius.
-- Q42: arm L on non-highway rules from the Stage 3b cohort (replaces the 3-rule P4); window drift needs more rules and a longer horizon.
+- Q42: arm L on non-highway rules **ran 2026-11-12** (`experiments/active/2026-11-leak-handedness-cohort/`, PR pending review): P1 unresolved
+  (per-rule lags large, sign rule-dependent; post hoc it tracks R/L composition), P2 failed (3/9 escaping rules collapse). Open: a registered
+  per-rule sign test ("minority forced turn tolerates more leak") on new rules; window drift still needs more rules and a longer horizon.
 - Q40: Stage B fine grid only if a later result gives M >= 0.34 or a sharp reading.
-- Housekeeping owed by that experiment: `notebook.ipynb` (AGENTS.md; not yet written), blog post/draft and `blog/index.html` and `blog/atlas.json` entry
-  (file under a topic or `unfiled`), `experiments/README.md` index line if one is kept there.
 
 ## Next phase: boundary access, regime validation, closure
 
@@ -229,7 +229,7 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
   footprint-implies-family test failed (other integer-cost crawler families exist). Open: corner lemma, the reversed family `R^(k+1) L R^k`,
   why 40% of the right-turn rules never find the ring (Q27, Q29). Use the `Pi(k)` predicate (`experiments/archive/2026-10-square-ring-fillers/scripts/ring.py`)
   to exclude ring rules from transport cohorts rather than a steps-per-cell threshold. `experiments/archive/2026-10-square-ring-fillers/`.
-- **Late-highway counts corrected (final 2026-10-22):** 25 of the 54 reported late highways are board fillers (`R^k L R R...`, escape at ~(k+1)·2^31 on the 32768 board, x4 per board doubling) and `RLLLRLRRR` is a ray truncated by the board; the other 28 all reproduce on a 65536 board (B2 held, 26/26 rechecks). Genuine yields: 16/807 = 1.98% in (1e9,1e10] (was 4.7%), 12/732 = 1.64% in (1e10,1e11] (was 2.2%). With (1e8,1e9] at 1.4% (corrected 2026-11-09 to 11/854 = 1.29% after its own 65536-board check, `experiments/active/2026-11-late-highway-1e8-board-check/`; one ray emitter `RLLRRLRLR` removed), the per-decade rate is consistent with flat ~2%: the "thinning tail" is withdrawn. Open: a fourth decade on the 702 survivors (Q19); whether the 702 include bounded rules (RLLLLLR is 42x42 at 1e11). `experiments/archive/2026-10-late-highway-board-check/`, `notes/frontier-2026-10-13-results.md` (Correction 2026-10-21).
+- **Late-highway counts corrected (final 2026-10-22):** 25 of the 54 reported late highways are board fillers (`R^k L R R...`, escape at ~(k+1)·2^31 on the 32768 board, x4 per board doubling) and `RLLLRLRRR` is a ray truncated by the board; the other 28 all reproduce on a 65536 board (B2 held, 26/26 rechecks). Genuine yields: 16/807 = 1.98% in (1e9,1e10] (was 4.7%), 12/732 = 1.64% in (1e10,1e11] (was 2.2%). With (1e8,1e9] at 1.4% (corrected 2026-11-09 to 11/854 = 1.29% after its own 65536-board check, `experiments/active/2026-11-late-highway-1e8-board-check/`; one ray emitter `RLLRRLRLR` removed), the per-decade rate is consistent with flat ~2%: the "thinning tail" is withdrawn. Open: a fourth decade on the 702 survivors (Q19); whether the 702 include bounded rules (RLLLLLR is 42x42 at 1e11). Update 2026-11-11 (`experiments/active/2026-11-survivor-slow-growers/`, PR #37, awaiting review): 143 of the 702 form a persistent slow class that no genuine late highway came from (P1, P2 held); a 2e11 re-run of 8 slow rules failed P3 (RLRLRRRR grew 8.6%), so the class is slow, not shown bounded. A bounded check by exact recurrence needs its own registration. Update 2026-11-12 (Amendment A1, registered `b1014be`, results `efeae5b`): over 1e7-1e11 a zero-offset power law is rejected for the 143 slow boxes and per-decade increments are constant on average, as side ~ a + b log10 t predicts (aggregate bootstrap p_pow < 0.0005, p_log 0.19; saturating or offset-power curves not excluded, review 2026-11-12 S1; unseen 1e7 box closer to the log backcast in 108 of 143, p ~ 7e-10); constants refuted for all 143; per rule 135 of 143 labels ambiguous; the P3 5% bound sat at the edge of what a log law gives (predicted 1.03-1.05). `experiments/archive/2026-10-late-highway-board-check/`, `notes/frontier-2026-10-13-results.md` (Correction 2026-10-21).
 - **Highway preconditions (done 2026-10-21):** the grid the future depends on (`D(tau)`, nonzero cells read again) collapses from 10^3-10^5 cells to the highway's own trail ~0.1 period before onset; the pre-onset seed is that trail plus a median 3 cells (406 independent events, transplant-verified 566/566; a sufficient set, not shown minimal), and ~0.25 period later the ant heads away from its territory (402/406). No seed is shared across unrelated rules (P4 held only within prefix families); P5 (seed excess predicts onset) failed. Post hoc: onset grows with highway size (self-overlap rho 0.45, speed -0.54), ~0.018 decades per cell. Open: knock-out of the "+3" cells; out-of-sample test on the 54 late highways. `experiments/archive/2026-10-highway-preconditions/`.
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/archive/2026-10-highways-unresolved-rules-1e10-1e11/`, `experiments/archive/2026-10-g1-ribbon-breakout/README.md`,
