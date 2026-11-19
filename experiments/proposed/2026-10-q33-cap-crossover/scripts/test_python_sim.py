@@ -8,7 +8,9 @@ from __future__ import annotations
 import itertools
 import json
 import math
+import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -269,52 +271,67 @@ class SimulationTests(unittest.TestCase):
             self.assertIs(prov2["git_dirty"], False, prov2)
 
     def test_git_dirty_helper_on_throwaway_repo(self):
-        """A8 item 2-3: cases a mutant of either status call or the None rule must fail."""
+        """A8 items 2-3, A9 items 1/3: cases a mutant of either status call or the None rule must fail."""
+        if shutil.which("git") is None:
+            self.skipTest("git not on PATH")
         sys.path.insert(0, str(Path(__file__).parent))
         import python_sim
         rel = "experiments/proposed/x"
-        with tempfile.TemporaryDirectory() as tmp:
-            repo = Path(tmp)
-            def git(*args):
-                subprocess.run(["git", "-C", str(repo), *args], check=True, capture_output=True,
-                               text=True)
-            git("init", "-q")
-            git("config", "user.email", "t@example.invalid")
-            git("config", "user.name", "test")
-            exp = repo / rel
-            for d in ("results", "scripts"):
-                (exp / d).mkdir(parents=True)
-            (exp / "results" / "x.csv").write_text("a\n1\n")
-            (exp / "scripts" / "run.py").write_text("pass\n")
-            git("add", "-A")
-            git("commit", "-q", "-m", "init")
-            self.assertIs(python_sim.git_dirty(repo, rel), False)
-            (exp / "results" / "c1").mkdir()
-            (exp / "results" / "c1" / "out.json").write_text("{}")
-            (exp / "scratch" / "c1").mkdir(parents=True)
-            (exp / "scratch" / "c1" / "out.json").write_text("{}")
-            self.assertIs(python_sim.git_dirty(repo, rel), False, "untracked results/scratch")
-            (exp / "results" / "x.csv").write_text("a\n2\n")
-            self.assertIs(python_sim.git_dirty(repo, rel), True, "tracked results/ edit")
-            git("checkout", "-q", "--", ".")
-            self.assertIs(python_sim.git_dirty(repo, rel), False)
-            (exp / "scripts" / "helper.py").write_text("pass\n")
-            self.assertIs(python_sim.git_dirty(repo, rel), True, "untracked helper")
-        with tempfile.TemporaryDirectory() as tmp:
-            self.assertIsNone(python_sim.git_dirty(Path(tmp), rel), "not a repository")
-        real = subprocess.run
-        calls = []
-        def one_fails(cmd, *a, **k):
-            calls.append(cmd)
-            if "--untracked-files=no" in cmd:
-                raise subprocess.CalledProcessError(128, cmd)
-            return real(cmd, *a, **k)
-        with tempfile.TemporaryDirectory() as tmp:
-            subprocess.run(["git", "-C", tmp, "init", "-q"], check=True)
-            self.assertIs(python_sim.git_dirty(Path(tmp), rel), False)
-            with patch.object(python_sim.subprocess, "run", one_fails):
-                self.assertIsNone(python_sim.git_dirty(Path(tmp), rel), "half-checked tree")
-        self.assertEqual(len(calls), 2)
+        with tempfile.TemporaryDirectory() as parent:
+            # Hermetic (A9 item 3): no global/system config, and discovery cannot
+            # climb above `parent` into an enclosing work tree.
+            env = {"GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1",
+                   "GIT_CEILING_DIRECTORIES": str(Path(parent).resolve())}
+            with patch.dict(os.environ, env):
+                def git(repo, *args):
+                    subprocess.run(["git", "-c", "commit.gpgsign=false", "-c",
+                                    f"core.hooksPath={os.devnull}", "-C", str(repo), *args],
+                                   check=True, capture_output=True, text=True)
+                repo = Path(parent) / "repo"
+                repo.mkdir()
+                git(repo, "init", "-q")
+                git(repo, "config", "user.email", "t@example.invalid")
+                git(repo, "config", "user.name", "test")
+                exp = repo / rel
+                for d in ("results", "scripts"):
+                    (exp / d).mkdir(parents=True)
+                (exp / "results" / "x.csv").write_text("a\n1\n")
+                (exp / "scripts" / "run.py").write_text("pass\n")
+                git(repo, "add", "-A")
+                git(repo, "commit", "-q", "-m", "init")
+                self.assertIs(python_sim.git_dirty(repo, rel), False)
+                (exp / "results" / "c1").mkdir()
+                (exp / "results" / "c1" / "out.json").write_text("{}")
+                (exp / "scratch" / "c1").mkdir(parents=True)
+                (exp / "scratch" / "c1" / "out.json").write_text("{}")
+                self.assertIs(python_sim.git_dirty(repo, rel), False, "untracked results/scratch")
+                (exp / "results" / "x.csv").write_text("a\n2\n")
+                self.assertIs(python_sim.git_dirty(repo, rel), True, "tracked results/ edit")
+                git(repo, "checkout", "-q", "--", ".")
+                self.assertIs(python_sim.git_dirty(repo, rel), False)
+                (exp / "scripts" / "helper.py").write_text("pass\n")
+                self.assertIs(python_sim.git_dirty(repo, rel), True, "untracked helper")
+
+                plain = Path(parent) / "plain"
+                plain.mkdir()
+                self.assertIsNone(python_sim.git_dirty(plain, rel), "not a repository")
+
+                empty = Path(parent) / "empty"
+                empty.mkdir()
+                git(empty, "init", "-q")
+                self.assertIs(python_sim.git_dirty(empty, rel), False)
+                real = subprocess.run
+                for flag in ("--untracked-files=no", "--untracked-files=normal"):
+                    with self.subTest(failing=flag):
+                        calls = []
+                        def one_fails(cmd, *a, **k):
+                            calls.append(cmd)
+                            if flag in cmd:
+                                raise subprocess.CalledProcessError(128, cmd)
+                            return real(cmd, *a, **k)
+                        with patch.object(python_sim.subprocess, "run", one_fails):
+                            self.assertIsNone(python_sim.git_dirty(empty, rel), "half-checked tree")
+                        self.assertEqual(len(calls), 2)
 
     def test_origin_run_bound_amendment_a1(self):
         """README A1 item 5 / A3 sharpening: m=1 always 2; for m>=2 bound <=m and tight."""

@@ -21,10 +21,10 @@ sys.path.insert(0, str(ROOT / "experiments" / "_lib"))
 from turmite_sim import CellLimit, Config, SparseWalker, VERSION, octave_fits, sample_steps
 
 
-def _git(args: list[str]) -> str | None:
+def _git(args: list[str], root: Path = ROOT) -> str | None:
     """Git output for provenance (AGENTS.md rule 2); None outside a checkout."""
     try:
-        return subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True,
+        return subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True,
                               check=True).stdout.strip()
     except (OSError, subprocess.CalledProcessError):
         return None
@@ -39,17 +39,11 @@ def git_dirty(root: Path, rel: str) -> bool | None:
     stays clean while an untracked helper elsewhere still counts.
     None unless both calls succeed: a half-checked tree is not clean.
     """
-    def run(args: list[str]) -> str | None:
-        try:
-            return subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True,
-                                  check=True).stdout.strip()
-        except (OSError, subprocess.CalledProcessError):
-            return None
-    tracked = run(["status", "--porcelain", "--untracked-files=no"])
-    untracked = run([
+    tracked = _git(["status", "--porcelain", "--untracked-files=no"], root)
+    untracked = _git([
         "status", "--porcelain", "--untracked-files=normal", "--",
         ".", f":!{rel}/results", f":!{rel}/scratch",
-    ])
+    ], root)
     if tracked is None or untracked is None:
         return None
     return bool(tracked) or bool(untracked)
