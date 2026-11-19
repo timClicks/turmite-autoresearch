@@ -142,3 +142,31 @@ Record as Amendment A7 on PR #34 once the suite and overlap check pass. Leave P3
 ## 2026-11-09 20:41 NZDT · parent c9f6ca6 · observation
 
 `uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`: **19/19 OK** (includes new `test_git_dirty_resume_chain_stays_clean`). `overlap.py --check --summary`: rows=115, onset_lt_2_31_distinct=2, overlap.tsv OK. `measure_dict_cell_bytes.py` under uv (CPython 3.12.15 from project venv): 172.4 B/cell at 10^5, **161.8 B/cell at 10^6**. Pruning re-confirm at A7 registration head `c9f6ca6`: index entries tip still `cc7a885`; concept `rg -il` matches 6/7; literal `rg -w -F -f <208 Q33 rules>` → 0 matches; decision remains **propose**. Two-call `git_dirty` pathspec check: clean tree → false; untracked under `results/` → false; untracked helper under `scripts/` → true. No walker growth data. No Rust changes (cargo test not re-run).
+
+## 2026-11-19 08:46 NZDT · parent d3224b8 · intent
+
+Daily progress session. ACTIVE (weekly review 2026-11-13) lists, as the next unblocked item, the #31 provenance re-pin and a `git_dirty` test that can fail. Register as Amendment A8 before touching code. No new experiment: other lines wait on owner decisions.
+
+## 2026-11-19 08:46 NZDT · parent d3224b8 · deviation
+
+The 2026-11-09 rebase-merge of #34 rewrote all 14 A1–A7 commits. Every `parent` hash in the entries above from 2026-11-04 onwards names the pre-rebase commit. The old→new map is in README Amendment A8 item 1; patches are identical for every pair (`git patch-id --stable`), so the registration-before-check order those entries record is unchanged. Entries are not edited.
+
+## 2026-11-19 08:46 NZDT · parent d3224b8 · decision
+
+Work on branch `agent/q33-a8-provenance-repin` stacked on #31 (base `exp/q33-cap-crossover-proposal`) so #31's own head is not moved without review. Do not start G0, pilot or confirmation. Leave design items 3 and 6, merge method, and ACTIVE conflicts to the owner.
+
+## 2026-11-19 08:47 NZDT · parent af8c72b · observation
+
+A8 checks (registration `af8c72b` pushed first). `git_dirty(root, rel)` factored out of `main` in `scripts/python_sim.py`; returns None unless both status calls succeed. New `test_git_dirty_helper_on_throwaway_repo` builds a `git init` repo in a temp dir: clean → false; untracked `results/c1` and `scratch/c1` → false; tracked `results/x.csv` edit → true; untracked `scripts/helper.py` → true; non-repo → None; tracked call failing → None. Suite with edits uncommitted: 20 run, OK, 1 skipped (the dirty-tree resume test). Mutants applied in place one at a time, then restored: M3 (drop results/scratch exclusion) → FAILED; M4 (`tracked = ""`) → FAILED; M5 (A7 `and` rule) → FAILED. Blog draft link re-pinned `4f8d018` → `3509395`. SHA pairing checked with `git patch-id --stable` (14/14 equal). No walker growth data; no Rust changes.
+
+## 2026-11-20 08:52 NZDT · parent bb4e49c · intent
+
+Daily progress session. The 2026-11-19 review of #41 suggests changes (one should-fix, four minors). Register as Amendment A9 and push it alone before editing code, so the registration has an externally visible CI run ahead of the checks. No new experiment: other lines wait on owner decisions.
+
+## 2026-11-20 08:52 NZDT · parent bb4e49c · deviation
+
+A8 says it was committed before its checks were run. The record contradicts that for the patch-id check and probably for the code/test run (NOTEBOOK 2026-11-19 08:47 says "edits uncommitted"). Erratum in README A9 item 2; A8 and earlier entries are not edited.
+
+## 2026-11-20 08:47 NZDT · parent 9856908 · observation
+
+A9 checks. Registration `2649c89` (committer time 2026-11-20 08:46:32 NZDT) was pushed alone; its CI runs on PR #41 (e.g. Simulator checks 44601840956, Small reproducibility checks 44601841265) were created 08:46:46 NZDT, before any code edit. Correction: the two 2026-11-20 entries above are headed 08:52 by hand; they were committed at 08:46 (commit `2649c89`). Code commit `9856908`: `_git(args, root=ROOT)`, `git_dirty` uses it; the throwaway-repo test is hermetic (GIT_CONFIG_GLOBAL=/dev/null, GIT_CONFIG_NOSYSTEM=1, GIT_CEILING_DIRECTORIES, gpgsign off, hooksPath=/dev/null, skipTest without git) and the half-checked case is a `subTest` over both status calls. Suite: 20 run, OK, 1 skipped (dirty-tree resume test; this checkout is dirty with the NOTEBOOK edit). Mutants applied one at a time to `scripts/python_sim.py`, then `git checkout`: M3 → FAILED; M4 → FAILED; M5 → FAILED; M6 (`if tracked is None:`) → FAILED; M6′ (`if untracked is None:`) → FAILED; M7 (`--untracked-files=no` on call 2) → FAILED; restored → OK. Hostile environment (TMPDIR inside a git work tree, global config with `commit.gpgsign=true` and a bad `core.hooksPath`): A9 test OK; the A8 test (`2649c89` scripts) ERRORS. Environment: Linux, Python 3.13.5, git 2.47.3, uv 0.13.7. No walker growth data; no Rust changes.
