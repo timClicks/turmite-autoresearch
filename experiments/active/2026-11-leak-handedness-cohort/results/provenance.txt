@@ -1,0 +1,10 @@
+commit 19e4aa07b17818ccdc56b75999f76e0c21eb5c76
+dirty 0 tracked files
+rustc rustc 1.99.1 (58cf8f9c3 2026-10-13)
+probe_sha256 3f5416b79e22f73695b1fce2a6152054a32f82f000b51bf2659a9ea508bfccde
+specs_sha256 41b1a9b4850aae41b7aff76429368ed24a14997e3d12c9250dbd92b382d17621
+command probe 27 16384 < experiments/proposed/2026-11-leak-handedness-cohort/results/specs.txt
+RAYON_NUM_THREADS 3
+start 2026-11-11T19:59:16Z
+end 2026-11-11T20:20:49Z
+probe_csv_sha256 e09b8ea6fce30d604442e37cb2095c91cd0705d221becb5b8577e57f7a7751a5
