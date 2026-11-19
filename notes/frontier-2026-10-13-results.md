@@ -734,3 +734,4 @@ Lesson: an escape is a highway only if its footprint is well short of the board 
 Final (appended 2026-10-22): all 26 rechecks reproduced on a 65536 board (B2 held, 26/26; `ecab728`). Genuine yields are
 **16/807 = 1.98%** in (1e9, 1e10] and **12/732 = 1.64%** in (1e10, 1e11]; escapes without highway 59/807 = 7.3% and 18/732 = 2.5%.
 The flat-rate reading stands (Fisher p = 0.45 and 0.70 against neighbouring decades); a slow decline is not excluded.
+Correction 2026-11-09 (`experiments/active/2026-11-late-highway-1e8-board-check/`, registered `214377a`): the (1e8, 1e9] figure 12/854 = 1.4% counted `RLLRRLRLR`, which the 2026-10 `confirm` run (`experiments/archive/2026-10-census-sweeps/results/confirmed_1B.csv`) had marked board-dependent; on a 65536 board it has no highway, while the other 11 reproduce exactly. The decade is **11/854 = 1.29%** (10 by onset binning); Fisher p = 0.33 and 0.67 against the later decades; the flat-rate reading stands.
