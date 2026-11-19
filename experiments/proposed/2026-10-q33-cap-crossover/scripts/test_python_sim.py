@@ -265,5 +265,91 @@ class SimulationTests(unittest.TestCase):
             self.assertEqual(json.loads(resumed.stdout)["steps"], 1024)
 
 
+
+    def test_git_dirty_resume_chain_stays_clean(self):
+        """A7 minor 3: clean → chunk under results/scratch → resume still git_dirty false."""
+        # Only meaningful on a clean tracked tree; skip if the checkout is already dirty.
+        status = subprocess.run(["git", "-C", str(ROOT), "status", "--porcelain"],
+                                capture_output=True, text=True, check=True)
+        if status.stdout.strip():
+            self.skipTest("working tree already dirty")
+        scratch = EXPERIMENT / "scratch"
+        scratch.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=scratch) as tmp:
+            first = Path(tmp) / "chunk1"
+            second = Path(tmp) / "chunk2"
+            cmd1 = [sys.executable, str(Path(__file__).with_name("python_sim.py")),
+                    "--steps", "256", "--policy", "persistent-fresh", "--cap", "4",
+                    "--output-dir", str(first)]
+            r1 = subprocess.run(cmd1, capture_output=True, text=True)
+            self.assertEqual(r1.returncode, 0, r1.stderr)
+            prov1 = json.loads((first / "provenance.json").read_text())
+            self.assertIs(prov1["git_dirty"], False, prov1)
+            r2 = subprocess.run([sys.executable, str(Path(__file__).with_name("python_sim.py")),
+                                 "--resume", str(first / "checkpoint.json"), "--steps", "512",
+                                 "--output-dir", str(second)],
+                                capture_output=True, text=True)
+            self.assertEqual(r2.returncode, 0, r2.stderr)
+            prov2 = json.loads((second / "provenance.json").read_text())
+            self.assertIs(prov2["git_dirty"], False, prov2)
+
+    def test_origin_run_bound_amendment_a1(self):
+        """README A1 item 5 / A3 sharpening: m=1 always 2; for m>=2 bound <=m and tight."""
+        maxima = {m: 0 for m in range(1, 17)}
+        for rule, m, seed in itertools.product(("RLL", "RLLR"), range(1, 17), range(64)):
+            w = sim.SparseWalker(sim.Config(rule=rule, policy="persistent-fresh", seed=seed, cap=m))
+            for _ in range(4 * (m + 2)):
+                if not w.origin_run:
+                    break
+                w.step()
+            self.assertFalse(w.origin_run, (rule, m, seed))
+            if m == 1:
+                self.assertEqual(w.origin_run_length, 2, (rule, m, seed))
+            else:
+                self.assertLessEqual(w.origin_run_length, m, (rule, m, seed))
+            maxima[m] = max(maxima[m], w.origin_run_length)
+        self.assertEqual(maxima[1], 2)
+        for m in range(2, 17):
+            self.assertEqual(maxima[m], m, f"bound not tight at m={m}")
+
+    def test_schedule_matches_pinned_integer_table(self):
+        """README Amendment A1 item 4: floor(2^(k+j/8)) as an exact integer 8th root."""
+        def iroot8(n):
+            lo, hi = 0, 1 << (n.bit_length() // 8 + 2)
+            while lo < hi:
+                mid = (lo + hi + 1) // 2
+                lo, hi = (mid, hi) if mid ** 8 <= n else (lo, mid - 1)
+            return lo
+        rows = [line.split("\t") for line in (EXPERIMENT / "inputs/schedule.tsv").read_text().splitlines()
+                if not line.startswith("#")]
+        table = sorted({int(t) for _, _, t in rows})
+        self.assertEqual([int(t) for k, j, t in rows], [iroot8(1 << (8 * int(k) + int(j))) for k, j, _ in rows])
+        self.assertEqual(sim.sample_steps(1 << 31, 1, suboctaves=True), sorted({1, *(t for t in table if t <= 1 << 31), 1 << 31}))
+
+    def test_pinned_sample_lists_regenerate(self):
+        """README Amendment A1 item 2: committed lists equal the registered hash ranking."""
+        out = subprocess.run([sys.executable, str(EXPERIMENT / "scripts/pin_samples.py"), "--check"],
+                             capture_output=True, text=True)
+        self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
+
+    def test_overlap_record_regenerates(self):
+        """README Amendment A3: overlap.tsv equals scripts/overlap.py --check."""
+        out = subprocess.run([sys.executable, str(EXPERIMENT / "scripts/overlap.py"), "--check", "--summary"],
+                             capture_output=True, text=True)
+        self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
+        self.assertIn("overlap.tsv: OK", out.stdout)
+        # In-horizon crystallisation controls flagged by the #34 review (A4/A6).
+        text = (EXPERIMENT / "inputs/overlap.tsv").read_text()
+        rows_rrl = [ln for ln in text.splitlines() if ln.startswith("RRLRLRL	")]
+        rows_rr8 = [ln for ln in text.splitlines() if ln.startswith("RRRRRRRLR	")]
+        self.assertTrue(rows_rrl, "RRLRLRL missing from overlap.tsv")
+        self.assertTrue(rows_rr8, "RRRRRRRLR missing from overlap.tsv")
+        self.assertTrue(any(ln.split("	")[5] == "yes" for ln in rows_rrl),
+                        "RRLRLRL should be onset_lt_2_31=yes")
+        self.assertTrue(any(ln.split("	")[5] == "yes" for ln in rows_rr8),
+                        "RRRRRRRLR should be onset_lt_2_31=yes")
+        self.assertIn("onset_lt_2_31_distinct=2", out.stdout)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
