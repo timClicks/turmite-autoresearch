@@ -1,24 +1,28 @@
 # Active work and open items
 
-Living index, last updated 2026-11-12 (leak-handedness cohort); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-30 (leak titration write-up done, no new data); before that 2026-10-29 (excursion Revision 4 depth readout calibrated; ant pilot not run); earlier 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-11-20 (reviewed PRs integrated; phase priorities unchanged); before that 2026-11-13 (weekly wrap-up); before that 2026-11-12 (leak-handedness cohort); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-30 (leak titration write-up done, no new data); before that 2026-10-29 (excursion Revision 4 depth readout calibrated; ant pilot not run); earlier 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
-## Handoff (2026-11-01): Q33 intervention-counter regression — PR #33
+## Current focus
 
-**Status:** PR [#33](https://github.com/timClicks/turmite-autoresearch/pull/33) is open and ready for review, stacked on [#31](https://github.com/timClicks/turmite-autoresearch/pull/31) (base `exp/q33-cap-crossover-proposal`), branch `agent/q33-cap-counter-regression`, commit `e414f09cc6fe86dcacacb4ef1fe17c51973335ec`. The change adds `test_cap_intervention_counters_against_independent_oracle` in `experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py`. No scientific measurements or hypothesis changes.
+Weekly notes: [6 November](summary-2026-11-06.md), [13 November](summary-2026-11-13.md).
+These are dated snapshots. Phase priorities below are unchanged.
 
-**Why:** An independent review of PR #31 found a surviving mutation that increments `cap_turns_nonorigin` on origin interventions. That counter is used in the G3 exposure gate, so its correctness matters to experimental validity. The new test compares both cap counters against a separate visit-count oracle after each of 512 steps, for caps 1, 4, 16 and 32 (rule RLL, seed 7), and asserts that origin and non-origin interventions are both exercised.
-
-**Next session (do this before new work):**
-1. Run `uv run --offline --script experiments/proposed/2026-10-q33-cap-crossover/scripts/test_python_sim.py` on PR #33; fix any failures. This test has **not yet been executed** in this contribution.
-2. Mutation-check the original reviewer finding by temporarily replacing `cap_turns_nonorigin += not self.origin_run` with `cap_turns_nonorigin += 1` in a disposable checkout, confirming the new test fails; revert the mutation. Record exact commands, environment, and outcome on PR #33.
-3. Check CI and request independent review. Do not merge until independently approved, required checks pass, blocking comments are resolved, and branch protection allows it. Coordinate stacking: PR #31 should land before retargeting/merging #33.
-4. Review other PR #31 findings (provenance of P2, pinned samples, P3 discrimination) separately; do not present this counter test as addressing those scientific issues.
-
-**Provenance:** PR #31 review dated 2026-10-31; parent head at review `21c909250510a5fb4c89bf01ae8bda2bf73b3369`. PR #33 commit above. No seed-dependent scientific run or negative scientific finding; validation remains outstanding. This is a task handoff, not a registered experiment.
+- **Review queue:** #37 and #38 are on main. #39 remains open for review of the
+  scope of its pruning predicate and the reliability analysis. Q33 is still
+  unrun: #33 and #41 are on the proposal branch, and #31 still has design
+  items 3 and 6 open.
+- **Next proposed experiment:** Priority 1. Rev4 calibration (#30) is on main.
+  The excluded ant pilot still needs a separate registration for Score_tw + β
+  (area vs line, no diffusion claim). No pilot or confirmation has run.
+- **Process fix (new registrations):** distinguish drafting, commit and first
+  execution times. For example, say “drafted before, committed after; not run
+  on data before registration” when that is what happened. Record
+  `sha256sum "$0"` and `git status --porcelain` (including untracked files
+  under the experiment folder) in `provenance.txt`.
 
 ## Pointer (2026-10-29): excursion-duration collapse stage 1 + Revisions 1–4
 `experiments/active/2026-10-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`; Revision 3 registration `3d87d8b`, instrument `a8a93b1`; Revision 4 registration `e066256`, each before its measurement).
