@@ -33,14 +33,15 @@ uv run --frozen python "$EXP/scripts/analyse_rev4.py" > /dev/null
 git -C "$ROOT" diff --exit-code -- "$RES/rev3_analysis.txt" "$RES/rev4_analysis.txt"
 say "P0b rev3_analysis.txt and rev4_analysis.txt reproduce byte-identically"
 
-# P0c: ant smoke on non-cohort rules, then mutants must panic.
+# P0c: ant smoke on non-cohort rules, then mutants must panic. Amendment A1 (b1a0713): pilot board 8192, not 512
+# (RL@7 escapes the 512 board and --check asserts equal window counts with the probe).
 S='RL@7\nLLRR@7\n'
-printf "$S" | "$BIN" 14 512 --check --hist /dev/null --fhist /dev/null --dhist /dev/null > /dev/null 2>"$SCR/smoke.err"
-say "P0c ant smoke RL@7, LLRR@7 (14, 512) --check --dhist: exit 0"
+printf "$S" | "$BIN" 14 8192 --check --hist /dev/null --fhist /dev/null --dhist /dev/null > /dev/null 2>"$SCR/smoke.err"
+say "P0c ant smoke RL@7, LLRR@7 (14, 8192) --check --dhist: exit 0"
 for m in "--mutant" "--fine-mutant" "--depth-mutant --dhist /dev/null"; do
   set +e
   # shellcheck disable=SC2086
-  printf "$S" | "$BIN" 14 512 --check $m > /dev/null 2>"$SCR/err"
+  printf "$S" | "$BIN" 14 8192 --check $m > /dev/null 2>"$SCR/err"
   ec=$?
   set -e
   if [[ $ec -eq 0 ]]; then say "P0c mutant $m FAILED to panic"; exit 1; fi
