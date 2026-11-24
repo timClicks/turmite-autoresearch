@@ -1,0 +1,30 @@
+Rev5 EXCLUDED ant pilot: Score_tw (Rev3) + beta (Rev4), frozen rules; seeds 2026112501..04. Not evidence for confirmation;
+no diffusion claim (neither readout separates diffusion from area-filling sweeps).
+specs: 16; escaped specs: none
+
+RLLR: reading UNREAD (Score_tw inconclusive)
+  Score_tw: retained 23 (dropped {'n_eff<30': 13}); L 13.7072..174.4213 (ratio 12.7248); Score_tw(L) 0.0775 vs (L^2) 0.0679 -> inconclusive; censored-incl 0.0769 vs 0.0695 -> inconclusive; max censored mass share 0.0477
+  beta: retained 1 (dropped {'not fittable': 35}); median 1.7393 range [1.739254959831481, 1.739254959831481] -> uninformative (read: uninformative); fit-range time share 0.0457; shallow d<=3 time share 0.0171; gamma (report-only) nan
+  per-seed beta medians 2026112501: 1.739; between-seed SD nan; per-seed Score_tw {'2026112501': 'inconclusive', '2026112502': 'D', '2026112503': 'inconclusive', '2026112504': 'D'}
+  L <= 50.7 sensitivity: Score_tw D (0.0736 vs 0.0409, 7 windows); beta nan -> uninformative (0 windows); reading UNREAD
+
+RLLRL: reading AREA-FILLING
+  Score_tw: retained 36 (dropped {}); L 11.1829..69.1095 (ratio 6.1799); Score_tw(L) 0.0911 vs (L^2) 0.0419 -> D; censored-incl 0.0946 vs 0.0413 -> D; max censored mass share 0.0319
+  beta: retained 24 (dropped {'L<12': 3, 'not fittable': 9}); median 1.9324 range [1.778552122236399, 2.029263712190318] -> area (read: area); fit-range time share 0.2546; shallow d<=3 time share 0.0226; gamma (report-only) 0.1443
+  per-seed beta medians 2026112501: 1.939, 2026112502: 1.931, 2026112503: 1.955, 2026112504: 1.927; between-seed SD 0.0122; per-seed Score_tw {'2026112501': 'D', '2026112502': 'D', '2026112503': 'D', '2026112504': 'D'}
+  L <= 50.7 sensitivity: Score_tw D (0.0809 vs 0.0435, 28 windows); beta 1.9433 -> area (16 windows); reading AREA-FILLING
+
+RLLLRR: reading UNREAD (Score_tw uninformative)
+  Score_tw: retained 0 (dropped {'n_eff<30': 36}); L nan..nan (ratio nan); Score_tw(L) nan vs (L^2) nan -> uninformative; censored-incl nan vs nan -> uninformative; max censored mass share nan
+  beta: retained 0 (dropped {'not fittable': 36}); median nan range None -> uninformative (read: uninformative); fit-range time share nan; shallow d<=3 time share nan; gamma (report-only) nan
+  per-seed beta medians ; between-seed SD nan; per-seed Score_tw {'2026112501': 'uninformative', '2026112502': 'uninformative', '2026112503': 'uninformative', '2026112504': 'uninformative'}
+  L <= 50.7 sensitivity: Score_tw uninformative (nan vs nan, 0 windows); beta nan -> uninformative (0 windows); reading UNREAD
+
+RLLLLRLL: reading UNREAD (Score_tw uninformative)
+  Score_tw: retained 1 (dropped {'n_eff<30': 33, 'censored_share>0.20': 2}); L nan..nan (ratio nan); Score_tw(L) nan vs (L^2) nan -> uninformative; censored-incl nan vs nan -> uninformative; max censored mass share 0.0215
+  beta: retained 0 (dropped {'not fittable': 34, 'censored_share>0.20': 2}); median nan range None -> uninformative (read: uninformative); fit-range time share nan; shallow d<=3 time share nan; gamma (report-only) nan
+  per-seed beta medians ; between-seed SD nan; per-seed Score_tw {'2026112501': 'uninformative', '2026112502': 'uninformative', '2026112503': 'uninformative', '2026112504': 'uninformative'}
+  L <= 50.7 sensitivity: Score_tw uninformative (nan vs nan, 0 windows); beta nan -> uninformative (0 windows); reading UNREAD
+
+Counts: {'AREA-FILLING': 1, 'LINE-LIKE': 0, 'DISAGREE': 0, 'UNREAD': 3}
+Overall (frozen statement): >=2 UNREAD: pilot uninformative for ants at this horizon

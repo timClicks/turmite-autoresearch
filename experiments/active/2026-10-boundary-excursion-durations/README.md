@@ -1332,3 +1332,77 @@ else changes: rules, seeds, readouts, agreement table, flags, outcome statements
 fails: stop") was triggered. I am overriding it by this amendment only because the failure is a diagnosed smoke-design
 error on a non-cohort rule, found before any ant pilot data. If a reviewer prefers the strict reading, the Rev5 pilot
 results below should be treated as void. The amendment is committed and pushed alone, and the script change follows in its own commit.
+
+## Revision 5 results (excluded ant pilot; appended after registration `78f7f9e` and amendment A1 `b1a0713`)
+
+**Timeline (NZDT, +13:00).** Drafted 08:53–08:55. Registration `78f7f9e` committed at 08:55:20 and pushed at 08:55:24. CI runs:
+push 45475316274, 45475316304, 45475316307, 45475316383 and PR 45475363177, 45475363254, 45475363287, 45475363989, 45475364072, 45475364115 (Rust correctness on both events and Portable GPU on the PR were cancelled when the next push superseded them; the rest succeeded). Scripts
+`743beba` at 08:57:45. P0 attempt 1 ran 08:58–09:00 (P0c FAIL). Amendment A1 `b1a0713` at 09:01:59. CI for A1: push 45476479411, 45476479491, 45476479495, 45476479500;
+PR 45476492135, 45476492163, 45476492197, 45476492289, 45476492319, 45476493313. Most of these were cancelled when the next push superseded them. The CI on the final head is listed in the PR description. Script fix `60ef444`. P0 attempt 2 ran 09:02:44–09:04:56 (PASS) and was committed in `e45f7a8`.
+**First and only pilot execution: 09:05:10–09:05:30** at `e45f7a8` (`scripts/run_rev5.sh`). The pilot was not rerun.
+The binary was built at `743beba` into a fresh `CARGO_TARGET_DIR` (build exit 0, sha256 `53c52266…54b1f`, rustc 1.100.0). No Rust source
+changed between `743beba` and `e45f7a8`. Provenance (script sha256s, `git status --porcelain` including ignored files under this folder, output
+hashes) is in `results/provenance.txt`. About 1.5 CPU-minutes for the pilot (16 specs, 3–6 s each). The session total was about 15 CPU-minutes, mostly cargo test and the P0b rerun.
+
+### Gates
+
+| gate | result |
+|---|---|
+| P0a | **PASS**: `cargo test --release --locked`, 227 passed, 0 failed (`results/rev5_cargo_test.txt`) |
+| P0b | **PASS**: Rev4 calibration windows/hist/fhist/dhist, the rescored Rev4 G1, and `rev3_analysis.txt`/`rev4_analysis.txt` are all byte-identical (`results/rev5_p0.txt`) |
+| P0c as registered (grid 512) | **FAIL**: `RL@7` escapes the board, which breaks `--check`'s window-count convention (A1; `results/rev5_p0_attempt1*.txt`) |
+| P0c under A1 (grid 8192) | **PASS**: smoke `--check --dhist` exits 0, and all three mutants panic |
+| P1 | **PASS**: 16/16 specs completed under `--check`, none escaped |
+
+### Per-rule readout (frozen rules; `results/rev5_analysis.{txt,json}`)
+
+| rule | Score_tw retained | Score_tw(L) vs (L²) | verdict | β retained | β median | β call (coverage) | reading |
+|---|---|---|---|---|---|---|---|
+| RLLR | 23/36 (13 n_eff < 30) | 0.0775 vs 0.0679 | inconclusive | 1/36 (35 not fittable) | 1.74 | uninformative (0.046) | **UNREAD** (Score_tw inconclusive) |
+| RLLRL | 36/36 | 0.0911 vs 0.0419 | **D** | 24/36 | **1.932** (1.78–2.03; seed SD 0.012) | **area** (0.25) | **AREA-FILLING** |
+| RLLLRR | 0/36 (all n_eff < 30) | — | uninformative | 0/36 | — | uninformative | **UNREAD** |
+| RLLLLRLL | 1/36 (33 n_eff < 30, 2 censored > 0.20) | — | uninformative | 0/36 | — | uninformative | **UNREAD** |
+
+**Overall (frozen statement): 1 AREA-FILLING, 0 LINE-LIKE, 0 DISAGREE, 3 UNREAD. That is ≥ 2 UNREAD, so the pilot is
+uninformative for ants at this horizon.** The design must be revised before any confirmation. No confirmation was run, and none is
+justified by this result.
+
+Flags and report-only items: RLLRL is neither L-range-fragile (L ≤ 50.7 gives D, 28 windows, and area, β 1.943, 16 windows) nor
+seed-heterogeneous (all 4 seeds give D and area). Its shallow (d ≤ 3) time share is 0.023, and γ (report-only) is 0.144. RLLR's per-seed Score_tw verdicts are
+D, inconclusive, D, inconclusive. Its L ≤ 50.7 subset gives D on 7 windows, but β is still uninformative, so it stays UNREAD either way.
+No rule had a censoring-fragile verdict. The largest censored mass share in any retained window was 0.048.
+
+Against the registered (ungated) guesses: Score_tw D per rule (~65%) held for 1 of 4. β area (~60%) held for 1 of 4, and the other 3
+were not readable at all. "≥ 2 UNREAD" was my lowest-probability outcome (~10%), and it is what happened. The shallow-share guess (0.2–0.6) was wrong
+for RLLRL (0.023), the only rule where it was measured. I did not anticipate the failure mode below.
+
+### Why three rules are unread (post hoc, descriptive; `scripts/diag_rev5.py` → `results/rev5_diag.txt`)
+
+Nothing here changes a reading.
+- **Time is concentrated in a handful of giant excursions.** Per window, n_eff = (Στ)²/Στ² has a median of 34 (RLLR), 12 (RLLLRR)
+  and 10 (RLLLLRLL), against the frozen floor of 30. RLLRL's median is 115. Excursions longer than L² carry a median 91–97% of completed off-boundary time
+  in the three unread rules (72% in RLLRL). The longest completed excursion per window is a median 17–62 L² (3–17% of the window
+  length), or a median 0.66–3.9 times the window-end area A (RLLRL lowest, RLLLLRLL highest). An interior sojourn lasting about as long as the
+territory's area echoes the rotor's Rev3 cliff at τ ≈ 0.15–0.3 A, but it is longer.
+- **The middle depths are empty.** Per window, the median number of d-bins in [4, ⌊L⌋] with ≥ 20 excursions is 0 for the three
+  unread rules (13 for RLLRL). There are only ~50–80 completed excursions per window with 4 ≤ d ≤ L, while the deepest reach d ≈ 2L
+  (the territory centre). The excursion population looks bimodal: many shallow boundary returns and a few long, deep sojourns.
+  The calibrators did not look like this, so the filters that protected their readouts (n_eff ≥ 30, ≥ 4 populated bins) bind on ants.
+- This is a property of these ant trajectories *as seen by these filters* at 2^15–2^24 steps. It is not a reading of area vs line. It is
+  also not a dead end. More seeds would add windows but not raise per-window n_eff. Longer windows only help if n_eff grows with
+  window length, which is unknown.
+
+### What this does and does not show
+
+- **Shows:** both instruments reproduce their calibration exactly at current main. On one development rule (RLLRL), the
+  readouts agree on area-filling: Score_tw D and β 1.93, stable across seeds and within the calibrated L range. On the other three, the frozen
+  retention leaves too little to read.
+- **Does not show:** anything about diffusion vs sweeps; any family-level or asymptotic statement; anything about the reserved
+  rules. The RLLRL reading is an excluded development observation and not evidence.
+
+### Retain / revise / stop (Revision 5)
+
+**Stop this pilot; revise before any confirmation.** Do not loosen n_eff, bin counts or the L floor on these data. Any change
+must be registered and recalibrated on walkers, plus a synthetic law with the ants' bimodal shape ("many shallow returns + rare
+area-sized sojourns"), before ant data are read again. Candidate next questions are in `notes/open-questions-hypotheses.md` (2026-11-25).
+No pruning signature is warranted: this is an uninformative pilot, not a well-controlled negative result.

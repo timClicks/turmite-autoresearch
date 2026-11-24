@@ -1,0 +1,40 @@
+# Revision 5 excluded ant pilot
+commit e45f7a80c7b90470c3c0326cd6822fce5c9afc54
+run_script_sha256 e67f6239eab2936a2caab8701013a04668d0eac3da3979b5bf40c0deeedf1c54
+p0_script_sha256 a018ba2a14865b60034bfb28e71f7e0a998c9fae76ec3a3a791c24055b538a69
+analyse_script_sha256 467e6848fb406eadd6dba434e87039705b1a5f56e9d61b1549674b5e9b6a3fe4
+git_status_porcelain_begin (tracked + untracked, incl. ignored under the experiment folder)
+?? experiments/active/2026-10-boundary-excursion-durations/results/provenance.txt
+?? experiments/active/2026-10-boundary-excursion-durations/results/provenance.txt
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev4_synth_dhist.csv
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_p0/dhist.csv
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_p0/err
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_p0/fhist.csv
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_p0/hist.csv
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_p0/rev4_synth_dhist.csv
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_p0/run.log
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_p0/smoke.err
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_p0/windows.csv
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_selftest/rev5_analysis.json
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_selftest/rev5_analysis.txt
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_selftest/rev5_pilot_dhist.csv
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_selftest/rev5_pilot_fhist.csv
+!! experiments/active/2026-10-boundary-excursion-durations/scratch/rev5_selftest/rev5_pilot_windows.csv
+!! experiments/active/2026-10-boundary-excursion-durations/scripts/__pycache__/analyse.cpython-312.pyc
+!! experiments/active/2026-10-boundary-excursion-durations/scripts/__pycache__/analyse_rev3.cpython-312.pyc
+!! experiments/active/2026-10-boundary-excursion-durations/scripts/__pycache__/depth_score.cpython-312.pyc
+!! experiments/active/2026-10-boundary-excursion-durations/scripts/__pycache__/tw_score.cpython-312.pyc
+git_status_porcelain_end
+rustc rustc 1.100.0 (0ef1bc386 2026-11-09)
+bin_sha256 53c52266d0783ed67080662a1be699035244735127496d8ac31711c933554b1f
+specs_sha256 c610da8c8dbbb11d8d2366016c60c30168237cf2735c2af882891baddd46c7a2
+RAYON_NUM_THREADS 4
+command /workspace/target-rev5-202611250857/release/examples/boundary_excursions 24 8192 --check --hist results/rev5_pilot_hist.csv --fhist results/rev5_pilot_fhist.csv --dhist results/rev5_pilot_dhist.csv < results/rev5_pilot_specs.txt > results/rev5_pilot_windows.csv
+start 2026-11-25T09:05:10+1300
+end 2026-11-25T09:05:30+1300
+rev5_pilot_windows_sha256 4279c32cfc71ecd14b8be620bbc1727d827f4ec6aa92e6221990d4862be3f9a3
+rev5_pilot_hist_sha256 d23e54c8a6e874b34bcd7eab440377cffd7060eaf0b0ec27cd4f050033d98551
+rev5_pilot_fhist_sha256 d80657abbf792ee1c3f52539c4c3348ec25c50fa956d5aff401859a702368972
+rev5_pilot_dhist_sha256 7af0061b4c5d632d063c68eb6c162cb9286aad0a8b739e7cc6ebab1601b9657a
+analysis_command uv run --frozen python scripts/analyse_rev5.py
+analysis_sha256 9ab18cf53257921b0b64f6056e36f0ad1ea6ae3107eac17738141c7262c71baf

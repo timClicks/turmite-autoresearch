@@ -386,3 +386,26 @@ asserts equal window counts. The instrument keeps the partial escape window, and
 ### 2026-11-25 09:02 NZDT · 743beba · decision
 Amend P0c (A1, README) to use the pilot board 8192, with the same rules and mutants, before any pilot data. I am overriding my own stop rule
 transparently. The reason is that the failure is a smoke-design error, diagnosed on a non-cohort rule. A reviewer may treat the pilot as void.
+
+### 2026-11-25 09:05 NZDT · e45f7a8 · observation
+P0 attempt 2 (A1, grid 8192) passed: smoke `--check --dhist` exits 0, and all three mutants panic. The pilot ran once, 09:05:10–09:05:30, with 16/16 specs and
+no escapes. Readings: RLLR UNREAD (Score_tw inconclusive 0.0775 vs 0.0679; β 1 window), **RLLRL AREA-FILLING** (D 0.0911 vs 0.0419; β 1.932,
+seed SD 0.012, coverage 0.25, not L-range-fragile, not seed-heterogeneous), RLLLRR UNREAD (0/36 windows pass n_eff ≥ 30), RLLLLRLL
+UNREAD (1/36). Overall: **≥ 2 UNREAD, so the pilot is uninformative for ants at this horizon** (frozen statement).
+
+### 2026-11-25 09:10 NZDT · e45f7a8 · surprise
+I gave the failure mode ~10%, and I did not foresee its cause. Ant off-boundary time sits in a few huge excursions: per-window n_eff medians are 10–34 in the
+unread rules, and excursions > L² carry 91–97% of the time. The longest is a median 17–62 L², or 0.66–3.9 territory areas. There are almost no excursions at
+intermediate depth (median 0 populated d-bins in [4, L]). The excursion population is bimodal, with shallow returns plus rare centre-reaching sojourns. The walkers never looked like
+this, so the protective filters bind (post hoc, `results/rev5_diag.txt`).
+
+### 2026-11-25 09:10 NZDT · e45f7a8 · interpretation
+RLLRL, the one readable rule, has the most deep-intermediate excursions and the highest n_eff. That makes it the least ant-like of the four on this
+diagnostic, so its AREA-FILLING reading may not transfer. Speculation: if a sojourn lasts of order the territory area A ∝ t^(2/3) and
+the boundary is visited only between such sojourns, then the number-weighted mean (≈ L, by Kac/kappa) and the time-weighted law (≈ A)
+are governed by different populations. The cube-root question may sit in the rare sojourns, not in the typical return.
+
+### 2026-11-25 09:10 NZDT · e45f7a8 · decision
+Stop the pilot as registered. No rerun, no new seeds, no loosening of n_eff, bin counts or the L floor on these data, and no confirmation. The next step needs a
+registered revision with a synthetic bimodal law ("many shallow returns + rare area-sized sojourns") in G1. It should first ask whether
+per-window n_eff grows with window length on walkers that mimic it. No pruning signature: this is uninformative, not a negative result.
