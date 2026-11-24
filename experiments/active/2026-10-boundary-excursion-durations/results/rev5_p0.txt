@@ -1,0 +1,13 @@
+Rev5 P0 gates; git 60ef444adc7875c2cc14ca03d7769f6eb47f53a0; script sha256 a018ba2a14865b60034bfb28e71f7e0a998c9fae76ec3a3a791c24055b538a69
+bin sha256 53c52266d0783ed67080662a1be699035244735127496d8ac31711c933554b1f; synth sha256 cd0a876f6b7ffd91d34c2df31b7788bdc18ed6824de649c37721c2279ed91c23
+P0b rev4_calib_windows.csv byte-identical
+P0b rev4_calib_hist.csv byte-identical
+P0b rev4_calib_fhist.csv byte-identical
+P0b rev4_calib_dhist.csv byte-identical
+P0b rev4_synth.{txt,json} rescored byte-identical (G1 line: G1: PASS)
+P0b rev3_analysis.txt and rev4_analysis.txt reproduce byte-identically
+P0c ant smoke RL@7, LLRR@7 (14, 8192) --check --dhist: exit 0
+P0c mutant --mutant panicked (exit 101): assertion `left == right` failed: window k=9
+P0c mutant --fine-mutant panicked (exit 101): fine bin 1 range [2,1] vs tau 1
+P0c mutant --depth-mutant --dhist /dev/null panicked (exit 101): assertion `left == right` failed: depth incremental vs brute force at t=74
+P0b/P0c: PASS
