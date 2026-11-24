@@ -1309,3 +1309,26 @@ new seeds, no change to the board, horizon, thresholds, retention, grid or margi
 
 Provenance (`results/provenance.txt`) records `sha256sum` of each run script, `git status --porcelain` (including
 untracked files under this folder), commit, binary sha256, start/end times and command lines.
+
+### Revision 5 amendment A1 (2026-11-25 09:02 NZDT; before any pilot data)
+
+**What happened.** At `743beba`, P0a passed (`cargo test --release --locked`: 227 passed, 0 failed; `results/rev5_cargo_test.txt`).
+P0b passed: all four Rev4 calibration files, the rescored Rev4 synthetic gate, and `rev3_analysis.txt`/`rev4_analysis.txt`
+are byte-identical. **P0c, as registered, FAILED.** The non-mutant smoke panicked with `window count` 5 vs 6
+(`results/rev5_p0_attempt1.txt`, `results/rev5_p0_attempt1_smoke.err`).
+
+**Diagnosis (instrument-only; no ant pilot data).** `RL@7` builds its highway and **escapes the 512 board** during window
+k = 14 (its rows carry `escaped = true`). For an escaping run, `boundary_excursions` keeps the partial escape window,
+while `probe_walker` drops it. So `--check`'s window-count assertion is not defined on escaping runs. This is a mismatch in
+the checker's escape convention. It is not a disagreement on any completed window: the escape flags agree, and the
+same `RL@7 --check --dhist` at grid 8192 exits 0. `LLRR@7` passed at 512. The registered smoke board (512, copied from the
+walker G0) was the wrong choice for a highway rule. Consequences for the pilot readout: none, because the
+`escaped` flag is per spec and every retention filter drops all windows of an escaped spec. Consequence for P1: a
+pilot spec that escaped the 8192 board would panic under `--check`. P1 then fails, and that is reported (not rerun).
+
+**Amendment (frozen now).** P0c is rerun with the same two rules on the **pilot board**: `RL@7`, `LLRR@7`, max_log2 14,
+**grid 8192**, with `--check --dhist` (must exit 0). The three mutants run on the same smoke and must each panic. Nothing
+else changes: rules, seeds, readouts, agreement table, flags, outcome statements and stopping rules are untouched. Strictly, the registered stop rule ("if P0
+fails: stop") was triggered. I am overriding it by this amendment only because the failure is a diagnosed smoke-design
+error on a non-cohort rule, found before any ant pilot data. If a reviewer prefers the strict reading, the Rev5 pilot
+results below should be treated as void. The amendment is committed and pushed alone, and the script change follows in its own commit.

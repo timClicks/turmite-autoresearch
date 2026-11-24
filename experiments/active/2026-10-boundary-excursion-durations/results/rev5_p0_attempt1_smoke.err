@@ -1,0 +1,8 @@
+2 specs, max_log2 14, grid 512, check true
+spec LLRR@7 done in 0.0s
+
+thread '<unnamed>' (47783) panicked at examples/boundary_excursions.rs:938:5:
+assertion `left == right` failed: window count
+  left: 5
+ right: 6
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

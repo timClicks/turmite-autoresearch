@@ -1,0 +1,5 @@
+# P0a: PROPTEST_RNG_SEED=20261019 cargo test --release --locked -j 4 (CARGO_TARGET_DIR=/workspace/target-rev5-202611250857, rustc 1.100.0 (0ef1bc386 2026-11-09)), git 743beba
+P0a cargo test start 08:58:19 NZDT
+cargo test exit 0
+end 09:00:07 NZDT
+total: 227 passed, 0 failed

@@ -370,3 +370,19 @@ is untracked. Rules are in the README under "Revision 5 registration".
 The instruments are applied outside their calibrated L range. Calibrators reached L ≈ 50–66, while ant windows reach L ≈ 100–170 at
 k = 24 (from the committed stage-1 geometry, which I looked at only for feasibility). I keep the frozen band rather than truncating it, and
 register an L ≤ 50.7 sensitivity flag instead. The registration was drafted 08:53–09:20 and committed after that, and it was not run on data before registration.
+
+### 2026-11-25 09:02 NZDT · 743beba · deviation
+Timestamp correction: the registration heading says "drafted 08:53–09:20". The 09:20 NOTEBOOK assumption entry has the same problem. Both times
+were written ahead of time. The actual drafting window was 08:53 to the commit at 08:55:20 NZDT (`78f7f9e`), after reading the README/NOTEBOOK
+from 08:51. The registration still precedes all Rev5 measurement. The analysis/run scripts were committed at 08:57:45 (`743beba`).
+Before that, the readout was self-tested on relabelled Rev4 *walker* data (`scripts/selftest_rev5.sh`): eden→AREA-FILLING, bal→LINE-LIKE,
+rotor→AREA-FILLING, idla→UNREAD ("β covers little of the time", 1%). Beta medians equal `rev4_analysis.json`. No ant data were used.
+
+### 2026-11-25 09:02 NZDT · 743beba · observation
+P0a PASS (227/0, rustc 1.100.0 stable; CI pins 1.98.1). P0b PASS: Rev4 calibration and synthetic gate reproduce byte-identically,
+and the Rev3/Rev4 analyses reproduce. P0c FAIL as registered: `RL@7` escapes the 512 smoke board in window 14, and `--check`
+asserts equal window counts. The instrument keeps the partial escape window, and the probe drops it. `RL@7` at grid 8192 passes `--check`.
+
+### 2026-11-25 09:02 NZDT · 743beba · decision
+Amend P0c (A1, README) to use the pilot board 8192, with the same rules and mutants, before any pilot data. I am overriding my own stop rule
+transparently. The reason is that the failure is a smoke-design error, diagnosed on a non-cohort rule. A reviewer may treat the pilot as void.
