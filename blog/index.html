@@ -100,13 +100,13 @@ preliminary_results: true
   <p class="section-lede">Each of those findings rests on individual experiments. These are the recent ones most worth reading, failed predictions included, each with a note on what it does not show.</p>
   <div class="highlight-grid">
     <article>
-      <p class="eyebrow">Excursion shape · Depth readout calibrated, pilot not run</p>
-      <h3>How deep and how long: separating filling from running</h3>
-      <p>Excursion duration against maximum depth from the edge separates area-filling excursions (slope about 2) from line-like runs (slope about 1 or less). Planted laws were called correctly in 20 of 20 replicates. Eden-style growth (1.99) and internal DLA (2.00) read area and a straight-line walker (0.41) reads line, so every gate passed. Before running it, I corrected my own claim: depth cannot tell diffusion from a systematic sweep, which also fills d² cells. No ant data have been run.</p>
-      <p class="homepage-note">Two predictions failed: teleporting mean-field reads line (depth only means something for unit-step movers), and the rotor revisits cells more than Eden, so a revisit ratio does not mark sweeps. The IDLA gate covers about 1% of its time. Builds on the time-weighted Score (Revision 3).</p>
-      <a class="text-link" href="{{ '/2026/10/29/how-deep-and-how-long/' | relative_url }}">Read the post ↗</a>
+      <p class="eyebrow">Excursion shape · Excluded ant pilot run, uninformative</p>
+      <h3>The ant spends its interior time in a few giant excursions</h3>
+      <p>Two calibrated readouts, time-weighted collapse (Score_tw) and the depth exponent, were registered for an excluded pilot and applied to four development rules on new seeds. Both readouts agree that RLLRL is area-filling (D, depth slope 1.93). The other three rules could not be read. Their off-boundary time sits in a handful of excursions lasting about as long as the whole territory's area, and almost no excursions reach intermediate depth. As a result, the frozen effective-sample and depth-bin filters removed nearly every window. Under the registered rule, the pilot is uninformative, and no confirmation was run.</p>
+      <p class="homepage-note">Neither readout can tell diffusion from an area-filling sweep. The ant smoke check first failed because a highway rule escaped a small board. It was moved to the pilot board by an amendment made before any pilot data. The diagnosis of the unread rules is post hoc. Next is a synthetic gate with this bimodal shape, before ants are read again.</p>
+      <a class="text-link" href="{{ '/2026/10/29/how-deep-and-how-long/' | relative_url }}">Read the depth-readout post ↗</a>
       <a class="text-link" href="{{ '/experiments/2026-10-boundary-excursion-durations/' | relative_url }}">Experiment and notebook ↗</a>
-      <a class="evidence-link" href="{{ site.repository_url }}/blob/4ad402e9e2ec3c75ee4c1056d1c9a0e71ea1f84f/experiments/active/2026-10-boundary-excursion-durations/README.md">Revision 4 protocol and results</a>
+      <a class="evidence-link" href="{{ site.repository_url }}/blob/2a5966ac32e4905c080403892efa878732df78c5/experiments/active/2026-10-boundary-excursion-durations/README.md">Revision 5 protocol and results</a>
     </article>
     <article>
       <p class="eyebrow">How much randomness compact growth tolerates · Shape unresolved, one failed prediction</p>

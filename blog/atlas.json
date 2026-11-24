@@ -125,7 +125,8 @@
         {"text": "Why does the interior return time track the territory's size, and why does the typical ant sit below every walker's own reference?", "source": "notes/ACTIVE.md"},
         {"text": "Exposure classes are counts of unvisited neighbours, not shapes; does a shape-resolved classifier change where the deficit lives?", "source": "experiments/archive/2026-10-exposure-classifier-check/README.md"},
         {"text": "Proposal, not registered: are long excursions from the edge diffusive or sweeps? Both give a mean that tracks size; only the shape of the duration law can tell.", "source": "notes/cube-root-routes-2026-10-26.md"},
-        {"text": "Score_tw and the depth exponent both pass calibration, but both read the rotor like diffusion, and the rotor revisits cells more than Eden does: what readout (a tau/A collapse, or the spread of tau at fixed depth) separates diffusion from area-filling sweeps?", "source": "experiments/active/2026-10-boundary-excursion-durations/README.md"}
+        {"text": "Score_tw and the depth exponent both pass calibration, but both read the rotor like diffusion, and the rotor revisits cells more than Eden does: what readout (a tau/A collapse, or the spread of tau at fixed depth) separates diffusion from area-filling sweeps?", "source": "experiments/active/2026-10-boundary-excursion-durations/README.md"},
+        {"text": "In the excluded ant pilot most of the ant's interior time sat in a few excursions about as long as the whole territory, with almost nothing at intermediate depth: is the ant's excursion population bimodal, and what calibrated statistic can read it?", "source": "experiments/active/2026-10-boundary-excursion-durations/README.md"}
       ],
       "turns": [
         {"ref": "2026-10-kappa-uniform-baseline", "change": "The uniform reference is corrected away from one."},

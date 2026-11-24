@@ -622,3 +622,13 @@ concern the instrument for Q36.
   **Open (unnumbered):** what readout separates diffusion from area-filling sweeps and fails the rotor differently from
   Eden? Candidates: a per-window τ/A collapse, or the spread of τ at fixed d. Each needs a synthetic gate (SA vs SD)
   before any ant data.
+- **Added 2026-11-25 (Revision 5, excluded ant pilot; registration `78f7f9e`, results `2a5966a`):** Score_tw + β on RLLR, RLLRL,
+  RLLLRR and RLLLLRLL (new seeds @2026112501..04) give 1 AREA-FILLING (RLLRL: D, β 1.93) and 3 UNREAD. By the frozen statement,
+  the pilot is **uninformative for ants at this horizon**. No confirmation was run. Cause (post hoc, `results/rev5_diag.txt`): ant off-boundary time sits in a
+  few excursions longer than L² (per-window n_eff ≈ 10–35 against a floor of 30), lasting up to about the territory area, and
+  intermediate depths 4 ≤ d ≤ L are nearly empty. The walkers used for calibration never looked like this.
+  **Open (unnumbered):** (a) Is the ant's excursion population bimodal (shallow boundary returns plus rare sojourns of order A that reach the centre),
+  and does the sojourn time scale with A, with L², or with elapsed time? A τ/A or τ/t collapse would need a synthetic gate that
+  includes such a bimodal law. (b) Does per-window n_eff grow with window length, so that a longer horizon could make Score_tw readable,
+  or does it stay O(10)? (c) Speculation: if the number-weighted mean (≈ L, Kac/kappa) and the time-weighted law (≈ A) are carried
+  by different populations, does the cube-root mechanism live in the rare sojourns rather than in the typical return?

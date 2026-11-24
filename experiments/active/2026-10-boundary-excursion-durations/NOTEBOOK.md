@@ -409,3 +409,8 @@ are governed by different populations. The cube-root question may sit in the rar
 Stop the pilot as registered. No rerun, no new seeds, no loosening of n_eff, bin counts or the L floor on these data, and no confirmation. The next step needs a
 registered revision with a synthetic bimodal law ("many shallow returns + rare area-sized sojourns") in G1. It should first ask whether
 per-window n_eff grows with window length on walkers that mimic it. No pruning signature: this is uninformative, not a negative result.
+
+### 2026-11-25 09:09 NZDT · 2a5966a · deviation
+The three 09:10 entries above were written ahead of the clock again. They were actually written about 09:07–09:08 and committed in `2a5966a` at 09:08:52.
+From here on, stamps come from `date` at writing time. Updated `notes/open-questions-hypotheses.md` and `notes/ACTIVE.md` (Rev5 pointer and next step),
+the experiment guide row, the atlas (one new open question in boundary-return) and the homepage card. No new data.
