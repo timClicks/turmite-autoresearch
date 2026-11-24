@@ -358,3 +358,15 @@ hits its original check. (4) mf was not dropped (~100 s per spec, under the 20-m
 ### 2026-10-29 18:05 NZDT · 20afc60 · decision
 All gates pass. Stop as registered: **no ant data**. The proposed unregistered pilot (excluded stage-1 rules, new seeds,
 Score_tw + β, no γ claim) is in the README. Not tuned: thresholds, d range, bin counts, L floor, laws.
+
+### 2026-11-25 08:53 NZDT · a9dfa4d · intent
+Session start. Revision 5: register and run the **excluded ant pilot** proposed after Rev4. It covers the stage-1 development
+rules RLLR, RLLRL, RLLLRR and RLLLLRLL on new seeds @2026112501..04, read with Score_tw (Rev3) and β (Rev4) as
+area-filling / line-like / disagree / unread. **No diffusion claim and no confirmation.** Reserved rules and seeds are untouched. Checked
+for leftover local work first: the local branches `exp/excursion-*` have 0 commits beyond main, and nothing for this pilot
+is untracked. Rules are in the README under "Revision 5 registration".
+
+### 2026-11-25 09:20 NZDT · a9dfa4d · assumption
+The instruments are applied outside their calibrated L range. Calibrators reached L ≈ 50–66, while ant windows reach L ≈ 100–170 at
+k = 24 (from the committed stage-1 geometry, which I looked at only for feasibility). I keep the frozen band rather than truncating it, and
+register an L ≤ 50.7 sensitivity flag instead. The registration was drafted 08:53–09:20 and committed after that, and it was not run on data before registration.

@@ -1171,3 +1171,141 @@ This needs a separate registration commit before any data.
 - **Open question:** a diffusion-vs-sweep discriminator that the rotor fails differently from eden. Candidates are the
   rotor τ/A collapse (Rev3 question) or the spread of τ at fixed d (deterministic sweeps should be tighter). This would
   need its own synthetic gate.
+
+## Revision 5 registration: excluded ant pilot under Score_tw + β (no confirmation)
+
+**Drafted 2026-11-25 08:53–09:20 NZDT (+13:00) on branch `exp/excursion-pilot-scoretw-beta`, base `origin/main`
+`a9dfa4db41fd804621538207b652c955bd8db982`. Committed and pushed alone, before any Revision 5 measurement; the
+commit time is the git stamp of this section's commit. Not run on any data before registration.** Analysis and run
+scripts are written and committed *after* this commit and before the pilot runs. The reserved confirmation rules,
+`results/reserved_confirmation_specs.txt` and seeds 20261027901..908 are **untouched**. **No confirmation is run under
+this revision.**
+
+What I had seen before drafting (disclosed, not a measurement under this revision): the committed stage-1 pilot
+window geometry (`results/pilot_windows.csv`, seeds `@2026102721/22`), only to check feasibility. Window-end L for
+the four rules runs from about 11–19 at k = 16 to 62–166 at k = 24, none escaped, and n_completed is ≥ 573 per window.
+The stage-1 number-weighted pooled ant verdict (D, `results/analysis.json`) is on record from 2026-10-27. Neither
+Score_tw nor β has ever been computed on any ant trajectory.
+
+### Question
+
+Under the two calibrated instruments, are the interior (off-boundary) excursions of the chaotic development rules
+**area-filling** (time dominated by excursions with τ ∝ L² ~ A, and τ ∝ d² in depth) or **line-like / boundary-local**
+(τ ∝ L, and τ growing at most linearly in depth)? This is the "area vs line" question only. Neither instrument can
+separate diffusion from a systematic area-filling sweep (Rev3 rotor; Rev4 SA law), so **no diffusion claim** can come
+out of this pilot whatever the result.
+
+### Pruning-index preflight
+
+Index revision `a9dfa4db41fd804621538207b652c955bd8db982` (7 entries). Query:
+`rg -l -i -e excursion -e depth -e 'time-weighted' -e sweep notes/pruning-index/entries/` hits
+`NR-20261028-excursion-score-compact-d-calibrators` (number-weighted Score on Eden/IDLA; retires those calibrators
+for that Score only, explicitly not time-weighted statistics), `NR-20261027-reflecting-cup-d-calibrator` (cup as D
+calibrator; different walker, not this readout) and `NR-20261025-kappa-exposure-classes-exposed-edge` (lists
+depth-resolved observables as not excluded). None covers Score_tw or β on ant rules. Decision: **RUN** (excluded pilot).
+
+### Sample (frozen)
+
+- **Rules:** the stage-1 excluded development rules `RLLR`, `RLLRL`, `RLLLRR`, `RLLLLRLL` (not the reserved rules).
+- **Seeds:** new patched seeds `@2026112501`..`@2026112504` (radius-2 random patch, as stage 1). Each was grepped
+  across the working tree at `a9dfa4d` and is unused. 4 rules × 4 seeds = 16 specs in `results/rev5_pilot_specs.txt`.
+  These 16 (rule, seed) pairs join the stage-1 eight as **permanently excluded** from any confirmation cohort.
+- **Board / horizon / windows:** grid 8192, max_log2 24, `--check` on every spec, `RAYON_NUM_THREADS=4`, band k = 16..24.
+  These are the same as every calibration (Rev3/Rev4), so the instruments are applied as calibrated.
+- **Instrument:** `examples/boundary_excursions.rs` at main (unchanged since Rev4), with `--hist --fhist --dhist`.
+
+### Readouts (frozen; code reused unchanged)
+
+Per rule, pooling its 4 seeds as a "kind":
+1. **Score_tw verdict** (Rev3, `tw_score.py` + the `retained_tw` retention of `analyse_rev3.py`, unchanged: k ∈ 16..24, not
+   escaped, n_completed ≥ 200, censored_step_share ≤ 0.20, L ≥ 4, n_eff ≥ 30). The verdict is D (τ ∝ L²), S (τ ∝ L),
+   inconclusive, uninformative (L_max/L_min < 2), or censoring-fragile (the censored-inclusive verdict differs).
+2. **β call** (Rev4, `depth_score.py` + the retention of `analyse_rev4.py`, unchanged: as above but L ≥ 12; per-window
+   fit over d-bins in [4, ⌊L⌋] with count ≥ 20, ≥ 4 bins, span ≥ 3; rule β = median over windows). The call is area
+   (β ≥ 1.70), line (β ≤ 1.30), inconclusive, or uninformative (< 3 fittable windows).
+3. **Fit coverage:** the median over β-retained windows of the share of completed off-boundary time in excursions with
+   d ∈ [4, ⌊L⌋]. If it is < 0.05, the β call is reported as **"β covers little of the time"** and is not read.
+4. **Shallow share (report-only):** the share of completed off-boundary time in excursions with d ≤ 3, pooled over
+   β-retained windows (Σ sum_tau over d-bins with hi ≤ 3 / Σ sum_tau over all d-bins).
+5. **Revisit γ: report-only, no reading** (retired in Rev4).
+
+### Agreement table (frozen)
+
+| Score_tw | β (with coverage ≥ 0.05) | per-rule reading |
+|---|---|---|
+| D | area | **AREA-FILLING**: time is dominated by excursions scaling like the area, and they fill area in depth (diffusion and sweep not separated) |
+| S | line | **LINE-LIKE**: time is dominated by excursions scaling like L that grow at most linearly with depth (boundary-local or straight runs) |
+| D | line | **DISAGREE**: no claim |
+| S | area | **DISAGREE**: no claim |
+| inconclusive / uninformative / censoring-fragile | any | **UNREAD** (reason recorded) |
+| any | inconclusive / uninformative / "covers little of the time" | **UNREAD** (reason recorded) |
+
+**Censoring and non-reaching.** Censored (open at window end) excursions never enter either readout. The Rev3
+censoring-sensitivity rule is the only censoring handling, and it makes a rule censoring-fragile, i.e. UNREAD.
+Windows failing retention (escaped, too few excursions, too much censored mass, L below floor, not fittable) are
+dropped and counted by reason. A rule whose windows never reach the L ≥ 12 floor or whose excursions never reach
+d ≥ 4 in enough bins is uninformative on β, so UNREAD. No window is imputed, and no seed is replaced or added.
+
+**Flags (report-only; they do not change the primary reading but must be stated next to it):**
+- **L-range-fragile:** recompute both readouts on the retained windows with L ≤ 50.7 (the largest retained eden L in
+  Rev3, i.e. the top of the range where an area-scaling walker was certified). If the per-rule reading changes, flag the
+  rule. Ant L reaches well above the calibrated range at k ≥ 21, so primary readings above L ≈ 50 are extrapolations.
+- **seed-heterogeneous:** the per-seed β calls (median per seed) include both area and line, or the per-seed Score_tw
+  verdicts (each seed scored alone with the same rules) include both D and S.
+
+### Overall outcome statements (frozen before data)
+
+Over the 4 rules:
+- **4/4 AREA-FILLING:** "On the excluded development rules at windows 2^15–2^24, time-weighted interior excursions
+  scale with the area and fill it in depth." This motivates, but is not, a registered confirmation on the reserved rules.
+  It also motivates a diffusion-vs-sweep discriminator with its own synthetic gate.
+- **4/4 LINE-LIKE:** the same statement with "scale with L and grow at most linearly in depth". This would contradict the
+  stage-1 number-weighted D reading, which was itself biased (Rev3 G1).
+- **≥ 1 DISAGREE, or a mix of AREA-FILLING and LINE-LIKE:** "rule-dependent or instrument-disagreeing, no family-level
+  reading." The next step is to understand the odd rule (per-window curves, seed heterogeneity) before any confirmation.
+- **≥ 2 UNREAD:** "the pilot is uninformative for ants at this horizon." Revise the design before any confirmation.
+- Any other combination is reported as counts, with no family-level reading.
+
+### Registered predictions (not gated; honest guesses)
+
+- Score_tw: D for each rule (~65%). The main alternative is inconclusive, because ant windows have a much wider L
+  range than the calibrators and the τ/L² collapse may drift.
+- β: area for each rule (~60%). The alternative is inconclusive (1.30–1.70) if ants mix boundary-parallel runs into
+  deep excursions.
+- Overall: ≥ 3/4 AREA-FILLING (~50%); ≥ 1 DISAGREE (~25%); ≥ 2 UNREAD (~10%).
+- Shallow share: I expect 0.2–0.6 of the time at d ≤ 3, which is larger than eden's because ant blobs have ragged,
+  fractal-ish edges.
+- L-range-fragile on ≥ 1 rule: ~35%.
+
+### Gates (frozen; stop at the first failure)
+
+- **P0a instrument build/tests:** build `boundary_excursions` and `boundary_excursions_depth_synth` with `--release
+  --locked` into a fresh `CARGO_TARGET_DIR`, check the build exit status, and log the binary sha256.
+  `PROPTEST_RNG_SEED=20261019 cargo test --release --locked` must pass.
+- **P0b calibration reproduces:** rerun all 24 Rev4 calibration specs (`results/rev4_calib_specs.txt`, same flags) and
+  the Rev4 synthetic gate (generator base seed 2026102981, 20 reps, scored by `synth_rev4.py`), writing to `scratch/`.
+  The calibration windows, hist, fhist and dhist must be byte-identical to the committed `results/rev4_calib_*.csv`, and
+  the rescored synthetic `rev4_synth.{txt,json}` must be byte-identical to the committed ones (the synthetic CSV itself
+  is not committed). `analyse_rev3.py` and `analyse_rev4.py`, run on the committed results, must reproduce
+  `rev3_analysis.txt` and `rev4_analysis.txt` byte-identically.
+- **P0c ant smoke (non-cohort rules):** `RL@7` and `LLRR@7` at max_log2 14, grid 512 with `--check --dhist` exit 0.
+  `--mutant` and `--fine-mutant` (without `--dhist`) and `--depth-mutant --dhist` must each panic on that same smoke.
+- **P1 pilot run:** all 16 specs complete with `--check` and exit 0.
+- If P0 fails: stop, no pilot. If P1 fails: report it, do not rerun with other seeds.
+
+### What the pilot can and cannot conclude
+
+- **Can:** give a per-rule *development* reading (area-filling / line-like / disagree / unread) on these 4 rules at
+  finite windows, and say whether a confirmation on reserved rules is worth registering.
+- **Cannot:** say anything about diffusion vs sweeps, asymptotics (d ≤ L ≤ ~170), the reserved rules or any other
+  rule, or the cube-root mechanism. It is not evidence for a confirmation: these trajectories are excluded. The
+  stage-1 seeds are not reanalysed under Rev5.
+
+### Compute / stopping
+
+The pilot is < 20 CPU-minutes. P0b is ~8 CPU-minutes, mostly mf. The session total is < 45 CPU-minutes. If any single
+spec exceeds 10 wall-minutes, stop and record a deviation. The pilot is stopped after one run: there is no rerun on
+new seeds, no change to the board, horizon, thresholds, retention, grid or margin, and no confirmation.
+
+Provenance (`results/provenance.txt`) records `sha256sum` of each run script, `git status --porcelain` (including
+untracked files under this folder), commit, binary sha256, start/end times and command lines.
