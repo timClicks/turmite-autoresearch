@@ -35,3 +35,73 @@ RLLLLRLL
   completed excursions with 4 <= d <= L: median 79.5 [min 12, max 467]; with d > L: median 16.5 [min 5, max 55]
   max d / L (bin upper edge): median 2.02 [min 1.62, max 2.14]
   longest completed tau (fine-bin lower edge) / L^2: median 62 [min 11.1, max 191]; / window length 2^(k-1): median 0.172 [min 0.0703, max 0.5]; / area A: median 3.92 [min 0.674, max 11.8]
+
+Per-log-band density (post hoc test of 'bimodal'; added 2026-11-26 in response to review finding S3)
+
+RLLR
+  by d/L band (median over windows of the share of completed excursions | of completed time):
+        [0,0.0625): count share 0.988 | time share 0.023
+    [0.0625,0.125): count share 0.004 | time share 0.003
+      [0.125,0.25): count share 0.001 | time share 0.006
+        [0.25,0.5): count share 0.001 | time share 0.009
+           [0.5,1): count share 0.000 | time share 0.009
+             [1,2): count share 0.004 | time share 0.874
+           [2,inf): count share 0.000 | time share 0.067
+  by tau/L^2 band (median over windows of the share of completed excursions | of completed time):
+          [0,0.25): count share 0.995 | time share 0.041
+          [0.25,1): count share 0.001 | time share 0.023
+             [1,4): count share 0.003 | time share 0.371
+            [4,16): count share 0.001 | time share 0.467
+           [16,64): count share 0.000 | time share 0.080
+          [64,inf): count share 0.000 | time share 0.000
+
+RLLRL
+  by d/L band (median over windows of the share of completed excursions | of completed time):
+        [0,0.0625): count share 0.653 | time share 0.020
+    [0.0625,0.125): count share 0.152 | time share 0.022
+      [0.125,0.25): count share 0.070 | time share 0.042
+        [0.25,0.5): count share 0.038 | time share 0.078
+           [0.5,1): count share 0.017 | time share 0.137
+             [1,2): count share 0.008 | time share 0.289
+           [2,inf): count share 0.003 | time share 0.409
+  by tau/L^2 band (median over windows of the share of completed excursions | of completed time):
+          [0,0.25): count share 0.966 | time share 0.142
+          [0.25,1): count share 0.020 | time share 0.130
+             [1,4): count share 0.009 | time share 0.231
+            [4,16): count share 0.004 | time share 0.391
+           [16,64): count share 0.000 | time share 0.085
+          [64,inf): count share 0.000 | time share 0.000
+
+RLLLRR
+  by d/L band (median over windows of the share of completed excursions | of completed time):
+        [0,0.0625): count share 0.981 | time share 0.007
+    [0.0625,0.125): count share 0.005 | time share 0.001
+      [0.125,0.25): count share 0.003 | time share 0.002
+        [0.25,0.5): count share 0.003 | time share 0.007
+           [0.5,1): count share 0.002 | time share 0.024
+             [1,2): count share 0.004 | time share 0.942
+           [2,inf): count share 0.000 | time share 0.000
+  by tau/L^2 band (median over windows of the share of completed excursions | of completed time):
+          [0,0.25): count share 0.993 | time share 0.017
+          [0.25,1): count share 0.001 | time share 0.011
+             [1,4): count share 0.001 | time share 0.042
+            [4,16): count share 0.002 | time share 0.242
+           [16,64): count share 0.001 | time share 0.623
+          [64,inf): count share 0.000 | time share 0.000
+
+RLLLLRLL
+  by d/L band (median over windows of the share of completed excursions | of completed time):
+        [0,0.0625): count share 0.976 | time share 0.009
+    [0.0625,0.125): count share 0.010 | time share 0.002
+      [0.125,0.25): count share 0.006 | time share 0.006
+        [0.25,0.5): count share 0.003 | time share 0.015
+           [0.5,1): count share 0.002 | time share 0.036
+             [1,2): count share 0.003 | time share 0.912
+           [2,inf): count share 0.000 | time share 0.000
+  by tau/L^2 band (median over windows of the share of completed excursions | of completed time):
+          [0,0.25): count share 0.993 | time share 0.023
+          [0.25,1): count share 0.002 | time share 0.019
+             [1,4): count share 0.001 | time share 0.050
+            [4,16): count share 0.001 | time share 0.192
+           [16,64): count share 0.001 | time share 0.468
+          [64,inf): count share 0.000 | time share 0.042
