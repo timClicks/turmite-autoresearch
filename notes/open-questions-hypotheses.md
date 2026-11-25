@@ -624,11 +624,16 @@ concern the instrument for Q36.
   before any ant data.
 - **Added 2026-11-25 (Revision 5, excluded ant pilot; registration `78f7f9e`, results `2a5966a`):** Score_tw + β on RLLR, RLLRL,
   RLLLRR and RLLLLRLL (new seeds @2026112501..04) give 1 AREA-FILLING (RLLRL: D, β 1.93) and 3 UNREAD. By the frozen statement,
-  the pilot is **uninformative for ants at this horizon**. No confirmation was run. Cause (post hoc, `results/rev5_diag.txt`): ant off-boundary time sits in a
-  few excursions longer than L² (per-window n_eff ≈ 10–35 against a floor of 30), lasting up to about the territory area, and
-  intermediate depths 4 ≤ d ≤ L are nearly empty. The walkers used for calibration never looked like this.
-  **Open (unnumbered):** (a) Is the ant's excursion population bimodal (shallow boundary returns plus rare sojourns of order A that reach the centre),
-  and does the sojourn time scale with A, with L², or with elapsed time? A τ/A or τ/t collapse would need a synthetic gate that
-  includes such a bimodal law. (b) Does per-window n_eff grow with window length, so that a longer horizon could make Score_tw readable,
-  or does it stay O(10)? (c) Speculation: if the number-weighted mean (≈ L, Kac/kappa) and the time-weighted law (≈ A) are carried
-  by different populations, does the cube-root mechanism live in the rare sojourns rather than in the typical return?
+  the pilot is **uninformative for ants at this horizon**. No confirmation was run. What binds (post hoc, `results/rev5_diag.txt`; corrected 2026-11-26 after
+  a control on the Rev4 walker calibrators, `results/rev5_diag_calibrators.txt`): in the three unread rules the per-window n_eff is ≈ 10–35 against a floor of 30,
+  and the longest excursion is 7–17% of the whole window (rotor 3%, Eden 1.2%, IDLA 0.6%). A few sojourns hold a large share of elapsed time. Excursions of order A and nearly empty
+  mid-depth bins are **not** ant-specific: IDLA shows them too (longest τ ≈ 1.3 A, 2.5 populated bins), though IDLA's n_eff is high (545). The earlier "bimodal" wording is not supported:
+  "heavy-tailed, possibly bimodal" is as far as the data go (the per-log-band density shows at most a weak upturn at d ≥ L in the ants and a much stronger one in IDLA).
+  The n_eff ≥ 30 floor also keeps only the windows *without* the largest sojourns, so the retained RLLR (23/36) and RLLRL readings are selected toward calibrator-like windows.
+  **Open (unnumbered):** (a) Is the ant's excursion population heavy-tailed with a separate deep mode (possibly bimodal), and does the sojourn time scale with A, with L², or with elapsed time?
+  A τ/A or τ/t collapse would need a synthetic gate with a planted law of that shape. A reviewer's alternative: a variance-robust statistic (e.g. a median-of-windows collapse
+  without an n_eff floor), gated on a planted heavy-tailed law. Neither is registered. (b) Does per-window n_eff grow with window length, so that a longer horizon could make Score_tw
+  readable, or does it stay O(10)? **Registrable prediction (not registered):** if τ has a truncated power-law tail P(τ > x) ~ x^(−1/2) cut off at ≈ A ∝ L², n_eff grows roughly like L (about t^(1/3));
+  the alternative is n_eff staying O(10). (c) Speculation: if the number-weighted mean (≈ L, Kac/kappa) and the time-weighted law (≈ A) are carried
+  by different populations, does the cube-root mechanism live in the rare sojourns rather than in the typical return? (d) Are the longest excursions interior sojourns, highway transients or trapped
+  loops? (Needs a new instrument mode that records where and when the longest excursion occurs; not checked.)
