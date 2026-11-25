@@ -414,3 +414,40 @@ per-window n_eff grows with window length on walkers that mimic it. No pruning s
 The three 09:10 entries above were written ahead of the clock again. They were actually written about 09:07–09:08 and committed in `2a5966a` at 09:08:52.
 From here on, stamps come from `date` at writing time. Updated `notes/open-questions-hypotheses.md` and `notes/ACTIVE.md` (Rev5 pointer and next step),
 the experiment guide row, the atlas (one new open question in boundary-return) and the homepage card. No new data.
+
+### 2026-11-26 08:59 NZDT · a375e94 · intent
+Session start (daily run): apply the automated review of PR #42 (head `cfb8903`) on branch `exp/excursion-pilot-scoretw-beta`. Scope: post hoc controls on existing outputs, wording
+corrections, the `--check` escape fix, the notebook. Not in scope and not done: any new ant run, Rev6, a bimodal gate, confirmation. Reserved specs and seeds untouched.
+Registered Rev5 text is not edited; corrections go to the README section "Review fixes (2026-11-26)" and to these entries. Stamps come from `date` at writing time.
+
+### 2026-11-26 08:59 NZDT · a375e94 · observation
+S1 control. `diag_rev5.py --res scratch/rev5_selftest` on the relabelled Rev4 walker calibrators (`results/rev5_diag_calibrators.txt`) reproduces the reviewer's table. Median per window:
+n_eff Eden 379, IDLA 545, rotor 81, bal 7750; longest τ/A 1.02, 1.29, 0.29, 0.015; longest τ/window 0.012, 0.006, 0.030, 0.0002; populated d-bins in [4, L] 14, 2.5, 9.5, 13.
+Ants (3 unread): n_eff 34/12/10, longest τ/A 0.98/3.4/3.9, longest τ/window 0.070/0.141/0.172, bins 0. RLLRL: 115, 0.66, 0.032, 13.
+
+### 2026-11-26 08:59 NZDT · a375e94 · interpretation
+Correction of my 09:10 (2026-11-25) entries and the README "why unread" paragraph: excursions of order A and nearly empty mid-depth bins are not ant-specific (IDLA has both). What separates
+the three unread ant rules from the calibrators is the low n_eff and the largest excursion being 7–17% of the window. "The calibrators never looked like this" was wrong in part. The earlier wording
+stays in the history (`cfb8903`); the README marks it superseded and the homepage, atlas, open question, ACTIVE and notebook are rewritten.
+
+### 2026-11-26 08:59 NZDT · a375e94 · observation
+S3 post hoc density (per-log-band shares of excursions and time by d/L and τ/L², end of `results/rev5_diag.txt`). In the unread ant rules 98–99% of excursions have d < L/16 and 87–94% of time is in
+d ∈ [L, 2L). Count share per octave of d/L in [¼,½), [½,1), [1,2): RLLR 0.001/0.000/0.004, RLLLRR 0.003/0.002/0.004, RLLLLRLL 0.003/0.002/0.003, i.e. at most a weak upturn with tens of excursions per window;
+RLLRL falls monotonically; IDLA 0.062/0.036/0.447 (a far stronger dip and upturn). So "bimodal" is not established; wording is now "heavy-tailed, possibly bimodal", and not ant-specific.
+
+### 2026-11-26 08:59 NZDT · a375e94 · deviation
+S7. A1 had changed the smoke board, not the instrument. `examples/boundary_excursions.rs` `check_against_probe` now compares only completed windows: on escape the instrument may keep exactly one extra
+partial escape window; otherwise counts must be equal. New `tests/boundary_excursions_escape.rs` (RL@7 on a 512 board; failed with `window count` before the fix, passes now; plus non-escaping controls).
+`scripts/repro_rev5_review.sh` (RAYON_NUM_THREADS=4, rustc 1.100.0): the escaping smoke exits 0, and the Rev5 pilot (windows, hist, fhist, dhist), Rev3 calibration and Rev4 calibration outputs are byte-identical to the committed files
+(`results/rev5_review_repro.txt`, commit `d73616d`). The change is in `--check` only, so no output file can differ.
+
+### 2026-11-26 08:59 NZDT · a375e94 · observation
+S6/Q1. The registration header "08:53–09:20" is wrong (README Review fixes R6; see the 09:02 entry of 2026-11-25). Git cannot show whether `analyse_rev5.py` and the other scripts were drafted before
+`78f7f9e`: it records only that they were committed 2 min 25 s after, and that the walker self-test ran before `743beba`. Stated as unknown; what is established is that no ant data existed before 09:05:10 on 2026-11-25.
+M8 (≥ 2 UNREAD is tested before ≥ 1 DISAGREE; precedence recorded after the data; outcome unaffected, 0 DISAGREE), M9 (β retention has no n_eff filter) and S4 (n_eff floor selection bias; registrable prediction that n_eff grows like L
+under a P(τ>x) ~ x^-1/2 tail truncated at ~A) are recorded in the same README section and the open question.
+
+### 2026-11-26 08:59 NZDT · a375e94 · decision
+Deferred: (i) the reviewer's question whether the longest excursions are highway transients or trapped loops: needs a new instrument mode, not a cheap post hoc check on existing outputs; listed open. (ii) Rev6 / bimodal or
+variance-robust gate: not started; the user decides (ACTIVE.md notes both options, neither registered). (iii) The Rev5 blog post (M10) is a short honest post added after S1 was resolved.
+Notebook: status cell fixed, provenance cell prints the commit, corrected "why unread" and "does not show" cells, executed top to bottom under uv with `--with nbconvert --with ipykernel` (no `uv.lock` change); figure PNGs are not embedded (70 kB file).
