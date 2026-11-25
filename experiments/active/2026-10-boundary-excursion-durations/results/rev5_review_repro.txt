@@ -1,0 +1,15 @@
+Rev5 review reproduction; git cfb8903409cc03254ce016088c40f88d78adb78a; rustc 1.100.0 (0ef1bc386 2026-11-09); cargo 1.100.0 (3acc79c0c 2026-11-05); RAYON_NUM_THREADS=4
+bin sha256 00367c34dc4ccdf4341cba8b487f3da876a3e6c6d6c64c90c6fd5ac76e128bb5; started 2026-11-26T08:54:56+1300
+S7: RL@7,LLRR@7 (14, board 512) --check exits 0; RL@7 escaped rows: 6
+pilot rev5_pilot_windows.csv byte-identical
+pilot rev5_pilot_hist.csv byte-identical
+pilot rev5_pilot_fhist.csv byte-identical
+pilot rev5_pilot_dhist.csv byte-identical
+rev3_calib_windows.csv byte-identical
+rev3_calib_hist.csv byte-identical
+rev3_calib_fhist.csv byte-identical
+rev4_calib_windows.csv byte-identical
+rev4_calib_hist.csv byte-identical
+rev4_calib_fhist.csv byte-identical
+rev4_calib_dhist.csv byte-identical
+REPRO: PASS; finished 2026-11-26T08:57:23+1300

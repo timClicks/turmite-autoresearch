@@ -935,7 +935,16 @@ fn walker_out<W: Walker>(w: W, size: usize, max_log2: u32) -> Out {
 fn check_against_probe<W: Walker>(w: W, out: &Out, size: usize, max_log2: u32) {
     let pr = probe_walker(w, size, 8, max_log2);
     assert_eq!(pr.escaped, out.escaped, "escape flag");
-    assert_eq!(pr.windows.len(), out.wins.len(), "window count");
+    // Escape convention (Rev5 review S7): when a run escapes the board, the instrument keeps the partial
+    // escape window (it is flagged `escaped` and every retention filter drops it), while `probe_walker`
+    // drops it. So compare only completed windows: on escape the instrument has exactly zero or one extra
+    // trailing window, never fewer; without escape the counts must be equal.
+    let extra = out.wins.len().wrapping_sub(pr.windows.len());
+    if out.escaped {
+        assert!(extra <= 1, "window count (escaped: at most the partial escape window extra)");
+    } else {
+        assert_eq!(extra, 0, "window count");
+    }
     for (a, b) in pr.windows.iter().zip(&out.wins) {
         assert_eq!(a.t_end.trailing_zeros(), b.k, "k label");
         assert_eq!(
@@ -1030,6 +1039,14 @@ fn format_block(spec: &str, out: &Out) -> (String, String, String) {
         }
     }
     (win, hist, fhist)
+}
+
+/// Run one spec under `--check` (instrument invariants + comparison with `probe_walker`) and return whether it
+/// escaped the board. Used by `tests/boundary_excursions_escape.rs`.
+#[allow(dead_code)]
+pub fn check_spec(s: &str, size: usize, max_log2: u32) -> bool {
+    CHECK.store(true, Ordering::Relaxed);
+    run_spec(s, size, max_log2, true).escaped
 }
 
 fn run_spec(s: &str, size: usize, max_log2: u32, check: bool) -> Out {
