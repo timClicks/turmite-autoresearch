@@ -629,6 +629,10 @@ concern the instrument for Q36.
   and the longest excursion is 7–17% of the whole window (rotor 3%, Eden 1.2%, IDLA 0.6%). A few sojourns hold a large share of elapsed time. Excursions of order A and nearly empty
   mid-depth bins are **not** ant-specific: IDLA shows them too (longest τ ≈ 1.3 A, 2.5 populated bins), though IDLA's n_eff is high (545). The earlier "bimodal" wording is not supported:
   "heavy-tailed, possibly bimodal" is as far as the data go (the per-log-band density shows at most a weak upturn at d ≥ L in the ants and a much stronger one in IDLA).
+  **Corrected 2026-11-27 (second review round, post hoc; experiment README R10, `results/rev5_diag_calibrators_idlar.txt`):** IDLA's deep population, 97% τ > L² time share and strong
+  upturn at d ≥ L are artefacts of its restarts from the origin. With restart-launched excursions dropped (`idlar`) the d/L count share falls monotonically, the τ > L² share is 0.70,
+  the longest τ ≈ 0.80 A and n_eff is 50 (4/36 windows below 30). So the ants' weak upturn is matched by no restart-free walker (open in both directions); "τ ~ A" is still not
+  ant-specific (Eden 1.02 A); idlar still has 2.5 populated mid-depth bins; n_eff separates less cleanly (walkers 50–7750); longest τ / window is the clean separator (ants 7–17%, walkers ≤ 3%).
   The n_eff ≥ 30 floor also keeps only the windows *without* the largest sojourns, so the retained RLLR (23/36) and RLLRL readings are selected toward calibrator-like windows.
   **Open (unnumbered):** (a) Is the ant's excursion population heavy-tailed with a separate deep mode (possibly bimodal), and does the sojourn time scale with A, with L², or with elapsed time?
   A τ/A or τ/t collapse would need a synthetic gate with a planted law of that shape. A reviewer's alternative: a variance-robust statistic (e.g. a median-of-windows collapse

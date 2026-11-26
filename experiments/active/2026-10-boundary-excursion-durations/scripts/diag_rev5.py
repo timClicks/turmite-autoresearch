@@ -14,9 +14,14 @@ Review fixes (2026-11-26, still POST HOC, no new ant runs):
     The Rev4 calibration walkers are relabelled as fake ant specs by `scripts/selftest_rev5.sh` (eden->RLLR, bal->RLLRL,
     rotor->RLLLRR, idla->RLLLLRLL) into scratch/rev5_selftest/; the committed output is results/rev5_diag_calibrators.txt.
   * A per-log-band density section (counts and time by d/L and by tau/L^2) tests the "bimodal" wording.
+    Approximation: each instrument bin (d-bin or fine tau bin) is assigned wholly to the band holding its geometric
+    midpoint, so bins that straddle a band edge leak into the neighbouring band. The band shares are descriptive,
+    not exact octave shares (review 2026-11-27, Minor 7).
+  * Review 2026-11-27 (S1 follow-up): `scripts/calib_idlar_rev5.sh` repeats the calibrator run with `idlar` (IDLA with
+    restart-launched excursions dropped) in the RLLLLRLL slot -> results/rev5_diag_calibrators_idlar.txt.
 Recipe: bash scripts/selftest_rev5.sh; uv run --frozen python scripts/diag_rev5.py;
         uv run --frozen python scripts/diag_rev5.py --res scratch/rev5_selftest --out results/rev5_diag_calibrators.txt \
-            --note "CALIBRATORS relabelled: RLLR=eden RLLRL=bal RLLLRR=rotor RLLLLRLL=idla"
+            --note "CALIBRATORS relabelled: RLLR=eden RLLRL=bal RLLLRR=rotor RLLLLRLL=idla (Rev4 walker calibration data, no ants)"
 """
 from __future__ import annotations
 
@@ -58,7 +63,8 @@ def label(edges):
 
 
 def band_profile(W, fh, dh, rule):
-    """Median over band windows of the per-window share of completed excursions (count) and of completed
+    """Bins are assigned wholly to the band of their geometric midpoint (approximate at band edges).
+    Median over band windows of the per-window share of completed excursions (count) and of completed
     off-boundary time (sum tau) in log-spaced bands of d/L and of tau/L^2. A dip between a shallow and a deep
     mode would show as a middle band lower than both neighbours; a monotone fall is heavy-tailed, not bimodal."""
     dc, dt, tc, tt = [], [], [], []

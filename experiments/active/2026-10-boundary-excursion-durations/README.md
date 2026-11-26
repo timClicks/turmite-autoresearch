@@ -1476,3 +1476,50 @@ all outputs byte for byte, and `results/rev5_review_repro.txt` records the toolc
 **R9. Open (not done).** Reviewer's question whether the longest excursions are highway transients or trapped loops: not checked. It needs a new instrument mode that records the position and time of the
 longest excursion per window, so it is not a cheap post hoc check on existing outputs. Listed as open. The reviewer's alternative for the next revision, a variance-robust statistic (a median-of-windows collapse
 without an n_eff floor, gated on a planted heavy-tailed law), is recorded as an option beside the bimodal synthetic gate; neither is registered, and no Rev6 or new gate has been started.
+
+### Review fixes, second round (2026-11-27; post hoc and clarifications; nothing here changes a registered reading or the outcome)
+
+Applied after the incremental automated review of PR #42 at `d66c060`. The registered Rev5 text and the 2026-11-26 section above are not edited; the corrections below
+supersede the parts they name. No new ant run, no new observable, no new revision, no confirmation; reserved specs and seeds untouched.
+
+**R10. IDLA's restarts confound the R1/R2 comparison (review S1, second round).** `idla` launches every particle from the origin, about L deep, so its deep population,
+its 97% time share in τ > L² and its [L, 2L) upturn are built in. `scripts/calib_idlar_rev5.sh` relabels the committed Rev4 data with `idlar` (restart-launched
+excursions dropped) in the RLLLLRLL slot and runs the same diagnostic → `results/rev5_diag_calibrators_idlar.txt` (post hoc; eden/bal/rotor sections duplicate R1). Medians per window, k = 16..24:
+
+| | n_eff | windows n_eff ≥ 30 | time share with τ > L² | populated d-bins in [4, L] | longest τ / A | longest τ / window |
+|---|---|---|---|---|---|---|
+| idlar | 50.4 | 32/36 | 0.70 | 2.5 | 0.80 | 0.0044 |
+
+d/L count shares for idlar, bands [1/16,1/8) … [1,2): 0.379, 0.174, 0.110, 0.063, 0.039, a monotone fall with no upturn; its time share in [L, 2L) is 0.634 (idla 0.959).
+Restated reading, replacing the IDLA parts of R1 and R2:
+- **Withdrawn:** "IDLA shows a far stronger dip and upturn … so a two-population shape is not specific to ants either" (R2). That shape in IDLA is a restart artefact.
+  Among restart-free walkers, Eden, the rotor and idlar fall monotonically in d/L and `bal` rises monotonically; none has a dip followed by an upturn.
+  So the ants' weak upturn in [L, 2L) (count share 0.003–0.004 against 0.000–0.003 in the two bands below, tens of excursions per window) is **not matched by any
+  restart-free walker**, and whether it is real is open in both directions (no per-seed breakdown or bootstrap has been done; see R16). Wording stays "heavy-tailed, possibly bimodal".
+- **Still stands:** "excursions about as long as the territory" is not ant-specific: Eden, which has no restarts, has a median longest τ of 1.02 A, and idlar 0.80 A.
+- **Still stands, with a caveat:** sparse mid-depth bins are not ant-specific. idlar also has a median of 2.5 populated d-bins (min 0, max 12), and dropping restarts does not change IDLA's
+  count of excursions with 4 ≤ d ≤ L (median 160 in both), so this is not only a restart artefact; but it rests on one walker kind.
+- **The clean separator is longest τ / window:** unread ants 0.070–0.172; every walker ≤ 0.030 (rotor), idlar 0.0044.
+- **n_eff separates less cleanly than R1 said:** idlar's median is 50.4 with 4/36 windows below the floor, against RLLR's 34 (23/36 retained). The walker range is 50–7750, not 81–7750.
+  This weakens the case that n_eff alone is the bottleneck. Longest τ / window is a candidate statistic for a future registration; it is not registered.
+
+**R11. NOTEBOOK stamps (review Minor 2).** The 2026-11-26 "Session start" intent entry is stamped 08:59, but the repro run it scopes started at 08:54:56 and `d73616d` was committed at 08:58:36,
+so the entry was written after the work. A correction is appended to `NOTEBOOK.md`; this session's intent entry was written before the work began.
+
+**R12. `scripts/repro_rev5_review.sh` no longer dirties the tree (review Minor 3).** The log now goes to `scratch/rev5_review/rev5_review_repro.txt` unless `OUT=` is set, and the header records the number
+of modified tracked paths and a sha256 of `git diff HEAD`. The script states that the committed `results/rev5_review_repro.txt` came from a dirty tree at `cfb8903` (R7). The committed log is unchanged.
+Rerun 2026-11-27 with the edited script (rustc 1.100.0, RAYON_NUM_THREADS=2, incremental `--release --locked` build of the example, binary sha256 `00367c34…`): see the NOTEBOOK entry for the result.
+
+**R13. Pinned links (review Minor 4).** The homepage "Revision 5 protocol and results" link pinned `2a5966a` (before the corrections) and the blog post's `commit` field named `a375e94`. Following the repo's convention
+(the full revision containing the evidence, pinned), both now point to the commit that adds this section and `rev5_diag_calibrators_idlar.txt`; the homepage link targets the review-fix section.
+
+**R14. "At current main" (review Minor 5).** The "What this does and does not show" bullet above and the notebook cell say the instruments reproduce their calibration "at current main". They were run on the
+PR branch `exp/excursion-pilot-scoretw-beta` (pilot at `743beba`; review reruns on the working trees of `d73616d` and of this round), not on main. The notebook cell is corrected; the README bullet is left as written.
+
+**R15. Wording (review Minor 6, Minor 7).** R2's "98–99% of excursions have d < L/16" should read **97.6–98.8%** (RLLR 0.988, RLLLRR 0.981, RLLLLRLL 0.976). The blog post's "RLLR's depth bins are nearly empty"
+is changed to all three unread rules (median 0 populated d-bins; β unfittable for all three). `diag_rev5.py` now says in its docstring that each instrument bin is assigned wholly to the band of its
+geometric midpoint, so band shares are approximate at band edges (no output changes; `rev5_diag.txt` and `rev5_diag_calibrators.txt` reproduce byte for byte).
+
+**R16. Open (not done).** (a) Reviewer's question whether the ants' [L, 2L) upturn is distinguishable from a monotone fall: a per-seed breakdown or a bootstrap over windows of the existing
+`rev5_pilot_dhist.csv` would answer it post hoc without new measurements; not done in this bounded round. (b) Whether n_eff or longest τ / window should be registered next: for the user's decision with the
+choice of next revision; nothing registered. (c) R9's highway-transient vs trapped-loop question remains open (needs a new instrument mode).

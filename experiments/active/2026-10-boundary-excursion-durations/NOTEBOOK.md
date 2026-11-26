@@ -451,3 +451,33 @@ under a P(τ>x) ~ x^-1/2 tail truncated at ~A) are recorded in the same README s
 Deferred: (i) the reviewer's question whether the longest excursions are highway transients or trapped loops: needs a new instrument mode, not a cheap post hoc check on existing outputs; listed open. (ii) Rev6 / bimodal or
 variance-robust gate: not started; the user decides (ACTIVE.md notes both options, neither registered). (iii) The Rev5 blog post (M10) is a short honest post added after S1 was resolved.
 Notebook: status cell fixed, provenance cell prints the commit, corrected "why unread" and "does not show" cells, executed top to bottom under uv with `--with nbconvert --with ipykernel` (no `uv.lock` change); figure PNGs are not embedded (70 kB file).
+
+### 2026-11-27 08:56 NZDT · d66c060 · intent
+Session start (daily run, written before the first command of the work): apply the incremental automated review of PR #42 (head `d66c060`, posted 2026-11-27 06:56 NZDT). Scope: add `idlar`
+(restart-free IDLA) to the post hoc calibrator control and restate R1/R2 (S1); correct the 2026-11-26 session-start stamp (M2); make `repro_rev5_review.sh` write to scratch by default (M3);
+re-pin the homepage evidence and Revision 5 links and the blog post commit field (M4); notebook "at current main" wording (M5); wording nits (M6); band-assignment docstring (M7).
+Not in scope: new ant runs, new observables, Rev6, confirmation; reserved specs and seeds untouched. Registered text not edited.
+
+### 2026-11-27 09:11 NZDT · d66c060 · deviation
+Correction (review Minor 2): the 2026-11-26 "08:59 · intent" session-start entry was written after the work it scopes (repro started 08:54:56; `d73616d` committed 08:58:36). Left in place (append-only).
+Today's 08:56 intent entry was written before any edit or run of this round (only the review and files had been read).
+
+### 2026-11-27 09:11 NZDT · d66c060 · observation
+S1 follow-up (post hoc, no ant data): `scripts/calib_idlar_rev5.sh` → `results/rev5_diag_calibrators_idlar.txt` (idlar in the RLLLLRLL slot; reruns byte-identical). idlar medians per window: n_eff 50.4 (32/36 ≥ 30),
+τ > L² time share 0.699, populated d-bins 2.5, longest τ/A 0.799, longest τ/window 0.00439; d/L count shares 0.379, 0.174, 0.110, 0.063, 0.039 (monotone), [L, 2L) time share 0.634. Matches the reviewer's figures.
+4 ≤ d ≤ L counts are unchanged by dropping restarts (median 160). Eden, rotor and idlar fall monotonically in d/L; bal rises monotonically.
+
+### 2026-11-27 09:11 NZDT · d66c060 · interpretation
+Second correction: IDLA's strong deep upturn, deep population and 97% τ > L² share were restart artefacts, so my 2026-11-26 "two-population shape is not specific to ants" is withdrawn. No restart-free walker shows the
+ants' weak [L, 2L) upturn; whether it is real is open (per-seed/bootstrap check not done). Still standing: τ ~ A is not ant-specific (Eden 1.02 A); idlar keeps sparse mid-depth bins. Longest τ / window is the clean separator
+(ants 0.070–0.172; walkers ≤ 0.030); n_eff is weaker (idlar 50 vs RLLR 34). README R10–R16 and notes/ACTIVE/open question/homepage/blog post updated; notebook markdown cells 33 and 36 edited (no code change, not re-executed;
+provenance cell still prints the 2026-11-26 execution commit).
+
+### 2026-11-27 09:11 NZDT · d66c060 · observation
+`repro_rev5_review.sh` (now logs to scratch by default; header records dirty-path count and `git diff HEAD` sha256) rerun with rustc 1.100.0, RAYON_NUM_THREADS=2, incremental `--release --locked` build
+(binary sha256 `00367c34dc4ccdf4…`) on the dirty working tree of this round (4 modified tracked paths at start): escaping smoke exits 0 (6 escaped RL@7 rows); Rev5 pilot windows/hist/fhist/dhist, Rev3 calib windows/hist/fhist
+and Rev4 calib windows/hist/fhist/dhist all byte-identical. REPRO: PASS, 08:57:38–09:06:27. `selftest_rev5.sh`: PASS. `diag_rev5.py` (both modes) and `analyse_rev5.py` leave the tree clean; `sha256sum -c` on the Rev5 lines: OK.
+
+### 2026-11-27 09:11 NZDT · d66c060 · decision
+Deferred: the per-seed/bootstrap test of the upturn (cheap, post hoc on existing `rev5_pilot_dhist.csv`, but outside this bounded round); which statistic (n_eff or longest τ / window) to register next is left to the
+user with the choice of next revision. No Rev6, no new observable registered, no confirmation, reserved specs and seeds untouched. Homepage link and blog commit field are re-pinned to the evidence commit of this round in a follow-up commit.
