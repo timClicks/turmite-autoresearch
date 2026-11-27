@@ -481,3 +481,8 @@ and Rev4 calib windows/hist/fhist/dhist all byte-identical. REPRO: PASS, 08:57:3
 ### 2026-11-27 09:11 NZDT · d66c060 · decision
 Deferred: the per-seed/bootstrap test of the upturn (cheap, post hoc on existing `rev5_pilot_dhist.csv`, but outside this bounded round); which statistic (n_eff or longest τ / window) to register next is left to the
 user with the choice of next revision. No Rev6, no new observable registered, no confirmation, reserved specs and seeds untouched. Homepage link and blog commit field are re-pinned to the evidence commit of this round in a follow-up commit.
+
+### 2026-11-28 10:00 NZDT · 18937bf · intent
+Session start (written before any edit of this round; only the review and committed files had been read, plus a read-only check of L in `rev4_calib_windows.csv` and `rev5_pilot_windows.csv`): apply the third automated review of PR #42 (head `18937bf`, posted 2026-11-28 06:55 NZDT; no blocking issues).
+Scope: homepage card wording about Eden (should-fix 1); a caveat on the structurally empty shallowest d/L band when L ≤ 16 (minor 2); a note that longest τ / window, if registered, needs a window-length scaling prediction (minor 3); record the reviewer's question on bootstrap vs per-seed sign test under R16a.
+Not in scope: new runs, the R16a check itself, new observables, Rev6, confirmation; reserved specs and seeds untouched. Registered text not edited; README and NOTEBOOK changes append-only.
