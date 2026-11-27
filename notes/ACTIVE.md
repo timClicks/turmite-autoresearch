@@ -1,6 +1,6 @@
 # Active work and open items
 
-Living index, last updated 2026-11-20 (reviewed PRs integrated; phase priorities unchanged); before that 2026-11-13 (weekly wrap-up); before that 2026-11-12 (leak-handedness cohort); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-30 (leak titration write-up done, no new data); before that 2026-10-29 (excursion Revision 4 depth readout calibrated; ant pilot not run); earlier 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-11-27 (weekly wrap-up; Rev5 pilot uninformative on PR #42; phase priorities unchanged); before that 2026-11-20 (reviewed PRs integrated; phase priorities unchanged); before that 2026-11-13 (weekly wrap-up); before that 2026-11-12 (leak-handedness cohort); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-30 (leak titration write-up done, no new data); before that 2026-10-29 (excursion Revision 4 depth readout calibrated; ant pilot not run); earlier 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
@@ -8,21 +8,33 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Current focus
 
-Weekly notes: [6 November](summary-2026-11-06.md), [13 November](summary-2026-11-13.md).
-These are dated snapshots. Phase priorities below are unchanged.
+Weekly notes: [6 November](summary-2026-11-06.md), [13 November](summary-2026-11-13.md),
+[27 November](summary-2026-11-27.md). These are dated snapshots. Phase priorities below are unchanged
+(Rev5 failed to read the ants rather than rejecting an explanation; see the 27 November note).
 
-- **Review queue:** #37 and #38 are on main. #39 remains open for review of the
-  scope of its pruning predicate and the reliability analysis. Q33 is still
-  unrun: #33 and #41 are on the proposal branch, and #31 still has design
-  items 3 and 6 open.
-- **Next proposed experiment:** Priority 1. Rev4 calibration (#30) is on main.
-  The excluded ant pilot still needs a separate registration for Score_tw + β
-  (area vs line, no diffusion claim). No pilot or confirmation has run.
+- **Priority 1 gate status (2026-11-27):** sequence step 3 (calibrate and run an excluded pilot) **not passed**.
+  Rev4 calibration passed (on main). The Rev5 excluded ant pilot under Score_tw + β (registration `78f7f9e`,
+  amendment A1 `b1a0713`, results `2a5966a`) ran once on PR #42 (awaiting review, not on main) and is
+  **uninformative** under its frozen statement: 1 AREA-FILLING (RLLRL), 3 UNREAD, because the n_eff and
+  depth-bin filters bind. A1 overrode the registered P0 stop rule after a smoke-design error; the owner decides
+  whether the pilot stands. Step 4 (confirmation) **not run**; reserved seeds untouched.
+- **Next concrete step:** owner review of #42 and a choice of next revision. Then, before any new registration, run the post hoc
+  per-seed / bootstrap-over-windows check of the [L, 2L) upturn on the committed `rev5_pilot_dhist.csv` (#42 README R16a;
+  labelled post hoc, no new measurement). After that, register one of: (a) a heavy-tailed (possibly bimodal) synthetic gate plus
+  an n_eff-vs-window-length check, or (b) a variance-robust statistic (median-of-windows collapse, no n_eff floor) gated on a
+  planted heavy-tailed law. Of the six post hoc diagnostics computed, only longest τ / window separates ants (0.07–0.17) from every
+  calibrator walker (≤ 0.03); it is unregistered and was chosen after seeing the data, and n_eff separates less cleanly. Nothing registered; no Rev6 started.
+- **Review queue:** #42 (Rev5; round-2 review fixes pushed 2026-11-27; re-reviewed 2026-11-28 at `18937bf` with no blocking issues, and the round-3 wording fixes are pushed). #39 (Q42 minority turn) conflicts
+  with its merged base (#38) and its 2026-11-14 review items are unaddressed. Q33 is still unrun: A8/A9 (#41) fixed the orphaned
+  provenance and the `git_dirty` test, but #31 conflicts with main (merge main in; do not rebase), has one order-of-record
+  overclaim to correct, and design items 3 and 6 wait on the owner. Land #31 with a merge commit.
 - **Process fix (new registrations):** distinguish drafting, commit and first
   execution times. For example, say “drafted before, committed after; not run
   on data before registration” when that is what happened. Record
   `sha256sum "$0"` and `git status --porcelain` (including untracked files
-  under the experiment folder) in `provenance.txt`.
+  under the experiment folder) in `provenance.txt`. Hand-written NOTEBOOK times
+  disagreed with the record again this week: have scripts write `date` and
+  `git rev-parse HEAD` into committed logs, and write the session-start entry before the first command.
 
 ## Pointer (2026-10-29): excursion-duration collapse stage 1 + Revisions 1–4
 `experiments/active/2026-10-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`; Revision 3 registration `3d87d8b`, instrument `a8a93b1`; Revision 4 registration `e066256`, each before its measurement).
