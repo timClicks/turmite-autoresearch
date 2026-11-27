@@ -22,9 +22,9 @@ Weekly notes: [6 November](summary-2026-11-06.md), [13 November](summary-2026-11
   per-seed / bootstrap-over-windows check of the [L, 2L) upturn on the committed `rev5_pilot_dhist.csv` (#42 README R16a;
   labelled post hoc, no new measurement). After that, register one of: (a) a heavy-tailed (possibly bimodal) synthetic gate plus
   an n_eff-vs-window-length check, or (b) a variance-robust statistic (median-of-windows collapse, no n_eff floor) gated on a
-  planted heavy-tailed law. Longest τ / window is the only statistic that cleanly separates ants (0.07–0.17) from every calibrator
-  walker (≤ 0.03); n_eff separates less cleanly. Nothing registered; no Rev6 started.
-- **Review queue:** #42 (Rev5; round-2 review fixes pushed 2026-11-27, not yet re-reviewed). #39 (Q42 minority turn) conflicts
+  planted heavy-tailed law. Of the six post hoc diagnostics computed, only longest τ / window separates ants (0.07–0.17) from every
+  calibrator walker (≤ 0.03); it is unregistered and was chosen after seeing the data, and n_eff separates less cleanly. Nothing registered; no Rev6 started.
+- **Review queue:** #42 (Rev5; round-2 review fixes pushed 2026-11-27; re-reviewed 2026-11-28 at `18937bf` with no blocking issues, and the round-3 wording fixes are pushed). #39 (Q42 minority turn) conflicts
   with its merged base (#38) and its 2026-11-14 review items are unaddressed. Q33 is still unrun: A8/A9 (#41) fixed the orphaned
   provenance and the `git_dirty` test, but #31 conflicts with main (merge main in; do not rebase), has one order-of-record
   overclaim to correct, and design items 3 and 6 wait on the owner. Land #31 with a merge commit.
