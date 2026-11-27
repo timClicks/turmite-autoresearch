@@ -1523,3 +1523,20 @@ geometric midpoint, so band shares are approximate at band edges (no output chan
 **R16. Open (not done).** (a) Reviewer's question whether the ants' [L, 2L) upturn is distinguishable from a monotone fall: a per-seed breakdown or a bootstrap over windows of the existing
 `rev5_pilot_dhist.csv` would answer it post hoc without new measurements; not done in this bounded round. (b) Whether n_eff or longest τ / window should be registered next: for the user's decision with the
 choice of next revision; nothing registered. (c) R9's highway-transient vs trapped-loop question remains open (needs a new instrument mode).
+
+### Review fixes, third round (2026-11-28; clarifications only; nothing here changes a registered reading or the outcome)
+
+**R17. Homepage wording (review should-fix 1).** The homepage card credited Eden with sparse mid-depth bins. Eden has a median of 14 populated d-bins in [4, L] (range 3–24; `rev5_diag_calibrators_idlar.txt`, RLLR slot);
+only restart-free IDLA has sparse bins (2.5). The card now says Eden shows excursions of area size and restart-free IDLA also has sparse mid-depth bins, matching R10.
+
+**R18. The shallowest d/L band is structurally empty when L ≤ 16 (review minor 2).** Depth bins are assigned by geometric midpoint (R15), and the d = 1 bin has lo = hi = 1, so it falls in [0, 1/16) only when L > 16.
+For windows with L ≤ 16 the first band is empty by construction and d = 1 lands in [1/16, 1/8). In the k = 16..24 band, windows with L < 16 are: eden 16/36, idla and idlar 23/36, bal 16/36, rotor 11/36, mf 9/36;
+RLLR, RLLLRR and RLLLLRLL 4/36 each, RLLRL 8/36 (`rev4_calib_windows.csv`, `rev5_pilot_windows.csv`). So idlar's 0.000 in [0, 1/16) is not a walker feature, and comparisons of the shallow bands mix different
+integer depths across walkers and windows. "Monotone fall" comparisons in R2 and R10 are fair from [1/16, 1/8) onwards. R10's reading is unchanged.
+
+**R19. Longest τ / window is post hoc (review minor 3).** It is the only one of the six diagnostics in `diag_rev5.py` that separates the unread ants from every walker, on 3 excluded rules × 4 seeds against one realisation
+set per walker, chosen after seeing the data. If a future revision registers it, the registration should predict how it scales with window length (under a truncated P(τ > x) ~ x^-1/2 tail cut near A, the expected
+largest share falls as the window grows), so that it is tested rather than re-observed. Nothing is registered.
+
+**R16a, addendum.** The reviewer asks whether a bootstrap over (seed, window) pairs is enough, given that windows within a seed share one growing cluster and are not independent. A per-seed sign test of
+"[L, 2L) count share > [½L, L) count share" (4 seeds per rule) is the more honest small-n check, though with 4 seeds it can only be weakly informative. Still not done.

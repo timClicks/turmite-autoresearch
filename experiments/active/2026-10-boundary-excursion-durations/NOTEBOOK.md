@@ -486,3 +486,8 @@ user with the choice of next revision. No Rev6, no new observable registered, no
 Session start (written before any edit of this round; only the review and committed files had been read, plus a read-only check of L in `rev4_calib_windows.csv` and `rev5_pilot_windows.csv`): apply the third automated review of PR #42 (head `18937bf`, posted 2026-11-28 06:55 NZDT; no blocking issues).
 Scope: homepage card wording about Eden (should-fix 1); a caveat on the structurally empty shallowest d/L band when L ≤ 16 (minor 2); a note that longest τ / window, if registered, needs a window-length scaling prediction (minor 3); record the reviewer's question on bootstrap vs per-seed sign test under R16a.
 Not in scope: new runs, the R16a check itself, new observables, Rev6, confirmation; reserved specs and seeds untouched. Registered text not edited; README and NOTEBOOK changes append-only.
+
+### 2026-11-28 10:01 NZDT · 8de04c8 · observation
+Third-round review fixes (no runs, no data changes): homepage card Eden wording corrected (R17); L ≤ 16 band caveat added with window counts computed read-only from the committed windows CSVs (R18; idlar 23/36, eden 16/36,
+ants 4–8/36 with L < 16); longest τ / window marked post hoc with a note that a registration needs a window-length scaling prediction (R19); reviewer's bootstrap-vs-sign-test question added to R16a. No registered text,
+results file, script or notebook cell changed.
