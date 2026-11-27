@@ -1171,3 +1171,372 @@ This needs a separate registration commit before any data.
 - **Open question:** a diffusion-vs-sweep discriminator that the rotor fails differently from eden. Candidates are the
   rotor τ/A collapse (Rev3 question) or the spread of τ at fixed d (deterministic sweeps should be tighter). This would
   need its own synthetic gate.
+
+## Revision 5 registration: excluded ant pilot under Score_tw + β (no confirmation)
+
+**Drafted 2026-11-25 08:53–09:20 NZDT (+13:00) on branch `exp/excursion-pilot-scoretw-beta`, base `origin/main`
+`a9dfa4db41fd804621538207b652c955bd8db982`. Committed and pushed alone, before any Revision 5 measurement; the
+commit time is the git stamp of this section's commit. Not run on any data before registration.** Analysis and run
+scripts are written and committed *after* this commit and before the pilot runs. The reserved confirmation rules,
+`results/reserved_confirmation_specs.txt` and seeds 20261027901..908 are **untouched**. **No confirmation is run under
+this revision.**
+
+What I had seen before drafting (disclosed, not a measurement under this revision): the committed stage-1 pilot
+window geometry (`results/pilot_windows.csv`, seeds `@2026102721/22`), only to check feasibility. Window-end L for
+the four rules runs from about 11–19 at k = 16 to 62–166 at k = 24, none escaped, and n_completed is ≥ 573 per window.
+The stage-1 number-weighted pooled ant verdict (D, `results/analysis.json`) is on record from 2026-10-27. Neither
+Score_tw nor β has ever been computed on any ant trajectory.
+
+### Question
+
+Under the two calibrated instruments, are the interior (off-boundary) excursions of the chaotic development rules
+**area-filling** (time dominated by excursions with τ ∝ L² ~ A, and τ ∝ d² in depth) or **line-like / boundary-local**
+(τ ∝ L, and τ growing at most linearly in depth)? This is the "area vs line" question only. Neither instrument can
+separate diffusion from a systematic area-filling sweep (Rev3 rotor; Rev4 SA law), so **no diffusion claim** can come
+out of this pilot whatever the result.
+
+### Pruning-index preflight
+
+Index revision `a9dfa4db41fd804621538207b652c955bd8db982` (7 entries). Query:
+`rg -l -i -e excursion -e depth -e 'time-weighted' -e sweep notes/pruning-index/entries/` hits
+`NR-20261028-excursion-score-compact-d-calibrators` (number-weighted Score on Eden/IDLA; retires those calibrators
+for that Score only, explicitly not time-weighted statistics), `NR-20261027-reflecting-cup-d-calibrator` (cup as D
+calibrator; different walker, not this readout) and `NR-20261025-kappa-exposure-classes-exposed-edge` (lists
+depth-resolved observables as not excluded). None covers Score_tw or β on ant rules. Decision: **RUN** (excluded pilot).
+
+### Sample (frozen)
+
+- **Rules:** the stage-1 excluded development rules `RLLR`, `RLLRL`, `RLLLRR`, `RLLLLRLL` (not the reserved rules).
+- **Seeds:** new patched seeds `@2026112501`..`@2026112504` (radius-2 random patch, as stage 1). Each was grepped
+  across the working tree at `a9dfa4d` and is unused. 4 rules × 4 seeds = 16 specs in `results/rev5_pilot_specs.txt`.
+  These 16 (rule, seed) pairs join the stage-1 eight as **permanently excluded** from any confirmation cohort.
+- **Board / horizon / windows:** grid 8192, max_log2 24, `--check` on every spec, `RAYON_NUM_THREADS=4`, band k = 16..24.
+  These are the same as every calibration (Rev3/Rev4), so the instruments are applied as calibrated.
+- **Instrument:** `examples/boundary_excursions.rs` at main (unchanged since Rev4), with `--hist --fhist --dhist`.
+
+### Readouts (frozen; code reused unchanged)
+
+Per rule, pooling its 4 seeds as a "kind":
+1. **Score_tw verdict** (Rev3, `tw_score.py` + the `retained_tw` retention of `analyse_rev3.py`, unchanged: k ∈ 16..24, not
+   escaped, n_completed ≥ 200, censored_step_share ≤ 0.20, L ≥ 4, n_eff ≥ 30). The verdict is D (τ ∝ L²), S (τ ∝ L),
+   inconclusive, uninformative (L_max/L_min < 2), or censoring-fragile (the censored-inclusive verdict differs).
+2. **β call** (Rev4, `depth_score.py` + the retention of `analyse_rev4.py`, unchanged: as above but L ≥ 12; per-window
+   fit over d-bins in [4, ⌊L⌋] with count ≥ 20, ≥ 4 bins, span ≥ 3; rule β = median over windows). The call is area
+   (β ≥ 1.70), line (β ≤ 1.30), inconclusive, or uninformative (< 3 fittable windows).
+3. **Fit coverage:** the median over β-retained windows of the share of completed off-boundary time in excursions with
+   d ∈ [4, ⌊L⌋]. If it is < 0.05, the β call is reported as **"β covers little of the time"** and is not read.
+4. **Shallow share (report-only):** the share of completed off-boundary time in excursions with d ≤ 3, pooled over
+   β-retained windows (Σ sum_tau over d-bins with hi ≤ 3 / Σ sum_tau over all d-bins).
+5. **Revisit γ: report-only, no reading** (retired in Rev4).
+
+### Agreement table (frozen)
+
+| Score_tw | β (with coverage ≥ 0.05) | per-rule reading |
+|---|---|---|
+| D | area | **AREA-FILLING**: time is dominated by excursions scaling like the area, and they fill area in depth (diffusion and sweep not separated) |
+| S | line | **LINE-LIKE**: time is dominated by excursions scaling like L that grow at most linearly with depth (boundary-local or straight runs) |
+| D | line | **DISAGREE**: no claim |
+| S | area | **DISAGREE**: no claim |
+| inconclusive / uninformative / censoring-fragile | any | **UNREAD** (reason recorded) |
+| any | inconclusive / uninformative / "covers little of the time" | **UNREAD** (reason recorded) |
+
+**Censoring and non-reaching.** Censored (open at window end) excursions never enter either readout. The Rev3
+censoring-sensitivity rule is the only censoring handling, and it makes a rule censoring-fragile, i.e. UNREAD.
+Windows failing retention (escaped, too few excursions, too much censored mass, L below floor, not fittable) are
+dropped and counted by reason. A rule whose windows never reach the L ≥ 12 floor or whose excursions never reach
+d ≥ 4 in enough bins is uninformative on β, so UNREAD. No window is imputed, and no seed is replaced or added.
+
+**Flags (report-only; they do not change the primary reading but must be stated next to it):**
+- **L-range-fragile:** recompute both readouts on the retained windows with L ≤ 50.7 (the largest retained eden L in
+  Rev3, i.e. the top of the range where an area-scaling walker was certified). If the per-rule reading changes, flag the
+  rule. Ant L reaches well above the calibrated range at k ≥ 21, so primary readings above L ≈ 50 are extrapolations.
+- **seed-heterogeneous:** the per-seed β calls (median per seed) include both area and line, or the per-seed Score_tw
+  verdicts (each seed scored alone with the same rules) include both D and S.
+
+### Overall outcome statements (frozen before data)
+
+Over the 4 rules:
+- **4/4 AREA-FILLING:** "On the excluded development rules at windows 2^15–2^24, time-weighted interior excursions
+  scale with the area and fill it in depth." This motivates, but is not, a registered confirmation on the reserved rules.
+  It also motivates a diffusion-vs-sweep discriminator with its own synthetic gate.
+- **4/4 LINE-LIKE:** the same statement with "scale with L and grow at most linearly in depth". This would contradict the
+  stage-1 number-weighted D reading, which was itself biased (Rev3 G1).
+- **≥ 1 DISAGREE, or a mix of AREA-FILLING and LINE-LIKE:** "rule-dependent or instrument-disagreeing, no family-level
+  reading." The next step is to understand the odd rule (per-window curves, seed heterogeneity) before any confirmation.
+- **≥ 2 UNREAD:** "the pilot is uninformative for ants at this horizon." Revise the design before any confirmation.
+- Any other combination is reported as counts, with no family-level reading.
+
+### Registered predictions (not gated; honest guesses)
+
+- Score_tw: D for each rule (~65%). The main alternative is inconclusive, because ant windows have a much wider L
+  range than the calibrators and the τ/L² collapse may drift.
+- β: area for each rule (~60%). The alternative is inconclusive (1.30–1.70) if ants mix boundary-parallel runs into
+  deep excursions.
+- Overall: ≥ 3/4 AREA-FILLING (~50%); ≥ 1 DISAGREE (~25%); ≥ 2 UNREAD (~10%).
+- Shallow share: I expect 0.2–0.6 of the time at d ≤ 3, which is larger than eden's because ant blobs have ragged,
+  fractal-ish edges.
+- L-range-fragile on ≥ 1 rule: ~35%.
+
+### Gates (frozen; stop at the first failure)
+
+- **P0a instrument build/tests:** build `boundary_excursions` and `boundary_excursions_depth_synth` with `--release
+  --locked` into a fresh `CARGO_TARGET_DIR`, check the build exit status, and log the binary sha256.
+  `PROPTEST_RNG_SEED=20261019 cargo test --release --locked` must pass.
+- **P0b calibration reproduces:** rerun all 24 Rev4 calibration specs (`results/rev4_calib_specs.txt`, same flags) and
+  the Rev4 synthetic gate (generator base seed 2026102981, 20 reps, scored by `synth_rev4.py`), writing to `scratch/`.
+  The calibration windows, hist, fhist and dhist must be byte-identical to the committed `results/rev4_calib_*.csv`, and
+  the rescored synthetic `rev4_synth.{txt,json}` must be byte-identical to the committed ones (the synthetic CSV itself
+  is not committed). `analyse_rev3.py` and `analyse_rev4.py`, run on the committed results, must reproduce
+  `rev3_analysis.txt` and `rev4_analysis.txt` byte-identically.
+- **P0c ant smoke (non-cohort rules):** `RL@7` and `LLRR@7` at max_log2 14, grid 512 with `--check --dhist` exit 0.
+  `--mutant` and `--fine-mutant` (without `--dhist`) and `--depth-mutant --dhist` must each panic on that same smoke.
+- **P1 pilot run:** all 16 specs complete with `--check` and exit 0.
+- If P0 fails: stop, no pilot. If P1 fails: report it, do not rerun with other seeds.
+
+### What the pilot can and cannot conclude
+
+- **Can:** give a per-rule *development* reading (area-filling / line-like / disagree / unread) on these 4 rules at
+  finite windows, and say whether a confirmation on reserved rules is worth registering.
+- **Cannot:** say anything about diffusion vs sweeps, asymptotics (d ≤ L ≤ ~170), the reserved rules or any other
+  rule, or the cube-root mechanism. It is not evidence for a confirmation: these trajectories are excluded. The
+  stage-1 seeds are not reanalysed under Rev5.
+
+### Compute / stopping
+
+The pilot is < 20 CPU-minutes. P0b is ~8 CPU-minutes, mostly mf. The session total is < 45 CPU-minutes. If any single
+spec exceeds 10 wall-minutes, stop and record a deviation. The pilot is stopped after one run: there is no rerun on
+new seeds, no change to the board, horizon, thresholds, retention, grid or margin, and no confirmation.
+
+Provenance (`results/provenance.txt`) records `sha256sum` of each run script, `git status --porcelain` (including
+untracked files under this folder), commit, binary sha256, start/end times and command lines.
+
+### Revision 5 amendment A1 (2026-11-25 09:02 NZDT; before any pilot data)
+
+**What happened.** At `743beba`, P0a passed (`cargo test --release --locked`: 227 passed, 0 failed; `results/rev5_cargo_test.txt`).
+P0b passed: all four Rev4 calibration files, the rescored Rev4 synthetic gate, and `rev3_analysis.txt`/`rev4_analysis.txt`
+are byte-identical. **P0c, as registered, FAILED.** The non-mutant smoke panicked with `window count` 5 vs 6
+(`results/rev5_p0_attempt1.txt`, `results/rev5_p0_attempt1_smoke.err`).
+
+**Diagnosis (instrument-only; no ant pilot data).** `RL@7` builds its highway and **escapes the 512 board** during window
+k = 14 (its rows carry `escaped = true`). For an escaping run, `boundary_excursions` keeps the partial escape window,
+while `probe_walker` drops it. So `--check`'s window-count assertion is not defined on escaping runs. This is a mismatch in
+the checker's escape convention. It is not a disagreement on any completed window: the escape flags agree, and the
+same `RL@7 --check --dhist` at grid 8192 exits 0. `LLRR@7` passed at 512. The registered smoke board (512, copied from the
+walker G0) was the wrong choice for a highway rule. Consequences for the pilot readout: none, because the
+`escaped` flag is per spec and every retention filter drops all windows of an escaped spec. Consequence for P1: a
+pilot spec that escaped the 8192 board would panic under `--check`. P1 then fails, and that is reported (not rerun).
+
+**Amendment (frozen now).** P0c is rerun with the same two rules on the **pilot board**: `RL@7`, `LLRR@7`, max_log2 14,
+**grid 8192**, with `--check --dhist` (must exit 0). The three mutants run on the same smoke and must each panic. Nothing
+else changes: rules, seeds, readouts, agreement table, flags, outcome statements and stopping rules are untouched. Strictly, the registered stop rule ("if P0
+fails: stop") was triggered. I am overriding it by this amendment only because the failure is a diagnosed smoke-design
+error on a non-cohort rule, found before any ant pilot data. If a reviewer prefers the strict reading, the Rev5 pilot
+results below should be treated as void. The amendment is committed and pushed alone, and the script change follows in its own commit.
+
+## Revision 5 results (excluded ant pilot; appended after registration `78f7f9e` and amendment A1 `b1a0713`)
+
+**Timeline (NZDT, +13:00).** Drafted 08:53–08:55. Registration `78f7f9e` committed at 08:55:20 and pushed at 08:55:24. CI runs:
+push 45475316274, 45475316304, 45475316307, 45475316383 and PR 45475363177, 45475363254, 45475363287, 45475363989, 45475364072, 45475364115 (Rust correctness on both events and Portable GPU on the PR were cancelled when the next push superseded them; the rest succeeded). Scripts
+`743beba` at 08:57:45. P0 attempt 1 ran 08:58–09:00 (P0c FAIL). Amendment A1 `b1a0713` at 09:01:59. CI for A1: push 45476479411, 45476479491, 45476479495, 45476479500;
+PR 45476492135, 45476492163, 45476492197, 45476492289, 45476492319, 45476493313. Most of these were cancelled when the next push superseded them. The CI on the final head is listed in the PR description. Script fix `60ef444`. P0 attempt 2 ran 09:02:44–09:04:56 (PASS) and was committed in `e45f7a8`.
+**First and only pilot execution: 09:05:10–09:05:30** at `e45f7a8` (`scripts/run_rev5.sh`). The pilot was not rerun.
+The binary was built at `743beba` into a fresh `CARGO_TARGET_DIR` (build exit 0, sha256 `53c52266…54b1f`, rustc 1.100.0). No Rust source
+changed between `743beba` and `e45f7a8`. Provenance (script sha256s, `git status --porcelain` including ignored files under this folder, output
+hashes) is in `results/provenance.txt`. About 1.5 CPU-minutes for the pilot (16 specs, 3–6 s each). The session total was about 15 CPU-minutes, mostly cargo test and the P0b rerun.
+
+### Gates
+
+| gate | result |
+|---|---|
+| P0a | **PASS**: `cargo test --release --locked`, 227 passed, 0 failed (`results/rev5_cargo_test.txt`) |
+| P0b | **PASS**: Rev4 calibration windows/hist/fhist/dhist, the rescored Rev4 G1, and `rev3_analysis.txt`/`rev4_analysis.txt` are all byte-identical (`results/rev5_p0.txt`) |
+| P0c as registered (grid 512) | **FAIL**: `RL@7` escapes the board, which breaks `--check`'s window-count convention (A1; `results/rev5_p0_attempt1*.txt`) |
+| P0c under A1 (grid 8192) | **PASS**: smoke `--check --dhist` exits 0, and all three mutants panic |
+| P1 | **PASS**: 16/16 specs completed under `--check`, none escaped |
+
+### Per-rule readout (frozen rules; `results/rev5_analysis.{txt,json}`)
+
+| rule | Score_tw retained | Score_tw(L) vs (L²) | verdict | β retained | β median | β call (coverage) | reading |
+|---|---|---|---|---|---|---|---|
+| RLLR | 23/36 (13 n_eff < 30) | 0.0775 vs 0.0679 | inconclusive | 1/36 (35 not fittable) | 1.74 | uninformative (0.046) | **UNREAD** (Score_tw inconclusive) |
+| RLLRL | 36/36 | 0.0911 vs 0.0419 | **D** | 24/36 | **1.932** (1.78–2.03; seed SD 0.012) | **area** (0.25) | **AREA-FILLING** |
+| RLLLRR | 0/36 (all n_eff < 30) | — | uninformative | 0/36 | — | uninformative | **UNREAD** |
+| RLLLLRLL | 1/36 (33 n_eff < 30, 2 censored > 0.20) | — | uninformative | 0/36 | — | uninformative | **UNREAD** |
+
+**Overall (frozen statement): 1 AREA-FILLING, 0 LINE-LIKE, 0 DISAGREE, 3 UNREAD. That is ≥ 2 UNREAD, so the pilot is
+uninformative for ants at this horizon.** The design must be revised before any confirmation. No confirmation was run, and none is
+justified by this result.
+
+Flags and report-only items: RLLRL is neither L-range-fragile (L ≤ 50.7 gives D, 28 windows, and area, β 1.943, 16 windows) nor
+seed-heterogeneous (all 4 seeds give D and area). Its shallow (d ≤ 3) time share is 0.023, and γ (report-only) is 0.144. RLLR's per-seed Score_tw verdicts are
+D, inconclusive, D, inconclusive. Its L ≤ 50.7 subset gives D on 7 windows, but β is still uninformative, so it stays UNREAD either way.
+No rule had a censoring-fragile verdict. The largest censored mass share in any retained window was 0.048.
+
+Against the registered (ungated) guesses: Score_tw D per rule (~65%) held for 1 of 4. β area (~60%) held for 1 of 4, and the other 3
+were not readable at all. "≥ 2 UNREAD" was my lowest-probability outcome (~10%), and it is what happened. The shallow-share guess (0.2–0.6) was wrong
+for RLLRL (0.023), the only rule where it was measured. I did not anticipate the failure mode below.
+
+### Why three rules are unread (post hoc, descriptive; `scripts/diag_rev5.py` → `results/rev5_diag.txt`)
+
+Nothing here changes a reading.
+
+> **Superseded in part (2026-11-26): the "handful of giant excursions … about as long as the territory", "middle depths are empty" and "bimodal" wording below is not specific to ants.** The Rev4 walker calibrators show
+> some of the same features (IDLA, Eden). Read the corrected account in "Review fixes (2026-11-26)" at the end of this file. The original wording is kept as written at `cfb8903`.
+- **Time is concentrated in a handful of giant excursions.** Per window, n_eff = (Στ)²/Στ² has a median of 34 (RLLR), 12 (RLLLRR)
+  and 10 (RLLLLRLL), against the frozen floor of 30. RLLRL's median is 115. Excursions longer than L² carry a median 91–97% of completed off-boundary time
+  in the three unread rules (72% in RLLRL). The longest completed excursion per window is a median 17–62 L² (3–17% of the window
+  length), or a median 0.66–3.9 times the window-end area A (RLLRL lowest, RLLLLRLL highest). An interior sojourn lasting about as long as the
+territory's area echoes the rotor's Rev3 cliff at τ ≈ 0.15–0.3 A, but it is longer.
+- **The middle depths are empty.** Per window, the median number of d-bins in [4, ⌊L⌋] with ≥ 20 excursions is 0 for the three
+  unread rules (13 for RLLRL). There are only ~50–80 completed excursions per window with 4 ≤ d ≤ L, while the deepest reach d ≈ 2L
+  (the territory centre). The excursion population looks bimodal: many shallow boundary returns and a few long, deep sojourns.
+  The calibrators did not look like this, so the filters that protected their readouts (n_eff ≥ 30, ≥ 4 populated bins) bind on ants.
+- This is a property of these ant trajectories *as seen by these filters* at 2^15–2^24 steps. It is not a reading of area vs line. It is
+  also not a dead end. More seeds would add windows but not raise per-window n_eff. Longer windows only help if n_eff grows with
+  window length, which is unknown.
+
+### What this does and does not show
+
+- **Shows:** both instruments reproduce their calibration exactly at current main. On one development rule (RLLRL), the
+  readouts agree on area-filling: Score_tw D and β 1.93, stable across seeds and within the calibrated L range. On the other three, the frozen
+  retention leaves too little to read.
+- **Does not show:** anything about diffusion vs sweeps; any family-level or asymptotic statement; anything about the reserved
+  rules. The RLLRL reading is an excluded development observation and not evidence.
+
+### Retain / revise / stop (Revision 5)
+
+**Stop this pilot; revise before any confirmation.** Do not loosen n_eff, bin counts or the L floor on these data. Any change
+must be registered and recalibrated on walkers, plus a synthetic law with the ants' bimodal shape ("many shallow returns + rare
+area-sized sojourns"), before ant data are read again. Candidate next questions are in `notes/open-questions-hypotheses.md` (2026-11-25).
+No pruning signature is warranted: this is an uninformative pilot, not a well-controlled negative result.
+
+### Review fixes (2026-11-26; post hoc and clarifications; nothing here changes a registered reading or the outcome)
+
+Applied after the automated review of PR #42 at `cfb8903`. The registered Rev5 text above is untouched. No new ant run, no new
+revision, no confirmation, and the reserved specs and seeds are untouched.
+
+**R1. Post hoc control: the same diagnostic on the Rev4 calibration walkers (review S1).** `scripts/diag_rev5.py --res scratch/rev5_selftest`
+(after `scripts/selftest_rev5.sh` relabels the Rev4 walker data as fake ant specs: eden→RLLR, bal→RLLRL, rotor→RLLLRR, idla→RLLLLRLL)
+writes `results/rev5_diag_calibrators.txt`. Medians per window over band windows k = 16..24:
+
+| | n_eff | time share with τ > L² | populated d-bins in [4, L] | longest τ / A | longest τ / window |
+|---|---|---|---|---|---|
+| Eden | 379 | 0.68 | 14 | 1.02 | 0.012 |
+| IDLA | 545 | 0.97 | 2.5 | 1.29 | 0.006 |
+| rotor | 81 | 0.78 | 9.5 | 0.29 | 0.030 |
+| bal | 7750 | 0 | 13 | 0.015 | 0.0002 |
+| **ants, 3 unread (RLLR / RLLLRR / RLLLLRLL)** | **34 / 12 / 10** | 0.91 / 0.97 / 0.96 | **0 / 0 / 0** | 0.98 / 3.4 / 3.9 | **0.070 / 0.141 / 0.172** |
+| ant, readable (RLLRL) | 115 | 0.72 | 13 | 0.66 | 0.032 |
+
+Corrected reading: Eden and IDLA also have a few excursions of order A (longest τ/A 1.0–1.3), and IDLA also has almost no populated mid-depth
+bins (2.5) and puts 97% of its time in τ > L² excursions. So "excursions about as long as the territory" and "empty intermediate depths" do not
+separate ants from the calibrators. **What does differ is (i) a low n_eff (10–34 for the three unread rules, against 81–7750 for the walkers) and (ii) the largest
+excursion being 7–17% of the whole window for the three unread rules (rotor 3%, Eden 1.2%, IDLA 0.6%): a few sojourns hold a large share of
+*elapsed time*.** RLLRL sits next to the rotor on both (115; 3.2% vs 3.0%), which is consistent with it being readable. IDLA is the calibrator that also
+fails the bin filter, and it was already UNREAD in the self-test ("β covers little of the time"); its n_eff is high, so n_eff and the bin filter are separate bottlenecks.
+This is a descriptive comparison of 3 ant rules × 4 seeds (excluded development rules) with 4 walker kinds. It explains no mechanism.
+
+**R2. "Bimodal" is not established (review S3).** `results/rev5_diag.txt` now ends with a per-log-band density (post hoc): the median over windows of the
+share of completed excursions, and of completed time, in bands of d/L and of τ/L². In the three unread ant rules 98–99% of excursions are shallow
+(d < L/16) and 87–94% of the completed time is in d ∈ [L, 2L). The count share per octave of d/L falls to 0–0.3% in the middle bands and is
+0.3–0.4% in [L, 2L): at most a weak upturn, with no clear dip (RLLR: 0.001, 0.000, 0.004 for [¼,½), [½,1), [1,2); RLLLRR: 0.003, 0.002, 0.004;
+RLLLLRLL: 0.003, 0.002, 0.003; counts there are tens of excursions per window). RLLRL falls monotonically. **IDLA shows a far stronger dip and
+upturn (0.062, 0.036, 0.447)**, with 96% of its time in [L, 2L), so a two-population shape is not specific to ants either. Wording from now on: the
+ant excursion population is **heavy-tailed, possibly bimodal**; a bimodal synthetic law is one option for a next gate, not a finding.
+
+**R3. Selection bias from the n_eff floor (review S4).** The registered floor n_eff ≥ 30 keeps exactly the windows *without* the largest sojourns. RLLR's inconclusive
+Score_tw (0.0775 vs 0.0679) is computed on the 23/36 windows that look most like the calibrators, and RLLRL's AREA-FILLING reading has the same issue at lower
+strength (all 36 retained, but the filter is not neutral). Read both with that in mind. A registrable prediction for open question (b): if
+τ has a truncated power-law tail P(τ > x) ~ x^(−1/2) cut off at ≈ A ∝ L², then n_eff grows roughly like L (per window,
+so about like t^(1/3)); against the "n_eff stays O(10)" alternative. This is a prediction for a future registration, not a registered one.
+
+**R4. β retention has no n_eff filter (review M9).** In the registration's Readouts item 2, "as above but L ≥ 12" means the Score_tw retention *without* the n_eff ≥ 30 filter and with the L floor raised
+to 12: the code follows `analyse_rev4.py` unchanged. The β retained counts above (1/36, 24/36, 0/36, 0/36) apply no n_eff filter.
+
+**R5. Tie-break of the outcome statements (review M8).** `analyse_rev5.py:overall()` tests "≥ 2 UNREAD" before "≥ 1 DISAGREE". The registration lists the statements
+without a precedence; this precedence was recorded after the data. It does not matter here (0 DISAGREE), so the outcome is unaffected. A future registration should state the precedence in advance.
+
+**R6. Timeline corrections (review S6, Q1).** The header "Drafted 2026-11-25 08:53–09:20" in the registration is **wrong**: 09:20 was written ahead of the clock. The actual
+drafting window ended with the commit `78f7f9e` at 08:55:20 +1300. See the 09:02 deviation entry in `NOTEBOOK.md`, which corrected it. The 09:10 NOTEBOOK entries were also stamped ahead of
+the clock (written about 09:07–09:08, committed `2a5966a` 09:08:52; corrected by the 09:09 entry). These stamps are left in place because the record is append-only. Were `analyse_rev5.py`
+and the run/P0/self-test scripts drafted before `78f7f9e`? **Git cannot tell.** The registration section says they were written after it, and `743beba` was committed 2 min 25 s after `78f7f9e`
+(210-line analysis script plus self-test). The 09:02 entry records that the self-test on relabelled Rev4 walker data ran before `743beba`, so `analyse_rev5.py` existed before that commit.
+There is no file or reflog evidence for any earlier draft. What the record does support: no Rev5 ant data existed before the pilot ran at 09:05:10, so nothing was run on ant data before the registration.
+Whether a draft of the scripts existed before `78f7f9e` is unknown, and the README's "written after" statement should be read as "committed after".
+
+**R7. The instrument fix for `--check` on escaping runs (review S7).** A1 changed the smoke board, not the instrument. `examples/boundary_excursions.rs` now compares only completed windows when a run
+escapes: the instrument may hold exactly one extra trailing (partial escape) window, and a non-escaping run must have equal counts. `tests/boundary_excursions_escape.rs` adds
+`RL@7` on a 512 board (escapes in k = 14), which panicked with `window count` before the fix and passes now, and a non-escaping control. Output files are unaffected: `scripts/repro_rev5_review.sh` →
+`results/rev5_review_repro.txt` (run on the working tree that became `d73616d`; `git` in its header is the parent `cfb8903`) reruns the Rev5 pilot and the Rev3 and Rev4 calibrations with the fixed instrument and compares byte for byte (see that log for the result).
+The `--check` logic is not part of any output file, so the pilot data and readouts are the same as at `cfb8903`.
+
+**R8. Toolchain note (review M12).** The P0 and pilot runs used rustc 1.100.0 (binary sha256 `53c52266…`) while CI pins 1.98.1; the reviewer's 1.97.0 rebuild also reproduced
+all outputs byte for byte, and `results/rev5_review_repro.txt` records the toolchain of the review-fix rerun.
+
+**R9. Open (not done).** Reviewer's question whether the longest excursions are highway transients or trapped loops: not checked. It needs a new instrument mode that records the position and time of the
+longest excursion per window, so it is not a cheap post hoc check on existing outputs. Listed as open. The reviewer's alternative for the next revision, a variance-robust statistic (a median-of-windows collapse
+without an n_eff floor, gated on a planted heavy-tailed law), is recorded as an option beside the bimodal synthetic gate; neither is registered, and no Rev6 or new gate has been started.
+
+### Review fixes, second round (2026-11-27; post hoc and clarifications; nothing here changes a registered reading or the outcome)
+
+Applied after the incremental automated review of PR #42 at `d66c060`. The registered Rev5 text and the 2026-11-26 section above are not edited; the corrections below
+supersede the parts they name. No new ant run, no new observable, no new revision, no confirmation; reserved specs and seeds untouched.
+
+**R10. IDLA's restarts confound the R1/R2 comparison (review S1, second round).** `idla` launches every particle from the origin, about L deep, so its deep population,
+its 97% time share in τ > L² and its [L, 2L) upturn are built in. `scripts/calib_idlar_rev5.sh` relabels the committed Rev4 data with `idlar` (restart-launched
+excursions dropped) in the RLLLLRLL slot and runs the same diagnostic → `results/rev5_diag_calibrators_idlar.txt` (post hoc; eden/bal/rotor sections duplicate R1). Medians per window, k = 16..24:
+
+| | n_eff | windows n_eff ≥ 30 | time share with τ > L² | populated d-bins in [4, L] | longest τ / A | longest τ / window |
+|---|---|---|---|---|---|---|
+| idlar | 50.4 | 32/36 | 0.70 | 2.5 | 0.80 | 0.0044 |
+
+d/L count shares for idlar, bands [1/16,1/8) … [1,2): 0.379, 0.174, 0.110, 0.063, 0.039, a monotone fall with no upturn; its time share in [L, 2L) is 0.634 (idla 0.959).
+Restated reading, replacing the IDLA parts of R1 and R2:
+- **Withdrawn:** "IDLA shows a far stronger dip and upturn … so a two-population shape is not specific to ants either" (R2). That shape in IDLA is a restart artefact.
+  Among restart-free walkers, Eden, the rotor and idlar fall monotonically in d/L and `bal` rises monotonically; none has a dip followed by an upturn.
+  So the ants' weak upturn in [L, 2L) (count share 0.003–0.004 against 0.000–0.003 in the two bands below, tens of excursions per window) is **not matched by any
+  restart-free walker**, and whether it is real is open in both directions (no per-seed breakdown or bootstrap has been done; see R16). Wording stays "heavy-tailed, possibly bimodal".
+- **Still stands:** "excursions about as long as the territory" is not ant-specific: Eden, which has no restarts, has a median longest τ of 1.02 A, and idlar 0.80 A.
+- **Still stands, with a caveat:** sparse mid-depth bins are not ant-specific. idlar also has a median of 2.5 populated d-bins (min 0, max 12), and dropping restarts does not change IDLA's
+  count of excursions with 4 ≤ d ≤ L (median 160 in both), so this is not only a restart artefact; but it rests on one walker kind.
+- **The clean separator is longest τ / window:** unread ants 0.070–0.172; every walker ≤ 0.030 (rotor), idlar 0.0044.
+- **n_eff separates less cleanly than R1 said:** idlar's median is 50.4 with 4/36 windows below the floor, against RLLR's 34 (23/36 retained). The walker range is 50–7750, not 81–7750.
+  This weakens the case that n_eff alone is the bottleneck. Longest τ / window is a candidate statistic for a future registration; it is not registered.
+
+**R11. NOTEBOOK stamps (review Minor 2).** The 2026-11-26 "Session start" intent entry is stamped 08:59, but the repro run it scopes started at 08:54:56 and `d73616d` was committed at 08:58:36,
+so the entry was written after the work. A correction is appended to `NOTEBOOK.md`; this session's intent entry was written before the work began.
+
+**R12. `scripts/repro_rev5_review.sh` no longer dirties the tree (review Minor 3).** The log now goes to `scratch/rev5_review/rev5_review_repro.txt` unless `OUT=` is set, and the header records the number
+of modified tracked paths and a sha256 of `git diff HEAD`. The script states that the committed `results/rev5_review_repro.txt` came from a dirty tree at `cfb8903` (R7). The committed log is unchanged.
+Rerun 2026-11-27 with the edited script (rustc 1.100.0, RAYON_NUM_THREADS=2, incremental `--release --locked` build of the example, binary sha256 `00367c34…`): see the NOTEBOOK entry for the result.
+
+**R13. Pinned links (review Minor 4).** The homepage "Revision 5 protocol and results" link pinned `2a5966a` (before the corrections) and the blog post's `commit` field named `a375e94`. Following the repo's convention
+(the full revision containing the evidence, pinned), both now point to the commit that adds this section and `rev5_diag_calibrators_idlar.txt`; the homepage link targets the review-fix section.
+
+**R14. "At current main" (review Minor 5).** The "What this does and does not show" bullet above and the notebook cell say the instruments reproduce their calibration "at current main". They were run on the
+PR branch `exp/excursion-pilot-scoretw-beta` (pilot at `743beba`; review reruns on the working trees of `d73616d` and of this round), not on main. The notebook cell is corrected; the README bullet is left as written.
+
+**R15. Wording (review Minor 6, Minor 7).** R2's "98–99% of excursions have d < L/16" should read **97.6–98.8%** (RLLR 0.988, RLLLRR 0.981, RLLLLRLL 0.976). The blog post's "RLLR's depth bins are nearly empty"
+is changed to all three unread rules (median 0 populated d-bins; β unfittable for all three). `diag_rev5.py` now says in its docstring that each instrument bin is assigned wholly to the band of its
+geometric midpoint, so band shares are approximate at band edges (no output changes; `rev5_diag.txt` and `rev5_diag_calibrators.txt` reproduce byte for byte).
+
+**R16. Open (not done).** (a) Reviewer's question whether the ants' [L, 2L) upturn is distinguishable from a monotone fall: a per-seed breakdown or a bootstrap over windows of the existing
+`rev5_pilot_dhist.csv` would answer it post hoc without new measurements; not done in this bounded round. (b) Whether n_eff or longest τ / window should be registered next: for the user's decision with the
+choice of next revision; nothing registered. (c) R9's highway-transient vs trapped-loop question remains open (needs a new instrument mode).
+
+### Review fixes, third round (2026-11-28; clarifications only; nothing here changes a registered reading or the outcome)
+
+**R17. Homepage wording (review should-fix 1).** The homepage card credited Eden with sparse mid-depth bins. Eden has a median of 14 populated d-bins in [4, L] (range 3–24; `rev5_diag_calibrators_idlar.txt`, RLLR slot);
+only restart-free IDLA has sparse bins (2.5). The card now says Eden shows excursions of area size and restart-free IDLA also has sparse mid-depth bins, matching R10.
+
+**R18. The shallowest d/L band is structurally empty when L ≤ 16 (review minor 2).** Depth bins are assigned by geometric midpoint (R15), and the d = 1 bin has lo = hi = 1, so it falls in [0, 1/16) only when L > 16.
+For windows with L ≤ 16 the first band is empty by construction and d = 1 lands in [1/16, 1/8). In the k = 16..24 band, windows with L < 16 are: eden 16/36, idla and idlar 23/36, bal 16/36, rotor 11/36, mf 9/36;
+RLLR, RLLLRR and RLLLLRLL 4/36 each, RLLRL 8/36 (`rev4_calib_windows.csv`, `rev5_pilot_windows.csv`). So idlar's 0.000 in [0, 1/16) is not a walker feature, and comparisons of the shallow bands mix different
+integer depths across walkers and windows. "Monotone fall" comparisons in R2 and R10 are fair from [1/16, 1/8) onwards. R10's reading is unchanged.
+
+**R19. Longest τ / window is post hoc (review minor 3).** It is the only one of the six diagnostics in `diag_rev5.py` that separates the unread ants from every walker, on 3 excluded rules × 4 seeds against one realisation
+set per walker, chosen after seeing the data. If a future revision registers it, the registration should predict how it scales with window length (under a truncated P(τ > x) ~ x^-1/2 tail cut near A, the expected
+largest share falls as the window grows), so that it is tested rather than re-observed. Nothing is registered.
+
+**R16a, addendum.** The reviewer asks whether a bootstrap over (seed, window) pairs is enough, given that windows within a seed share one growing cluster and are not independent. A per-seed sign test of
+"[L, 2L) count share > [½L, L) count share" (4 seeds per rule) is the more honest small-n check, though with 4 seeds it can only be weakly informative. Still not done.

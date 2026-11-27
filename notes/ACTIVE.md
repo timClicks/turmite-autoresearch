@@ -1,6 +1,6 @@
 # Active work and open items
 
-Living index, last updated 2026-11-20 (reviewed PRs integrated; phase priorities unchanged); before that 2026-11-13 (weekly wrap-up); before that 2026-11-12 (leak-handedness cohort); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-30 (leak titration write-up done, no new data); before that 2026-10-29 (excursion Revision 4 depth readout calibrated; ant pilot not run); earlier 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-11-27 (excursion Rev5 second-round review fixes applied, PR #42); before that 2026-11-26 (excursion Rev5 review fixes applied, PR #42); before that 2026-11-25 (excursion Rev5 excluded ant pilot ran: uninformative; PR #42); before that 2026-11-20 (reviewed PRs integrated; phase priorities unchanged); before that 2026-11-13 (weekly wrap-up); before that 2026-11-12 (leak-handedness cohort); before that 2026-11-09 (1e8/1e9 late-highway board check done); before that 2026-10-30 (leak titration write-up done, no new data); before that 2026-10-29 (excursion Revision 4 depth readout calibrated; ant pilot not run); earlier 2026-10-29 (excursion Revision 3 calibration passed; pilot not run); before that 2026-10-28 (bootstrap audit done; wall-vs-memory Stages 3-3c; priorities unchanged); before that 2026-10-25 (square-ring filler follow-ups added to the backlog); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
@@ -15,21 +15,28 @@ These are dated snapshots. Phase priorities below are unchanged.
   scope of its pruning predicate and the reliability analysis. Q33 is still
   unrun: #33 and #41 are on the proposal branch, and #31 still has design
   items 3 and 6 open.
-- **Next proposed experiment:** Priority 1. Rev4 calibration (#30) is on main.
-  The excluded ant pilot still needs a separate registration for Score_tw + β
-  (area vs line, no diffusion claim). No pilot or confirmation has run.
+- **Excursion pilot (Priority 1), done 2026-11-25, PR #42 (awaiting review):** Rev5 registered (`78f7f9e`) and ran
+  the excluded ant pilot under Score_tw + β. It is **uninformative** under the frozen statement: 1 AREA-FILLING (RLLRL), 3 UNREAD,
+  because the n_eff and depth-bin filters bind on 3 of 4 rules. P0c needed amendment A1 (smoke board), made before any pilot data. No confirmation has run.
+  Review fixes applied 2026-11-26 (post hoc walker control, instrument `--check` escape fix, notebook, wording corrected: the "giant excursions / empty mid-depths" story is not ant-specific, IDLA shows it too).
+  Second-round fixes 2026-11-27 (post hoc `idlar` control: IDLA's upturn and deep population were restart artefacts; no restart-free walker shows the ants' weak deep upturn;
+  longest τ / window separates ants from every walker, n_eff less cleanly). Open: a per-seed/bootstrap check of the upturn on existing data, and whether n_eff or longest τ / window
+  should be registered next (your call with the next revision).
+  **Next (only noted, not registered; awaiting your decision):** options are a heavy-tailed (possibly bimodal) synthetic gate with an n_eff-vs-window-length check, or the reviewer's alternative of a
+  variance-robust statistic (median-of-windows collapse without an n_eff floor) gated on a planted heavy-tailed law. No Rev6 has been started.
 - **Process fix (new registrations):** distinguish drafting, commit and first
   execution times. For example, say “drafted before, committed after; not run
   on data before registration” when that is what happened. Record
   `sha256sum "$0"` and `git status --porcelain` (including untracked files
   under the experiment folder) in `provenance.txt`.
 
-## Pointer (2026-10-29): excursion-duration collapse stage 1 + Revisions 1–4
-`experiments/active/2026-10-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`; Revision 3 registration `3d87d8b`, instrument `a8a93b1`; Revision 4 registration `e066256`, each before its measurement).
+## Pointer (2026-10-29; Rev5 added 2026-11-25): excursion-duration collapse stage 1 + Revisions 1–5
+`experiments/active/2026-10-boundary-excursion-durations/` (stage-1 registration `9bfa496`; Revision 1 registration `9c2aeea`; Revision 2 registration `900f25f`; Revision 3 registration `3d87d8b`, instrument `a8a93b1`; Revision 4 registration `e066256`; Revision 5 (excluded ant pilot) registration `78f7f9e`, each before its measurement).
 Implements P-C / Q32 from `notes/cube-root-routes-2026-10-26.md` on PR #18 (reference by branch/PR; do not mint colliding Q numbers here).
 Stage-1: **revise** (RW D calibrator never grows L). Revision 1 reflecting cup: L grows but compactness (A/P²) fails and Score prefers S (frontier trapping); C1' **inadequate**; confirmation **not run**; cup-as-D design **retired** (`NR-20261027-reflecting-cup-d-calibrator`). MF L-control still passes; rotor inconclusive. Revision 2: Eden-style and IDLA both pass compactness but the frozen number-weighted Score does not prefer D (Eden S, IDLA inconclusive); gate **fail**, confirmation **not run**; both retired as D calibrators for this Score (`NR-20261028-excursion-score-compact-d-calibrators`). Instrument limitation, not an ant result. Paused: any next step needs a newly registered observable (e.g. tail-restricted collapse) calibrated on these walkers before ant data.
 Revision 3 (2026-10-29, results `9e3621d`): time-weighted survival Score_tw. Synthetic laws classified correctly in 20/20 replicates (old Score called a D-by-construction law S in 20/20); Eden D, IDLA D, mean-field S; **C1E-tw, C1I-tw, C2-tw PASS**. Calibrated for an excluded pilot; **pilot not run, confirmation not run**, reserved seeds untouched. Caveat (post hoc): the rotor also reads D (cliff near τ ≈ A/5), so Score_tw cannot separate diffusion from area-filling sweeps. **Next:** register the excluded ant pilot under Score_tw, scoped to "L vs area-scale", or first register a depth–duration or τ/A readout on the same walkers.
 Revision 4 (2026-10-29, results `20afc60`/`4ad402e`): depth–duration exponent β (slope of log τ on log max depth). Registered correction: depth separates area-filling from line-like, **not** diffusion from sweeps. G0, G1 (20/20 all laws), Eden 1.99 area, IDLA 2.00 area (6 windows, ~1% of time), `bal` 0.41 line: **all gates PASS**; rotor area, mean-field line (teleports; failed prediction); rotor revisit slope highest, so the revisit hint is retired. **No ant data.** **Next:** register an excluded ant pilot (stage-1 rules, new seeds) read with Score_tw + β as area-filling / line-like / disagree, no diffusion claim; a diffusion-vs-sweep readout (τ/A collapse, τ spread at fixed d) needs its own synthetic gate.
+Revision 5 (2026-11-25, registration `78f7f9e`, amendment A1 `b1a0713`, results `2a5966a`, PR #42): excluded ant pilot (stage-1 rules, seeds @2026112501..04). P0 PASS after A1; 1 AREA-FILLING (RLLRL), 3 UNREAD, so **uninformative**. The filters bind (n_eff ≈ 10–35 against a floor of 30; the longest excursion is 7–17% of the window, which separates the unread rules from the walker calibrators). Review fixes applied 2026-11-26. **Confirmation not run**, reserved seeds untouched. **Next (noted, not registered):** a heavy-tailed gate or a variance-robust statistic before any new ant readout (README "Review fixes (2026-11-26)").
 
 ## Pointer (2026-10-28): leak titration follow-ups
 

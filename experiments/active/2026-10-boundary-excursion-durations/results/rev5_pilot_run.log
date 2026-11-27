@@ -1,0 +1,20 @@
+16 specs, max_log2 24, grid 8192, check true
+spec RLLLRR@2026112501 done in 3.6s
+spec RLLLRR@2026112503 done in 3.8s
+spec RLLLLRLL@2026112501 done in 4.3s
+spec RLLR@2026112501 done in 6.3s
+spec RLLLRR@2026112502 done in 3.7s
+spec RLLLRR@2026112504 done in 3.7s
+spec RLLLLRLL@2026112502 done in 3.7s
+spec RLLRL@2026112501 done in 3.2s
+spec RLLLLRLL@2026112503 done in 4.0s
+spec RLLR@2026112502 done in 6.2s
+spec RLLR@2026112503 done in 6.4s
+spec RLLRL@2026112502 done in 4.0s
+spec RLLLLRLL@2026112504 done in 3.5s
+spec RLLRL@2026112503 done in 3.4s
+spec RLLRL@2026112504 done in 3.4s
+spec RLLR@2026112504 done in 6.1s
+wrote dhist /workspace/turmite-autoresearch/experiments/active/2026-10-boundary-excursion-durations/results/rev5_pilot_dhist.csv
+wrote fhist /workspace/turmite-autoresearch/experiments/active/2026-10-boundary-excursion-durations/results/rev5_pilot_fhist.csv
+wrote hist /workspace/turmite-autoresearch/experiments/active/2026-10-boundary-excursion-durations/results/rev5_pilot_hist.csv

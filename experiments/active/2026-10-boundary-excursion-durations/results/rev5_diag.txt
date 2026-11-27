@@ -1,0 +1,107 @@
+Rev5 POST HOC diagnostic (descriptive; not registered; changes no reading). Band k=16..24, 36 windows per rule.
+
+RLLR
+  n_completed per window: median 1.03e+04 [min 1.04e+03, max 1.28e+05]
+  n_eff (frozen floor 30): median 34.4 [min 10.7, max 98.8]; windows with n_eff >= 30: 23/36
+  time share in excursions with tau > L^2: median 0.914 [min 0.777, max 0.97]
+  d-bins in [4, L] with count >= 20 (fit needs >= 4): median 0 [min 0, max 4]
+  completed excursions with 4 <= d <= L: median 62 [min 14, max 274]; with d > L: median 56.5 [min 21, max 159]
+  max d / L (bin upper edge): median 2.12 [min 1.98, max 2.27]
+  longest completed tau (fine-bin lower edge) / L^2: median 17.1 [min 9.69, max 36]; / window length 2^(k-1): median 0.0703 [min 0.0312, max 0.234]; / area A: median 0.983 [min 0.574, max 2.11]
+
+RLLRL
+  n_completed per window: median 8.98e+03 [min 1.27e+03, max 6.32e+04]
+  n_eff (frozen floor 30): median 115 [min 32.9, max 264]; windows with n_eff >= 30: 36/36
+  time share in excursions with tau > L^2: median 0.719 [min 0.618, max 0.776]
+  d-bins in [4, L] with count >= 20 (fit needs >= 4): median 13 [min 2, max 28]
+  completed excursions with 4 <= d <= L: median 1.15e+03 [min 129, max 8.92e+03]; with d > L: median 118 [min 30, max 325]
+  max d / L (bin upper edge): median 2.81 [min 2.24, max 3.71]
+  longest completed tau (fine-bin lower edge) / L^2: median 22.8 [min 8.58, max 49.7]; / window length 2^(k-1): median 0.0322 [min 0.0146, max 0.125]; / area A: median 0.661 [min 0.38, max 1.8]
+
+RLLLRR
+  n_completed per window: median 4.89e+03 [min 479, max 4.38e+04]
+  n_eff (frozen floor 30): median 12 [min 5.25, max 28.4]; windows with n_eff >= 30: 0/36
+  time share in excursions with tau > L^2: median 0.969 [min 0.9, max 0.99]
+  d-bins in [4, L] with count >= 20 (fit needs >= 4): median 0 [min 0, max 3]
+  completed excursions with 4 <= d <= L: median 47.5 [min 15, max 246]; with d > L: median 19.5 [min 10, max 47]
+  max d / L (bin upper edge): median 1.98 [min 1.84, max 2.2]
+  longest completed tau (fine-bin lower edge) / L^2: median 53.4 [min 21.6, max 169]; / window length 2^(k-1): median 0.141 [min 0.0781, max 0.344]; / area A: median 3.36 [min 1.35, max 10.5]
+
+RLLLLRLL
+  n_completed per window: median 4.67e+03 [min 584, max 3.95e+04]
+  n_eff (frozen floor 30): median 10.3 [min 2.17, max 35.5]; windows with n_eff >= 30: 1/36
+  time share in excursions with tau > L^2: median 0.958 [min 0.765, max 0.979]
+  d-bins in [4, L] with count >= 20 (fit needs >= 4): median 0 [min 0, max 6]
+  completed excursions with 4 <= d <= L: median 79.5 [min 12, max 467]; with d > L: median 16.5 [min 5, max 55]
+  max d / L (bin upper edge): median 2.02 [min 1.62, max 2.14]
+  longest completed tau (fine-bin lower edge) / L^2: median 62 [min 11.1, max 191]; / window length 2^(k-1): median 0.172 [min 0.0703, max 0.5]; / area A: median 3.92 [min 0.674, max 11.8]
+
+Per-log-band density (post hoc test of 'bimodal'; added 2026-11-26 in response to review finding S3)
+
+RLLR
+  by d/L band (median over windows of the share of completed excursions | of completed time):
+        [0,0.0625): count share 0.988 | time share 0.023
+    [0.0625,0.125): count share 0.004 | time share 0.003
+      [0.125,0.25): count share 0.001 | time share 0.006
+        [0.25,0.5): count share 0.001 | time share 0.009
+           [0.5,1): count share 0.000 | time share 0.009
+             [1,2): count share 0.004 | time share 0.874
+           [2,inf): count share 0.000 | time share 0.067
+  by tau/L^2 band (median over windows of the share of completed excursions | of completed time):
+          [0,0.25): count share 0.995 | time share 0.041
+          [0.25,1): count share 0.001 | time share 0.023
+             [1,4): count share 0.003 | time share 0.371
+            [4,16): count share 0.001 | time share 0.467
+           [16,64): count share 0.000 | time share 0.080
+          [64,inf): count share 0.000 | time share 0.000
+
+RLLRL
+  by d/L band (median over windows of the share of completed excursions | of completed time):
+        [0,0.0625): count share 0.653 | time share 0.020
+    [0.0625,0.125): count share 0.152 | time share 0.022
+      [0.125,0.25): count share 0.070 | time share 0.042
+        [0.25,0.5): count share 0.038 | time share 0.078
+           [0.5,1): count share 0.017 | time share 0.137
+             [1,2): count share 0.008 | time share 0.289
+           [2,inf): count share 0.003 | time share 0.409
+  by tau/L^2 band (median over windows of the share of completed excursions | of completed time):
+          [0,0.25): count share 0.966 | time share 0.142
+          [0.25,1): count share 0.020 | time share 0.130
+             [1,4): count share 0.009 | time share 0.231
+            [4,16): count share 0.004 | time share 0.391
+           [16,64): count share 0.000 | time share 0.085
+          [64,inf): count share 0.000 | time share 0.000
+
+RLLLRR
+  by d/L band (median over windows of the share of completed excursions | of completed time):
+        [0,0.0625): count share 0.981 | time share 0.007
+    [0.0625,0.125): count share 0.005 | time share 0.001
+      [0.125,0.25): count share 0.003 | time share 0.002
+        [0.25,0.5): count share 0.003 | time share 0.007
+           [0.5,1): count share 0.002 | time share 0.024
+             [1,2): count share 0.004 | time share 0.942
+           [2,inf): count share 0.000 | time share 0.000
+  by tau/L^2 band (median over windows of the share of completed excursions | of completed time):
+          [0,0.25): count share 0.993 | time share 0.017
+          [0.25,1): count share 0.001 | time share 0.011
+             [1,4): count share 0.001 | time share 0.042
+            [4,16): count share 0.002 | time share 0.242
+           [16,64): count share 0.001 | time share 0.623
+          [64,inf): count share 0.000 | time share 0.000
+
+RLLLLRLL
+  by d/L band (median over windows of the share of completed excursions | of completed time):
+        [0,0.0625): count share 0.976 | time share 0.009
+    [0.0625,0.125): count share 0.010 | time share 0.002
+      [0.125,0.25): count share 0.006 | time share 0.006
+        [0.25,0.5): count share 0.003 | time share 0.015
+           [0.5,1): count share 0.002 | time share 0.036
+             [1,2): count share 0.003 | time share 0.912
+           [2,inf): count share 0.000 | time share 0.000
+  by tau/L^2 band (median over windows of the share of completed excursions | of completed time):
+          [0,0.25): count share 0.993 | time share 0.023
+          [0.25,1): count share 0.002 | time share 0.019
+             [1,4): count share 0.001 | time share 0.050
+            [4,16): count share 0.001 | time share 0.192
+           [16,64): count share 0.001 | time share 0.468
+          [64,inf): count share 0.000 | time share 0.042
